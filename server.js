@@ -19,7 +19,10 @@ const forceSSL = function() {
 // to use the forceSSL
 // middleware
 app.use(forceSSL());
-// ...
+app.use(express.static(__dirname + '/src'));
+// Start the app by listening on the default
+// Heroku port
+app.listen(process.env.PORT || 8080);
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname + '/src/index.html'));
 });
