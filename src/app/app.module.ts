@@ -10,13 +10,15 @@ import { AppComponent } from './app.component';
 import { MarketingPageComponent } from './marketing-page/marketing-page.component';
 import { MarketingMenuBarComponent } from './marketing-menu-bar/marketing-menu-bar.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { SignInComponent } from './sign-in/sign-in.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MarketingPageComponent,
     MarketingMenuBarComponent,
-    SignUpComponent
+    SignUpComponent,
+    SignInComponent
   ],
   imports: [
     BrowserModule,
