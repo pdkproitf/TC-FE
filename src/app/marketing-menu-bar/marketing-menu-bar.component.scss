@@ -1,0 +1,31 @@
+$colorMain: #212345;
+$activeColor: #0099FF;
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: $colorMain;
+}
+
+li {
+    float: right;
+    a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    
+        &:hover:not(.active) {
+            background-color: #111;
+        }
+        &:active{
+            border-bottom: solid 2px $activeColor;
+        }
+    }   
+
+}
+.active {
+    border-bottom: solid 2px $activeColor;
+}

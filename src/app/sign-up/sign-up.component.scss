@@ -1,0 +1,31 @@
+$bckColor: #DDEEDD;
+$mainColor: #212345;
+
+.form-container {
+    width: 50%;
+    border: solid 0px black;
+    border-radius: 5px;
+    padding: 40px;
+    position:relative;
+    top: 20px;
+    margin: auto;
+    background-color: $bckColor;
+    h2{
+        color: $mainColor;
+    };
+
+    .form-group{
+        input{
+            width: 99%;
+        }
+    }
+    button{
+        float: right;
+        margin-top: 0px;
+        background-color: $mainColor;
+        border: solid 0px white;
+        &#submit{
+          margin-right: 5px;  
+        }
+    }
+}

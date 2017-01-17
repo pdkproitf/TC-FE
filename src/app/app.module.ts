@@ -1,6 +1,6 @@
 import { LocationStrategy, HashLocationStrategy }from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
-import { ToolbarModule, ButtonModule } from 'primeng/primeng';
+import { ToolbarModule, ButtonModule, InputTextModule } from 'primeng/primeng';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -24,7 +24,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     HttpModule,
     AppRoutingModule,
     ToolbarModule,
-    ButtonModule
+    ButtonModule,
+    InputTextModule
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]

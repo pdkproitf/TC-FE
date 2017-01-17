@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-marketing-menu-bar',
   templateUrl: './marketing-menu-bar.component.html',
-  styleUrls: ['./marketing-menu-bar.component.css']
+  styleUrls: ['./marketing-menu-bar.component.scss']
 })
 export class MarketingMenuBarComponent implements OnInit {
 
