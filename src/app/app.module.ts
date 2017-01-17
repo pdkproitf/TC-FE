@@ -1,6 +1,6 @@
 import { LocationStrategy, HashLocationStrategy }from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
-import { ToolbarModule, ButtonModule, InputTextModule, MenuModule } from 'primeng/primeng';
+import { ToolbarModule, ButtonModule, InputTextModule, MenuModule, AutoCompleteModule } from 'primeng/primeng';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -13,6 +13,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MemberMenuBarComponent } from './member-menu-bar/member-menu-bar.component';
+import { TimeTrackBarComponent } from './time-track-bar/time-track-bar.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { MemberMenuBarComponent } from './member-menu-bar/member-menu-bar.compon
     SignUpComponent,
     SignInComponent,
     DashboardComponent,
-    MemberMenuBarComponent
+    MemberMenuBarComponent,
+    TimeTrackBarComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,8 @@ import { MemberMenuBarComponent } from './member-menu-bar/member-menu-bar.compon
     ToolbarModule,
     ButtonModule,
     InputTextModule,
-    MenuModule
+    MenuModule,
+    AutoCompleteModule
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
