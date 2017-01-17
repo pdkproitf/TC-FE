@@ -1,3 +1,4 @@
+import { LocationStrategy, HashLocationStrategy }from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { ToolbarModule, ButtonModule } from 'primeng/primeng';
 import { BrowserModule } from '@angular/platform-browser';
@@ -25,7 +26,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     ToolbarModule,
     ButtonModule
   ],
-  providers: [],
+  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
