@@ -11,6 +11,8 @@ import { MarketingPageComponent } from './marketing-page/marketing-page.componen
 import { MarketingMenuBarComponent } from './marketing-menu-bar/marketing-menu-bar.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { SignInComponent } from './sign-in/sign-in.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { MemberMenuBarComponent } from './member-menu-bar/member-menu-bar.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { SignInComponent } from './sign-in/sign-in.component';
     MarketingPageComponent,
     MarketingMenuBarComponent,
     SignUpComponent,
-    SignInComponent
+    SignInComponent,
+    DashboardComponent,
+    MemberMenuBarComponent
   ],
   imports: [
     BrowserModule,

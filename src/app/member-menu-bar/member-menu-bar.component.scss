@@ -6,16 +6,17 @@ ul {
     padding: 0;
     overflow: hidden;
     background-color: $colorMain;
+    text-align: center;
 }
 
 li {
-    float: right;
+    display: inline-block;
     a {
-        display: block;
+        display: inline-block;
         color: white;
-        text-align: center;
         font-family: Lato;
         font-size: 16px;
+        text-align: center;
         padding: 14px 16px;
         text-decoration: none;
     
@@ -25,6 +26,9 @@ li {
         &:active{
             border-bottom: solid 2px $activeColor;
         }
+    }
+    &.util{
+        margin-left: 200px;
     }   
 
 }
