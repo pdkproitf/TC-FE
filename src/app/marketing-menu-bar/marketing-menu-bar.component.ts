@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToolbarModule } from 'primeng/primeng';
+import {ButtonModule} from 'primeng/primeng';
 @Component({
   selector: 'app-marketing-menu-bar',
   templateUrl: './marketing-menu-bar.component.html',

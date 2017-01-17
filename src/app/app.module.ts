@@ -1,4 +1,4 @@
-import { ToolbarModule } from 'primeng/primeng';
+import { ToolbarModule, ButtonModule } from 'primeng/primeng';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -17,7 +17,9 @@ import { MarketingMenuBarComponent } from './marketing-menu-bar/marketing-menu-b
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    ToolbarModule,
+    ButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
