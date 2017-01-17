@@ -1,6 +1,6 @@
 import { LocationStrategy, HashLocationStrategy }from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
-import { ToolbarModule, ButtonModule, InputTextModule } from 'primeng/primeng';
+import { ToolbarModule, ButtonModule, InputTextModule, MenuModule } from 'primeng/primeng';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -31,7 +31,8 @@ import { MemberMenuBarComponent } from './member-menu-bar/member-menu-bar.compon
     AppRoutingModule,
     ToolbarModule,
     ButtonModule,
-    InputTextModule
+    InputTextModule,
+    MenuModule
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]

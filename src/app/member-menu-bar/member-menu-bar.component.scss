@@ -31,6 +31,11 @@ li {
         float:right !important;
     }
 }
+.ui-button{
+    top: 7px;
+    background: $colorMain !important;
+    border: solid 0px $colorMain !important; 
+}
 .active {
     border-bottom: solid 2px $activeColor;
 }

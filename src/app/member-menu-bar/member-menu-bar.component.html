@@ -4,6 +4,7 @@
     <li><a routerLinh="/">Your Timer</a></li>
     <li><a routerLink="/sign-up">Time Off</a></li>
     <li><a routerLink="/sign-in">Report</a></li>
-    <li style="float:right"><a routerLinh="/"><img src="" style="float:left; border-radius: 50%;" /><p style="float:left">Username</p></a></li>
+    <li style="float:right"><img src="" style="float:left; border-radius: 50%;" /><p-menu #menu popup="popup" [model]="items"></p-menu>
+<button type="button" pButton icon="fa fa-user-circle" label="UserName" (click)="menu.toggle($event)"></button></li>
   </ul>
 </div>
