@@ -18,9 +18,7 @@
       "prefix": "app",
       "mobile": false,
       "styles": [
-        "styles.css",
-        "../node_modules/font-awesome/css/font-awesome.css",
-        "../node_modules/primeui/primeui-ng-all.min.css"
+        "styles.css"
       ],
       "scripts": [],
       "environments": {
