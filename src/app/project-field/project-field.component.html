@@ -1,3 +1,7 @@
-<p>
-  project-field works!
-</p>
+<div class="ProjectContainer" [style.background]="myProject.color">
+  <p class="CompanyName">{{myProject.company}}</p>
+  <p class="ProjectName">{{myProject.name}}</p>
+  <ul class="Tasks">
+    <li *ngFor="let task of myProject.tasks; let i = index">{{task}}<button class={{classBtns[i]}} (click)="changeClass(i)"></button></li>
+  </ul>
+</div>

@@ -1,0 +1,61 @@
+.ProjectContainer{
+    width: 232px;
+    height: 338px;
+    margin-top: 5%;
+    margin-left: 5%;
+    border-radius: 3px 35px 35px 3px;
+    .CompanyName{
+        font-family: Lato;
+        font-size: 12px;
+        line-height: 15px;
+        font-weight: bold;
+        color:white;
+        position: relative;
+        top: 14px;
+        left:23px;
+    }
+    .ProjectName{
+        width: 183.35px;
+        height: 29px;
+        font-family: Montserrat;
+        font-size: 24px;
+        font-weight: bold;
+        line-height: 29px;
+        color: #FFFFFF;
+        position: relative;
+        top: -14px;
+        left:23px;
+    }
+    ul.Tasks{
+        list-style-type: none;
+        position: relative;
+        top: -30px;
+        left: -14px;
+        li{
+            font-family: Lato;
+            font-size: 16px;
+            line-height: 24px;
+            color: #FFFFFF;
+            line-height: 30px; 
+        }
+        button{
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            margin-left: 124px;
+            &.playBtn{
+                background-image: url(/assets/images-buttons/small-play-btn.png);
+                background-position-x: -1px;
+                background-position-y: -1px;
+                background-color: #CACACA;
+                border: solid 1px #CACACA;
+            }
+            &.stopBtn{
+                background-image: url(/assets/images-buttons/small-stop-btn.png);
+                background-position-x: -1px;
+                background-position-y: -1px;
+                border: solid 1px #000000;
+            }
+        }
+    }
+}

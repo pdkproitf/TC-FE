@@ -5,4 +5,5 @@ html{
 body{
     background: linear-gradient(180deg, #FBFCFF 0%, #F6F8FD 100%);
     background-repeat: no-repeat;
+    margin: 0px;
 }
