@@ -14,6 +14,8 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MemberMenuBarComponent } from './member-menu-bar/member-menu-bar.component';
 import { TimeTrackBarComponent } from './time-track-bar/time-track-bar.component';
+import { ProjectFieldListComponent } from './project-field-list/project-field-list.component';
+import { ProjectFieldComponent } from './project-field/project-field.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { TimeTrackBarComponent } from './time-track-bar/time-track-bar.component
     SignInComponent,
     DashboardComponent,
     MemberMenuBarComponent,
-    TimeTrackBarComponent
+    TimeTrackBarComponent,
+    ProjectFieldListComponent,
+    ProjectFieldComponent
   ],
   imports: [
     BrowserModule,

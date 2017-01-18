@@ -1,4 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+html{
+    min-height:100%;
+}
 body{
     background: linear-gradient(180deg, #FBFCFF 0%, #F6F8FD 100%);
+    background-repeat: no-repeat;
 }
