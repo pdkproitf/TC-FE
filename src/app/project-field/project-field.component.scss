@@ -1,8 +1,6 @@
 .ProjectContainer{
     width: 232px;
     height: 338px;
-    margin-top: 5%;
-    margin-left: 5%;
     border-radius: 3px 35px 35px 3px;
     .CompanyName{
         font-family: Lato;
@@ -52,8 +50,9 @@
             }
             &.stopBtn{
                 background-image: url(/assets/images-buttons/small-stop-btn.png);
-                background-position-x: -1px;
-                background-position-y: -1px;
+                background-position-x: -2px;
+                background-position-y: -2px;
+                background-color: white;
                 border: solid 1px #000000;
             }
         }

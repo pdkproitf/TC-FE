@@ -1,3 +1,4 @@
+import { ProjectFieldComponent } from './../project-field/project-field.component';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./project-field-list.component.scss']
 })
 export class ProjectFieldListComponent implements OnInit {
-
+  sharedVarParent = 'hello';
   constructor() { }
 
   ngOnInit() {
