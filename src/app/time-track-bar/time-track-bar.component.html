@@ -1,3 +1,7 @@
-<div class="trackerContainer">
-  <p-autoComplete [(ngModel)]="text" [suggestions]="results" (completeMethod)="search($event)" placeholder="Description..."></p-autoComplete>
+<div class="TrackerContainer">
+  <input id="desc" type="text" pInputText placeholder="Description..." />
+  <input id="task" type="text" pInputText placeholder="Task..." />
+  <input class="TimePicker"type="time" value="13:30" />
+  <label class="TimeDisplay">1:40:20</label>
+  <button type="button" class="playBtn"></button>
 </div>
