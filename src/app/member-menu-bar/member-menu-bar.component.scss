@@ -1,0 +1,41 @@
+$colorMain: #212345;
+$activeColor: #0099FF;
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: $colorMain;
+    text-align: center;
+}
+
+li {
+    display: inline-block;
+    a {
+        display: inline-block;
+        color: white;
+        font-family: Lato;
+        font-size: 16px;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    
+        &:hover:not(.active) {
+            background-color: #111;
+        }
+        &:active{
+            border-bottom: solid 2px $activeColor;
+        }
+    }
+    &.iconApp{
+        float:right !important;
+    }
+}
+.ui-button{
+    top: 7px;
+    background: $colorMain !important;
+    border: solid 0px $colorMain !important; 
+}
+.active {
+    border-bottom: solid 2px $activeColor;
+}
