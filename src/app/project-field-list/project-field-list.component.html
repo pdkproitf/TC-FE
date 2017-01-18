@@ -2,3 +2,8 @@
     <li><app-project-field></app-project-field></li>
     <li><app-project-field></app-project-field></li>
 </ul>
+<p-carousel headerText="Projects" [value]="myProjectList">
+    <template let-project>
+        <app-project-field></app-project-field>
+    </template>
+</p-carousel>
