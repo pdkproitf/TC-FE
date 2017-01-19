@@ -1,10 +1,8 @@
-<ul>
-    <li><app-project-field></app-project-field></li>
-    <li><app-project-field></app-project-field></li>
-</ul>
-<p-carousel numVisible="4" headerText="Projects" [value]="myProjectList">
+<br/><br/>
+<p-carousel numVisible="5" headerText="Projects" [value]="myProjectList">
     <template let-project>
-        <p>{{project.name}}</p>
-        <app-project-field></app-project-field>
+        <div class="project-field">
+            <app-project-field></app-project-field>
+        </div>
     </template>
 </p-carousel>
