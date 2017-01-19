@@ -1,8 +1,9 @@
-.ProjectContainer{
+.project-container{
     width: 232px;
     height: 338px;
     border-radius: 3px 35px 35px 3px;
-    .CompanyName{
+    box-shadow: 6px 6px 4px 1px #CACACA;
+    .company-name{
         font-family: Lato;
         font-size: 12px;
         line-height: 15px;
@@ -12,7 +13,7 @@
         top: 14px;
         left:23px;
     }
-    .ProjectName{
+    .project-name{
         width: 183.35px;
         height: 29px;
         font-family: Montserrat;
@@ -24,7 +25,7 @@
         top: -14px;
         left:23px;
     }
-    ul.Tasks{
+    ul.tasks{
         list-style-type: none;
         position: relative;
         top: -30px;
@@ -41,14 +42,14 @@
             width: 24px;
             height: 24px;
             margin-left: 124px;
-            &.playBtn{
+            &.play-btn{
                 background-image: url(/assets/images-buttons/small-play-btn.png);
                 background-position-x: -1px;
                 background-position-y: -1px;
                 background-color: #CACACA;
                 border: solid 1px #CACACA;
             }
-            &.stopBtn{
+            &.stop-btn{
                 background-image: url(/assets/images-buttons/small-stop-btn.png);
                 background-position-x: -2px;
                 background-position-y: -2px;

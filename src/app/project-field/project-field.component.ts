@@ -12,7 +12,7 @@ export class ProjectFieldComponent implements OnInit {
     company: 'My Company',
     color: '#EA4335',
   };
-  classBtns = ['playBtn', 'playBtn', 'playBtn'];
+  classBtns = ['play-btn', 'play-btn', 'play-btn'];
   private _sharedVar = '';
   @Input()
   set sharedVar(name: string){
@@ -30,10 +30,10 @@ export class ProjectFieldComponent implements OnInit {
   changeClass(i): void {
     for (let j = 0; j < 3; j++) {
       if (j !== i) {
-        this.classBtns[j] = 'playBtn';
+        this.classBtns[j] = 'play-btn';
       }
     }
-    this.classBtns[i] = this.classBtns[i] === 'playBtn' ? 'stopBtn' : 'playBtn';
+    this.classBtns[i] = this.classBtns[i] === 'play-btn' ? 'stop-btn' : 'play-btn';
   }
   change(newValue) {
     console.log('newvalue', newValue);

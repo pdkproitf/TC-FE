@@ -1,7 +1,7 @@
-<div class="ProjectContainer" [style.background]="myProject.color">
-  <p class="CompanyName">{{myProject.company}}</p>
-  <p class="ProjectName">{{myProject.name}}</p>
-  <ul class="Tasks">
+<div class="project-container" [style.background]="myProject.color">
+  <p class="company-name">{{myProject.company}}</p>
+  <p class="project-name">{{myProject.name}}</p>
+  <ul class="tasks">
     <li *ngFor="let task of myProject.tasks; let i = index">{{task}}<button class={{classBtns[i]}} (click)="changeClass(i)"></button></li>
   </ul>
 </div>
