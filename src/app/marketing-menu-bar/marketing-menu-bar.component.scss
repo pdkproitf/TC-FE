@@ -23,11 +23,11 @@ li {
             background-color: #111;
         }
         &:active{
-            border-bottom: solid 2px $activeColor;
+            border-bottom: solid 4px $activeColor;
         }
     }   
 
 }
 .active {
-    border-bottom: solid 2px $activeColor;
+    border-bottom: solid 5px $activeColor;
 }
