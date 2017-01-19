@@ -1,5 +1,5 @@
+import { MenuItem } from 'primeng/primeng';
 import { Component, OnInit } from '@angular/core';
-import { MenuModule, MenuItem } from 'primeng/primeng';
 @Component({
   selector: 'app-member-menu-bar',
   templateUrl: './member-menu-bar.component.html',

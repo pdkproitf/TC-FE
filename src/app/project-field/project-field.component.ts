@@ -6,6 +6,7 @@ import { Project } from '../models/project';
   styleUrls: ['./project-field.component.scss']
 })
 export class ProjectFieldComponent implements OnInit {
+  @Input()
   myProject: Project = {
     name: 'Temp Project',
     tasks: ['Task1', 'Task2', 'Task3'],

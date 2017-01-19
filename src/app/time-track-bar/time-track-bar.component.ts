@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AutoCompleteModule, InputTextModule, ButtonModule } from 'primeng/primeng';
 
 @Component({
   selector: 'app-time-track-bar',

@@ -1,6 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ToolbarModule } from 'primeng/primeng';
-import { ButtonModule } from 'primeng/primeng';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-marketing-menu-bar',

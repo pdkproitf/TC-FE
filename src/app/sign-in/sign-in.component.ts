@@ -1,4 +1,3 @@
-import { DashboardComponent } from './../dashboard/dashboard.component';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
