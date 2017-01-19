@@ -2,5 +2,10 @@
   <li><button class="previous"></button></li>
   <li>Date a - Date b</li>
   <li><button class="next"></button></li>
-  <li>Current Date: <p-calendar [(ngModel)]="value"></p-calendar></li>
+  <li>Current Date:<p-calendar [(ngModel)]="value" [showIcon]="true"></p-calendar></li>
 </ul>
+<div class="week">
+  <ul class="days-in-week">
+    <li *ngFor="let day of days; let i = index;"><p>{{day}}</p><p>{{time[i]}}</p></li>
+  </ul>
+</div>
