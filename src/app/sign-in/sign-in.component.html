@@ -1,3 +1,4 @@
+<app-marketing-menu-bar></app-marketing-menu-bar>
 <div class="container form-container">
   <h2>Sign In</h2>
   <hr/>
@@ -13,6 +14,6 @@
     </div>
     <br/>
     <button pButton type="button" label="Cancel" icon="fa-ban"></button>
-    <button id="submit" pButton type="button" label="Submit" icon="fa-check"></button>
+    <button id="submit" pButton type="button" (click)="signIn()" label="Submit" icon="fa-check"></button>
   </form>
 </div>

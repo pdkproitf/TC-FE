@@ -1,3 +1,5 @@
+import { DashboardComponent } from './../dashboard/dashboard.component';
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SignInComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
-
+  signIn(): void{
+    this.router.navigateByUrl('/dashboard');
+  }
 }
