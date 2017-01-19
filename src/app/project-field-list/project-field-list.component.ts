@@ -1,5 +1,4 @@
 import { Project } from './../models/project';
-import { ProjectFieldComponent } from './../project-field/project-field.component';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
