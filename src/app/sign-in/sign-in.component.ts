@@ -26,7 +26,9 @@ export class SignInComponent implements OnInit {
       localStorage.setItem('UserInfo', JSON.stringify(res));
       let obj = localStorage.getItem('UserInfo');
       this.router.navigate(['/dashboard']);
-    }
-    ).catch((error) => console.log(error));
+      }, (error) => {
+        alert(error);
+      }
+    );
   }
 }

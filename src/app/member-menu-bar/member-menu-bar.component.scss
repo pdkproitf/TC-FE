@@ -30,6 +30,17 @@ li {
     &.iconApp{
         float:right !important;
     }
+    /deep/ .ui-menu{
+        border-radius: 0%;
+        background: white;
+        .ui-menuitem{
+            border-radius: 0%;
+            font-family: $headerFont;
+            .ui-menuitem-link:hover{
+                background-color: $colorMain;
+            }
+        }
+    }
 }
 .ui-button{
     top: 7px;
