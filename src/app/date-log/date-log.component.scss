@@ -1,6 +1,8 @@
+@import '../general-style/color-style.scss';
+@import '../general-style/font-style.scss';
 ul{
     list-style-type: none;
-    font-family: Lato;
+    font-family: $headerFont;
     li{
         display: inline-block;
         margin-right: 20px;
@@ -16,7 +18,7 @@ ul{
         border: solid 1px black;
         background-position-x: -1px;
         background-position-y: -1px;
-        box-shadow: 1px 1px 2px 2px #CACACA;
+        box-shadow: 1px 1px 2px 2px $shadowColor;
         &.previous{
             background-image: url(assets/images-buttons/prev-btn.png);
         }
@@ -32,7 +34,7 @@ ul{
         border-radius: 0 0 0 0;
         margin-left: 10px;
         border: solid 2px black;
-        box-shadow: 1px 1px 2px 2px #CACACA;
+        box-shadow: 1px 1px 2px 2px $shadowColor;
     }
     &.days-in-week{
         padding-left: 0px;

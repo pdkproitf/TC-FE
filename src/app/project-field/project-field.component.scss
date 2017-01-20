@@ -1,10 +1,12 @@
+@import '../general-style/color-style.scss';
+@import '../general-style/font-style.scss';
 .project-container{
     width: 232px;
     height: 338px;
     border-radius: 3px 35px 35px 3px;
-    box-shadow: 6px 6px 4px 1px #CACACA;
+    box-shadow: 6px 6px 4px 1px $shadowColor;
     .company-name{
-        font-family: Lato;
+        font-family: $headerFont;
         font-size: 12px;
         line-height: 15px;
         font-weight: bold;
@@ -16,7 +18,7 @@
     .project-name{
         width: 183.35px;
         height: 29px;
-        font-family: Montserrat;
+        font-family: $contentFont;
         font-size: 24px;
         font-weight: bold;
         line-height: 29px;
@@ -31,7 +33,7 @@
         top: -30px;
         left: -14px;
         li{
-            font-family: Lato;
+            font-family: $headerFont;
             font-size: 16px;
             line-height: 24px;
             color: #FFFFFF;
@@ -46,8 +48,8 @@
                 background-image: url(/assets/images-buttons/small-play-btn.png);
                 background-position-x: -1px;
                 background-position-y: -1px;
-                background-color: #CACACA;
-                border: solid 1px #CACACA;
+                background-color: $shadowColor;
+                border: solid 1px $shadowColor;
             }
             &.stop-btn{
                 background-image: url(/assets/images-buttons/small-stop-btn.png);
