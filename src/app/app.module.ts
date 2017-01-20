@@ -1,3 +1,4 @@
+import { NotLoggedIn } from './services/not-logged-in';
 import { AuthenLoggedIn } from './services/authen-logged-in';
 import { UserService } from './services/user-service';
 import { LocationStrategy, HashLocationStrategy }from '@angular/common';
@@ -49,7 +50,7 @@ import { DateLogComponent } from './date-log/date-log.component';
     CalendarModule
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
-  AuthenLoggedIn],
+  AuthenLoggedIn, NotLoggedIn],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

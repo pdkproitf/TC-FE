@@ -14,6 +14,10 @@ export class UserService {
         console.error('An error occurred', error);
         return Promise.reject(error.message || error);
     }
+    isLoggedIn(): boolean {
+        this.LoggedIn = !!localStorage.getItem('UserInfo');
+        return this.LoggedIn;
+    }
     signUp(user): Promise<any> {
         let requestUrl = 'https://timecloudbackend.herokuapp.com/api/users';
         return this.http
@@ -30,8 +34,12 @@ export class UserService {
         .then(res => res.json().data)
         .catch(this.handleError);
     }
-    isLoggedIn(): boolean{
-        this.LoggedIn = !!localStorage.getItem('UserInfo');
-        return this.LoggedIn;
+    logOut(auth): Promise<any> {
+        let requestUrl = 'https://timecloudbackend.herokuapp.com/api/users/sign-out';
+        return this.http
+        .post(requestUrl, JSON.stringify(auth), {headers: headers})
+        .toPromise()
+        .then( res => res.json().data)
+        .catch(this.handleError);
     }
 }
