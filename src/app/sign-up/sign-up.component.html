@@ -2,7 +2,7 @@
 <div class="container form-container">
   <h2>Sign Up</h2>
   <hr/>
-  <form>
+  <form (ngSubmit)="submit()">
     <div class="form-group">
       <label for="name">Name: </label><br/>
       <input pInputText type="text" class="form-control" id="name" [(ngModel)]="user.name" required name="name">
@@ -24,6 +24,6 @@
     </div>
     <br/>
     <button pButton type="button" label="Cancel" (click)="log()" icon="fa-ban"></button>
-    <button id="submit" pButton type="button" label="Submit" (click)="submit()" icon="fa-check"></button>
+    <button id="submit" pButton type="submit" label="Submit" icon="fa-check"></button>
   </form>
 </div>
