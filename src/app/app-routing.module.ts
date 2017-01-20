@@ -1,3 +1,4 @@
+import { VerifyEmailPageComponent } from './verify-email-page/verify-email-page.component';
 import { NotLoggedIn } from './services/not-logged-in';
 import { AuthenLoggedIn } from './services/authen-logged-in';
 import { MarketingPageComponent } from './marketing-page/marketing-page.component';
@@ -12,7 +13,8 @@ const routes: Routes = [
     { path: 'sign-up', component: SignUpComponent, canActivate: [NotLoggedIn] },
     { path: 'sign-in', component: SignInComponent, canActivate: [NotLoggedIn] },
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthenLoggedIn] },
-    { path: '', component: MarketingPageComponent, canActivate: [NotLoggedIn] }
+    { path: '', component: MarketingPageComponent, canActivate: [NotLoggedIn] },
+    { path: 'verify-email/:token', component: VerifyEmailPageComponent, canActivate: [NotLoggedIn]}
     // { path: '', component: AppComponent }
     // { path: '', redirectTo: '/home', pathMatch: 'full'}
 ];

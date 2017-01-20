@@ -9,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class SignUpComponent implements OnInit {
   user: User = new User();
   userPost: UserPost = new UserPost();
+  submitted: boolean = false;
   constructor( private userService: UserService) { }
 
   ngOnInit() {
@@ -16,7 +17,7 @@ export class SignUpComponent implements OnInit {
   submit(): void {
     this.userPost.user = this.user;
     this.userService.signUp(this.userPost).then(() => {
-      alert('success');
+      this.submitted = true;
     }, () => alert('failed'));
   }
   log() {

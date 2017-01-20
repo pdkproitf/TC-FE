@@ -14,7 +14,9 @@ $mainColor: #212345;
     h2{
         color: $mainColor;
     };
-
+    p{
+        font-family: montserrat;
+    }
     .form-group{
         input{
             width: 99%;

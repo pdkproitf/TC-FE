@@ -1,5 +1,5 @@
 <app-marketing-menu-bar typePage=0></app-marketing-menu-bar>
-<div class="container form-container">
+<div *ngIf="!submitted" class="container form-container">
   <h2>Sign Up</h2>
   <hr/>
   <form (ngSubmit)="submit()">
@@ -26,4 +26,9 @@
     <button pButton type="button" label="Cancel" (click)="log()" icon="fa-ban"></button>
     <button id="submit" pButton type="submit" label="Submit" icon="fa-check"></button>
   </form>
+</div>
+<div *ngIf="submitted" class="container form-container">
+  <h2>Please verify your email !</h2>
+  <p> An email has been sent to the the email <strong><i>{{user.email}}</i></strong>.
+   Please check your inbox and follow the instruction to finsish your registration</p>
 </div>

@@ -21,6 +21,7 @@ import { TimeTrackBarComponent } from './time-track-bar/time-track-bar.component
 import { ProjectFieldListComponent } from './project-field-list/project-field-list.component';
 import { ProjectFieldComponent } from './project-field/project-field.component';
 import { DateLogComponent } from './date-log/date-log.component';
+import { VerifyEmailPageComponent } from './verify-email-page/verify-email-page.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { DateLogComponent } from './date-log/date-log.component';
     TimeTrackBarComponent,
     ProjectFieldListComponent,
     ProjectFieldComponent,
-    DateLogComponent
+    DateLogComponent,
+    VerifyEmailPageComponent
   ],
   imports: [
     BrowserModule,

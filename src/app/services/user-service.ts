@@ -42,4 +42,13 @@ export class UserService {
         .then( res => res.json().data)
         .catch(this.handleError);
     }
+    confirm(verifyEmail): Promise<any>{
+        let requestUrl = 'https://timecloudbackend.herokuapp.com/api/users/confirmation?user[confirmation_token]='
+        + verifyEmail.user.confirmation_token;
+        return this.http
+        .get(requestUrl, {headers: headers})
+        .toPromise()
+        .then(res => res.json().data)
+        .catch(this.handleError);
+    }
 }
