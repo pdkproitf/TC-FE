@@ -5,25 +5,25 @@
   <form>
     <div class="form-group">
       <label for="name">Name: </label><br/>
-      <input pInputText type="text" class="form-control" id="name" required>
+      <input pInputText type="text" class="form-control" id="name" [(ngModel)]="user.name" required name="name">
     </div>
     <br/>
     <div class="form-group">
       <label for="email">Email: </label><br/>
-      <input pInputText type="text" class="form-control" id="email" required>
+      <input pInputText type="text" class="form-control" id="email" [(ngModel)]="user.email" required name="email">
     </div>
     <br/>
     <div class="form-group">
       <label for="password">Password: </label><br/>
-      <input pInputText type="password" class="form-control" id="password" required>
+      <input pInputText type="password" class="form-control" id="password" [(ngModel)]="user.password" required name="password">
     </div>
     <br/>
     <div class="form-group">
       <label for="email">Confirm Password: </label><br/>
-      <input pInputText type="password" class="form-control" id="confirmPassword" required>
+      <input pInputText type="password" class="form-control" id="confirmPassword" [(ngModel)]="user.password_confirmation" required name="password_confirmation">
     </div>
     <br/>
-    <button pButton type="button" label="Cancel" icon="fa-ban"></button>
-    <button id="submit" pButton type="button" label="Submit" icon="fa-check"></button>
+    <button pButton type="button" label="Cancel" (click)="log()" icon="fa-ban"></button>
+    <button id="submit" pButton type="button" label="Submit" (click)="submit()" icon="fa-check"></button>
   </form>
 </div>

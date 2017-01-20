@@ -1,3 +1,5 @@
+import { AuthenLoggedIn } from './services/authen-logged-in';
+import { UserService } from './services/user-service';
 import { LocationStrategy, HashLocationStrategy }from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { ToolbarModule, ButtonModule, InputTextModule, MenuModule, AutoCompleteModule, CarouselModule,
@@ -46,7 +48,8 @@ import { DateLogComponent } from './date-log/date-log.component';
     CarouselModule,
     CalendarModule
   ],
-  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}],
+  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
+  AuthenLoggedIn],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

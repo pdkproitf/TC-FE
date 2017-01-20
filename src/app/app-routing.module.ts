@@ -1,3 +1,4 @@
+import { AuthenLoggedIn } from './services/authen-logged-in';
 import { MarketingPageComponent } from './marketing-page/marketing-page.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SignInComponent } from './sign-in/sign-in.component';
@@ -9,7 +10,7 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
     { path: 'sign-up', component: SignUpComponent },
     { path: 'sign-in', component: SignInComponent },
-    { path: 'dashboard', component: DashboardComponent },
+    { path: 'dashboard', component: DashboardComponent, canActivate: [AuthenLoggedIn] },
     { path: '', component: MarketingPageComponent }
     // { path: '', component: AppComponent }
     // { path: '', redirectTo: '/home', pathMatch: 'full'}

@@ -5,6 +5,7 @@
   <li>Current Date:<p-calendar [(ngModel)]="value" [showIcon]="true"></p-calendar></li>
 </ul>
 <div class="week">
+  <div class=head-list></div>
   <ul class="days-in-week">
     <li *ngFor="let day of days; let i = index;"><p>{{day}}</p><p>{{time[i]}}</p></li>
   </ul>

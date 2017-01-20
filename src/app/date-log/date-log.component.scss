@@ -37,9 +37,13 @@ ul{
         box-shadow: 1px 1px 2px 2px $shadowColor;
     }
     &.days-in-week{
+        margin: 0px;
+        .head-list{
+            background: red;
+            height: 20px;
+            margin: 0;
+        }
         padding-left: 0px;
-        border-top: solid 1px black;
-        background-color: white;
         li{
             margin-top: 30px;
             margin-bottom: 0px;

@@ -34,13 +34,12 @@
         color: #212345;
     }
     button{
-        float: right;
         border-radius: 50%;
         width: 50px;
         height: 50px;
-        margin-right: 10%;
+        margin-left: 6%;
         position: relative;
-        top: 40%;
+        top: 10%;
         &.stopBtn{
             background-color: #EE593A;
             border: solid 3px #EE593A;
