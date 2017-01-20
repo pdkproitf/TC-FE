@@ -14,7 +14,7 @@ const routes: Routes = [
     { path: 'sign-in', component: SignInComponent, canActivate: [NotLoggedIn] },
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthenLoggedIn] },
     { path: '', component: MarketingPageComponent, canActivate: [NotLoggedIn] },
-    { path: 'verify-email/:token', component: VerifyEmailPageComponent, canActivate: [NotLoggedIn]}
+    { path: 'verify-email/:text', component: VerifyEmailPageComponent, canActivate: [NotLoggedIn]}
     // { path: '', component: AppComponent }
     // { path: '', redirectTo: '/home', pathMatch: 'full'}
 ];
