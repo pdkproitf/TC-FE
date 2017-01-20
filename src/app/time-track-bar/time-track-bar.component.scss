@@ -13,32 +13,34 @@
         border-radius: 0%;
         border-bottom: solid 0.5px #808080;
         &#desc{
-            width: 400px;
+            width: 30%;
         }
         &#task{
             margin-left: 15%;
-            width: 200px;
+            width: 15%;
         }
     }
     .TimePicker{
         font-size: 16px;
         font-family: Lato;
-        margin-left: 5%;
+        margin-left: 6%;
+        
     }
     .TimeDisplay{
         font-size: 20px;
         font-family: Lato;
-        margin-left: 2%;
+        margin-left: 4%;
         font-weight: bold;
         color: #212345;
     }
     button{
+        float: right;
         border-radius: 50%;
         width: 50px;
         height: 50px;
-        margin-left: 4%;
+        margin-right: 10%;
         position: relative;
-        top: 10px;
+        top: 40%;
         &.stopBtn{
             background-color: #EE593A;
             border: solid 3px #EE593A;
