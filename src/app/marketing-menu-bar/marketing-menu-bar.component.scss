@@ -1,5 +1,5 @@
-$colorMain: #212345;
-$activeColor: #0099FF;
+@import '../general-style/color-style.scss';
+@import '../general-style/font-style.scss';
 ul {
     list-style-type: none;
     margin: 0;
@@ -14,7 +14,7 @@ li {
         display: block;
         color: white;
         text-align: center;
-        font-family: Lato;
+        font-family: $headerFont;
         font-size: 16px;
         padding: 14px 16px;
         text-decoration: none;
@@ -23,11 +23,11 @@ li {
             background-color: #111;
         }
         &:active{
-            border-bottom: solid 2px $activeColor;
+            border-bottom: solid 4px $activeColor;
         }
     }   
 
 }
 .active {
-    border-bottom: solid 2px $activeColor;
+    border-bottom: solid 5px $activeColor;
 }

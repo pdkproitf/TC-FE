@@ -1,0 +1,63 @@
+@import '../general-style/color-style.scss';
+@import '../general-style/font-style.scss';
+.project-container{
+    width: 232px;
+    height: 338px;
+    border-radius: 3px 35px 35px 3px;
+    box-shadow: 6px 6px 4px 1px $shadowColor;
+    .company-name{
+        font-family: $headerFont;
+        font-size: 12px;
+        line-height: 15px;
+        font-weight: bold;
+        color:white;
+        position: relative;
+        top: 14px;
+        left:23px;
+    }
+    .project-name{
+        width: 183.35px;
+        height: 29px;
+        font-family: $contentFont;
+        font-size: 24px;
+        font-weight: bold;
+        line-height: 29px;
+        color: #FFFFFF;
+        position: relative;
+        top: -14px;
+        left:23px;
+    }
+    ul.tasks{
+        list-style-type: none;
+        position: relative;
+        top: -30px;
+        left: -14px;
+        li{
+            font-family: $headerFont;
+            font-size: 16px;
+            line-height: 24px;
+            color: #FFFFFF;
+            line-height: 30px; 
+        }
+        button{
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            margin-left: 124px;
+            &.play-btn{
+                background-image: url(/assets/images-buttons/small-play-btn.png);
+                background-position-x: -1px;
+                background-position-y: -1px;
+                background-color: $shadowColor;
+                border: solid 1px $shadowColor;
+            }
+            &.stop-btn{
+                background-image: url(/assets/images-buttons/small-stop-btn.png);
+                background-position-x: -2px;
+                background-position-y: -2px;
+                background-color: white;
+                border: solid 1px #000000;
+            }
+        }
+    }
+}

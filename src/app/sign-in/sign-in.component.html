@@ -1,18 +1,19 @@
+<app-marketing-menu-bar typePage=1></app-marketing-menu-bar>
 <div class="container form-container">
   <h2>Sign In</h2>
   <hr/>
-  <form>
+  <form (ngSubmit)="signIn()">
     <div class="form-group">
       <label for="email">Email: </label><br/>
-      <input pInputText type="text" class="form-control" id="email" required>
+      <input pInputText type="text" class="form-control" id="email" [(ngModel)]="user.email" name="email" required>
     </div>
     <br/>
     <div class="form-group">
       <label for="password">Password: </label><br/>
-      <input pInputText type="password" class="form-control" id="password" required>
+      <input pInputText type="password" class="form-control" id="password" [(ngModel)]="user.password" name="password" required>
     </div>
     <br/>
-    <button pButton type="button" label="Cancel" icon="fa-ban"></button>
-    <button id="submit" pButton type="button" label="Submit" icon="fa-check"></button>
+    <button pButton type="button" label="Cancel" (click)="log()" icon="fa-ban"></button>
+    <button pButton type="submit" label="Submit" icon="fa-check"></button>
   </form>
 </div>

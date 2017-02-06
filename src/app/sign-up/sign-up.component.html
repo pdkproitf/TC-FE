@@ -1,28 +1,34 @@
-<div class="container form-container">
+<app-marketing-menu-bar typePage=0></app-marketing-menu-bar>
+<div *ngIf="!submitted" class="container form-container">
   <h2>Sign Up</h2>
   <hr/>
-  <form>
+  <form (ngSubmit)="submit()">
     <div class="form-group">
       <label for="name">Name: </label><br/>
-      <input pInputText type="text" class="form-control" id="name" required>
+      <input pInputText type="text" class="form-control" id="name" [(ngModel)]="user.name" required name="name">
     </div>
     <br/>
     <div class="form-group">
       <label for="email">Email: </label><br/>
-      <input pInputText type="text" class="form-control" id="email" required>
+      <input pInputText type="text" class="form-control" id="email" [(ngModel)]="user.email" required name="email">
     </div>
     <br/>
     <div class="form-group">
       <label for="password">Password: </label><br/>
-      <input pInputText type="password" class="form-control" id="password" required>
+      <input pInputText type="password" class="form-control" id="password" [(ngModel)]="user.password" required name="password">
     </div>
     <br/>
     <div class="form-group">
       <label for="email">Confirm Password: </label><br/>
-      <input pInputText type="password" class="form-control" id="confirmPassword" required>
+      <input pInputText type="password" class="form-control" id="confirmPassword" [(ngModel)]="user.password_confirmation" required name="password_confirmation">
     </div>
     <br/>
-    <button pButton type="button" label="Cancel" icon="fa-ban"></button>
-    <button id="submit" pButton type="button" label="Submit" icon="fa-check"></button>
+    <button pButton type="button" label="Cancel" (click)="log()" icon="fa-ban"></button>
+    <button id="submit" pButton type="submit" label="Submit" icon="fa-check"></button>
   </form>
+</div>
+<div *ngIf="submitted" class="container form-container">
+  <h2>Please verify your email !</h2>
+  <p> An email has been sent to the the email <strong><i>{{user.email}}</i></strong>.
+   Please check your inbox and follow the instruction to finsish your registration</p>
 </div>

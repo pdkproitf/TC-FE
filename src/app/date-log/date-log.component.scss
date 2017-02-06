@@ -1,0 +1,79 @@
+@import '../general-style/color-style.scss';
+@import '../general-style/font-style.scss';
+ul{
+    list-style-type: none;
+    font-family: $headerFont;
+    li{
+        display: inline-block;
+        margin-right: 20px;
+    }
+
+    button{
+        position: relative;
+        top: 7px;
+        border-radius:  50%;
+        width: 30px;
+        height: 30px;
+        background-color: white;
+        border: solid 1px black;
+        background-position-x: -1px;
+        background-position-y: -1px;
+        box-shadow: 1px 1px 2px 2px $shadowColor;
+        &.previous{
+            background-image: url(assets/images-buttons/prev-btn.png);
+        }
+        &.next{
+            background-image: url(assets/images-buttons/next-btn.png);
+        }
+    }
+    /deep/ .ui-inputtext{
+        border-radius: 0 0 0 0;
+        border: solid 1px black;
+    }
+    /deep/ .ui-button{
+        border-radius: 0 0 0 0;
+        margin-left: 10px;
+        border: solid 3px black;
+        box-shadow: 1px 1px 2px 2px $shadowColor;
+        border-radius: 50%;
+        background-color: white;
+        .ui-button-icon-left{
+            color:black;
+            position: relative;
+            left: 4px;
+            top: 2px;
+        }
+    }
+    &.days-in-week{
+        margin: 0px;
+        .head-list{
+            background: red;
+            height: 20px;
+            margin: 0;
+        }
+        padding-left: 0px;
+        li{
+            margin-top: 30px;
+            margin-bottom: 0px;
+            margin-left: 0px;
+            margin-right: 0px;
+            width:12.5%;
+            text-align: center;
+            
+            border-bottom: solid 1px black;
+            background-color: white;
+            h6{
+                font-size: 20px;
+            }
+            h5{
+                font-size: 24px;
+            }
+            &:hover{
+                background-color: transparent !important;
+            }
+        }
+    }
+}
+.week{
+    
+}

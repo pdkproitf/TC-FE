@@ -1,6 +1,58 @@
-.trackerContainer{
+@import '../general-style/color-style.scss';
+@import '../general-style/font-style.scss';
+.tracker-container{
     height: 100px;
     width: 100%;
-    box-shadow: 0px 2px 10px black;
+    box-shadow: 0px 4px 2px 1px #808080;
     background: white;
+    .ui-inputtext{
+        margin-top: 3%;
+        margin-left: 1%;
+        outline: none;
+        border: solid 0px white;
+        border-radius: 0%;
+        border-bottom: solid 0.5px #808080;
+        &#desc{
+            width: 30%;
+        }
+        &#task{
+            margin-left: 15%;
+            width: 15%;
+        }
+    }
+    .time-picker{
+        font-size: 16px;
+        font-family: Lato;
+        margin-left: 6%;
+        
+    }
+    .time-display{
+        font-size: 20px;
+        font-family: Lato;
+        margin-left: 4%;
+        font-weight: bold;
+        color: #212345;
+    }
+    button{
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        margin-left: 6%;
+        position: relative;
+        top: 10%;
+        &.stop-btn{
+            background-color: #EE593A;
+            border: solid 3px #EE593A;
+            background-position-x: -2px;
+            background-position-y: -2px;
+            background-image: url(assets/images-buttons/stop-btn.png);
+        }
+        &.play-btn{
+            background-color: #0098F0;
+            border: solid 3px #0098F0;
+            background-position-x: -4px;
+            background-position-y: -3px;
+            background-image: url(assets/images-buttons/play-btn.png);
+        }
+    }
 }

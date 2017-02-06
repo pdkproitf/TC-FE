@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { ToolbarModule } from 'primeng/primeng';
-import { ButtonModule } from 'primeng/primeng';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-marketing-menu-bar',
@@ -8,12 +6,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./marketing-menu-bar.component.scss']
 })
 export class MarketingMenuBarComponent implements OnInit {
+  @Input()
+  typePage: number = -1;
+  classType = ['', ''];
 
   constructor(private router: Router) { }
-
+  
   ngOnInit() {
-  }
-  onClick() {
-    this.router.navigate(['/sign-up']);
+    let tmp = this.typePage;
+    if (tmp > -1) {
+      this.classType[tmp] = 'active';
+    }
   }
 }
