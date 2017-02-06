@@ -1,6 +1,6 @@
 @import '../general-style/color-style.scss';
 @import '../general-style/font-style.scss';
-.TrackerContainer{
+.tracker-container{
     height: 100px;
     width: 100%;
     box-shadow: 0px 4px 2px 1px #808080;
@@ -20,13 +20,13 @@
             width: 15%;
         }
     }
-    .TimePicker{
+    .time-picker{
         font-size: 16px;
         font-family: Lato;
         margin-left: 6%;
         
     }
-    .TimeDisplay{
+    .time-display{
         font-size: 20px;
         font-family: Lato;
         margin-left: 4%;
@@ -40,14 +40,14 @@
         margin-left: 6%;
         position: relative;
         top: 10%;
-        &.stopBtn{
+        &.stop-btn{
             background-color: #EE593A;
             border: solid 3px #EE593A;
             background-position-x: -2px;
             background-position-y: -2px;
             background-image: url(assets/images-buttons/stop-btn.png);
         }
-        &.playBtn{
+        &.play-btn{
             background-color: #0098F0;
             border: solid 3px #0098F0;
             background-position-x: -4px;

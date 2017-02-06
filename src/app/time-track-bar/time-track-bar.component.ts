@@ -6,11 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./time-track-bar.component.scss']
 })
 export class TimeTrackBarComponent implements OnInit {
-  classBtn: String = 'playBtn';
+  classBtn: String = 'play-btn';
   constructor() { }
   ngOnInit() {
   }
   changeClass(): void {
-    this.classBtn = this.classBtn === 'playBtn' ? 'stopBtn' : 'playBtn';
+    this.classBtn = this.classBtn === 'play-btn' ? 'stop-btn' : 'play-btn';
   }
 }
