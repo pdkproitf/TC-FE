@@ -45,7 +45,8 @@ ul{
         }
     }
     &.days-in-week{
-        margin: 0px;
+        margin-left: 10%;
+        margin-right: 10%;
         .head-list{
             background: red;
             height: 20px;
@@ -61,6 +62,7 @@ ul{
             text-align: center;
             
             border-bottom: solid 1px black;
+            border-top: solid 1px black;
             background-color: white;
             h6{
                 font-size: 20px;

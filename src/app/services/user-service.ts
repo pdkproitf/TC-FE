@@ -1,4 +1,4 @@
-import { headers } from './../constants/headers';
+import { HeadersService } from './headers-service';
 import { User } from './../models/user';
 import { Headers, Http } from '@angular/http';
 import { Injectable } from '@angular/core';
@@ -7,6 +7,7 @@ import 'rxjs/add/operator/toPromise';
 export class UserService {
     LoggedIn: boolean = false;
     redirectUrl: string;
+    headersService: HeadersService = new HeadersService();
 
     constructor(private http: Http) {
         this.LoggedIn = !!localStorage.getItem('UserInfo');
@@ -24,6 +25,8 @@ export class UserService {
 
     signUp(user): Promise<any> {
         let requestUrl = 'https://timecloudbackend.herokuapp.com/api/users';
+        let headers = new Headers;
+        this.headersService.createAuthHeaders(headers);
         return this.http
         .post(requestUrl, JSON.stringify(user), {headers: headers})
         .toPromise()
@@ -33,6 +36,8 @@ export class UserService {
 
     signIn(user): Promise<any>{
         let requestUrl = 'https://timecloudbackend.herokuapp.com/api/users/sign-in';
+        let headers = new Headers;
+        this.headersService.createAuthHeaders(headers);
         return this.http
         .post(requestUrl, JSON.stringify(user), {headers: headers})
         .toPromise()
@@ -42,16 +47,20 @@ export class UserService {
 
     logOut(auth): Promise<any> {
         let requestUrl = 'https://timecloudbackend.herokuapp.com/api/users/sign-out';
+        let headers = new Headers;
+        this.headersService.createAuthHeaders(headers);
         return this.http
         .post(requestUrl, JSON.stringify(auth), {headers: headers})
         .toPromise()
         .then( res => res.json().data)
         .catch(this.handleError);
     }
-    
+
     confirm(verifyEmail): Promise<any>{
         let requestUrl = 'https://timecloudbackend.herokuapp.com/api/users/confirmation?user[confirmation_token]='
         + verifyEmail.user.confirmation_token;
+        let headers = new Headers;
+        this.headersService.createAuthHeaders(headers);
         return this.http
         .get(requestUrl, {headers: headers})
         .toPromise()
