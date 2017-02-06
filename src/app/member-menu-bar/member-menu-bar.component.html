@@ -1,9 +1,11 @@
 <div class="menuContaier">
   <ul>
     <li style="float:left"><a routerLink="/">TimeCloud</a></li>
-    <li><a routerLink="#">Your Timer</a></li>
-    <li><a routerLink="#">Time Off</a></li>
-    <li><a routerLink="#">Report</a></li>
+    <li><a [class]="classActive[0]" routerLink="#">Your Timer</a></li>
+    <li><a [class]="classActive[1]" routerLink="#">Projects</a></li>
+    <li><a [class]="classActive[2]" routerLink="#">Time Off</a></li>
+    <li><a [class]="classActive[3]" routerLink="#">Report</a></li>
+    <li><a [class]="classActive[4]" routerLink="#">Manage</a></li>
     <li style="float:right"><img src="" style="float:left; border-radius: 50%;" /><p-menu #menu popup="popup" [model]="items"></p-menu>
 <button type="button" pButton icon="fa fa-user-circle" [label]="user.name" (click)="menu.toggle($event)"></button></li>
   </ul>

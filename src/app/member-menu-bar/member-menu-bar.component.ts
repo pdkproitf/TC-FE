@@ -3,7 +3,7 @@ import { Auth, AuthPost } from './../models/auth';
 import { Router } from '@angular/router';
 import { User } from './../models/user';
 import { MenuItem } from 'primeng/primeng';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 @Component({
   selector: 'app-member-menu-bar',
   templateUrl: './member-menu-bar.component.html',
@@ -14,10 +14,14 @@ export class MemberMenuBarComponent implements OnInit {
   user: User = new User();
   auth: Auth = new Auth();
   authPost: AuthPost = new AuthPost();
+  @Input()
+  currentState: number = 0;
+  classActive: string[] = ['', '', '', '', ''];
 
   constructor(private router: Router, private userService: UserService) { }
 
   ngOnInit() {
+    this.classActive[this.currentState] = 'active';
     let userInfo = localStorage.getItem('UserInfo');
     let userObj = JSON.parse(userInfo);
     this.user.name = userObj.name;
