@@ -14,16 +14,27 @@
     </div>
     <br/>
     <div class="form-group">
-        <label for="background-color">Background color</label>
-        <input type="color" class="form-control" id="background-color" required>
+        <ul class="permissions">
+        <li class="bck-color"><label for="background-color">Background color</label></li>
+        <li class="col-des">
+            <h4>Choose color…</h4>
+            <p>Each project will have a specific color that will help you team member recognize super easily.</p>
+        </li>
+        <li class="input-color"><input type="color" class="form-control" id="background-color" value="#FFBB47" required></li>
+    </ul>    
     </div>
     <br/>
     <h2>Permissions</h2>
-    <h4>Report</h4>
-    <div class="description">
-        <p>Show report to who?</p>
-        <p>If you allow people see this project's report, they can see detail budget, invoices, timesheet and more...</p>
-    </div>
-        
+    <ul class="permissions">
+        <li class="rep"><h4>Report</h4></li>
+        <li class="per-des">
+            <h4>Show report to who?</h4>
+            <p>If you allow people see this project’s report, they can see detail budget, invoices, timesheet and more…</p>
+        </li>
+        <li>
+            <button id="left-btn" [class]="classBtn[0]" (click)="setTypeReport(1)" type="button">PM & Admin</button>
+            <button id="right-btn" [class]="classBtn[1]" (click)="setTypeReport(2)" type="button">Everyone</button>
+        </li>
+    </ul>    
 </form>
 </div>
