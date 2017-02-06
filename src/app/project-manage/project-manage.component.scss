@@ -1,0 +1,30 @@
+@import '../general-style/color-style.scss';
+@import '../general-style/font-style.scss';
+
+p{
+    width: 167px;
+    height: 48px;
+    font-family: $headerFont;
+    font-size: 40px;
+    font-weight: bold;
+    line-height: 48px;
+    color: #363636;
+    margin-left:10%;
+    display:inline-block;
+}
+button{
+    &.add-project{
+        float:right;
+        margin-right: 10%;
+        margin-top: 3%;
+        width: 181px;
+        height: 40px;
+        background-color: $blueColor;
+        border-radius: 3px;
+        font-family: $headerFont;
+        color: white;
+        font-size: 16px;
+        text-align: center;
+        line-height: 24px;
+    }
+}

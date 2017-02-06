@@ -23,9 +23,6 @@ li {
         &:hover:not(.active) {
             background-color: #111;
         }
-        &:active{
-            border-bottom: solid 2px $activeColor;
-        }
     }
     &.iconApp{
         float:right !important;
@@ -48,5 +45,5 @@ li {
     border: solid 0px $colorMain !important; 
 }
 .active {
-    border-bottom: solid 2px $activeColor;
+    border-bottom: solid 5px $activeColor;
 }

@@ -22,6 +22,9 @@ import { ProjectFieldListComponent } from './project-field-list/project-field-li
 import { ProjectFieldComponent } from './project-field/project-field.component';
 import { DateLogComponent } from './date-log/date-log.component';
 import { VerifyEmailPageComponent } from './verify-email-page/verify-email-page.component';
+import { DetailDateLogComponent } from './detail-date-log/detail-date-log.component';
+import { ProjectManageComponent } from './project-manage/project-manage.component';
+import { CreateProjectComponent } from './create-project/create-project.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +39,10 @@ import { VerifyEmailPageComponent } from './verify-email-page/verify-email-page.
     ProjectFieldListComponent,
     ProjectFieldComponent,
     DateLogComponent,
-    VerifyEmailPageComponent
+    VerifyEmailPageComponent,
+    DetailDateLogComponent,
+    ProjectManageComponent,
+    CreateProjectComponent
   ],
   imports: [
     BrowserModule,
