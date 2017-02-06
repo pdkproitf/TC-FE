@@ -23,6 +23,8 @@ import { ProjectFieldComponent } from './project-field/project-field.component';
 import { DateLogComponent } from './date-log/date-log.component';
 import { VerifyEmailPageComponent } from './verify-email-page/verify-email-page.component';
 import { DetailDateLogComponent } from './detail-date-log/detail-date-log.component';
+import { ProjectManageComponent } from './project-manage/project-manage.component';
+import { CreateProjectComponent } from './create-project/create-project.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { DetailDateLogComponent } from './detail-date-log/detail-date-log.compon
     ProjectFieldComponent,
     DateLogComponent,
     VerifyEmailPageComponent,
-    DetailDateLogComponent
+    DetailDateLogComponent,
+    ProjectManageComponent,
+    CreateProjectComponent
   ],
   imports: [
     BrowserModule,
