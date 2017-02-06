@@ -28,6 +28,7 @@ export class ProjectFieldComponent implements OnInit {
 
   ngOnInit() {
   }
+
   changeClass(i): void {
     for (let j = 0; j < 3; j++) {
       if (j !== i) {
@@ -36,6 +37,7 @@ export class ProjectFieldComponent implements OnInit {
     }
     this.classBtns[i] = this.classBtns[i] === 'play-btn' ? 'stop-btn' : 'play-btn';
   }
+  
   change(newValue) {
     console.log('newvalue', newValue);
     this._sharedVar = newValue;

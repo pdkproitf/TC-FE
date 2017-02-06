@@ -7,17 +7,21 @@ import 'rxjs/add/operator/toPromise';
 export class UserService {
     LoggedIn: boolean = false;
     redirectUrl: string;
+
     constructor(private http: Http) {
         this.LoggedIn = !!localStorage.getItem('UserInfo');
     }
+
     private handleError(error: any): Promise<any> {
         console.error('An error occurred', error);
         return Promise.reject(error.message || error);
     }
+
     isLoggedIn(): boolean {
         this.LoggedIn = !!localStorage.getItem('UserInfo');
         return this.LoggedIn;
     }
+
     signUp(user): Promise<any> {
         let requestUrl = 'https://timecloudbackend.herokuapp.com/api/users';
         return this.http
@@ -26,6 +30,7 @@ export class UserService {
         .then(res => res.json().data)
         .catch(this.handleError);
     }
+
     signIn(user): Promise<any>{
         let requestUrl = 'https://timecloudbackend.herokuapp.com/api/users/sign-in';
         return this.http
@@ -34,6 +39,7 @@ export class UserService {
         .then(res => res.json().data)
         .catch(this.handleError);
     }
+
     logOut(auth): Promise<any> {
         let requestUrl = 'https://timecloudbackend.herokuapp.com/api/users/sign-out';
         return this.http
@@ -42,6 +48,7 @@ export class UserService {
         .then( res => res.json().data)
         .catch(this.handleError);
     }
+    
     confirm(verifyEmail): Promise<any>{
         let requestUrl = 'https://timecloudbackend.herokuapp.com/api/users/confirmation?user[confirmation_token]='
         + verifyEmail.user.confirmation_token;

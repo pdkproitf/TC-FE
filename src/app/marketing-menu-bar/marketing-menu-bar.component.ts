@@ -9,7 +9,9 @@ export class MarketingMenuBarComponent implements OnInit {
   @Input()
   typePage: number = -1;
   classType = ['', ''];
+
   constructor(private router: Router) { }
+  
   ngOnInit() {
     let tmp = this.typePage;
     if (tmp > -1) {

@@ -8,7 +8,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProjectFieldListComponent implements OnInit {
   sharedVarParent = 'hello';
-  constructor() { }
   myProjectList: Project[]=[
     {
       name: 'Temp Project',
@@ -47,6 +46,9 @@ export class ProjectFieldListComponent implements OnInit {
       color: '#e74c3c',
     }
   ]
+  
+  constructor() { }
+  
   ngOnInit() {
   }
 

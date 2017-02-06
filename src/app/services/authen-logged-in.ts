@@ -4,10 +4,12 @@ import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from
 @Injectable()
 export class AuthenLoggedIn implements CanActivate{
     constructor( private userService: UserService, private router: Router) {}
+
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
         let url: string = state.url;
         return this.checkLogin(url);
     }
+
     checkLogin(url: string): boolean {
     if (this.userService.isLoggedIn()) {
       return true;

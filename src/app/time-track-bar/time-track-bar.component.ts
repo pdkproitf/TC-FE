@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TimeTrackBarComponent implements OnInit {
   classBtn: String = 'play-btn';
+  
   constructor() { }
+
   ngOnInit() {
   }
+
   changeClass(): void {
     this.classBtn = this.classBtn === 'play-btn' ? 'stop-btn' : 'play-btn';
   }

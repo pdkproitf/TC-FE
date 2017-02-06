@@ -12,6 +12,7 @@ export class VerifyEmailPageComponent implements OnInit {
   token: string;
   verifyEmail: VerifyEmail = new VerifyEmail();
   verifyEmailPost: VerifyEmailPost = new VerifyEmailPost();
+
   constructor(private router: Router, private route: ActivatedRoute, private userService: UserService) { }
 
   ngOnInit() {
@@ -27,7 +28,6 @@ export class VerifyEmailPageComponent implements OnInit {
     let expiry = '';
     let token = '';
     let uid = '';
-
     this.route.queryParams.subscribe( params => {
       token = params['token'];
       client_id = params['client_id'];

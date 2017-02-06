@@ -14,6 +14,7 @@ export class MemberMenuBarComponent implements OnInit {
   user: User = new User();
   auth: Auth = new Auth();
   authPost: AuthPost = new AuthPost();
+
   constructor(private router: Router, private userService: UserService) { }
 
   ngOnInit() {
@@ -29,6 +30,7 @@ export class MemberMenuBarComponent implements OnInit {
                     }
                 ];
   }
+  
   logOut(): void {
     let userInfo = localStorage.getItem('UserInfo');
     let userObj = JSON.parse(userInfo);

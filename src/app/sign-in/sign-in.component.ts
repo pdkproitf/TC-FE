@@ -11,12 +11,16 @@ import { Component, OnInit } from '@angular/core';
 export class SignInComponent implements OnInit {
   user: User = new User();
   userPost: UserPost = new UserPost();
+
   constructor(private router: Router, private userService: UserService) { }
+
   ngOnInit() {
   }
+
   log(): void{
     console.log(this.user);
   }
+  
   signIn(): void {
     console.log('signin');
     this.userPost.user = this.user;
