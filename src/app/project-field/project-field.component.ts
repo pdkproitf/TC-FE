@@ -7,12 +7,7 @@ import { Project } from '../models/project';
 })
 export class ProjectFieldComponent implements OnInit {
   @Input()
-  myProject: Project = {
-    name: 'Temp Project',
-    tasks: ['Task1', 'Task2', 'Task3'],
-    company: 'My Company',
-    color: '#EA4335',
-  };
+  myProject: Project;
   classBtns = ['play-btn', 'play-btn', 'play-btn'];
   private _sharedVar = '';
   @Input()
