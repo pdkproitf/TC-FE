@@ -24,7 +24,7 @@ export class MemberMenuBarComponent implements OnInit {
     this.classActive[this.currentState] = 'active';
     let userInfo = localStorage.getItem('UserInfo');
     let userObj = JSON.parse(userInfo);
-    this.user.name = userObj.name;
+    this.user.name = userObj.first_name;
     this.items = [
                     {label: 'Profile', icon: 'fa-user-circle'},
                     {label: 'Setting', icon: 'fa-cog'},
@@ -34,7 +34,7 @@ export class MemberMenuBarComponent implements OnInit {
                     }
                 ];
   }
-  
+
   logOut(): void {
     let userInfo = localStorage.getItem('UserInfo');
     let userObj = JSON.parse(userInfo);
