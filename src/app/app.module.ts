@@ -1,3 +1,4 @@
+import { ProjectService } from './services/project-service';
 import { NotLoggedIn } from './services/not-logged-in';
 import { AuthenLoggedIn } from './services/authen-logged-in';
 import { UserService } from './services/user-service';
@@ -58,7 +59,7 @@ import { CreateProjectComponent } from './create-project/create-project.componen
     CalendarModule
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
-  AuthenLoggedIn, NotLoggedIn],
+  AuthenLoggedIn, NotLoggedIn, ProjectService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

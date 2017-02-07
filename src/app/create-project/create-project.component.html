@@ -1,16 +1,18 @@
 <app-member-menu-bar [currentState]="1"></app-member-menu-bar>
 <div class="form-container">
 <h1>Create new project</h1>
-<form>
+<form (ngSubmit)="onSubmit()">
     <h2>General information</h2>
     <div class="form-group">
         <label for="project-name">Project</label>
-        <input type="text" class="form-control" id="project-name" placeholder="Project name" required>
+        <input type="text" class="form-control" id="project-name" placeholder="Project name"
+        name="name" [(ngModel)]="project.name" required>
     </div>
     <br/>
     <div class="form-group">
         <label for="client"></label>
-        <input type="text" class="form-control" id="client" placeholder="Client" required>
+        <input type="text" class="form-control" id="client" [(ngModel)]="project.client_id"
+        name="client-id" placeholder="Client" required>
     </div>
     <br/>
     <div class="form-group">
@@ -20,7 +22,8 @@
             <h4>Choose color…</h4>
             <p>Each project will have a specific color that will help you team member recognize super easily.</p>
         </li>
-        <li class="input-color"><input type="color" class="form-control" id="background-color" value="#FFBB47" required></li>
+        <li class="input-color"><input type="color" class="form-control" id="background-color" [(ngModel)]="project.background"
+        name="background" required></li>
     </ul>    
     </div>
     <br/>
@@ -38,6 +41,6 @@
     </ul>
     <br/><br/><hr><br/>
     <button class="active" type="submit">Create New</button>
-    <button type="button">Cancel</button>
+    <button type="button" (click)="log()">Cancel</button>
 </form>
 </div>

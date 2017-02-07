@@ -5,3 +5,6 @@ export class Project {
     report_permission: number;
     tasks: string[];
 }
+export class ProjectPost {
+    project: Project;
+}
