@@ -93,12 +93,8 @@ body{
                 line-height: 24px;
                 margin: 0px;
                 padding: 0px;
-                &#left-btn{
-                    border-radius: 3px 0 0 3px;
-                }
-                &#right-btn{
-                    border-radius: 0 3px 3px 0;
-                }
+                border: solid 1px black;
+                display: inline-block;
                 &.active{
                     background-color: $blueColor;
                     color: white;
@@ -116,10 +112,19 @@ body{
         line-height: 24px;
         margin: 0px;
         padding: 0px;
+        border: solid 1px black;
         margin-right: 10px;
         &.active{
             background-color: $blueColor;
             color: white;
+        }
+        &.add-btn{
+            border: solid 0px white;
+            background: $whiteBorder;
+            width: 16%;
+            height: 42px;
+            border-radius: 50px;
+            color: $fontWhiteBorder;
         }
     }
 }

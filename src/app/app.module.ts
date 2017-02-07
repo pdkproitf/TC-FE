@@ -5,7 +5,7 @@ import { UserService } from './services/user-service';
 import { LocationStrategy, HashLocationStrategy }from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { ToolbarModule, ButtonModule, InputTextModule, MenuModule, AutoCompleteModule, CarouselModule,
-  CalendarModule } from 'primeng/primeng';
+  CalendarModule, DropdownModule } from 'primeng/primeng';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -56,7 +56,8 @@ import { CreateProjectComponent } from './create-project/create-project.componen
     MenuModule,
     AutoCompleteModule,
     CarouselModule,
-    CalendarModule
+    CalendarModule,
+    DropdownModule
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
   AuthenLoggedIn, NotLoggedIn, ProjectService],
