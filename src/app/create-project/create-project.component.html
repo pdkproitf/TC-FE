@@ -11,8 +11,11 @@
     <br/>
     <div class="form-group">
         <label for="client"></label>
-        <input type="text" class="form-control" id="client" [(ngModel)]="project.client_id"
-        name="client-id" placeholder="Client" required>
+        <!--<input type="text" class="form-control" id="client" [(ngModel)]="project.client_id"
+        name="client-id" placeholder="Client" required>-->
+        <select class="form-control"  id="power" required [(ngModel)]="project.client_id" name="select_client_id">
+            <option *ngFor="let client of currentClients" [value]="client.id">{{client.name}}</option>
+        </select>
         <button class="add-btn" (click)="displayDialog()" pButton type="button" label="Add new client..."></button>
     </div>
     <br/>
@@ -42,7 +45,7 @@
     </ul>
     <br/><br/><hr><br/>
     <button class="active" type="submit">Create New</button>
-    <button type="button" (click)="log()">Cancel</button>
+    <button type="button" (click)="cancel()">Cancel</button>
 </form>
 </div>
 <br/>
@@ -53,7 +56,7 @@
         <input style="width:100%;" type="text" class="form-control" id="client-name" placeholder="Client name"
         name="client-name" [(ngModel)]="client.name" required><br/><br/>
         <button class="active" type="submit">Create New</button>
-        <button type="button" (click)="log()">Cancel</button>
+        <button type="button" (click)="undisplayDialog()">Cancel</button>
         </div>
     </form>
     </div>
