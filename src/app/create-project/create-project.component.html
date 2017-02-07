@@ -1,16 +1,22 @@
 <app-member-menu-bar [currentState]="1"></app-member-menu-bar>
 <div class="form-container">
 <h1>Create new project</h1>
-<form>
+<form (ngSubmit)="onSubmit()">
     <h2>General information</h2>
     <div class="form-group">
         <label for="project-name">Project</label>
-        <input type="text" class="form-control" id="project-name" placeholder="Project name" required>
+        <input type="text" class="form-control" id="project-name" placeholder="Project name"
+        name="name" [(ngModel)]="project.name" required>
     </div>
     <br/>
     <div class="form-group">
         <label for="client"></label>
-        <input type="text" class="form-control" id="client" placeholder="Client" required>
+        <!--<input type="text" class="form-control" id="client" [(ngModel)]="project.client_id"
+        name="client-id" placeholder="Client" required>-->
+        <select class="form-control"  id="power" required [(ngModel)]="project.client_id" name="select_client_id">
+            <option *ngFor="let client of currentClients" [value]="client.id">{{client.name}}</option>
+        </select>
+        <button class="add-btn" (click)="displayDialog()" pButton type="button" label="Add new client..."></button>
     </div>
     <br/>
     <div class="form-group">
@@ -20,7 +26,8 @@
             <h4>Choose color…</h4>
             <p>Each project will have a specific color that will help you team member recognize super easily.</p>
         </li>
-        <li class="input-color"><input type="color" class="form-control" id="background-color" value="#FFBB47" required></li>
+        <li class="input-color"><input type="color" class="form-control" id="background-color" [(ngModel)]="project.background"
+        name="background" required></li>
     </ul>    
     </div>
     <br/>
@@ -35,6 +42,22 @@
             <button id="left-btn" [class]="classBtn[0]" (click)="setTypeReport(1)" type="button">PM & Admin</button>
             <button id="right-btn" [class]="classBtn[1]" (click)="setTypeReport(2)" type="button">Everyone</button>
         </li>
-    </ul>    
+    </ul>
+    <br/><br/><hr><br/>
+    <button class="active" type="submit">Create New</button>
+    <button type="button" (click)="cancel()">Cancel</button>
 </form>
 </div>
+<br/>
+<p-dialog header="Add New Client" [(visible)]="display" width="600">
+    <div class="form-container">
+    <form (ngSubmit)="onSubmitClient()">
+        <div class="form-group">
+        <input style="width:100%;" type="text" class="form-control" id="client-name" placeholder="Client name"
+        name="client-name" [(ngModel)]="client.name" required><br/><br/>
+        <button class="active" type="submit">Create New</button>
+        <button type="button" (click)="undisplayDialog()">Cancel</button>
+        </div>
+    </form>
+    </div>
+</p-dialog>

@@ -1,10 +1,12 @@
+import { ClientService } from './services/client-service';
+import { ProjectService } from './services/project-service';
 import { NotLoggedIn } from './services/not-logged-in';
 import { AuthenLoggedIn } from './services/authen-logged-in';
 import { UserService } from './services/user-service';
 import { LocationStrategy, HashLocationStrategy }from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { ToolbarModule, ButtonModule, InputTextModule, MenuModule, AutoCompleteModule, CarouselModule,
-  CalendarModule } from 'primeng/primeng';
+  CalendarModule, DropdownModule, DialogModule } from 'primeng/primeng';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -55,10 +57,12 @@ import { CreateProjectComponent } from './create-project/create-project.componen
     MenuModule,
     AutoCompleteModule,
     CarouselModule,
-    CalendarModule
+    CalendarModule,
+    DropdownModule,
+    DialogModule
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
-  AuthenLoggedIn, NotLoggedIn],
+  AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
