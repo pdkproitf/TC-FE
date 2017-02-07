@@ -15,13 +15,24 @@ export class ClientService {
     }
 
     addClient(clientPost: ClientPost): Promise<any> {
-        let requestUrl = 'https://timecloudbackend.herokuapp.com//api/clients/new';
+        let requestUrl = 'https://timecloudbackend.herokuapp.com/api/clients/new';
         let headers = new Headers();
         this.headersService.createAuthHeaders(headers);
         return this.http
         .post(requestUrl, JSON.stringify(clientPost), {headers: headers})
         .toPromise()
-        .then(res => res.json().data)
+        .then(res => res.json())
+        .catch(this.handleError);
+    }
+
+    getAllClient(): Promise<any> {
+        let requestUrl = 'https://timecloudbackend.herokuapp.com/api/clients/all';
+        let headers = new Headers();
+        this.headersService.createAuthHeaders(headers);
+        return this.http
+        .get(requestUrl, {headers: headers})
+        .toPromise()
+        .then(res => res.json())
         .catch(this.handleError);
     }
 }

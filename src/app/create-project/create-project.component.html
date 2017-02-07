@@ -13,7 +13,7 @@
         <label for="client"></label>
         <input type="text" class="form-control" id="client" [(ngModel)]="project.client_id"
         name="client-id" placeholder="Client" required>
-        <button class="add-btn" pButton type="button" label="Add new client..."></button>
+        <button class="add-btn" (click)="displayDialog()" pButton type="button" label="Add new client..."></button>
     </div>
     <br/>
     <div class="form-group">
@@ -45,3 +45,16 @@
     <button type="button" (click)="log()">Cancel</button>
 </form>
 </div>
+<br/>
+<p-dialog header="Add New Client" [(visible)]="display" width="600">
+    <div class="form-container">
+    <form (ngSubmit)="onSubmitClient()">
+        <div class="form-group">
+        <input style="width:100%;" type="text" class="form-control" id="client-name" placeholder="Client name"
+        name="client-name" [(ngModel)]="client.name" required><br/><br/>
+        <button class="active" type="submit">Create New</button>
+        <button type="button" (click)="log()">Cancel</button>
+        </div>
+    </form>
+    </div>
+</p-dialog>

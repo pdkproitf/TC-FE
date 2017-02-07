@@ -1,3 +1,5 @@
+import { Client, ClientPost } from './../models/client';
+import { ClientService } from './../services/client-service';
 import { Router } from '@angular/router';
 import { Project, ProjectPost } from './../models/project';
 import { Component, OnInit } from '@angular/core';
@@ -13,11 +15,18 @@ export class CreateProjectComponent implements OnInit {
   classBtn: string[] = ['active', ''];
   project: Project = new Project();
   projectPost: ProjectPost = new ProjectPost();
-  constructor(private router: Router, private location: Location) { }
+  client: Client = new Client();
+  clientPost: ClientPost = new ClientPost();
+  display: boolean = false;
+  constructor(private router: Router, private location: Location
+  , private clientService: ClientService) { }
 
   ngOnInit() {
     this.project.report_permission = 1;
     this.project.background = '#FFBB47';
+    this.clientService.getAllClient()
+    .then(res => console.log(res))
+    .catch(error => console.log(error));
   }
 
   setTypeReport(num: number) {
@@ -46,6 +55,22 @@ export class CreateProjectComponent implements OnInit {
     this.projectPost.project = this.project;
     alert(this.projectPost);
     console.log(this.projectPost);
+  }
+
+  displayDialog() {
+    this.display = true;
+  }
+
+  onSubmitClient() {
+    this.clientPost.client = this.client;
+    this.clientService.addClient(this.clientPost)
+    .then(res => {
+      this.display = false;
+      console.log(res);
+    })
+    .catch(error => {
+      console.log(error);
+    });
   }
 
 }
