@@ -13,6 +13,7 @@ export class TimeTrackBarComponent implements OnInit {
   ticks: number = 0;
   timer: Observable<Object>;
   sub: Subscription;
+  classDrop: string[] = ['hidden', 'hidden'];
   constructor() { }
 
   ngOnInit() {
@@ -42,7 +43,7 @@ export class TimeTrackBarComponent implements OnInit {
   }
 
   secondToTime() {
-    let sec_num = this.ticks; 
+    let sec_num = this.ticks;
     let hours   = Math.floor(sec_num / 3600);
     let minutes = Math.floor((sec_num - (hours * 3600)) / 60);
     let seconds = sec_num - (hours * 3600) - (minutes * 60);
@@ -53,5 +54,17 @@ export class TimeTrackBarComponent implements OnInit {
     if (minutes < 10) {minutesString = '0' + minutesString; }
     if (seconds < 10) {secondsString = '0' + secondsString; }
     this.timeCount = hoursString + ':' + minutesString + ':' + secondsString;
+  }
+  onFocus(num: number) {
+    console.log('focus');
+    if (num === 0) {
+      this.classDrop[num] = 'dropdown div-des';
+    }else if (num === 1) {
+      this.classDrop[num] = 'dropdown div-task';
+    }
+  }
+  onBlur(num: number) {
+    console.log('blur');
+    this.classDrop[num] = 'hidden';
   }
 }

@@ -56,3 +56,24 @@
         }
     }
 }
+.dropdown{
+    background: white;
+    box-shadow: 0px 2px 4px $whiteBorder;
+    position: absolute;
+    z-index: 1;
+
+    &.div-des{
+        height: 300px;
+        margin-left: 1%;
+        width: 30%;
+    }
+
+    &.div-task{
+        height: 300px;
+        margin-left: 47%;
+        width: 15%;
+    }
+}
+.hidden{
+    display: none;
+}
