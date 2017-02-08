@@ -39,6 +39,7 @@ export class ManageMemberComponent implements OnInit {
     .then(res => {
       this.newEmployeePost = res;
       this.employeePosts.push(this.newEmployeePost);
+      this.undisplayDialog();
     })
     .catch(err => console.log(err));
   }
