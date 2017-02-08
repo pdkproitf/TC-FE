@@ -10,9 +10,10 @@ export class TimeTrackBarComponent implements OnInit {
   classBtn: String = 'play-btn';
   startTime: String = '00:00';
   timeCount: String = '00:00:00';
-  ticks: number = 0;
+  ticks: number = -1;
   timer: Observable<Object>;
   sub: Subscription;
+  myVar;
   classDrop: string[] = ['hidden', 'hidden'];
   constructor() { }
 
@@ -26,20 +27,37 @@ export class TimeTrackBarComponent implements OnInit {
     let minutesString = current.getMinutes() < 10 ? '0' + current.getMinutes().toString() : current.getMinutes().toString();
     this.startTime = hoursString + ':' + minutesString;
     if (this.classBtn === 'play-btn') {
-      this.sub = this.timer.subscribe(t => this.tickerFunc(t));
+      // this.sub = this.timer.subscribe(t => this.tickerFunc(t));
+      this.ticks = -1;
+      this.myTickerFunc();
+      this.myVar = setInterval(() => {
+        this.myTickerFunc();
+      }
+      , 1000);
     }else {
-      this.stopTimer();
+      // this.stopTimer();
+      this.myStopTimer();
     }
     this.classBtn = this.classBtn === 'play-btn' ? 'stop-btn' : 'play-btn';
   }
 
-  tickerFunc(tick) {
+  /*tickerFunc(tick) {
     this.ticks = tick;
     this.secondToTime();
   }
 
   stopTimer() {
     this.sub.unsubscribe();
+  }*/
+
+  myTickerFunc() {
+    this.ticks += 1;
+    console.log(this.ticks);
+    this.secondToTime();
+  }
+
+  myStopTimer(){
+    clearInterval(this.myVar);
   }
 
   secondToTime() {
@@ -55,6 +73,7 @@ export class TimeTrackBarComponent implements OnInit {
     if (seconds < 10) {secondsString = '0' + secondsString; }
     this.timeCount = hoursString + ':' + minutesString + ':' + secondsString;
   }
+
   onFocus(num: number) {
     console.log('focus');
     if (num === 0) {

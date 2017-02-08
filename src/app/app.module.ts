@@ -1,3 +1,4 @@
+import { MembershipService } from './services/membership-service';
 import { ClientService } from './services/client-service';
 import { ProjectService } from './services/project-service';
 import { NotLoggedIn } from './services/not-logged-in';
@@ -27,6 +28,7 @@ import { VerifyEmailPageComponent } from './verify-email-page/verify-email-page.
 import { DetailDateLogComponent } from './detail-date-log/detail-date-log.component';
 import { ProjectManageComponent } from './project-manage/project-manage.component';
 import { CreateProjectComponent } from './create-project/create-project.component';
+import { ManageMemberComponent } from './manage-member/manage-member.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,8 @@ import { CreateProjectComponent } from './create-project/create-project.componen
     VerifyEmailPageComponent,
     DetailDateLogComponent,
     ProjectManageComponent,
-    CreateProjectComponent
+    CreateProjectComponent,
+    ManageMemberComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +65,7 @@ import { CreateProjectComponent } from './create-project/create-project.componen
     DialogModule
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
-  AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService],
+  AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

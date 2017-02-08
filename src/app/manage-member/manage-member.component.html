@@ -1,0 +1,28 @@
+<app-member-menu-bar [currentState]="4"></app-member-menu-bar>
+<div class="member-manage">
+    <div class="member-list">
+        <h3>Member list: </h3>
+        <hr/>
+        <ul class="employ-list">
+            <li *ngFor="let employeePost of employeePosts; let i = index;">{{employeePost.employee.first_name}} {{employeePost.employee.last_name}}</li>
+        </ul>
+    </div>
+    <div class="member-action">
+        <button class="add-btn" (click)="displayDialog()" pButton type="button" label="Add new member"></button>
+    </div>
+
+    <p-dialog header="Add New Client" [(visible)]="display" width="600">
+        <div class="form-container">
+        <form (ngSubmit)="onSubmitMember()">
+                <div class="form-group">
+                <input style="width:100%;" type="text" class="form-control" id="client-name" placeholder="Email"
+                name="email" [(ngModel)]="membership.email" required><br/><br/>
+                <button class="active" type="submit">Create New</button>
+                <button type="button" (click)="undisplayDialog()">Cancel</button>
+            </div>
+        </form>
+        </div>
+    </p-dialog>
+
+</div>
+
