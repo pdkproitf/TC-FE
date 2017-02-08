@@ -12,7 +12,7 @@
     <tbody *ngFor="let project of projects; let i = index;">
         <tr class="project-line" (click)="projectDetails(project)" (mouseover)='showProjectControl(true, i)' (mouseleave)='showProjectControl(false, i)' >
             <td>
-                <div class="project-avatar" [style.background]="project.background"></div>
+                <div class="project-bacground" [style.background]="project.background"></div>
             </td>
             <td><div class="column-text"> {{project.name}} </div></td>
             <td class="column-text">{{project.client_id}}</td>
@@ -27,7 +27,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="group4" *ngIf="project.tasks.length > 4">
+                <div class="over-member" *ngIf="project.tasks.length > 4">
                     <div class="oval">
                         <div class="text">
                             +{{project.tasks.length - 4}}
@@ -35,7 +35,7 @@
                     </div>
                 </div>
             </td>
-            <td>
+            <td  style="min-width: 128px;">
                 <div class="project-user" id="project-control-{{i}}" style="display: none;">
                     <div class="oval" (click)="save()">
                         <div class="text">

@@ -9,11 +9,11 @@ table {
         padding: 8px;
         text-align: left;
         border-bottom: 1px solid #ddd;
-        .project-avatar{
+        .project-bacground{
             width: 24px;
             height: 24px;
             background: linear-gradient(180deg, #F57C6E 0%, #E84E3E 95.8%, #E74C3C 100%);
-            border-radius: 5px 35px 35px 5px;
+            border-radius: 15px 35px 35px 15px;
         }
         .column-text{
             font-family: Lato;
@@ -51,9 +51,7 @@ table {
                 background: white;
             }
         }
-        .group4{
-            width: 32px;
-            height: 32px;
+        .over-member{
             float: left;
         }
         .action-element{
@@ -67,11 +65,13 @@ table {
     }
     .table-header{
         th{
+            width: 59px;
             height: 17px;
             font-family: Lato;
             font-size: 14px;
             line-height: 17px;
             color: rgba(54,54,54,0.7);
+            font-weight: normal;
         }
     }
     .project-line{
