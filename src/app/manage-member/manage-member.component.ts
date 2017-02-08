@@ -14,14 +14,13 @@ export class ManageMemberComponent implements OnInit {
   membershipPost: MembershipPost = new MembershipPost();
 
   employeePosts: EmployeePost[] = [];
+  newEmployeePost: EmployeePost = new EmployeePost();
   constructor(private membershipService: MembershipService) { }
 
   ngOnInit() {
     this.membershipService.getAllMembership()
       .then(res => {
           this.employeePosts = res;
-          console.log(this.employeePosts);
-          console.log(this.employeePosts[0].employee.first_name);
         })
       .catch(err => console.log(err));
   }
@@ -37,7 +36,10 @@ export class ManageMemberComponent implements OnInit {
   onSubmitMember() {
     this.membershipPost.membership = this.membership;
     this.membershipService.addNewMembership(this.membershipPost)
-    .then(res => console.log(res))
+    .then(res => {
+      this.newEmployeePost = res;
+      this.employeePosts.push(this.newEmployeePost);
+    })
     .catch(err => console.log(err));
   }
 }

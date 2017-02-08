@@ -18,6 +18,9 @@ export class SignUpComponent implements OnInit {
 
   submit(): void {
     this.user.password_confirmation = this.user.password;
+    let arrayName = this.user.name.split(' ');
+    this.user.first_name = arrayName[0];
+    this.user.last_name = arrayName[1];
     this.userPost.user = this.user;
     this.userService.signUp(this.userPost).then(() => {
       this.submitted = true;
