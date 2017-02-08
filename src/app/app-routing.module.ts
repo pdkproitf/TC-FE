@@ -1,3 +1,4 @@
+import { ManageMemberComponent } from './manage-member/manage-member.component';
 import { CreateProjectComponent } from './create-project/create-project.component';
 import { ProjectManageComponent } from './project-manage/project-manage.component';
 import { VerifyEmailPageComponent } from './verify-email-page/verify-email-page.component';
@@ -19,6 +20,7 @@ const routes: Routes = [
     { path: 'verify-email/:text', component: VerifyEmailPageComponent, canActivate: [NotLoggedIn] },
     { path: 'projects', component: ProjectManageComponent, canActivate: [AuthenLoggedIn] },
     { path: 'new-project', component: CreateProjectComponent, canActivate: [AuthenLoggedIn] },
+    { path: 'manage-member', component: ManageMemberComponent, canDeactivate: [AuthenLoggedIn] }
     // { path: '', component: AppComponent }
     // { path: '', redirectTo: '/home', pathMatch: 'full'}
 ];

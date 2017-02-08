@@ -1,0 +1,36 @@
+@import '../general-style/color-style.scss';
+@import '../general-style/font-style.scss';
+
+.member-manage{
+    margin: auto;
+    width: 80%;
+    font-family: $headerFont;
+    font-weight: bold;
+    color: $colorHeader;
+
+    button{
+        width: 121px;
+        height: 42px;
+        background-color: white;
+        font-family: $headerFont;
+        font-size: 16px;
+        text-align: center;
+        line-height: 24px;
+        margin: 0px;
+        padding: 0px;
+        border: solid 1px black;
+        margin-right: 10px;
+        &.active{
+            background-color: $blueColor;
+            color: white;
+        }
+        &.add-btn{
+            border: solid 0px white;
+            background: $whiteBorder;
+            width: 16%;
+            height: 42px;
+            border-radius: 50px;
+            color: $fontWhiteBorder;
+        }
+    }
+}
