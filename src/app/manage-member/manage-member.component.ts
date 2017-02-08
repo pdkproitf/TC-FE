@@ -1,3 +1,5 @@
+import { Membership, MembershipPost } from './../models/membership';
+import { MembershipService } from './../services/membership-service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManageMemberComponent implements OnInit {
   display: boolean = false;
-  constructor() { }
+  membership: Membership = new Membership();
+  membershipPost: MembershipPost = new MembershipPost();
+
+  constructor(private membershipService: MembershipService) { }
 
   ngOnInit() {
+    this.membershipService.getAllMembership()
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
   }
 
   displayDialog() {
@@ -21,6 +29,9 @@ export class ManageMemberComponent implements OnInit {
   }
 
   onSubmitMember() {
-
+    this.membershipPost.membership = this.membership;
+    this.membershipService.addNewMembership(this.membershipPost)
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
   }
 }

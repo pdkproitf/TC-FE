@@ -11,7 +11,7 @@
         <form (ngSubmit)="onSubmitMember()">
                 <div class="form-group">
                 <input style="width:100%;" type="text" class="form-control" id="client-name" placeholder="Email"
-                name="email" required><br/><br/>
+                name="email" [(ngModel)]="membership.email" required><br/><br/>
                 <button class="active" type="submit">Create New</button>
                 <button type="button" (click)="undisplayDialog()">Cancel</button>
             </div>
