@@ -5,21 +5,22 @@
         </th>
         <th (click)="sortProject()" style="cursor: pointer;"><span><i id="sort-project" class="fa fa-angle-down"></i></span></th>
         <th style="width: 20%">Client</th>
-        <th style="width: 10%">Tracked time (h)</th>
-        <th style="width: 40%">Members</th>
+        <th style="width: 12%">Tracked time (h)</th>
+        <th style="width: 20%">Members</th>
+        <th style="width: 20%"></th>
     </tr>
-    <tbody *ngFor="let project of projects">
-        <tr class="group" (click)="projectDetails(project)">
+    <tbody *ngFor="let project of projects; let i = index;">
+        <tr class="project-line" (click)="projectDetails(project)" (mouseover)='showProjectControl(true, i)' (mouseleave)='showProjectControl(false, i)' >
             <td>
-                <div class="project-avatar" [style.background]="project.color"></div>
+                <div class="project-avatar" [style.background]="project.background"></div>
             </td>
             <td><div class="column-text"> {{project.name}} </div></td>
-            <td class="column-text">{{project.company}}</td>
-            <td class="column-text">{{project.company.length * 10}}</td>
+            <td class="column-text">{{project.client_id}}</td>
+            <td class="column-text">{{project.report_permission * 10}}</td>
             <td class="column-text">
-                <div class="group2" >
+                <div class="project-user" >
                     <div *ngFor="let task of project.tasks.slice(0,3)">
-                        <div class="oval" [style.background]="project.color">
+                        <div class="oval" [style.background]="project.background">
                             <div class="text">
                                 {{task}}
                             </div>
@@ -34,7 +35,25 @@
                     </div>
                 </div>
             </td>
+            <td>
+                <div class="project-user" id="project-control-{{i}}" style="display: none;">
+                    <div class="oval" (click)="save()">
+                        <div class="text">
+                            <i class="fa fa-download" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="oval" (click)="delete()">
+                        <div class="text">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="oval" (click)="edit()">
+                        <div class="text">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+            </td>
         </tr>
     </tbody>
-
 </table>

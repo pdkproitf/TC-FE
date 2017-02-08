@@ -22,7 +22,23 @@ table {
             line-height: 24px;
             color: #363636;
         }
-        .group2{
+        .oval{
+            width: 32px;
+            height: 32px;
+            background-color: #EEEEEE;
+            border-radius: 50%;
+            .text{
+                height: 17px;
+                font-family: Lato;
+                font-size: 14px;
+                font-weight: bold;
+                line-height: 17px;
+                text-align: center;
+                padding-top: 8px;
+                color: rgba(54,54,54,0.7);
+            }
+        }
+        .project-user{
             width: 128px;
             height: 32px;
             float: left;
@@ -32,33 +48,25 @@ table {
                 height: 32px;
                 border-radius: 50%;
                 float: left;
+                background: white;
             }
         }
         .group4{
             width: 32px;
             height: 32px;
             float: left;
-            .oval{
-                width: 32px;
-                height: 32px;
-                background-color: #EEEEEE;
-                border-radius: 50%;
-            }
         }
-        .text{
-            height: 17px;
-            font-family: Lato;
-            font-size: 14px;
-            font-weight: bold;
-            line-height: 17px;
-            text-align: center;
-            padding-top: 8px;
-            color: rgba(54,54,54,0.7);
+        .action-element{
+            width: 32px;
+            height: 32px;
+            .oval{
+                text-align: center;
+                padding-top: 8px;
+            }
         }
     }
     .table-header{
         th{
-            width: 59px;
             height: 17px;
             font-family: Lato;
             font-size: 14px;
@@ -66,11 +74,10 @@ table {
             color: rgba(54,54,54,0.7);
         }
     }
-    .group{
+    .project-line{
         width: 825px;
         height:70px;
         cursor: pointer;
-
     }
     tr:hover{background-color:#f5f5f5}
 }

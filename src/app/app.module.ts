@@ -30,6 +30,7 @@ import { ProjectManageComponent } from './project-manage/project-manage.componen
 import { CreateProjectComponent } from './create-project/create-project.component';
 import { ManageMemberComponent } from './manage-member/manage-member.component';
 import { ProjectListComponent } from './project-list/project-list.component';
+import { TableComponent } from './table/table.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { ProjectListComponent } from './project-list/project-list.component';
     ProjectManageComponent,
     CreateProjectComponent,
     ManageMemberComponent,
-    ProjectListComponent
+    ProjectListComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule,

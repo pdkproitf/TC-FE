@@ -7,44 +7,50 @@ import { Project } from '../models/project';
     styleUrls: ['./project-list.component.scss'],
 })
 export class ProjectListComponent implements OnInit {
-    project_lists: Project[]=[
+    project_lists: Project[]= [
         {
-            color: '#1abc9c',
-            name: 'Admin',
-            tasks: ['Task1', 'Task2', 'Task3', 'Task 4', 'Task 5', 'Task 6'],
-            company: 'CES',
+            name: 'Temp Project',
+            tasks: ['Task1', 'Task2', 'Task3', 'Task 4', 'Task 5'],
+            client_id: 1,
+            report_permission: 2,
+            background: '#1abc9c',
         },
         {
-            color: '#2ecc71',
-            name: 'Framer',
+            name: 'Temp Project 1',
             tasks: ['Task1', 'Task2', 'Task3'],
-            company: 'picture Plush',
+            client_id: 1,
+            report_permission: 2,
+            background: '#2ecc71',
         },
         {
-            color: '#3498db',
-            name: 'Flo Capital',
+            name: 'Temp Project 2',
             tasks: ['Task1', 'Task2', 'Task3'],
-            company: 'Russ',
+            client_id: 1,
+            report_permission: 2,
+            background: '#3498db',
         },
         {
-            color: '#f1c40f',
-            name: 'Logic Tech',
+            name: 'Temp Project 3',
             tasks: ['Task1', 'Task2', 'Task3'],
-            company: 'Adam',
+            client_id: 1,
+            report_permission: 2,
+            background: '#f1c40f',
         },
         {
-            color: '#d35400',
-            name: 'Training',
+            name: 'Temp Project 4',
             tasks: ['Task1', 'Task2', 'Task3'],
-            company: 'CES',
+            client_id: 1,
+            report_permission: 2,
+            background: '#d35400',
         },
         {
-            color: '#e74c3c',
-            name: 'Virtuo',
+            name: 'Temp Project 5',
             tasks: ['Task1', 'Task2', 'Task3'],
-            company: 'Zilly',
+            client_id: 1,
+            report_permission: 2,
+            background: '#e74c3c',
         }
-    ]
+    ];
     constructor() { }
 
     ngOnInit() {
