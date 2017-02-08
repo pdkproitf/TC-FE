@@ -1,0 +1,40 @@
+<table class="table-content">
+    <tr class="table-header">
+        <th style="width: 2%;" >
+            Project
+        </th>
+        <th (click)="sortProject()" style="cursor: pointer;"><span><i id="sort-project" class="fa fa-angle-down"></i></span></th>
+        <th style="width: 20%">Client</th>
+        <th style="width: 10%">Tracked time (h)</th>
+        <th style="width: 40%">Members</th>
+    </tr>
+    <tbody *ngFor="let project of projects">
+        <tr class="group" (click)="projectDetails(project)">
+            <td>
+                <div class="project-avatar" [style.background]="project.color"></div>
+            </td>
+            <td><div class="column-text"> {{project.name}} </div></td>
+            <td class="column-text">{{project.company}}</td>
+            <td class="column-text">{{project.company.length * 10}}</td>
+            <td class="column-text">
+                <div class="group2" >
+                    <div *ngFor="let task of project.tasks.slice(0,3)">
+                        <div class="oval" [style.background]="project.color">
+                            <div class="text">
+                                {{task}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="group4" *ngIf="project.tasks.length > 4">
+                    <div class="oval">
+                        <div class="text">
+                            +{{project.tasks.length - 4}}
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+
+</table>

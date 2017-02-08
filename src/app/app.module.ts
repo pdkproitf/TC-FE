@@ -29,6 +29,7 @@ import { DetailDateLogComponent } from './detail-date-log/detail-date-log.compon
 import { ProjectManageComponent } from './project-manage/project-manage.component';
 import { CreateProjectComponent } from './create-project/create-project.component';
 import { ManageMemberComponent } from './manage-member/manage-member.component';
+import { ProjectListComponent } from './project-list/project-list.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { ManageMemberComponent } from './manage-member/manage-member.component';
     DetailDateLogComponent,
     ProjectManageComponent,
     CreateProjectComponent,
-    ManageMemberComponent
+    ManageMemberComponent,
+    ProjectListComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +64,7 @@ import { ManageMemberComponent } from './manage-member/manage-member.component';
     CarouselModule,
     CalendarModule,
     DropdownModule,
-    DialogModule
+    DialogModule,
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
   AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService],
