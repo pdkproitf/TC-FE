@@ -7,7 +7,7 @@ export class Member {
     user_id: number;
 }
 
-export class Category {
+export class ExistingCategory {
     category_id: number;
     members: Member[] = [];
     billable: boolean;
@@ -20,7 +20,7 @@ export class NewCategory {
 }
 
 export class CategoryMembers {
-    existing: Category[] = [];
+    existing: ExistingCategory[] = [];
     new_one: NewCategory[] = [];
 }
 
