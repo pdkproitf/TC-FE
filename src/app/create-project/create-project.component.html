@@ -20,7 +20,7 @@
     </div>
     <br/>
     <div class="form-group">
-        <ul class="permissions">
+        <ul class="choosing-color">
         <li class="bck-color"><label for="background-color">Background color</label></li>
         <li class="col-des">
             <h4>Choose color…</h4>
@@ -31,6 +31,32 @@
     </ul>    
     </div>
     <br/>
+
+    <h2>Team members</h2>
+    <div class = "team-member">
+        <table class="member-table">
+            <tr>
+                <th class="delete"></th>
+                <th class="people-name">People</th>
+                <th class="p-m">Project Manager</th>
+            </tr>
+            <tr class="data">
+                <td><button pButton type="button" icon="fa-times"></button></td>
+                <td>Person's name...</td>
+                <td><input type="checkbox"></td>
+            </tr>
+        </table>
+        <input class="add-btn" (focus)="displayDiv()" (blur)="undisplayDiv()" type="text" [value]="searchName">
+        <a href="#">Add all people</a>
+        <div class="notice">
+            <p>Need to add someone?</p>
+            <p>Go to <a routerLink="/manage-member">Manage</a> to invite them to TimeCloud</p>
+        </div>
+        <div [class]="classDiv">
+        </div>
+    </div>
+    <br/>
+
     <h2>Permissions</h2>
     <ul class="permissions">
         <li class="rep"><h4>Report</h4></li>

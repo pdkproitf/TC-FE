@@ -32,7 +32,7 @@ export class ProjectFieldComponent implements OnInit {
     }
     this.classBtns[i] = this.classBtns[i] === 'play-btn' ? 'stop-btn' : 'play-btn';
   }
-  
+
   change(newValue) {
     console.log('newvalue', newValue);
     this._sharedVar = newValue;

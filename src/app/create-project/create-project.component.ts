@@ -20,6 +20,8 @@ export class CreateProjectComponent implements OnInit {
   client: Client = new Client();
   clientPost: ClientPost = new ClientPost();
   display: boolean = false;
+  classDiv: string = 'hidden';
+  searchName: string = 'Add more people...';
   constructor(private router: Router, private location: Location
   , private clientService: ClientService, private projectService: ProjectService) { }
 
@@ -90,6 +92,16 @@ export class CreateProjectComponent implements OnInit {
     .catch(error => {
       console.log(error);
     });
+  }
+
+  displayDiv() {
+    this.classDiv = 'member-to-add';
+    this.searchName = '';
+  }
+
+  undisplayDiv() {
+    this.classDiv = 'hidden';
+    this.searchName = 'Add more people...';
   }
 
 }
