@@ -30,7 +30,9 @@ import { ProjectManageComponent } from './project-manage/project-manage.componen
 import { CreateProjectComponent } from './create-project/create-project.component';
 import { ManageMemberComponent } from './manage-member/manage-member.component';
 import { ProjectListComponent } from './project-list/project-list.component';
+import { ProjectDetailsComponent } from './project-details/project-details.component';
 import { TableComponent } from './table/table.component';
+import {PaginatorModule} from 'primeng/primeng';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,8 @@ import { TableComponent } from './table/table.component';
     CreateProjectComponent,
     ManageMemberComponent,
     ProjectListComponent,
-    TableComponent
+    TableComponent,
+    ProjectDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -67,6 +70,7 @@ import { TableComponent } from './table/table.component';
     CalendarModule,
     DropdownModule,
     DialogModule,
+    PaginatorModule
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
   AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService],
