@@ -65,6 +65,7 @@ body{
         padding: 0;
         margin: 0;
         padding-bottom: 20px;
+        padding-top: 20px;
         li{
             margin-top:0;
             display: inline-block;
@@ -133,6 +134,99 @@ body{
             height: 42px;
             border-radius: 50px;
             color: $fontWhiteBorder;
+        }
+    }
+    .team-member{
+        .member-table{
+            width:89%;
+            margin-left: 11%;
+            text-align: left;
+            tr{
+                th{
+                    font-weight: normal;
+                    color: $fontWhiteBorder;
+                    &.delete{
+                        width:3%;
+                    }
+                    &.people-name{
+                        width: 67%;
+                    }
+                    &.p-m{
+                        width: 30%;
+                    }
+                }
+                input{
+                    box-shadow: none;
+                }
+                &.data{
+                    box-shadow: inset 0 -1px 0 0 rgba(54,54,54,0.3);
+                }
+                button{
+                    color: $fontWhiteBorder;
+                    background-color: transparent;
+                    width: auto;
+                    height: auto;
+                    margin-right: 0;
+                    border: none;
+                }
+            }
+        }
+        .add-btn
+        {
+            border: solid 0px white;
+            background: $whiteBorder;
+            width: 16%;
+            height: 32px;
+            border-radius: 50px;
+            color: $fontWhiteBorder;
+            font-size: 16px;
+            text-align: center;
+            margin-left: 16%;
+        }
+        .notice{
+            float: right;
+            margin: 0;
+            p{
+                margin: 0;
+            }
+        }
+        .member-to-add{
+            width: 300px;
+            height: auto;
+            background: white;
+            position: absolute;
+            z-index: 1;
+            margin-left: 8%;
+            box-shadow: 0px 1px 1px rgba(54,54,54,0.3);
+            &::after{
+                content: "  ";
+                height: 24px;
+                position: absolute;
+                bottom: 100%;
+                left: 50%;
+                margin-left: -5px;
+                border-width: 10px;
+                border-style: solid;
+                border-color: transparent transparent white transparent;
+            }
+            ul{
+                width: 100%;
+                display: table;
+                text-align: center;
+                font-weight: normal;
+                li{
+                    width: 100%;
+                    display:block;
+                    &:hover{
+                        background-color: $blueColor;
+                        color: white;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+        .hidden{
+            display:none;
         }
     }
 }
