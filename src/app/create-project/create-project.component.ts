@@ -1,8 +1,10 @@
+import { EmployeePost, Employee } from './../models/employee';
+import { MembershipService } from './../services/membership-service';
 import { ProjectService } from './../services/project-service';
 import { Client, ClientPost } from './../models/client';
 import { ClientService } from './../services/client-service';
 import { Router } from '@angular/router';
-import { Project, ProjectPost } from './../models/project';
+import { Project, ProjectPost, MemberRole } from './../models/project';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 
@@ -22,12 +24,20 @@ export class CreateProjectComponent implements OnInit {
   display: boolean = false;
   classDiv: string = 'hidden';
   searchName: string = 'Add more people...';
+  employeePosts: EmployeePost[] = [];
+  employeePostsSearch: EmployeePost[] = [];
+  searchVar;
+  employeesToAdd: Employee[] = [];
+  employeesRoleToAdd: boolean[] = [];
+
   constructor(private router: Router, private location: Location
-  , private clientService: ClientService, private projectService: ProjectService) { }
+  , private clientService: ClientService, private projectService: ProjectService,
+  private membershipService: MembershipService) { }
 
   ngOnInit() {
     this.project.report_permission = 1;
     this.project.background = '#FFBB47';
+
     this.clientService.getAllClient()
     .then(res => {
       let len = res.length;
@@ -35,9 +45,15 @@ export class CreateProjectComponent implements OnInit {
       for ( let i = 0; i < len; i++) {
         this.currentClients.push(res[i]);
         }
-      console.log(this.currentClients);
     })
     .catch(error => console.log(error));
+
+    this.membershipService.getAllMembership()
+    .then(res => {
+      this.employeePosts = res;
+      this.employeePostsSearch = this.employeePosts;
+    })
+    .catch(err => console.log(err));
   }
 
   setTypeReport(num: number) {
@@ -55,6 +71,7 @@ export class CreateProjectComponent implements OnInit {
   }
 
   log() {
+    this.updateMemberRoleToProject();
     console.log(this.project);
   }
 
@@ -63,6 +80,7 @@ export class CreateProjectComponent implements OnInit {
   }
 
   onSubmit() {
+    this.updateMemberRoleToProject();
     this.projectPost.project = this.project;
     this.projectService.addProject(this.projectPost)
     .then(res => {
@@ -102,6 +120,52 @@ export class CreateProjectComponent implements OnInit {
   undisplayDiv() {
     this.classDiv = 'hidden';
     this.searchName = 'Add more people...';
+    this.employeePostsSearch = this.employeePosts;
   }
 
+  addEmployee(arg) {
+    if (this.employeesToAdd.indexOf(arg) < 0) {
+      this.employeesToAdd.push(arg);
+      this.employeesRoleToAdd.push(false);
+    }
+  }
+
+  removeEmployee(arg) {
+    if (this.employeesToAdd.indexOf(arg) > -1) {
+      let i = this.employeesToAdd.indexOf(arg);
+      this.employeesToAdd.splice(i, 1);
+      this.employeesRoleToAdd.splice(i, 1);
+    }
+  }
+
+  keyUpSearch() {
+    clearTimeout(this.searchVar);
+    this.searchVar = setTimeout(() => {
+      this.updateEmployeePostsSearch();
+    }, 2000);
+  }
+
+  updateEmployeePostsSearch() {
+    let key = this.searchName;
+    let len = this.employeePosts.length;
+    this.employeePostsSearch = [];
+    console.log(key);
+    for (let i = 0; i < len; i++) {
+      let obj = this.employeePosts[i];
+      if ( obj.employee.first_name.indexOf(key) > -1 || obj.employee.last_name.indexOf(key) > -1) {
+        this.employeePostsSearch.push(obj);
+      }
+    }
+  }
+
+  updateMemberRoleToProject() {
+    let len = this.employeesToAdd.length;
+    this.project.member_roles = [];
+    for (let i = 0; i < len; i++) {
+      let memberRole = new MemberRole();
+      memberRole.user_id = this.employeesToAdd[i].id;
+      memberRole.role_id = this.employeesRoleToAdd[i] ? 1 : null;
+      this.project.member_roles.push(memberRole);
+    }
+  }
 }

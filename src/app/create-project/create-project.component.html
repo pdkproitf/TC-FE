@@ -40,19 +40,25 @@
                 <th class="people-name">People</th>
                 <th class="p-m">Project Manager</th>
             </tr>
-            <tr class="data">
-                <td><button pButton type="button" icon="fa-times"></button></td>
-                <td>Person's name...</td>
-                <td><input type="checkbox"></td>
+            <tr class="data" *ngFor="let em of employeesToAdd; let id = index;">
+                <td><button pButton type="button" icon="fa-times" (click)="removeEmployee(em)"></button></td>
+                <td>{{em.first_name}} {{em.last_name}}</td>
+                <td><input type="checkbox" [(ngModel)]="employeesRoleToAdd[id]" name="employeesRole{{id}}"></td>
             </tr>
         </table>
-        <input class="add-btn" (focus)="displayDiv()" (blur)="undisplayDiv()" type="text" [value]="searchName">
+        <br/>
+        <input class="add-btn" (focus)="displayDiv()" (blur)="undisplayDiv()" (keyup)="keyUpSearch()" type="text" name="search-name"
+        [(ngModel)]="searchName">
         <a href="#">Add all people</a>
         <div class="notice">
             <p>Need to add someone?</p>
             <p>Go to <a routerLink="/manage-member">Manage</a> to invite them to TimeCloud</p>
         </div>
         <div [class]="classDiv">
+        <!--<div class="member-to-add">-->
+            <ul class="member-list">
+                <li *ngFor="let em of employeePostsSearch; let i = index;" (click)="addEmployee(em.employee)">{{em.employee.first_name}} {{em.employee.last_name}}</li>
+            </ul>
         </div>
     </div>
     <br/>

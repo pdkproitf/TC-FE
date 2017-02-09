@@ -65,6 +65,7 @@ body{
         padding: 0;
         margin: 0;
         padding-bottom: 20px;
+        padding-top: 20px;
         li{
             margin-top:0;
             display: inline-block;
@@ -191,7 +192,7 @@ body{
         }
         .member-to-add{
             width: 300px;
-            height: 100px;
+            height: auto;
             background: white;
             position: absolute;
             z-index: 1;
@@ -207,6 +208,21 @@ body{
                 border-width: 10px;
                 border-style: solid;
                 border-color: transparent transparent white transparent;
+            }
+            ul{
+                width: 100%;
+                display: table;
+                text-align: center;
+                font-weight: normal;
+                li{
+                    width: 100%;
+                    display:block;
+                    &:hover{
+                        background-color: $blueColor;
+                        color: white;
+                        cursor: pointer;
+                    }
+                }
             }
         }
         .hidden{
