@@ -89,7 +89,7 @@ export class CreateProjectComponent implements OnInit {
       console.log(error);
     });
   }
-
+// ---------------------Adding members to projects---------->
   displayDialog() {
     this.display = true;
   }
@@ -174,3 +174,5 @@ export class CreateProjectComponent implements OnInit {
     this.employeesRoleToAdd[i] = arg;
   }
 }
+// --------------------------------End Adding member ---------------->
+// -------------------------------Adding Tasks --------------------->

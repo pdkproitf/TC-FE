@@ -136,6 +136,7 @@ body{
             color: $fontWhiteBorder;
         }
     }
+    // -------------------------------- Team members --------------------------------
     .team-member{
         .member-table{
             width:89%;
@@ -227,6 +228,28 @@ body{
         }
         .hidden{
             display:none;
+        }
+    }
+    // -------------------------------- end Team member --------------------------------
+    // -------------------------------- Adding Tasks --------------------------------
+    .tasks{
+        .tasks-table{
+            text-align: left;
+            tr{
+                th{
+                    font-weight: normal;
+                    color: $fontWhiteBorder;
+                    &.delete-name{
+                        width: 5%;
+                    }
+                    &.member-list{
+                        width: 60%;
+                    }
+                    &.billable{
+                        width: 30%;
+                    }
+                }
+            }
         }
     }
 }

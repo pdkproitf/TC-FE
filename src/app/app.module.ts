@@ -1,3 +1,4 @@
+import { CategoryService } from './services/category-service';
 import { MembershipService } from './services/membership-service';
 import { ClientService } from './services/client-service';
 import { ProjectService } from './services/project-service';
@@ -69,7 +70,7 @@ import { TableComponent } from './table/table.component';
     DialogModule,
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
-  AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService],
+  AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
