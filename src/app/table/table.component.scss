@@ -1,10 +1,10 @@
 .table-content{
     margin: auto;;
+    width: 80%;
 }
 
 table {
     border-collapse: collapse;
-    width: 80%;
     th, td {
         padding: 8px;
         text-align: left;
@@ -80,4 +80,42 @@ table {
         cursor: pointer;
     }
     tr:hover{background-color:#f5f5f5}
+}
+
+/deep/.ui-paginator{
+    display: inline-block;
+    width: 100%;
+    padding: 10px 0px 10px 0px;
+    background: white;
+    font-family: -webkit-body;
+    border: 0px;
+    margin-bottom: 10px;
+    .ui-paginator-page{
+        padding: 8px 16px;
+        text-decoration: none;
+        line-height: 1.42857143;
+        cursor: pointer;
+        border-radius: 50% !important;
+        border: forestgreen;
+        background: #f5f5f5;
+        color: black;
+    }
+    .ui-paginator-next, .ui-paginator-prev, .ui-paginator-last, .ui-paginator-first{
+        border-radius: 50% !important;
+        background: #f5f5f5;
+        border: 0px;
+        padding: 8px 16px;
+        line-height: 1.42857143;
+    }
+
+    .ui-paginator-next:hover:not(.ui-state-disabled),
+    .ui-paginator-prev:hover:not(.ui-state-disabled),
+    .ui-paginator-last:hover:not(.ui-state-disabled),
+    .ui-paginator-first:hover:not(.ui-state-disabled) {background-color: #ddd; color: black;}
+
+    .ui-paginator-page.ui-state-active{
+        background: green;
+        color: white;
+    }
+    .ui-paginator-page:hover  {background-color: #ddd; color: black;}
 }
