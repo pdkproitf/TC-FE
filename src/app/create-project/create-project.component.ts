@@ -29,7 +29,6 @@ export class CreateProjectComponent implements OnInit {
   searchVar;
   employeesToAdd: Employee[] = [];
   employeesRoleToAdd: boolean[] = [];
-
   constructor(private router: Router, private location: Location
   , private clientService: ClientService, private projectService: ProjectService,
   private membershipService: MembershipService) { }
@@ -128,6 +127,7 @@ export class CreateProjectComponent implements OnInit {
       this.employeesToAdd.push(arg);
       this.employeesRoleToAdd.push(false);
     }
+    this.undisplayDiv();
   }
 
   removeEmployee(arg) {
