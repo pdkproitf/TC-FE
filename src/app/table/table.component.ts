@@ -35,14 +35,13 @@ export class TableComponent implements OnInit {
 
     // link to peoject detail page
     projectDetails(project: Project) {
-        // this.router.navigate(['#']);
+        this.router.navigate(['/project-details', 1]);
     }
 
     // show or hide project control each row
     showProjectControl(isShow: boolean, name: String){
-        console.log(isShow);
         if(isShow) $('#project-control-'+name).show();
-        else $('#project-control-'+name).hide();
+        else       $('#project-control-'+name).hide();
     }
 
     // go to in here after click to SAVE button

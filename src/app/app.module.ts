@@ -31,6 +31,7 @@ import { CreateProjectComponent } from './create-project/create-project.componen
 import { ManageMemberComponent } from './manage-member/manage-member.component';
 import { ProjectListComponent } from './project-list/project-list.component';
 import { TableComponent } from './table/table.component';
+import { ProjectDetailsComponent } from './project-details/project-details.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { TableComponent } from './table/table.component';
     CreateProjectComponent,
     ManageMemberComponent,
     ProjectListComponent,
-    TableComponent
+    TableComponent,
+    ProjectDetailsComponent
   ],
   imports: [
     BrowserModule,
