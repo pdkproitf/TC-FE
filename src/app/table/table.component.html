@@ -1,0 +1,59 @@
+<table class="table-content">
+    <tr class="table-header">
+        <th style="width: 2%;" >
+            Project
+        </th>
+        <th (click)="sortProject()" style="cursor: pointer;"><span><i id="sort-project" class="fa fa-angle-down"></i></span></th>
+        <th style="width: 20%">Client</th>
+        <th style="width: 12%">Tracked time (h)</th>
+        <th style="width: 20%">Members</th>
+        <th style="width: 20%"></th>
+    </tr>
+    <tbody *ngFor="let project of projects; let i = index;">
+        <tr class="project-line" (click)="projectDetails(project)" (mouseover)='showProjectControl(true, i)' (mouseleave)='showProjectControl(false, i)' >
+            <td>
+                <div class="project-bacground" [style.background]="project.background"></div>
+            </td>
+            <td><div class="column-text"> {{project.name}} </div></td>
+            <td class="column-text">{{project.client_id}}</td>
+            <td class="column-text">{{project.report_permission * 10}}</td>
+            <td class="column-text">
+                <div class="project-user" >
+                    <div *ngFor="let task of project.tasks.slice(0,3)">
+                        <div class="oval" [style.background]="project.background">
+                            <div class="text">
+                                {{task}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="over-member" *ngIf="project.tasks.length > 4">
+                    <div class="oval">
+                        <div class="text">
+                            +{{project.tasks.length - 4}}
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td  style="min-width: 128px;">
+                <div class="project-user" id="project-control-{{i}}" style="display: none;">
+                    <div class="oval" (click)="save()">
+                        <div class="text">
+                            <i class="fa fa-download" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="oval" (click)="delete()">
+                        <div class="text">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="oval" (click)="edit()">
+                        <div class="text">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
