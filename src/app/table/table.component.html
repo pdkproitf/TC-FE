@@ -12,25 +12,25 @@
     <tbody *ngFor="let project of projects; let i = index;">
         <tr class="project-line" (click)="projectDetails(project)" (mouseover)='showProjectControl(true, i)' (mouseleave)='showProjectControl(false, i)' >
             <td>
-                <div class="project-bacground" [style.background]="project.background"></div>
+                <div class="project-bacground" [style.background]="project.default.background"></div>
             </td>
-            <td><div class="column-text"> {{project.name}} </div></td>
-            <td class="column-text">{{project.client_id}}</td>
-            <td class="column-text">{{project.report_permission * 10}}</td>
+            <td><div class="column-text"> {{project.default.name}} </div></td>
+            <td class="column-text">{{project.client.name}}</td>
+            <td class="column-text">{{project.tracked_time}}</td>
             <td class="column-text">
                 <div class="project-user" >
-                    <div *ngFor="let task of project.tasks.slice(0,3)">
-                        <div class="oval" [style.background]="project.background">
+                    <div *ngFor="let member of project.members.slice(0,3)">
+                        <div class="oval" [style.background]="project.default.background">
                             <div class="text">
-                                {{task}}
+                                {{member.first_name}}
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="over-member" *ngIf="project.tasks.length > 4">
+                <div class="over-member" *ngIf="project.members.length > 4">
                     <div class="oval">
                         <div class="text">
-                            +{{project.tasks.length - 4}}
+                            +{{project.members.length - 4}}
                         </div>
                     </div>
                 </div>
