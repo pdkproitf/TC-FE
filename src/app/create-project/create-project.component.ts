@@ -168,4 +168,9 @@ export class CreateProjectComponent implements OnInit {
       this.project.member_roles.push(memberRole);
     }
   }
+
+  chbFunc(arg, i) {
+    console.log(arg);
+    this.employeesRoleToAdd[i] = arg;
+  }
 }
