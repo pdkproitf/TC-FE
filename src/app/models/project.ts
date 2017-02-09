@@ -13,9 +13,15 @@ export class Category {
     billable: boolean;
 }
 
+export class NewCategory {
+    category_name: string;
+    members: Member[] = [];
+    billable: boolean;
+}
+
 export class CategoryMembers {
     existing: Category[] = [];
-    new_one: Category[] = [];
+    new_one: NewCategory[] = [];
 }
 
 export class Project {
