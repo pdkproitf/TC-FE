@@ -32,6 +32,7 @@ import { CreateProjectComponent } from './create-project/create-project.componen
 import { ManageMemberComponent } from './manage-member/manage-member.component';
 import { ProjectListComponent } from './project-list/project-list.component';
 import { TableComponent } from './table/table.component';
+import {PaginatorModule} from 'primeng/primeng';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { TableComponent } from './table/table.component';
     CalendarModule,
     DropdownModule,
     DialogModule,
+    PaginatorModule
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
   AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService],
