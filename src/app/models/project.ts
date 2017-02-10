@@ -31,7 +31,7 @@ export class Project {
     report_permission: number;
     tasks: string[] = [];
     member_roles: MemberRole[] = [];
-    category_members: CategoryMembers;
+    category_members: CategoryMembers = new CategoryMembers();
 }
 
 export class ProjectPost {
