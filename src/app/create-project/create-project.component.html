@@ -20,7 +20,7 @@
     </div>
     <br/>
     <div class="form-group">
-        <ul class="permissions">
+        <ul class="choosing-color">
         <li class="bck-color"><label for="background-color">Background color</label></li>
         <li class="col-des">
             <h4>Choose color…</h4>
@@ -31,6 +31,38 @@
     </ul>    
     </div>
     <br/>
+
+    <h2>Team members</h2>
+    <div class = "team-member">
+        <table class="member-table">
+            <tr>
+                <th class="delete"></th>
+                <th class="people-name">People</th>
+                <th class="p-m">Project Manager</th>
+            </tr>
+            <tr class="data" *ngFor="let em of employeesToAdd; let id = index;">
+                <td><button pButton type="button" icon="fa-times" (click)="removeEmployee(em)"></button></td>
+                <td>{{em.first_name}} {{em.last_name}}</td>
+                <td><input type="checkbox" [value]="employeesRoleToAdd[id]"></td>
+            </tr>
+        </table>
+        <br/>
+        <input class="add-btn" (focus)="displayDiv()" (keyup)="keyUpSearch()" type="text" name="search-name"
+        [(ngModel)]="searchName">
+        <a href="#">Add all people</a>
+        <div class="notice">
+            <p>Need to add someone?</p>
+            <p>Go to <a routerLink="/manage-member">Manage</a> to invite them to TimeCloud</p>
+        </div>
+        <div [class]="classDiv">
+        <!--<div class="member-to-add">-->
+            <ul class="member-list">
+                <li *ngFor="let em of employeePostsSearch; let i = index;" (click)="addEmployee(em.employee)">{{em.employee.first_name}} {{em.employee.last_name}}</li>
+            </ul>
+        </div>
+    </div>
+    <br/>
+
     <h2>Permissions</h2>
     <ul class="permissions">
         <li class="rep"><h4>Report</h4></li>
