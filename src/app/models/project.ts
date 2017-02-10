@@ -10,7 +10,7 @@ export class Member {
     user_id: number;
 }
 
-export class Category {
+export class ExistingCategory {
     category_id: number;
     members: Member[] = [];
     billable: boolean;
@@ -23,7 +23,7 @@ export class NewCategory {
 }
 
 export class CategoryMembers {
-    existing: Category[] = [];
+    existing: ExistingCategory[] = [];
     new_one: NewCategory[] = [];
 }
 
@@ -41,7 +41,7 @@ export class Project {
     report_permission: number;
     tasks: string[] = [];
     member_roles: MemberRole[] = [];
-    category_members: CategoryMembers;
+    category_members: CategoryMembers = new CategoryMembers();
 }
 
 export class ProjectRecieve {

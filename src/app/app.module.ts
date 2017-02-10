@@ -1,3 +1,4 @@
+import { CategoryService } from './services/category-service';
 import { MembershipService } from './services/membership-service';
 import { ClientService } from './services/client-service';
 import { ProjectService } from './services/project-service';
@@ -71,7 +72,7 @@ import {PaginatorModule} from 'primeng/primeng';
     PaginatorModule
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
-  AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService],
+  AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
