@@ -1,5 +1,5 @@
-import { ProjectRecieve }  from '../models/project';
 import { Component, OnInit, Input, OnChanges, SimpleChange } from '@angular/core';
+import { ProjectRecieve }   from '../models/project';
 import { Router }           from '@angular/router';
 declare var $:any;
 
@@ -49,7 +49,7 @@ export class TableComponent implements OnInit, OnChanges {
 
     // link to peoject detail page
     projectDetails(project: ProjectRecieve) {
-        // this.router.navigate(['#']);
+        this.router.navigate(['/project-details', project.default.id]);
     }
 
     // show or hide project control each row
