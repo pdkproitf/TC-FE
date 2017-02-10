@@ -1,0 +1,38 @@
+<app-member-menu-bar [currentState]="1"></app-member-menu-bar>
+<div class="content">
+    <div class="project-title">
+        <div class="project-background"></div>
+        <div class="project-background project-inform">
+            <div class="client">
+                <!-- {{project.name}} -->
+                Picture Plus
+            </div>
+            <div class="project-name">
+                <!-- {{project.name}} -->
+                Framer
+            </div>
+            <div class="tracked">
+                <strong>450</strong> houres tracked
+            </div>
+        </div>
+        <div class="project-control">
+            <div class="project-user">
+                <div class="oval" (click)="save()">
+                    <div class="text">
+                        <i class="fa fa-download" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <div class="oval" (click)="delete()">
+                    <div class="text">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <div class="oval" (click)="edit()">
+                    <div class="text">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

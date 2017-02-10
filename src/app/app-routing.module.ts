@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ProjectDetailsComponent } from './project-details/project-details.component'
 
 const routes: Routes = [
     { path: 'sign-up', component: SignUpComponent, canActivate: [NotLoggedIn] },
@@ -20,7 +21,8 @@ const routes: Routes = [
     { path: 'verify-email/:text', component: VerifyEmailPageComponent, canActivate: [NotLoggedIn] },
     { path: 'projects', component: ProjectManageComponent, canActivate: [AuthenLoggedIn] },
     { path: 'new-project', component: CreateProjectComponent, canActivate: [AuthenLoggedIn] },
-    { path: 'manage-member', component: ManageMemberComponent, canActivate: [AuthenLoggedIn] }
+    { path: 'manage-member', component: ManageMemberComponent, canActivate: [AuthenLoggedIn] },
+    { path: 'project-details/:id', component: ProjectDetailsComponent, canActivate: [AuthenLoggedIn] },
     // { path: '', component: AppComponent }
     // { path: '', redirectTo: '/home', pathMatch: 'full'}
 ];

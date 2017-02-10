@@ -55,6 +55,7 @@ export class ProjectService {
         var pDefault :ProjectDefault;
         pDefault = new ProjectDefault()
 
+        pDefault.id = object['info']['id'];
         pDefault.name = object['info']['name'];
         pDefault.background = object['info']['background'];
 

@@ -28,6 +28,7 @@ export class CategoryMembers {
 }
 
 export class ProjectDefault{
+    id: number;
     name: string;
     background: string;
     report_permission: number;
