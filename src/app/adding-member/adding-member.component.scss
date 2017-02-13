@@ -3,6 +3,16 @@
 .hidden{
     display:none;
 }
+/deep/ button{
+    color: $fontWhiteBorder !important;
+    background-color: transparent !important;
+    width: auto;
+    height: auto;
+    margin-right: 0 !important;
+    border: none !important;
+    outline: none;
+
+}
 .add-btn
 {
     border: solid 0px white;
@@ -14,6 +24,21 @@
     font-size: 16px;
     text-align: center;
     margin-left: 0%;
+}
+ul{
+    padding: 0;
+}
+.content{
+    background: $whiteBorder;
+    color: $fontWhiteBorder;
+    border-radius: 50px;
+    padding-right: 10px;
+    p{
+        padding: 0;
+        margin: 0;
+        margin-left: -5%;
+        display: inline-block;
+    }
 }
 .member-to-add{
     width: 300px;
@@ -50,5 +75,12 @@
                 cursor: pointer;
             }
         }
+    }
+}
+ul.current-list{
+    list-style-type: none;
+    display: inline-block;
+    li{
+        float: left;
     }
 }

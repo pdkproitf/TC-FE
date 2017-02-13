@@ -1,5 +1,6 @@
+import { Member } from './../models/project';
 import { EmployeePost, Employee } from './../models/employee';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-adding-member',
@@ -18,9 +19,13 @@ export class AddingMemberComponent implements OnInit {
     return this._employeePosts;
   }
   _employeePosts: EmployeePost[] = [];
+  @Output()
+  onAdd = new EventEmitter<Member>();
+  @Output()
+  onDelete = new EventEmitter<Number>();
   employeePostsSearch: EmployeePost[] = [];
   searchVar;
-  employeesToAdd: Employee[] = [];
+  employees: Employee[] = [];
 
   constructor() { }
 
@@ -28,4 +33,47 @@ export class AddingMemberComponent implements OnInit {
     this.employeePostsSearch = this._employeePosts;
   }
 
+  addEmployee(employee: Employee) {
+    this.employees.push(employee);
+    let member = new Member;
+    member.user_id = employee.id;
+    this.onAdd.emit(member);
+    this.undisplayDiv();
+  }
+
+  removeEmployee(i) {
+    this.employees.splice(i, 1);
+    this.onDelete.emit(i);
+  }
+
+  keyUpSearch() {
+    clearTimeout(this.searchVar);
+    this.searchVar = setTimeout(() => {
+      this.updateEmployeePostsSearch();
+    }, 2000);
+  }
+
+  updateEmployeePostsSearch() {
+    let key = this.searchName;
+    let len = this.employeePosts.length;
+    this.employeePostsSearch = [];
+    console.log(key);
+    for (let i = 0; i < len; i++) {
+      let obj = this.employeePosts[i];
+      if ( obj.employee.first_name.indexOf(key) > -1 || obj.employee.last_name.indexOf(key) > -1) {
+        this.employeePostsSearch.push(obj);
+      }
+    }
+  }
+
+  displayDiv() {
+    this.classDiv = 'member-to-add';
+    this.searchName = '';
+  }
+
+  undisplayDiv() {
+    this.classDiv = 'hidden';
+    this.searchName = 'Add more people...';
+    this.employeePostsSearch = this.employeePosts;
+  }
 }

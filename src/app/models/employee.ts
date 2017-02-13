@@ -10,10 +10,6 @@ export class Employee {
     update_at: string;
 }
 
-export class EmployeeList {
-    employees: Employee[] = [];
-}
-
 export class EmployeePost {
     employee: Employee;
 }

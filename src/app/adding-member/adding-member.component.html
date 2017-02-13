@@ -1,9 +1,17 @@
 <input class="chkbx" type="checkbox" name="checkbox">All<br/>
+<ul class="current-list">
+  <li *ngFor="let emp of employees; let i = index">
+    <div class="content">
+      <button pButton type="button" (click)="removeEmployee(i)" icon="fa-times"></button>
+      <p>{{emp.first_name}} {{emp.last_name}}</p>
+    </div>
+  </li>
+</ul>
   <div>
-    <input class="add-btn" (focus)="displayDiv()" (keyup)="keyUpSearch()" type="text" [value]="searchName">
-    <div class="member-to-add">
+    <input class="add-btn" (focus)="displayDiv()" (keyup)="keyUpSearch()" type="text" [(ngModel)]="searchName">
+    <div [class]="classDiv">
       <ul class="member-list">
-        <li *ngFor="let em of employeePostsSearch; let i = index;" (click)="addEmployeeToExistingTask(em.employee)">{{em.employee.first_name}} {{em.employee.last_name}}</li>
+        <li *ngFor="let em of employeePostsSearch; let i = index;" (click)="addEmployee(em.employee)">{{em.employee.first_name}} {{em.employee.last_name}}</li>
       </ul>
     </div>
 </div>
