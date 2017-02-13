@@ -16,6 +16,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./create-project.component.scss']
 })
 export class CreateProjectComponent implements OnInit {
+  isLoaded: boolean = false;
   reportType: number = 1;
   classBtn: string[] = ['active', ''];
   project: Project = new Project();
@@ -34,20 +35,17 @@ export class CreateProjectComponent implements OnInit {
   employeesToAdd: Employee[] = [];
   employeesRoleToAdd: boolean[] = [];
 
+
   existingCategories: Category[] = [];
   existingCategoriesToAdd: ExistingCategory[] = [];
   existingBillable: boolean[] = [false, false, false, false, false];
-  existingEmployeeList: EmployeeList[] = [];
-  existingClassDiv: string[] = ['hidden', 'hidden', 'hidden', 'hidden', 'hidden' ];
-  existingSearchName: string[] = ['Add more people...', 'Add more people...',
-   'Add more people...', 'Add more people...', 'Add more people...'];
+  
 
   newCategories: Category[] = [];
   newCategoriesToAdd: NewCategory[] = [];
   newBillable: boolean[] = [];
-  newEmployeeList: EmployeeList[] = [];
-  newClassDiv: string[] = [];
-  newSearchName: string[] = [];
+  
+
 
   displayTaskAdd: boolean = false;
   category: Category = new Category();
@@ -259,30 +257,5 @@ export class CreateProjectComponent implements OnInit {
     this.newCategories.splice(i, 1);
     this.newCategoriesToAdd.splice(i, 1);
     this.newBillable.splice(i, 1);
-  }
-
-  displayExistingDiv(i) {
-    this.existingClassDiv[i] = 'member-to-add';
-    this.existingSearchName[i] = '';
-  }
-
-  keyUpSearch0(index, keyword) {
-    clearTimeout(this.searchVar);
-    this.searchVar = setTimeout(() => {
-      this.updateEmployeePostsSearch0(index, keyword);
-    }, 2000);
-  }
-
-  updateEmployeePostsSearch0(index, keyword) {
-    let key = keyword;
-    let len = this.employeePosts.length;
-    this.employeePostsSearch = [];
-    console.log(key);
-    for (let i = 0; i < len; i++) {
-      let obj = this.employeePosts[i];
-      if ( obj.employee.first_name.indexOf(key) > -1 || obj.employee.last_name.indexOf(key) > -1) {
-        this.employeePostsSearch.push(obj);
-      }
-    }
   }
 }
