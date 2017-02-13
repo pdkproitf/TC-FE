@@ -1,0 +1,9 @@
+<input class="chkbx" type="checkbox" name="checkbox">All<br/>
+  <div>
+    <input class="add-btn" (focus)="displayDiv()" (keyup)="keyUpSearch()" type="text" [value]="searchName">
+    <div class="member-to-add">
+      <ul class="member-list">
+        <li *ngFor="let em of employeePostsSearch; let i = index;" (click)="addEmployeeToExistingTask(em.employee)">{{em.employee.first_name}} {{em.employee.last_name}}</li>
+      </ul>
+    </div>
+</div>

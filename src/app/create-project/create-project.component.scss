@@ -274,10 +274,20 @@ body{
                 }
                 input{
                     box-shadow: none;
+                    &.chkbx{
+                        margin: 0;
+                        height: 13px;
+                    }
                 }
             }
         }
-        .add-btn{
+        .add-task-btn{
+            border: solid 0px white;
+            background: $whiteBorder;
+            width: 16%;
+            height: 42px;
+            border-radius: 50px;
+            color: $fontWhiteBorder;
             &:hover{
                 cursor: pointer;
             }

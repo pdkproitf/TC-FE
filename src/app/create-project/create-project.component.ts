@@ -1,6 +1,6 @@
 import { Category } from './../models/category';
 import { CategoryService } from './../services/category-service';
-import { EmployeePost, Employee } from './../models/employee';
+import { EmployeePost, Employee, EmployeeList } from './../models/employee';
 import { MembershipService } from './../services/membership-service';
 import { ProjectService } from './../services/project-service';
 import { Client, ClientPost } from './../models/client';
@@ -34,11 +34,21 @@ export class CreateProjectComponent implements OnInit {
   employeesToAdd: Employee[] = [];
   employeesRoleToAdd: boolean[] = [];
 
-
   existingCategories: Category[] = [];
   existingCategoriesToAdd: ExistingCategory[] = [];
+  existingBillable: boolean[] = [false, false, false, false, false];
+  existingEmployeeList: EmployeeList[] = [];
+  existingClassDiv: string[] = ['hidden', 'hidden', 'hidden', 'hidden', 'hidden' ];
+  existingSearchName: string[] = ['Add more people...', 'Add more people...',
+   'Add more people...', 'Add more people...', 'Add more people...'];
+
   newCategories: Category[] = [];
   newCategoriesToAdd: NewCategory[] = [];
+  newBillable: boolean[] = [];
+  newEmployeeList: EmployeeList[] = [];
+  newClassDiv: string[] = [];
+  newSearchName: string[] = [];
+
   displayTaskAdd: boolean = false;
   category: Category = new Category();
 
@@ -103,6 +113,7 @@ export class CreateProjectComponent implements OnInit {
 
   onSubmit() {
     this.updateMemberRoleToProject();
+    this.updateCategoriesToProject();
     this.projectPost.project = this.project;
     this.projectService.addProject(this.projectPost)
     .then(res => {
@@ -226,7 +237,7 @@ export class CreateProjectComponent implements OnInit {
     let len = this.existingCategories.length;
     for (let i = 0; i < len; i++) {
       let existingCat = new ExistingCategory();
-      existingCat.billable = false;
+      existingCat.billable = this.existingBillable[i];
       existingCat.members = [];
       existingCat.category_id = this.existingCategories[i].id;
       this.existingCategoriesToAdd.push(existingCat);
@@ -241,10 +252,37 @@ export class CreateProjectComponent implements OnInit {
   removeExistingTask(i) {
     this.existingCategories.splice(i, 1);
     this.existingCategoriesToAdd.splice(i, 1);
+    this.existingBillable.splice(i, 1);
   }
 
   removeNewTask(i) {
     this.newCategories.splice(i, 1);
     this.newCategoriesToAdd.splice(i, 1);
+    this.newBillable.splice(i, 1);
+  }
+
+  displayExistingDiv(i) {
+    this.existingClassDiv[i] = 'member-to-add';
+    this.existingSearchName[i] = '';
+  }
+
+  keyUpSearch0(index, keyword) {
+    clearTimeout(this.searchVar);
+    this.searchVar = setTimeout(() => {
+      this.updateEmployeePostsSearch0(index, keyword);
+    }, 2000);
+  }
+
+  updateEmployeePostsSearch0(index, keyword) {
+    let key = keyword;
+    let len = this.employeePosts.length;
+    this.employeePostsSearch = [];
+    console.log(key);
+    for (let i = 0; i < len; i++) {
+      let obj = this.employeePosts[i];
+      if ( obj.employee.first_name.indexOf(key) > -1 || obj.employee.last_name.indexOf(key) > -1) {
+        this.employeePostsSearch.push(obj);
+      }
+    }
   }
 }
