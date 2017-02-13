@@ -9,7 +9,7 @@
         name="name" [(ngModel)]="project.name" required>
     </div>
     <br/>
-    <div class="form-group">
+    <div class="client-group">
         <label for="client"></label>
         <!--<input type="text" class="form-control" id="client" [(ngModel)]="project.client_id"
         name="client-id" placeholder="Client" required>-->
@@ -74,17 +74,19 @@
             </tr>
             <tr class="data" *ngFor="let cat of existingCategories; let i = index">
                 <td class="task-name"><button pButton type="button" (click)="removeExistingTask(i)" icon="fa-times"></button>{{cat.name}}</td>
-                <td>Add member</td>
-                <td><input type="checkbox"></td>
+                <td><app-adding-member (onAdd)="existingAddMember($event, i)" (onDelete)="existingDeleteMember($event, i)" [employeePosts]="employeePosts"></app-adding-member>
+                </td>
+                <td><input type="checkbox" (change)="existingChkFunc($event.target.checked, i)"></td>
             </tr>
             <tr class="data" *ngFor="let cat of newCategories; let i = index">
                 <td class="task-name"><button pButton type="button" (click)="removeNewTask(i)" icon="fa-times"></button>{{cat.name}}</td>
-                <td>Add member</td>
-                <td><input type="checkbox"></td>
+                <td><app-adding-member (onAdd)="newAddMember($event, i)" (onDelete)="newDeleteMember($event, i)" [employeePosts]="employeePosts"></app-adding-member>
+                </td>
+                <td><input type="checkbox" (change)="newChkFunc($event.target.checked, i)"></td>
             </tr>
         </table>
         <br/>
-        <button type="button" class="add-btn" (click)="displayTaskAddDialog()">Add more task...</button>
+        <button type="button" class="add-task-btn" (click)="displayTaskAddDialog()">Add more task...</button>
     </div>    
     <br/><br/><br/>
  <!-- End Adding tasks to project -->   
@@ -95,19 +97,21 @@
             <h4>Show report to who?</h4>
             <p>If you allow people see this project’s report, they can see detail budget, invoices, timesheet and more…</p>
         </li>
-        <li>
+        <li class="per-btns">
             <button id="left-btn" [class]="classBtn[0]" (click)="setTypeReport(1)" type="button">PM & Admin</button>
             <button id="right-btn" [class]="classBtn[1]" (click)="setTypeReport(2)" type="button">Everyone</button>
         </li>
     </ul>
     <br/><br/><hr><br/>
+    <div class="form-btns">
     <button class="active" type="submit">Create New</button>
     <button type="button" (click)="log()">Cancel</button>
+    </div>
 </form>
 </div>
 <br/>
 
-<p-dialog header="Add New Client" [(visible)]="display" width="600">
+<p-dialog class="pop-up" header="Add New Client" [(visible)]="display" width="600">
     <div class="form-container">
     <form (ngSubmit)="onSubmitClient()">
         <div class="form-group">
@@ -120,7 +124,7 @@
     </div>
 </p-dialog>
 
-<p-dialog header="Add New Task" [(visible)]="displayTaskAdd" width="600">
+<p-dialog class="pop-up" header="Add New Task" [(visible)]="displayTaskAdd" width="600">
     <div class="form-container">
     <form (ngSubmit)="onSubmitTask()">
         <div class="form-group">

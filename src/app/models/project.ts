@@ -10,6 +10,10 @@ export class Member {
     user_id: number;
 }
 
+export class MemberList {
+    members: Member[] = [];
+}
+
 export class ExistingCategory {
     category_id: number;
     members: Member[] = [];

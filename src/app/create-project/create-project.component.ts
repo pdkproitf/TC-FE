@@ -6,7 +6,7 @@ import { ProjectService } from './../services/project-service';
 import { Client, ClientPost } from './../models/client';
 import { ClientService } from './../services/client-service';
 import { Router } from '@angular/router';
-import { Project, ProjectPost, MemberRole, ExistingCategory, NewCategory } from './../models/project';
+import { Project, ProjectPost, MemberRole, ExistingCategory, NewCategory, MemberList, Member } from './../models/project';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 
@@ -16,6 +16,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./create-project.component.scss']
 })
 export class CreateProjectComponent implements OnInit {
+  isLoaded: boolean = false;
   reportType: number = 1;
   classBtn: string[] = ['active', ''];
   project: Project = new Project();
@@ -37,8 +38,17 @@ export class CreateProjectComponent implements OnInit {
 
   existingCategories: Category[] = [];
   existingCategoriesToAdd: ExistingCategory[] = [];
+  existingBillable: boolean[] = [];
+  existingMembemLists: MemberList[] = [];
+
+
   newCategories: Category[] = [];
   newCategoriesToAdd: NewCategory[] = [];
+  newBillable: boolean[] = [];
+  newMemberLists: MemberList[] = [];
+
+
+
   displayTaskAdd: boolean = false;
   category: Category = new Category();
 
@@ -72,6 +82,11 @@ export class CreateProjectComponent implements OnInit {
     this.categoryService.getDefaultCategories()
     .then(res => {
       this.existingCategories = res;
+      let len = this.existingCategories.length;
+      for (let i = 0; i < len; i++) {
+        this.existingBillable.push(false);
+        this.existingMembemLists.push(new MemberList());
+      }
       this.updateExistingCategoriesToAdd();
     })
     .catch(err => console.log(err));
@@ -103,6 +118,7 @@ export class CreateProjectComponent implements OnInit {
 
   onSubmit() {
     this.updateMemberRoleToProject();
+    this.updateCategoriesToProject();
     this.projectPost.project = this.project;
     this.projectService.addProject(this.projectPost)
     .then(res => {
@@ -214,26 +230,38 @@ export class CreateProjectComponent implements OnInit {
     let cat = new Category();
     cat.name = this.category.name;
     this.newCategories.push(cat);
-    let newCat = new NewCategory();
-    newCat.billable = false;
-    newCat.category_name = cat.name;
-    newCat.members = [];
-    this.newCategoriesToAdd.push(newCat);
+    this.newBillable.push(false);
+    this.newMemberLists.push(new MemberList());
     this.displayTaskAdd = false;
   }
 
   updateExistingCategoriesToAdd() {
+    this.existingCategoriesToAdd = [];
     let len = this.existingCategories.length;
     for (let i = 0; i < len; i++) {
       let existingCat = new ExistingCategory();
-      existingCat.billable = false;
-      existingCat.members = [];
+      existingCat.billable = this.existingBillable[i];
+      existingCat.members = this.existingMembemLists[i].members;
       existingCat.category_id = this.existingCategories[i].id;
       this.existingCategoriesToAdd.push(existingCat);
     }
   }
 
+  updateNewCategoriesToAdd() {
+    this.newCategoriesToAdd = [];
+    let len = this.newCategories.length;
+    for (let i = 0; i < len; i++) {
+      let newCat = new NewCategory();
+      newCat.billable = this.newBillable[i];
+      newCat.category_name = this.newCategories[i].name;
+      newCat.members = this.newMemberLists[i].members;
+      this.newCategoriesToAdd.push(newCat);
+    }
+  }
+
   updateCategoriesToProject() {
+    this.updateExistingCategoriesToAdd();
+    this.updateNewCategoriesToAdd();
     this.project.category_members.existing = this.existingCategoriesToAdd;
     this.project.category_members.new_one = this.newCategoriesToAdd;
   }
@@ -241,10 +269,43 @@ export class CreateProjectComponent implements OnInit {
   removeExistingTask(i) {
     this.existingCategories.splice(i, 1);
     this.existingCategoriesToAdd.splice(i, 1);
+    this.existingBillable.splice(i, 1);
+    this.existingMembemLists.splice(i, 1);
   }
 
   removeNewTask(i) {
     this.newCategories.splice(i, 1);
     this.newCategoriesToAdd.splice(i, 1);
+    this.newBillable.splice(i, 1);
+    this.newMemberLists.splice(i, 1);
   }
+
+  existingChkFunc(arg, i) {
+    this.existingBillable[i] = arg;
+  }
+
+  newChkFunc(arg, i) {
+    this.newBillable[i] = arg;
+  }
+
+  existingAddMember(mem: Member, i: number) {
+    this.existingMembemLists[i].members.push(mem);
+  }
+
+  newAddMember(mem: Member, i: number) {
+    this.newMemberLists[i].members.push(mem);
+  }
+
+  existingDeleteMember(key, i) {
+    this.existingMembemLists[i].members.splice(key, 1);
+  }
+
+  newDeleteMember(key, i) {
+    this.newMemberLists[i].members.splice(key, i);
+  }
+
+  printEvent(arg) {
+    console.log(arg);
+  }
+
 }
