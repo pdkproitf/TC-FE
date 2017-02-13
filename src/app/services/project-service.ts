@@ -18,7 +18,7 @@ export class ProjectService {
     }
 
     addProject(projectPost: ProjectPost): Promise<any> {
-        let requestUrl = 'https://timecloudbackend.herokuapp.com/api/projects/new';
+        let requestUrl = 'https://timecloudbackend.herokuapp.com/api/projects';
         let headers = new Headers;
         this.headersService.createAuthHeaders(headers);
         return this.http

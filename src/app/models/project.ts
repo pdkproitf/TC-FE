@@ -11,7 +11,7 @@ export class Member {
 }
 
 export class MemberList {
-    members: Member[];
+    members: Member[] = [];
 }
 
 export class ExistingCategory {

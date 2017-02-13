@@ -6,7 +6,7 @@ import { ProjectService } from './../services/project-service';
 import { Client, ClientPost } from './../models/client';
 import { ClientService } from './../services/client-service';
 import { Router } from '@angular/router';
-import { Project, ProjectPost, MemberRole, ExistingCategory, NewCategory, MemberList } from './../models/project';
+import { Project, ProjectPost, MemberRole, ExistingCategory, NewCategory, MemberList, Member } from './../models/project';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 
@@ -230,15 +230,13 @@ export class CreateProjectComponent implements OnInit {
     let cat = new Category();
     cat.name = this.category.name;
     this.newCategories.push(cat);
-    let newCat = new NewCategory();
-    newCat.billable = false;
-    newCat.category_name = cat.name;
-    newCat.members = [];
-    this.newCategoriesToAdd.push(newCat);
+    this.newBillable.push(false);
+    this.newMemberLists.push(new MemberList());
     this.displayTaskAdd = false;
   }
 
   updateExistingCategoriesToAdd() {
+    this.existingCategoriesToAdd = [];
     let len = this.existingCategories.length;
     for (let i = 0; i < len; i++) {
       let existingCat = new ExistingCategory();
@@ -249,7 +247,21 @@ export class CreateProjectComponent implements OnInit {
     }
   }
 
+  updateNewCategoriesToAdd() {
+    this.newCategoriesToAdd = [];
+    let len = this.newCategories.length;
+    for (let i = 0; i < len; i++) {
+      let newCat = new NewCategory();
+      newCat.billable = this.newBillable[i];
+      newCat.category_name = this.newCategories[i].name;
+      newCat.members = this.newMemberLists[i].members;
+      this.newCategoriesToAdd.push(newCat);
+    }
+  }
+
   updateCategoriesToProject() {
+    this.updateExistingCategoriesToAdd();
+    this.updateNewCategoriesToAdd();
     this.project.category_members.existing = this.existingCategoriesToAdd;
     this.project.category_members.new_one = this.newCategoriesToAdd;
   }
@@ -267,4 +279,33 @@ export class CreateProjectComponent implements OnInit {
     this.newBillable.splice(i, 1);
     this.newMemberLists.splice(i, 1);
   }
+
+  existingChkFunc(arg, i) {
+    this.existingBillable[i] = arg;
+  }
+
+  newChkFunc(arg, i) {
+    this.newBillable[i] = arg;
+  }
+
+  existingAddMember(mem: Member, i: number) {
+    this.existingMembemLists[i].members.push(mem);
+  }
+
+  newAddMember(mem: Member, i: number) {
+    this.newMemberLists[i].members.push(mem);
+  }
+
+  existingDeleteMember(key, i) {
+    this.existingMembemLists[i].members.splice(key, 1);
+  }
+
+  newDeleteMember(key, i) {
+    this.newMemberLists[i].members.splice(key, i);
+  }
+
+  printEvent(arg) {
+    console.log(arg);
+  }
+
 }
