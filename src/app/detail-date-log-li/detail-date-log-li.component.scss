@@ -1,14 +1,12 @@
 @import '../general-style/color-style.scss';
 @import '../general-style/font-style.scss';
-.tasks-container{
-    margin: auto;
-    width: 80%;
-    height: 400px;
-    background: white;
-    box-shadow: inset 0 -1px 0 0 #EEEEEE;
+.timer-container{
     ul{
         list-style-type: none;
-        margin: 0;
+        display: inline-block;
         padding: 0;
+        li{
+            display: inline-block;
+        }
     }
 }
