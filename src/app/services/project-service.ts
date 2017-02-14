@@ -9,7 +9,7 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class ProjectService {
     headersService: HeadersService = new HeadersService();
-    projectUrl: String = 'https://timecloudbackend.herokuapp.com/api/projects';
+    projectUrl: string = 'https://timecloudbackend.herokuapp.com/api/projects';
 
     constructor(private http: Http) {}
 
@@ -19,7 +19,7 @@ export class ProjectService {
     }
 
     addProject(projectPost: ProjectPost): Promise<any> {
-        let requestUrl = this.projectUrl+'/new';
+        let requestUrl = this.projectUrl;
         let headers = new Headers;
         this.headersService.createAuthHeaders(headers);
         return this.http

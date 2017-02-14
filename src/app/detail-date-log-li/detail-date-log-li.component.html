@@ -1,8 +1,12 @@
-<div class="timer-container">
-  <ul>
-    <li>Description</li>
-    <li>Client - Task</li>
-    <li>From -> To</li>
-    <li>Total Time</li>
+<div class="timer-container" (mouseenter)="showSpan()" (mouseleave)="hideSpan()">
+  <div [class]="classDiv">
+  <span [class]="spanClass"><button type="button" pButton icon="fa-trash"></button></span>
+  <ul class="aa">
+    <li class="des">Description</li>
+    <li class="cli-ta">Client - Task</li>
+    <li class="fro-to">From -> To</li>
+    <li class="to-ti">Total</li>
   </ul>
+  <span [class]="spanClass"><button type="button" pButton icon="fa-play-circle"></button></span>
+  </div>
 </div>
