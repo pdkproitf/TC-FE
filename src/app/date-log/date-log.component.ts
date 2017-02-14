@@ -16,19 +16,21 @@ export class DateLogComponent implements OnInit {
   firstWeekMonth;
   lastWeekDate;
   lastWeekMonth;
-  currentDate;
-  chosenDate;
+  currentDate: Date;
+  chosenDate: Date;
   constructor() { }
 
   ngOnInit() {
-    let curr = new Date(); // get current date
-    this.currentDate = curr;
-    this.chosenDate = curr;
-    let first = curr.getDate() - curr.getDay(); // First day is the day of the month - the day of the week
-    let last = first + 6; // last day is the first day + 6
+    let curr = new Date();
+    this.currentDate = new Date(curr);
+    this.chosenDate = new Date(curr);
+    let curr1 = new Date(curr);
+    let curr2 = new Date(curr);
+    let first = curr.getDate() - curr.getDay();
+    let last = first + 6;
 
-    this.firstDate = new Date(curr.setDate(first));
-    this.lastDate = new Date(curr.setDate(last));
+    this.firstDate = new Date(curr1.setDate(first));
+    this.lastDate = new Date(curr2.setDate(last));
 
     this.firstWeekDate = this.firstDate.getDate();
     this.firstWeekMonth = this.monthsName[this.firstDate.getMonth()];
@@ -38,11 +40,37 @@ export class DateLogComponent implements OnInit {
   }
 
   prevWeek() {
+    let pre = this.currentDate.getDate() - 7;
+    let curr = new Date(this.currentDate.setDate(pre));
+    let curr1 = new Date(curr);
+    let curr2 = new Date(curr);
+    let first = curr.getDate() - curr.getDay();
+    let last = first + 6;
 
+    this.firstDate = new Date(curr1.setDate(first));
+    this.lastDate = new Date(curr2.setDate(last));
+
+    this.firstWeekDate = this.firstDate.getDate();
+    this.firstWeekMonth = this.monthsName[this.firstDate.getMonth()];
+    this.lastWeekDate = this.lastDate.getDate();
+    this.lastWeekMonth = this.monthsName[this.lastDate.getMonth()];
   }
 
   nextWeek() {
+    let pre = this.currentDate.getDate() + 7;
+    let curr = new Date(this.currentDate.setDate(pre));
+    let curr1 = new Date(curr);
+    let curr2 = new Date(curr);
+    let first = curr.getDate() - curr.getDay();
+    let last = first + 6;
 
+    this.firstDate = new Date(curr1.setDate(first));
+    this.lastDate = new Date(curr2.setDate(last));
+
+    this.firstWeekDate = this.firstDate.getDate();
+    this.firstWeekMonth = this.monthsName[this.firstDate.getMonth()];
+    this.lastWeekDate = this.lastDate.getDate();
+    this.lastWeekMonth = this.monthsName[this.lastDate.getMonth()];
   }
 
 }
