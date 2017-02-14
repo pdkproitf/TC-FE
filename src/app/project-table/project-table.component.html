@@ -22,11 +22,8 @@
                     <div class="project-user" >
                         <div *ngIf="project.members">
                             <div *ngFor="let member of project.members.slice(0,3)">
-                                <div class="oval" [style.background]="project.default.background">
-                                    <div class="text">
-                                        {{member.first_name}}
-                                    </div>
-                                </div>
+                                <div  *ngIf="project.default.background" class="oval user-avatar"></div>
+                                <div *ngIf="!project.default.background" class="oval" [style.background]="project.default.background"></div>
                             </div>
                         </div>
                     </div>

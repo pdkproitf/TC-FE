@@ -9,6 +9,7 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class ProjectService {
     headersService: HeadersService = new HeadersService();
+    projectUrl: String = 'https://timecloudbackend.herokuapp.com/api/projects';
 
     constructor(private http: Http) {}
 
@@ -18,7 +19,7 @@ export class ProjectService {
     }
 
     addProject(projectPost: ProjectPost): Promise<any> {
-        let requestUrl = 'https://timecloudbackend.herokuapp.com/api/projects';
+        let requestUrl = this.projectUrl+'/new';
         let headers = new Headers;
         this.headersService.createAuthHeaders(headers);
         return this.http
@@ -28,8 +29,23 @@ export class ProjectService {
         .catch(this.handleError);
     }
 
+    //get project under user role with param id.
+    getProject(id: String){
+        let requestUrl = this.projectUrl + '/'+ id;
+        let headers = new Headers;
+        this.headersService.createAuthHeaders(headers);
+        return this.http
+        .get(requestUrl, {headers: headers})
+        .toPromise()
+        .then(res => {
+            console.log('get project '+id, res.json());
+        })
+        .catch(this.handleError);
+    }
+
+    // load all projects under user role.
     loadList(): Promise<ProjectRecieve[]>{
-        let requestUrl = 'https://timecloudbackend.herokuapp.com/api/projects/all';
+        let requestUrl = this.projectUrl + '/all';
         let headers = new Headers;
         this.headersService.createAuthHeaders(headers);
         return this.http
@@ -39,7 +55,7 @@ export class ProjectService {
             var projects: ProjectRecieve[] = [];
             if(res.json().data){
                 res.json().data.forEach(json => {
-                    projects.push(this.createProject(json));
+                    projects.push(this.convertProject(json));
                 });
             }
             return projects;
@@ -47,8 +63,7 @@ export class ProjectService {
         .catch(this.handleError);
     }
 
-    createProject(object: Object): ProjectRecieve{
-        console.log(object);
+    convertProject(object: Object): ProjectRecieve{
         var project :ProjectRecieve;
         project = new ProjectRecieve()
 

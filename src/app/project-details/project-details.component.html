@@ -35,4 +35,14 @@
             </div>
         </div>
     </div>
+    <div class="project-body">
+        <p-tabView>
+            <p-tabPanel header="Tasks">
+                <app-project-details-tasks [project]="projects"></app-project-details-tasks>
+            </p-tabPanel>
+            <p-tabPanel header="Team">
+                <app-project-details-team [project]="projects"></app-project-details-team>
+            </p-tabPanel>
+        </p-tabView>
+    </div>
 </div>

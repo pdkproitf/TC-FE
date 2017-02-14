@@ -33,9 +33,12 @@ import { CreateProjectComponent } from './create-project/create-project.componen
 import { ManageMemberComponent } from './manage-member/manage-member.component';
 import { ProjectListComponent } from './project-list/project-list.component';
 import { ProjectDetailsComponent } from './project-details/project-details.component';
-import { TableComponent } from './table/table.component';
-import {PaginatorModule} from 'primeng/primeng';
+import { ProjecTableComponent } from './project-table/project-table.component';
 import { AddingMemberComponent } from './adding-member/adding-member.component';
+import {PaginatorModule}    from 'primeng/primeng';
+import {TabViewModule}      from 'primeng/primeng';
+import { ProjectDetailsTasksComponent } from './project-details-tasks/project-details-tasks.component';
+import { ProjectDetailsTeamComponent } from './project-details-team/project-details-team.component';
 
 @NgModule({
   declarations: [
@@ -56,9 +59,12 @@ import { AddingMemberComponent } from './adding-member/adding-member.component';
     CreateProjectComponent,
     ManageMemberComponent,
     ProjectListComponent,
-    TableComponent,
     ProjectDetailsComponent,
-    AddingMemberComponent
+    AddingMemberComponent,
+    ProjecTableComponent,
+    ProjectDetailsComponent,
+    ProjectDetailsTasksComponent,
+    ProjectDetailsTeamComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +80,8 @@ import { AddingMemberComponent } from './adding-member/adding-member.component';
     CalendarModule,
     DropdownModule,
     DialogModule,
-    PaginatorModule
+    PaginatorModule,
+    TabViewModule
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
   AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService,
