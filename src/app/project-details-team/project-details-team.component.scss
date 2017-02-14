@@ -1,0 +1,49 @@
+@import '../project-details-tasks/project-details-tasks.component.scss';
+table{
+    .user-tasks{
+        height: 24px;
+        font-family: Lato;
+        font-size: 16px;
+        line-height: 24px;
+        color: rgba(54,54,54,0.7);
+        padding-top: 3%;
+        cursor: pointer;
+    }
+    .user-pm{
+        width: 35px;
+        height: 21px;
+        background-color: #E74C3C;
+        border-radius: 5px;
+        float: left;
+        margin-left: 2%;
+        .user-pm-text{
+            width: 19px;
+            height: 15px;
+            font-family: Lato;
+            font-size: 12px;
+            line-height: 15px;
+            color: #FFFFFF;
+            padding-left: 20%;
+        }
+    }
+    .group-tasks{
+        display: none;;
+        padding-top: 3%;
+        .text{
+            height: 24px;
+            font-family: Lato;
+            font-size: 16px;
+            line-height: 24px;
+            color: rgba(54,54,54,0.7);
+            margin-top: 3%;
+        }
+    }
+    .oval{
+        margin-right: 2%;
+    }
+    .column-text{
+        float: left;
+        padding-left: 0%;
+        width: 60%;
+    }
+}
