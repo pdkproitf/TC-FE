@@ -49,7 +49,7 @@ export class ProjecTableComponent implements OnInit, OnChanges {
 
     // link to peoject detail page
     projectDetails(project: ProjectRecieve) {
-        this.router.navigate(['/project-details', project.default.id]);
+        this.router.navigate(['/projects', project.default.id]);
     }
 
     // show or hide project control each row
