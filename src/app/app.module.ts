@@ -1,3 +1,4 @@
+import { TimerService } from './services/timer-service';
 import { CategoryService } from './services/category-service';
 import { MembershipService } from './services/membership-service';
 import { ClientService } from './services/client-service';
@@ -76,7 +77,8 @@ import { AddingMemberComponent } from './adding-member/adding-member.component';
     PaginatorModule
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
-  AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService],
+  AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService,
+  TimerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

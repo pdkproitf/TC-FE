@@ -1,3 +1,5 @@
+import { Timer, TimerPost } from './../models/timer';
+import { TimerService } from './../services/timer-service';
 import { Component, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs/Rx';
 
@@ -11,14 +13,18 @@ export class TimeTrackBarComponent implements OnInit {
   startTime: String = '00:00';
   timeCount: String = '00:00:00';
   ticks: number = -1;
-  timer: Observable<Object>;
+  // timer: Observable<Object>;
   sub: Subscription;
   myVar;
   classDrop: string[] = ['hidden', 'hidden'];
-  constructor() { }
+  timer: Timer = new Timer();
+  timerPost: TimerPost = new TimerPost();
+  startResult: string;
+  stopResult: string;
+  constructor(private timerService: TimerService) { }
 
   ngOnInit() {
-    this.timer = Observable.timer(0, 1000);
+
   }
 
   changeClass(): void {
@@ -28,6 +34,7 @@ export class TimeTrackBarComponent implements OnInit {
     this.startTime = hoursString + ':' + minutesString;
     if (this.classBtn === 'play-btn') {
       // this.sub = this.timer.subscribe(t => this.tickerFunc(t));
+      this.setStartTime();
       this.ticks = -1;
       this.myTickerFunc();
       this.myVar = setInterval(() => {
@@ -37,6 +44,7 @@ export class TimeTrackBarComponent implements OnInit {
     }else {
       // this.stopTimer();
       this.myStopTimer();
+      this.setStopTime();
     }
     this.classBtn = this.classBtn === 'play-btn' ? 'stop-btn' : 'play-btn';
   }
@@ -52,11 +60,10 @@ export class TimeTrackBarComponent implements OnInit {
 
   myTickerFunc() {
     this.ticks += 1;
-    console.log(this.ticks);
     this.secondToTime();
   }
 
-  myStopTimer(){
+  myStopTimer() {
     clearInterval(this.myVar);
   }
 
@@ -82,8 +89,33 @@ export class TimeTrackBarComponent implements OnInit {
       this.classDrop[num] = 'dropdown div-task';
     }
   }
+
   onBlur(num: number) {
     console.log('blur');
     this.classDrop[num] = 'hidden';
+  }
+
+  setStartTime() {
+    let curr = new Date();
+    this.timer.start_time = curr.toString();
+  }
+
+  setStopTime() {
+    let curr = new Date();
+    this.timer.stop_time = curr.toString();
+    this.timerPost.timer = this.timer;
+    this.timerService.addNewTimer(this.timerPost)
+    .then(res => {
+      console.log(res);
+      let start = new Date(res.start_time);
+      let stop = new Date(res.stop_time);
+      console.log(start);
+      console.log(stop);
+      this.startResult = start.getHours().toString() + ':' + start.getMinutes().toString() + ':' + start.getSeconds().toString();
+      this.stopResult = stop.getHours().toString() + ':' + stop.getMinutes().toString() + ':' + stop.getSeconds().toString();
+    })
+    .catch(err => {
+      console.log(err);
+    });
   }
 }
