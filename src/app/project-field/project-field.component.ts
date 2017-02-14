@@ -1,5 +1,5 @@
+import { ProjectJoin } from './../models/project-join';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Project } from '../models/project';
 @Component({
   selector: 'app-project-field',
   templateUrl: './project-field.component.html',
@@ -7,8 +7,8 @@ import { Project } from '../models/project';
 })
 export class ProjectFieldComponent implements OnInit {
   @Input()
-  myProject: Project;
-  classBtns = ['play-btn', 'play-btn', 'play-btn'];
+  myProject: ProjectJoin;
+  classBtns = [];
   private _sharedVar = '';
   @Input()
   set sharedVar(name: string){
@@ -22,6 +22,10 @@ export class ProjectFieldComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    let len = this.myProject.category.length;
+    for (let i = 0; i < len; i++) {
+      this.classBtns.push('play-btn');
+    }
   }
 
   changeClass(i): void {

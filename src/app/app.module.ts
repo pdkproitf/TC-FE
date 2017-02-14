@@ -1,3 +1,4 @@
+import { ProjectJoinService } from './services/project-join-service';
 import { TimerService } from './services/timer-service';
 import { CategoryService } from './services/category-service';
 import { MembershipService } from './services/membership-service';
@@ -87,7 +88,7 @@ import { DetailDateLogLiComponent } from './detail-date-log-li/detail-date-log-l
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
   AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService,
-  TimerService],
+  TimerService, ProjectJoinService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,7 +1,13 @@
 <div class="project-container" [style.background]="myProject.background">
-  <p class="company-name">{{myProject.client_id}}</p>
+  <p class="company-name">{{myProject.client.name}}</p>
   <p class="project-name">{{myProject.name}}</p>
-  <ul class="tasks">
-    <li *ngFor="let task of myProject.tasks; let i = index">{{task}}<button class={{classBtns[i]}} (click)="changeClass(i)"></button></li>
-  </ul>
+  <!--<ul class="tasks">
+    <li *ngFor="let task of myProject.category; let i = index">{{task.name}}<button class={{classBtns[i]}} (click)="changeClass(i)"></button></li>
+  </ul>-->
+  <table class="tasks">
+    <tr *ngFor="let task of myProject.category; let i = index">
+      <td>{{task.name}}</td>
+      <td><button class={{classBtns[i]}} (click)="changeClass(i)"></button></td>
+    </tr>
+  </table>
 </div>

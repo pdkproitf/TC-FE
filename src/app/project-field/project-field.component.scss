@@ -27,23 +27,15 @@
         top: -14px;
         left:23px;
     }
-    ul.tasks{
-        list-style-type: none;
-        position: relative;
-        top: -30px;
-        left: -14px;
-        li{
-            font-family: $headerFont;
-            font-size: 16px;
-            line-height: 24px;
-            color: #FFFFFF;
-            line-height: 30px; 
-        }
+    .tasks{
+        padding:0;
+        width: 100%;
         button{
             border-radius: 50%;
             width: 24px;
             height: 24px;
-            margin-left: 124px;
+            float: right;
+            margin-right: 50%;
             &.play-btn{
                 background-image: url(/assets/images-buttons/small-play-btn.png);
                 background-position-x: -1px;
