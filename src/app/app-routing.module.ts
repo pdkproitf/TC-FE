@@ -22,7 +22,7 @@ const routes: Routes = [
     { path: 'projects', component: ProjectManageComponent, canActivate: [AuthenLoggedIn] },
     { path: 'new-project', component: CreateProjectComponent, canActivate: [AuthenLoggedIn] },
     { path: 'manage-member', component: ManageMemberComponent, canActivate: [AuthenLoggedIn] },
-    { path: 'project-details/:id', component: ProjectDetailsComponent, canActivate: [AuthenLoggedIn] },
+    { path: 'projects/:id', component: ProjectDetailsComponent, canActivate: [AuthenLoggedIn] },
     // { path: '', component: AppComponent }
     // { path: '', redirectTo: '/home', pathMatch: 'full'}
 ];

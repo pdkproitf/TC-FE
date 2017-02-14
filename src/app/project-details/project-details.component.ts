@@ -10,6 +10,8 @@ import { ProjectService }   from '../services/project-service';
     styleUrls: ['./project-details.component.scss']
 })
 export class ProjectDetailsComponent implements OnInit {
+
+    projects: ProjectRecieve[] = [];
     project: ProjectRecieve;
     // project: Project = ({
     //     name: 'Temp Project',
