@@ -4,11 +4,11 @@ import { Router }           from '@angular/router';
 declare var $:any;
 
 @Component({
-    selector: 'app-table',
-    templateUrl: './table.component.html',
-    styleUrls: ['./table.component.scss']
+    selector: 'app-project-table',
+    templateUrl: './project-table.component.html',
+    styleUrls: ['./project-table.component.scss']
 })
-export class TableComponent implements OnInit, OnChanges {
+export class ProjecTableComponent implements OnInit, OnChanges {
     isSortDown: boolean = true;
     project_id: number = 1;
     current_page: number = 1;
@@ -49,7 +49,7 @@ export class TableComponent implements OnInit, OnChanges {
 
     // link to peoject detail page
     projectDetails(project: ProjectRecieve) {
-        this.router.navigate(['/project-details', project.default.id]);
+        this.router.navigate(['/projects', project.default.id]);
     }
 
     // show or hide project control each row

@@ -1,13 +1,17 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ProjectRecieve }  from '../models/project';
+import { ProjectRecieve }   from '../models/project';
 import { Router, Params }   from '@angular/router';
-import {ActivatedRoute} from '@angular/router';
+import { ActivatedRoute }   from '@angular/router';
+import { ProjectService }   from '../services/project-service';
+
 @Component({
     selector: 'app-project-details',
     templateUrl: './project-details.component.html',
     styleUrls: ['./project-details.component.scss']
 })
 export class ProjectDetailsComponent implements OnInit {
+
+    projects: ProjectRecieve[] = [];
     project: ProjectRecieve;
     // project: Project = ({
     //     name: 'Temp Project',
@@ -16,9 +20,8 @@ export class ProjectDetailsComponent implements OnInit {
     //     report_permission: 2,
     //     background: '#1abc9c',
     // });
-    constructor(private route: ActivatedRoute) {
-        console.log(route.snapshot.params['id']);
-        console.log('project', this.project);
+    constructor(private route: ActivatedRoute, private projectService: ProjectService) {
+        projectService.getProject(route.snapshot.params['id']);
     }
 
     ngOnInit() {

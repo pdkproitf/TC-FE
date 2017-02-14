@@ -1,0 +1,53 @@
+@import '../project-table/project-table.component.scss';
+.table-content{
+    width: 100%;
+    table {
+        margin: auto;;
+        width: 100%;
+
+        .project-line{
+            cursor: auto;
+        }
+        .project-user{
+            width: auto;;
+            margin-bottom: 10%;
+            .oval{
+                background-color: black;
+            }
+            .text{
+                padding-top: 1%;
+            }
+            .user-name{
+                display: none;
+            }
+        }
+        .text{
+            text-align: left;;
+            display: block;;
+            padding-top: 0px;
+            font-family: Lato;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 20px;
+            color: #363636;
+        }
+
+        .column-text{
+            .group-user{
+                padding-top: 10px;
+            }
+        }
+        .plus{
+            cursor: pointer;
+            color: rgba(70, 70, 70, 0.47);
+            margin-right: 2%;
+        }
+        .right-colum{
+            text-align: center;
+            padding-top: 2%;
+        }
+        .inline{
+            float: left;
+        }
+    }
+}
