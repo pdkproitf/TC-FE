@@ -1,7 +1,7 @@
 <app-member-menu-bar [currentState]="1"></app-member-menu-bar>
 <div class="content">
     <div class="project-title">
-        <div class="project-background"></div>
+        <div *ngIf="project" class="project-background" [style.background]="project.default.background"></div>
         <div class="project-background project-inform">
             <div class="client">
                 <span *ngIf="project && project.client">{{project.client.name}}</span>
@@ -9,8 +9,8 @@
             <div class="project-name">
                 <span *ngIf="project && project.default">{{project.default.name}}</span>
             </div>
-            <div class="tracked">
-                <strong  *ngIf="project">{{project.tracked_time}}</strong> houres tracked
+            <div class="tracked" *ngIf="project">
+                <strong >{{project.tracked_time}}</strong> houres tracked
             </div>
         </div>
         <div class="project-control">

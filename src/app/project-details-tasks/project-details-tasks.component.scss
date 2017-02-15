@@ -10,12 +10,9 @@
         }
         .project-user{
             width: auto;;
-            margin-bottom: 10%;
+            margin-bottom: 4%;
             height: 32px;
             float: left;
-            .oval{
-                background-color: black;
-            }
             .text{
                 padding-top: 1%;
             }
@@ -43,6 +40,9 @@
             cursor: pointer;
             color: rgba(70, 70, 70, 0.47);
             margin-right: 2%;
+            .fa{
+                font-size: small;
+            }
         }
         .right-colum{
             text-align: center;

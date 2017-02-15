@@ -6,36 +6,28 @@
             </th>
             <th class="right-colum">Tracked(h)</th>
         </tr>
-        <tbody>
-            <tr class="project-line" >
+        <tbody *ngIf="project && membersDistionary">
+            <tr class="project-line" *ngFor="let member of membersDistionary" id="team-row-{{member.id}}">
                 <td style="width: 60%;">
-                    <div class="plus inline" (click)="team_user_details()">
+                    <div class="plus inline" (click)="team_user_details(member.id)">
                         <i class="fa fa-plus" aria-hidden="true"></i>
                     </div>
                     <div class="project-user inline"><div class="oval user-avatar"></div></div>
-                    <div class="column-text inline">
+                    <div class="column-text inline" >
                         <div class="text">
-                            <div class="inline">Minnie P</div>
-                            <div class="user-pm inline">
+                            <div class="inline">{{member.first_name}}</div>
+                            <div class="user-pm inline" *ngIf="membersHash.get(member.id)=='PM'">
                                 <span class="user-pm-text">PM</span>
                             </div>
                         </div>
 
                         <div class="user-tasks" (click)="team_user_details()">
-                            6 tasks
+                            {{membersHash.get(member.id).length + ' Tasks'}}
                         </div>
-                        
-                        <div class="group-tasks">
-                            <div class="text">
-                                hoan lac thien
-                            </div>
 
+                        <div class="group-tasks" *ngFor="let category of (membersHash.get(member.id))">
                             <div class="text">
-                                hoan lac thien
-                            </div>
-
-                            <div class="text">
-                                hoan lac thien
+                                {{category}}
                             </div>
                         </div>
                     </div>

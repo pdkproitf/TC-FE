@@ -1,4 +1,4 @@
-import { Component, OnInit, Input ,OnChanges, SimpleChange } from '@angular/core';
+import { Component, OnInit, Input , OnChanges, SimpleChange } from '@angular/core';
 import { ProjectGetOne }   from '../models/project';
 declare var $:any;
 
@@ -8,23 +8,25 @@ declare var $:any;
     styleUrls: ['./project-details-tasks.component.scss']
 })
 export class ProjectDetailsTasksComponent implements OnInit, OnChanges {
-    is_show_project_categoy_details: Map<number, boolean> = new Map<number, boolean>();
+    is_show_project_categoy_details: Map<Number, boolean> = new Map<Number, boolean>();
 
     @Input() project: ProjectGetOne;
     constructor() { }
 
     ngOnInit() {
-        if(this.project)
+        if(this.project){
+            this.is_show_project_categoy_details= new Map<Number, boolean>();
             this.project.project_category.forEach(res => {
                 this.is_show_project_categoy_details.set(res.id, false);
             })
+        }
     }
 
     ngOnChanges(changes: {[propKey: string]: SimpleChange}){
         if(changes['project']) this.ngOnInit();
     }
 
-    tasks_user_details(id: number){
+    tasks_user_details(id: Number){
         var flag = this.is_show_project_categoy_details.get(id);
         if(flag){
             $('#task-row-'+id).find('.fa-minus').removeClass('fa-minus').addClass('fa-plus');
