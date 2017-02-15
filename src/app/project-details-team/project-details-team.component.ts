@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ProjectRecieve }   from '../models/project';
+import { ProjectGetOne }   from '../models/project';
 declare var $:any;
 
 @Component({
@@ -10,7 +10,7 @@ declare var $:any;
 export class ProjectDetailsTeamComponent implements OnInit {
     is_show_team_user_details: boolean = false;
     constructor() { }
-    @Input() project: ProjectRecieve[];
+    @Input() project: ProjectGetOne;
     ngOnInit() {
     }
 
