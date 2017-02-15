@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ProjectRecieve }   from '../models/project';
+import { Component, OnInit, Input , OnChanges, SimpleChange } from '@angular/core';
+import { ProjectGetOne }   from '../models/project';
 declare var $:any;
 
 @Component({
@@ -7,25 +7,36 @@ declare var $:any;
     templateUrl: './project-details-tasks.component.html',
     styleUrls: ['./project-details-tasks.component.scss']
 })
-export class ProjectDetailsTasksComponent implements OnInit {
-    is_show_task_user_details: boolean = false;
+export class ProjectDetailsTasksComponent implements OnInit, OnChanges {
+    is_show_project_categoy_details: Map<Number, boolean> = new Map<Number, boolean>();
 
-    @Input() project: ProjectRecieve[];
+    @Input() project: ProjectGetOne;
     constructor() { }
 
     ngOnInit() {
+        if(this.project){
+            this.is_show_project_categoy_details= new Map<Number, boolean>();
+            this.project.project_category.forEach(res => {
+                this.is_show_project_categoy_details.set(res.id, false);
+            })
+        }
     }
 
-    tasks_user_details(){
-        if(!this.is_show_task_user_details){
-            $('.fa-plus').removeClass('fa-plus').addClass('fa-minus');
-            $('.project-user').css({'float': 'none'});
-            $('.user-name').css({'display': 'block'})
+    ngOnChanges(changes: {[propKey: string]: SimpleChange}){
+        if(changes['project']) this.ngOnInit();
+    }
+
+    tasks_user_details(id: Number){
+        var flag = this.is_show_project_categoy_details.get(id);
+        if(flag){
+            $('#task-row-'+id).find('.fa-minus').removeClass('fa-minus').addClass('fa-plus');
+            $('#task-row-'+id).find('.project-user').css({'float': 'left'});
+            $('#task-row-'+id).find('.user-name').css({'display': 'none'})
         }else{
-            $('.fa-minus').removeClass('fa-minus').addClass('fa-plus');
-            $('.project-user').css({'float': 'left'});
-            $('.user-name').css({'display': 'none'})
+            $('#task-row-'+id).find('.fa-plus').removeClass('fa-plus').addClass('fa-minus');
+            $('#task-row-'+id).find('.project-user').css({'float': 'none'});
+            $('#task-row-'+id).find('.user-name').css({'display': 'block'})
         }
-        this.is_show_task_user_details = !this.is_show_task_user_details;
+        this.is_show_project_categoy_details.set(id, !flag);
     }
 }

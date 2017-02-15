@@ -6,46 +6,29 @@
             </th>
             <th class="right-colum">Tracked(h)</th>
         </tr>
-        <tbody>
-            <tr class="project-line" >
+        <tbody *ngIf="project && project.project_category">
+            <tr class="project-line"  *ngFor="let project_category of project.project_category;" id="task-row-{{project_category.id}}">
                 <td style="width: 60%;">
-                    <div class="plus inline" (click)="tasks_user_details()">
+                    <div class="plus inline" (click)="tasks_user_details(project_category.id)">
                         <i class="fa fa-plus" aria-hidden="true"></i>
                     </div>
                     <div class="column-text inline">
                         <div class="text">
-                            Design
+                            <span *ngIf="project_category.category">{{project_category.category.name}}</span>
                         </div>
 
-                        <div class="group-user">
-                            <div class="project-user">
-                                <div class="oval user-avatar inline"></div>
+                        <div class="group-user" *ngIf="project_category.memberList">
+                            <div class="project-user" *ngFor="let member of project_category.memberList">
+                                <div *ngIf="!member.image" class="oval user-avatar inline"></div>
+                                <div *ngIf="member.image" class="oval user-avatar inline"></div>
                                 <div class="user-name text inline">
-                                    hoan lac thien
-                                </div>
-                            </div>
-                            <div class="project-user">
-                                <div class="oval user-avatar"></div>
-                                <div class="user-name text">
-                                    hoan lac thien
-                                </div>
-                            </div>
-                            <div class="project-user">
-                                <div class="oval user-avatar"></div>
-                                <div class="user-name text">
-                                    hoan lac thien
-                                </div>
-                            </div>
-                            <div class="project-user">
-                                <div class="oval user-avatar"></div>
-                                <div class="user-name text">
-                                    hoan lac thien
+                                    {{member.first_name}}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </td>
-                <div class="right-colum"> 150 </div>
+                <div class="right-colum"> {{project.tracked_time}} </div>
             </tr>
         </tbody>
     </table>

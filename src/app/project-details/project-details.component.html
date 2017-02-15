@@ -1,18 +1,16 @@
 <app-member-menu-bar [currentState]="1"></app-member-menu-bar>
 <div class="content">
     <div class="project-title">
-        <div class="project-background"></div>
+        <div *ngIf="project" class="project-background" [style.background]="project.default.background"></div>
         <div class="project-background project-inform">
             <div class="client">
-                <!-- {{project.name}} -->
-                Picture Plus
+                <span *ngIf="project && project.client">{{project.client.name}}</span>
             </div>
             <div class="project-name">
-                <!-- {{project.name}} -->
-                Framer
+                <span *ngIf="project && project.default">{{project.default.name}}</span>
             </div>
-            <div class="tracked">
-                <strong>450</strong> houres tracked
+            <div class="tracked" *ngIf="project">
+                <strong >{{project.tracked_time}}</strong> houres tracked
             </div>
         </div>
         <div class="project-control">
@@ -38,10 +36,10 @@
     <div class="project-body">
         <p-tabView>
             <p-tabPanel header="Tasks">
-                <app-project-details-tasks [project]="projects"></app-project-details-tasks>
+                <app-project-details-tasks [project]="project"></app-project-details-tasks>
             </p-tabPanel>
             <p-tabPanel header="Team">
-                <app-project-details-team [project]="projects"></app-project-details-team>
+                <app-project-details-team [project]="project"></app-project-details-team>
             </p-tabPanel>
         </p-tabView>
     </div>

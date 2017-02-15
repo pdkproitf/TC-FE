@@ -5,6 +5,7 @@ export class User {
     email: string;
     password: string;
     password_confirmation: string;
+    id: Number;
 }
 export class UserPost {
     user: User;
