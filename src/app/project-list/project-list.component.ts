@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Project } from '../models/project';
-import { ProjectRecieve }  from '../models/project';
+import { ProjectGetAll }  from '../models/project';
 import { ProjectService } from './../services/project-service';
 
 @Component({
@@ -9,10 +9,10 @@ import { ProjectService } from './../services/project-service';
     styleUrls: ['./project-list.component.scss'],
 })
 export class ProjectListComponent implements OnInit {
-    project_lists: ProjectRecieve[]= [];
+    project_lists: ProjectGetAll[]= [];
     constructor(private projectService: ProjectService) { }
 
     ngOnInit() {
-        this.projectService.loadList().then(result => this.project_lists = result);
+        this.projectService.getProjects().then(result => this.project_lists = result);
     }
 }

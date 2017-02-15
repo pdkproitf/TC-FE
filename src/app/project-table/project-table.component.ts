@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges, SimpleChange } from '@angular/core';
-import { ProjectRecieve }   from '../models/project';
+import { ProjectGetAll }   from '../models/project';
 import { Router }           from '@angular/router';
 declare var $:any;
 
@@ -15,7 +15,7 @@ export class ProjecTableComponent implements OnInit, OnChanges {
     rowOfPage: number = 6;
     pages: Number[] = [];
 
-    @Input() projects: ProjectRecieve[];
+    @Input() projects: ProjectGetAll[];
     constructor(private router: Router) { }
     ngOnInit() {
         if(this.projects.length > 1){
@@ -48,7 +48,7 @@ export class ProjecTableComponent implements OnInit, OnChanges {
     }
 
     // link to peoject detail page
-    projectDetails(project: ProjectRecieve) {
+    projectDetails(project: ProjectGetAll) {
         this.router.navigate(['/projects', project.default.id]);
     }
 
@@ -59,15 +59,15 @@ export class ProjecTableComponent implements OnInit, OnChanges {
     }
 
     // go to in here after click to SAVE button
-    save(project: ProjectRecieve){
+    save(project: ProjectGetAll){
 
     }
     // go to in here after click to DELETE button
-    delete(project: ProjectRecieve){
+    delete(project: ProjectGetAll){
 
     }
     // go to in here after click to EDIT button
-    edit(project: ProjectRecieve){
+    edit(project: ProjectGetAll){
 
     }
 

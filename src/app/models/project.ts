@@ -1,5 +1,7 @@
 import { Client } from './client';
 import { Employee } from './employee';
+import { Category } from './category';
+import { User } from './user';
 
 export class MemberRole {
     user_id: number;
@@ -31,6 +33,12 @@ export class CategoryMembers {
     new_one: NewCategory[] = [];
 }
 
+export class ProjectCategory{
+    id: number;
+    category: Category;
+    memberList: User[];
+}
+
 export class ProjectDefault{
     id: number;
     name: string;
@@ -50,11 +58,18 @@ export class Project {
 }
 
 // using for load all project from api
-export class ProjectRecieve {
+export class ProjectGetAll {
     default: ProjectDefault;
     client: Client;
     tracked_time: Number;
     members: Employee[];
+}
+
+export class ProjectGetOne {
+    default: ProjectDefault;
+    client: Client;
+    tracked_time: Number;
+    project_category: ProjectCategory[];
 }
 
 export class ProjectPost {

@@ -19,7 +19,7 @@
                 <td class="column-text">{{project.client.name}}</td>
                 <td class="column-text">{{project.tracked_time * 10}}</td>
                 <td class="column-text">
-                    <div class="project-user" >
+                    <div class="project-user inline-block" >
                         <div *ngIf="project.members">
                             <div *ngFor="let member of project.members.slice(0,3)">
                                 <div  *ngIf="project.default.background" class="oval user-avatar"></div>
@@ -27,7 +27,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="over-member" *ngIf="project.members.length > 4">
+                    <div class="over-member inline" *ngIf="project.members.length > 4">
                         <div class="oval">
                             <div class="text">
                                 +{{project.members.length - 3}}
