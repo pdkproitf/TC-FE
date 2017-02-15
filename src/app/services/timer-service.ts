@@ -15,7 +15,7 @@ export class TimerService {
     }
 
     addNewTimer(timePost: TimerPost): Promise<any> {
-        let requestUrl = 'https://timecloudbackend.herokuapp.com/api/timers/new';
+        let requestUrl = 'https://timecloudbackend.herokuapp.com/api/timers';
         let headers = new Headers();
         this.headersService.createAuthHeaders(headers);
         return this.http

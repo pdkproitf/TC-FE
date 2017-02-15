@@ -1,3 +1,4 @@
+import { CategoryInProject } from './../models/category-in-project';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-
+  currentCategory: CategoryInProject = new CategoryInProject();
   constructor() { }
 
   ngOnInit() {
   }
-
+  selectCategory(arg) {
+    this.currentCategory = arg;
+  }
 }

@@ -2,7 +2,8 @@
 <p-carousel numVisible="5" headerText="" [value]="projectJoins">
     <template let-project>
         <div class="project-field">
-            <app-project-field [myProject]="project"></app-project-field>
+            <app-project-field (outCategory)="selectCategory($event)" [myProject]="project"
+            [currentCategory]="currentCategory"></app-project-field>
             <br/>
         </div>
     </template>

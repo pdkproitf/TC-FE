@@ -1,3 +1,4 @@
+import { CategoryInProject } from './../models/category-in-project';
 import { ProjectJoin } from './../models/project-join';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 @Component({
@@ -8,8 +9,25 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class ProjectFieldComponent implements OnInit {
   @Input()
   myProject: ProjectJoin;
+  _currentCategory = new CategoryInProject();
+  @Input()
+  set currentCategory(arg) {
+    this._currentCategory = arg;
+    if (this._currentCategory.project !== this.myProject.name) {
+      let len = this.classBtns.length;
+      for (let j = 0; j < len; j++) {
+        this.classBtns[j] = 'play-btn';
+      }
+    }
+  }
+  get currentCategory() {
+    return this._currentCategory;
+  }
   classBtns = [];
   hidden = false;
+  @Output()
+  outCategory = new EventEmitter<CategoryInProject>();
+
   constructor() { }
 
   ngOnInit() {
@@ -27,6 +45,12 @@ export class ProjectFieldComponent implements OnInit {
       }
     }
     this.classBtns[i] = this.classBtns[i] === 'play-btn' ? 'stop-btn' : 'play-btn';
+    let outCat = new CategoryInProject();
+    outCat.category = this.myProject.category[i].name;
+    outCat.project = this.myProject.name;
+    outCat.pcu_id = this.myProject.category[i].pcu_id;
+    outCat.color = this.myProject.background;
+    this.outCategory.emit(outCat);
   }
 
   hideProj() {

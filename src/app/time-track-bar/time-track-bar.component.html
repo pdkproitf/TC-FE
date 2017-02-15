@@ -1,6 +1,7 @@
 <div class="tracker-container"> 
-  <input id="desc" (focus)="onFocus(0)" (blur)="onBlur(0)" type="text" pInputText placeholder="Description..." />
-  <input id="task" (focus)="onFocus(1)" (blur)="onBlur(1)" type="text" pInputText placeholder="Task..." />
+  <input id="desc" (focus)="onFocus(0)" (blur)="onBlur(0)" type="text" pInputText [(ngModel)]="description"
+  name="description" placeholder="Description..." />
+  <input id="task" (focus)="onFocus(1)" (blur)="onBlur(1)" type="text" pInputText placeholder="Task..." [value]="taskString"/>
   <input class="time-picker" type="time" [value]="startTime" />
   <label class="time-display">{{timeCount}}</label>
   <button type="button" class="{{classBtn}}" (click)="changeClass()"></button>
