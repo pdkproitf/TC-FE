@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges, SimpleChange } from '@angular/core';
-import { ProjectGetOne }   from '../models/project';
+import { ProjectGetOne, ProjectCategoryMember }   from '../models/project';
 import { User }   from '../models/user';
 declare var $:any;
 
@@ -10,28 +10,29 @@ declare var $:any;
 })
 export class ProjectDetailsTeamComponent implements OnInit, OnChanges {
     is_show_member_details: Map<Number, boolean> = new Map<Number, boolean>();
-    membersHash: Map<Number, Array<String>> = new Map<Number, Array<String>>();
-    membersDistionary: Array<User> = [];
+    categoryOfMemberHash: Map<Number, Array<String>> = new Map<Number, Array<String>>();
+    membersDistionary: Array<ProjectCategoryMember> = [];
     @Input() project: ProjectGetOne;
     constructor() { }
 
     ngOnInit() {
         if(this.project){
             this.membersDistionary = [];
-            this.membersHash = new Map<Number, Array<String>>();;
+            this.categoryOfMemberHash = new Map<Number, Array<String>>();;
             this.project.project_category.forEach(res => {
-                res.memberList.forEach(user => {
-                    var arr = this.membersHash.get(user.id)
+                res.memberList.forEach(projectCategory => {
+                    var arr = this.categoryOfMemberHash.get(projectCategory.user.id)
                     if(arr){
                         arr.push(res.category.name);
-                        this.membersHash.set(user.id, arr);
-                    }else{
+                        this.categoryOfMemberHash.set(projectCategory.user.id, arr);
+                    }
+                    else{
                         arr = [];
                         arr.push(res.category.name);
-                        this.membersHash.set(user.id, arr);
-                        this.membersDistionary.push(user);
+                        this.categoryOfMemberHash.set(projectCategory.user.id, arr);
+                        this.membersDistionary.push(projectCategory);
                     }
-                    this.is_show_member_details.set(user.id, false);
+                    this.is_show_member_details.set(projectCategory.user.id, false);
                 })
             })
         }

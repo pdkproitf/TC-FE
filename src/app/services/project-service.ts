@@ -1,5 +1,5 @@
 import { ProjectDefault, ProjectGetAll, ProjectPost, ProjectGetOne,
-    ProjectCategory, MemberList } from './../models/project';
+    ProjectCategory, ProjectCategoryMember } from './../models/project';
     import { User }     from './../models/user';
     import { Client }   from './../models/client';
     import { Employee } from './../models/employee';
@@ -124,11 +124,15 @@ import { ProjectDefault, ProjectGetAll, ProjectPost, ProjectGetOne,
                             project_category.category = category;
 
                             // member list
-                            var memberList: User[] = [];
+                            var memberList: ProjectCategoryMember[] = [];
                             var members = data['member']
                             if(members){
                                 members.forEach(member => {
-                                    memberList.push(member['user']);
+                                    var projectCategoryMember: ProjectCategoryMember = new ProjectCategoryMember();
+                                    projectCategoryMember.user = member['user'];
+                                    projectCategoryMember.roles = member['role'];
+                                    projectCategoryMember.tracked_time = member['tracked_time'];
+                                    memberList.push(projectCategoryMember);
                                 })
                             }
                             project_category.memberList = memberList;

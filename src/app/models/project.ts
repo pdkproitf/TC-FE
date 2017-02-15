@@ -2,6 +2,7 @@ import { Client } from './client';
 import { Employee } from './employee';
 import { Category } from './category';
 import { User } from './user';
+import { Role } from './role';
 
 export class MemberRole {
     user_id: number;
@@ -33,10 +34,16 @@ export class CategoryMembers {
     new_one: NewCategory[] = [];
 }
 
+export class ProjectCategoryMember {
+    user: User;
+    roles: Role[];
+    tracked_time: Number;
+}
+
 export class ProjectCategory{
     id: number;
     category: Category;
-    memberList: User[];
+    memberList: ProjectCategoryMember[];
 }
 
 export class ProjectDefault{
