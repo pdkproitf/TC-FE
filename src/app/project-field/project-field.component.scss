@@ -1,8 +1,8 @@
 @import '../general-style/color-style.scss';
 @import '../general-style/font-style.scss';
 .project-container{
-    width: 232px;
-    height: 338px;
+    width: 100%;
+    min-height: 340px;
     border-radius: 3px 35px 35px 3px;
     box-shadow: 6px 6px 4px 1px $shadowColor;
     .company-name{
@@ -12,8 +12,14 @@
         font-weight: bold;
         color:white;
         position: relative;
-        top: 14px;
-        left:23px;
+        margin-top: 14px;
+        margin-left:23px;
+        display:inline-block;
+    }
+    .ui-button{
+        background: transparent;
+        border: none;
+        color: #ECCFEF;
     }
     .project-name{
         width: 183.35px;
@@ -24,32 +30,63 @@
         line-height: 29px;
         color: #FFFFFF;
         position: relative;
-        top: -14px;
-        left:23px;
+        margin-left: 23px;
+        margin-top: 0px;
     }
-    .tasks{
-        padding:0;
-        width: 100%;
-        button{
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            float: right;
-            margin-right: 50%;
-            &.play-btn{
-                background-image: url(/assets/images-buttons/small-play-btn.png);
-                background-position-x: -1px;
-                background-position-y: -1px;
-                background-color: $shadowColor;
-                border: solid 1px $shadowColor;
-            }
-            &.stop-btn{
-                background-image: url(/assets/images-buttons/small-stop-btn.png);
-                background-position-x: -2px;
-                background-position-y: -2px;
-                background-color: white;
-                border: solid 1px #000000;
+    table.tasks{
+        tr{
+            td{
+                &.task-name{
+                    color: white;
+                    padding-left: 15%;
+                }
             }
         }
+        padding:0;
+        width: 100%;
+        .ui-button{
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: rgba(44,44,44,0.4);
+            border: none;
+            text-align: center;
+            font-size: 12px;
+        }
+    }
+}
+
+.project-hide{
+    width: 100%;
+    height: auto;
+    border-radius: 3px 35px 35px 3px;
+    background: #EEEEEE;
+    .company-name{
+        font-family: $headerFont;
+        font-size: 12px;
+        line-height: 15px;
+        font-weight: bold;
+        color:#C1C1C1;
+        position: relative;
+        margin-top: 14px;
+        margin-left:23px;
+        display:inline-block;
+    }
+    .ui-button{
+        background: transparent;
+        border: none;
+        color: #B5B5B5;
+    }
+    .project-name{
+        width: 183.35px;
+        height: 29px;
+        font-family: $contentFont;
+        font-size: 24px;
+        font-weight: bold;
+        line-height: 29px;
+        color: #6C6C6C;
+        position: relative;
+        margin-left: 23px;
+        margin-top: 0px;
     }
 }

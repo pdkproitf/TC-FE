@@ -1,13 +1,19 @@
-<div class="project-container" [style.background]="myProject.background">
+<div *ngIf="!hidden" class="project-container" [style.background]="myProject.background">
   <p class="company-name">{{myProject.client.name}}</p>
+  <button pButton type="text" (click)="hideProj()" icon="fa-eye-slash"></button>
   <p class="project-name">{{myProject.name}}</p>
-  <!--<ul class="tasks">
-    <li *ngFor="let task of myProject.category; let i = index">{{task.name}}<button class={{classBtns[i]}} (click)="changeClass(i)"></button></li>
-  </ul>-->
   <table class="tasks">
     <tr *ngFor="let task of myProject.category; let i = index">
-      <td>{{task.name}}</td>
-      <td><button class={{classBtns[i]}} (click)="changeClass(i)"></button></td>
+      <td class="task-name">{{task.name}}</td>
+      <td>
+        <button *ngIf="classBtns[i]==='play-btn'" pButton type="text" (click)="changeClass(i)" icon="fa-play"></button>
+        <button *ngIf="classBtns[i]==='stop-btn'" pButton type="text" (click)="changeClass(i)" icon="fa-stop"></button>
+      </td>
     </tr>
   </table>
+</div>
+<div *ngIf="hidden" class="project-hide">
+  <p class="company-name">{{myProject.client.name}}</p>
+  <button pButton type="text" (click)="showProj()" icon="fa-eye"></button>
+  <p class="project-name">{{myProject.name}}</p>
 </div>

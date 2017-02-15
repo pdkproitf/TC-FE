@@ -9,16 +9,7 @@ export class ProjectFieldComponent implements OnInit {
   @Input()
   myProject: ProjectJoin;
   classBtns = [];
-  private _sharedVar = '';
-  @Input()
-  set sharedVar(name: string){
-    this._sharedVar = name;
-    console.log('Changed');
-  }
-  get sharedVar(){
-    return this._sharedVar;
-  }
-  @Output() sharedVarChange = new EventEmitter();
+  hidden = false;
   constructor() { }
 
   ngOnInit() {
@@ -29,7 +20,8 @@ export class ProjectFieldComponent implements OnInit {
   }
 
   changeClass(i): void {
-    for (let j = 0; j < 3; j++) {
+    let len = this.classBtns.length;
+    for (let j = 0; j < len; j++) {
       if (j !== i) {
         this.classBtns[j] = 'play-btn';
       }
@@ -37,9 +29,11 @@ export class ProjectFieldComponent implements OnInit {
     this.classBtns[i] = this.classBtns[i] === 'play-btn' ? 'stop-btn' : 'play-btn';
   }
 
-  change(newValue) {
-    console.log('newvalue', newValue);
-    this._sharedVar = newValue;
-    this.sharedVarChange.emit(newValue);
+  hideProj() {
+    this.hidden = true;
+  }
+
+  showProj() {
+    this.hidden = false;
   }
 }
