@@ -1,3 +1,4 @@
+import { TimerFetchService } from './../services/timer-fetch-service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DateLogComponent implements OnInit {
   days: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Total'];
+  classDay: string[] = ['', '', '', '', '', '', '', '', ''];
   time: string[] = ['0:00', '8:00', '8:00', '8:00', '8:00', '8:00', '0:00', '40:00'];
   monthsName: string[] = ['Jan', 'Feb', 'Mar', 'April', 'May', 'Jun', 'Jul',
   'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -18,10 +20,11 @@ export class DateLogComponent implements OnInit {
   lastWeekMonth;
   currentDate: Date;
   chosenDate: Date;
-  constructor() { }
+  constructor(private timerFetchService: TimerFetchService) { }
 
   ngOnInit() {
     let curr = new Date();
+    this.classDay[curr.getDay()] = 'active';
     this.currentDate = new Date(curr);
     this.chosenDate = new Date(curr);
     let curr1 = new Date(curr);
@@ -36,6 +39,15 @@ export class DateLogComponent implements OnInit {
     this.firstWeekMonth = this.monthsName[this.firstDate.getMonth()];
     this.lastWeekDate = this.lastDate.getDate();
     this.lastWeekMonth = this.monthsName[this.lastDate.getMonth()];
+
+    this.timerFetchService.getTimerFetch('2017-01-01', '2017-12-01')
+    .then(res => {
+      console.log(res);
+      console.log(res['2017-02-14']);
+    })
+    .catch(err => {
+      console.log(err);
+    });
 
   }
 
@@ -71,6 +83,15 @@ export class DateLogComponent implements OnInit {
     this.firstWeekMonth = this.monthsName[this.firstDate.getMonth()];
     this.lastWeekDate = this.lastDate.getDate();
     this.lastWeekMonth = this.monthsName[this.lastDate.getMonth()];
+  }
+
+  setActiveDay(a) {
+    for (let i = 0; i < 8; i++) {
+      if ( i !== a) {
+        this.classDay[i] = '';
+      }
+    }
+    this.classDay[a] = 'active';
   }
 
 }

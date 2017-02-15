@@ -73,6 +73,9 @@ ul{
             }
             &:hover{
                 cursor: pointer;
+                background-color: $shadowColor !important;
+            }
+            &.active{
                 background-color: #F2F5F7 !important;
             }
         }
