@@ -2,10 +2,10 @@
   <div [class]="classDiv">
   <span [class]="spanClass"><button type="button" pButton icon="fa-trash"></button></span>
   <ul class="aa">
-    <li class="des">Description</li>
-    <li class="cli-ta">Client - Task</li>
-    <li class="fro-to">From -> To</li>
-    <li class="to-ti">Total</li>
+    <li class="des">{{timerFetch.task_name}}</li>
+    <li class="cli-ta">{{timerFetch.project_name}} - {{timerFetch.category_name}}</li>
+    <li class="fro-to">{{from}} -> {{to}}</li>
+    <li class="to-ti">{{total}}s</li>
   </ul>
   <span [class]="spanClass"><button type="button" pButton icon="fa-play-circle"></button></span>
   </div>

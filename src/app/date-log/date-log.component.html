@@ -4,8 +4,3 @@
   <li><button class="next" (click)="nextWeek()"></button></li>
   <li>Current Date:<p-calendar [(ngModel)]="chosenDate" [showIcon]="true"></p-calendar></li>
 </ul>
-<div class="week">
-  <ul class="days-in-week">
-    <li *ngFor="let day of days; let i = index;" [class]="classDay[i]" (click)="setActiveDay(i)"><p>{{day}}</p><p>{{time[i]}}</p></li>
-  </ul>
-</div>
