@@ -1,0 +1,48 @@
+@import '../general-style/color-style.scss';
+@import '../general-style/font-style.scss';
+.project-container{
+    .dot{
+        height:12px;
+        width: 12px;
+        border-radius: 50%;
+        padding: 0;
+    }
+    table{
+        width: 100%;
+        text-align: left;
+        font-family: $headerFont;
+        border-spacing: 0;
+        th{
+            &.dot-container{
+                width: 10%;
+            }
+            p{
+                display: inline-block;
+                margin: 0;
+                font-size: 14px;
+            }
+            p.project{
+                color: $colorMain;
+            }
+            p.client{
+                color: $fontWhiteBorder;
+                margin-left: 5%;
+            }
+        }
+        td{
+            font-family: $headerFont;
+            color: $colorHeader;
+            font-size: 14px;
+            padding-bottom: 10px;
+            padding-top: 10px;
+        }
+        tr{
+            &.category{
+                &:hover{
+                    background-color: $shadowColor;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}

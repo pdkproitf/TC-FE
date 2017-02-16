@@ -42,6 +42,7 @@ import {TabViewModule}      from 'primeng/primeng';
 import { ProjectDetailsTasksComponent } from './project-details-tasks/project-details-tasks.component';
 import { ProjectDetailsTeamComponent } from './project-details-team/project-details-team.component';
 import { DetailDateLogLiComponent } from './detail-date-log-li/detail-date-log-li.component';
+import { ProjectInDivComponent } from './project-in-div/project-in-div.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { DetailDateLogLiComponent } from './detail-date-log-li/detail-date-log-l
     ProjectDetailsComponent,
     ProjectDetailsTasksComponent,
     ProjectDetailsTeamComponent,
-    DetailDateLogLiComponent
+    DetailDateLogLiComponent,
+    ProjectInDivComponent
   ],
   imports: [
     BrowserModule,

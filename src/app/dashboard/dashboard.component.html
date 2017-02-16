@@ -1,7 +1,7 @@
 <app-member-menu-bar [currentState]="0"></app-member-menu-bar>
-<app-time-track-bar [currentCategory]="currentCategory"></app-time-track-bar>
+<app-time-track-bar [currentCategory]="currentCategory" [projectJoins]="projectJoins"></app-time-track-bar>
 <div class="below">
-    <app-project-field-list (outCategory)="selectCategory($event)"></app-project-field-list>
+    <app-project-field-list (outCategory)="selectCategory($event)" (outProjectJoins)="getProjectJoins($event)"></app-project-field-list>
     <app-date-log></app-date-log>
     <br/>
 </div>

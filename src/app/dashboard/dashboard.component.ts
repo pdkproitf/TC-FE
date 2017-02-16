@@ -1,3 +1,4 @@
+import { ProjectJoin } from './../models/project-join';
 import { CategoryInProject } from './../models/category-in-project';
 import { Component, OnInit } from '@angular/core';
 
@@ -8,11 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
   currentCategory: CategoryInProject = new CategoryInProject();
+  projectJoins: ProjectJoin[] = [];
   constructor() { }
 
   ngOnInit() {
   }
   selectCategory(arg) {
     this.currentCategory = arg;
+  }
+  getProjectJoins(arg) {
+    this.projectJoins = arg;
+    console.log(this.projectJoins);
   }
 }

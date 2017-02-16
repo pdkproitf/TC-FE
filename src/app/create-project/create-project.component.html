@@ -74,13 +74,13 @@
             </tr>
             <tr class="data" *ngFor="let cat of existingCategories; let i = index">
                 <td class="task-name"><button pButton type="button" (click)="removeExistingTask(i)" icon="fa-times"></button>{{cat.name}}</td>
-                <td><app-adding-member (onAdd)="existingAddMember($event, i)" (onDelete)="existingDeleteMember($event, i)" [employeePosts]="employeePosts"></app-adding-member>
+                <td><app-adding-member (onAdd)="existingAddMember($event, i)" (onDelete)="existingDeleteMember($event, i)" [employeePosts]="employeesToAdd"></app-adding-member>
                 </td>
                 <td><input type="checkbox" (change)="existingChkFunc($event.target.checked, i)"></td>
             </tr>
             <tr class="data" *ngFor="let cat of newCategories; let i = index">
                 <td class="task-name"><button pButton type="button" (click)="removeNewTask(i)" icon="fa-times"></button>{{cat.name}}</td>
-                <td><app-adding-member (onAdd)="newAddMember($event, i)" (onDelete)="newDeleteMember($event, i)" [employeePosts]="employeePosts"></app-adding-member>
+                <td><app-adding-member (onAdd)="newAddMember($event, i)" (onDelete)="newDeleteMember($event, i)" [employeePosts]="employeesToAdd"></app-adding-member>
                 </td>
                 <td><input type="checkbox" (change)="newChkFunc($event.target.checked, i)"></td>
             </tr>

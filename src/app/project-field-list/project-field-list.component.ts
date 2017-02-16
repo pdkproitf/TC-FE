@@ -12,6 +12,8 @@ export class ProjectFieldListComponent implements OnInit {
   projectJoins: ProjectJoin[] = [];
   @Output()
   outCategory = new EventEmitter<CategoryInProject>();
+  @Output()
+  outProjectJoins = new EventEmitter<ProjectJoin[]>();
   currentCategory = new CategoryInProject();
   constructor(private projectJoinService: ProjectJoinService) { }
 
@@ -19,7 +21,7 @@ export class ProjectFieldListComponent implements OnInit {
     this.projectJoinService.getProjectJoin()
     .then(res => {
       this.projectJoins = res;
-      console.log(this.projectJoins);
+      this.outProjectJoins.emit(this.projectJoins);
     })
     .catch(err => {
       console.log(err);

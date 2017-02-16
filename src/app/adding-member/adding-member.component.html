@@ -11,7 +11,7 @@
     <input class="add-btn" (focus)="displayDiv()" (keyup)="keyUpSearch()" type="text" [(ngModel)]="searchName">
     <div [class]="classDiv">
       <ul class="member-list">
-        <li *ngFor="let em of employeePostsSearch; let i = index;" (click)="addEmployee(em.employee)">{{em.employee.first_name}} {{em.employee.last_name}}</li>
+        <li *ngFor="let em of employeePostsSearch; let i = index;" (click)="addEmployee(em)">{{em.first_name}} {{em.last_name}}</li>
       </ul>
     </div>
 </div>

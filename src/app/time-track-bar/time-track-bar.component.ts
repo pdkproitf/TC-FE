@@ -1,3 +1,4 @@
+import { ProjectJoin } from './../models/project-join';
 import { CategoryInProject } from './../models/category-in-project';
 import { Timer, TimerPost } from './../models/timer';
 import { TimerService } from './../services/timer-service';
@@ -40,6 +41,8 @@ export class TimeTrackBarComponent implements OnInit {
   get currentCategory() {
     return this._currentCategory;
   }
+  @Input()
+  projectJoins: ProjectJoin[];
   myVar;
   classDrop: string[] = ['hidden', 'hidden'];
   timer: Timer = new Timer();
@@ -78,6 +81,7 @@ export class TimeTrackBarComponent implements OnInit {
 
   myStopTimer() {
     clearInterval(this.myVar);
+    this.timeCount = '00:00:00';
   }
 
   secondToTime() {
