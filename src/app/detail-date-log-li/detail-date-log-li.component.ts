@@ -12,7 +12,7 @@ export class DetailDateLogLiComponent implements OnInit {
   @Input()
   set timerFetch(value) {
     this._timerFetch = value;
-    this.totalTime();
+    this.secondToTime();
     this.from = this.convertTime(this.timerFetch.start_time);
     this.to = this.convertTime(this.timerFetch.stop_time);
   }
@@ -43,9 +43,23 @@ export class DetailDateLogLiComponent implements OnInit {
     return res;
   }
 
-  totalTime() {
+  totalTime(): number {
     let from = new Date(this.timerFetch.start_time).getTime();
     let to = new Date(this.timerFetch.stop_time).getTime();
-    this.total = (to - from) / 1000;
+    return (to - from) / 1000;
+  }
+
+  secondToTime() {
+    let sec_num = this.totalTime();
+    let hours   = Math.floor(sec_num / 3600);
+    let minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+    let seconds = sec_num - (hours * 3600) - (minutes * 60);
+    let hoursString = hours.toString();
+    let minutesString = minutes.toString();
+    let secondsString = seconds.toString();
+    if (hours   < 10) {hoursString   = '0' + hoursString; }
+    if (minutes < 10) {minutesString = '0' + minutesString; }
+    if (seconds < 10) {secondsString = '0' + secondsString; }
+    this.total = hoursString + ':' + minutesString + ':' + secondsString;
   }
 }
