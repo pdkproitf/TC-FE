@@ -7,32 +7,34 @@
             <th class="right-colum">Tracked(h)</th>
         </tr>
         <tbody *ngIf="project && membersDistionary">
-            <tr class="project-line" *ngFor="let member of membersDistionary" id="team-row-{{member.id}}">
+            <tr class="project-line" *ngFor="let member of membersDistionary" id="team-row-{{member.user.id}}">
                 <td style="width: 60%;">
-                    <div class="plus inline" (click)="team_user_details(member.id)">
+                    <div class="plus inline" (click)="team_user_details(member.user.id)">
                         <i class="fa fa-plus" aria-hidden="true"></i>
                     </div>
                     <div class="project-user inline"><div class="oval user-avatar"></div></div>
                     <div class="column-text inline" >
                         <div class="text">
-                            <div class="inline">{{member.first_name}}</div>
-                            <div class="user-pm inline" *ngIf="membersHash.get(member.id)=='PM'">
-                                <span class="user-pm-text">PM</span>
+                            <div class="inline">{{member.user.first_name}}</div>
+                            <div *ngFor="let role of member.roles">
+                                <div class="user-pm inline" *ngIf="role.name=='PM'">
+                                    <span class="user-pm-text">PM</span>
+                                </div>
                             </div>
                         </div>
 
                         <div class="user-tasks" (click)="team_user_details()">
-                            {{membersHash.get(member.id).length + ' Tasks'}}
+                            {{categoryOfMemberHash.get(member.user.id).length + ' Tasks'}}
                         </div>
 
-                        <div class="group-tasks" *ngFor="let category of (membersHash.get(member.id))">
+                        <div class="group-tasks" *ngFor="let categogy of (categoryOfMemberHash.get(member.user.id))">
                             <div class="text">
-                                {{category}}
+                                {{categogy}}
                             </div>
                         </div>
                     </div>
                 </td>
-                <div class="right-colum"> 150 </div>
+                <div class="right-colum"> {{member.tracked_time}} </div>
             </tr>
         </tbody>
     </table>
