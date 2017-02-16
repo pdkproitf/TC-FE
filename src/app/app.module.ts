@@ -1,3 +1,6 @@
+import { TimerFetchService } from './services/timer-fetch-service';
+import { ProjectJoinService } from './services/project-join-service';
+import { TimerService } from './services/timer-service';
 import { CategoryService } from './services/category-service';
 import { MembershipService } from './services/membership-service';
 import { ClientService } from './services/client-service';
@@ -38,6 +41,7 @@ import {PaginatorModule}    from 'primeng/primeng';
 import {TabViewModule}      from 'primeng/primeng';
 import { ProjectDetailsTasksComponent } from './project-details-tasks/project-details-tasks.component';
 import { ProjectDetailsTeamComponent } from './project-details-team/project-details-team.component';
+import { DetailDateLogLiComponent } from './detail-date-log-li/detail-date-log-li.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +67,8 @@ import { ProjectDetailsTeamComponent } from './project-details-team/project-deta
     ProjecTableComponent,
     ProjectDetailsComponent,
     ProjectDetailsTasksComponent,
-    ProjectDetailsTeamComponent
+    ProjectDetailsTeamComponent,
+    DetailDateLogLiComponent
   ],
   imports: [
     BrowserModule,
@@ -83,7 +88,8 @@ import { ProjectDetailsTeamComponent } from './project-details-team/project-deta
     TabViewModule
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
-  AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService],
+  AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService,
+  TimerService, ProjectJoinService, TimerFetchService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

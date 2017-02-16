@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { CategoryInProject } from './../models/category-in-project';
+import { Timer, TimerPost } from './../models/timer';
+import { TimerService } from './../services/timer-service';
+import { Component, OnInit, Input } from '@angular/core';
 import { Observable, Subscription } from 'rxjs/Rx';
 
 @Component({
@@ -11,14 +14,41 @@ export class TimeTrackBarComponent implements OnInit {
   startTime: String = '00:00';
   timeCount: String = '00:00:00';
   ticks: number = -1;
-  timer: Observable<Object>;
-  sub: Subscription;
+  _currentCategory: CategoryInProject;
+  emptyCategory = new CategoryInProject();
+  taskString = '';
+  description = '';
+  @Input()
+  set currentCategory(curCat) {
+    if (curCat.category !== undefined && curCat.project !== undefined) {
+      if (curCat.pcu_id === this._currentCategory.pcu_id) {
+        if (this.classBtn === 'stop-btn') {
+          this.changeClass();
+        }
+        this._currentCategory = this.emptyCategory;
+        this.taskString = '';
+        return;
+      }else {
+        if (this.classBtn === 'stop-btn') {
+          this.changeClass();
+        }
+        this._currentCategory = curCat;
+        this.taskString = this.currentCategory.project + ' - ' + this.currentCategory.category;
+      }
+    }
+  }
+  get currentCategory() {
+    return this._currentCategory;
+  }
   myVar;
   classDrop: string[] = ['hidden', 'hidden'];
-  constructor() { }
+  timer: Timer = new Timer();
+  timerPost: TimerPost = new TimerPost();
+
+  constructor(private timerService: TimerService) { }
 
   ngOnInit() {
-    this.timer = Observable.timer(0, 1000);
+    this._currentCategory = this.emptyCategory;
   }
 
   changeClass(): void {
@@ -27,7 +57,7 @@ export class TimeTrackBarComponent implements OnInit {
     let minutesString = current.getMinutes() < 10 ? '0' + current.getMinutes().toString() : current.getMinutes().toString();
     this.startTime = hoursString + ':' + minutesString;
     if (this.classBtn === 'play-btn') {
-      // this.sub = this.timer.subscribe(t => this.tickerFunc(t));
+      this.setStartTime();
       this.ticks = -1;
       this.myTickerFunc();
       this.myVar = setInterval(() => {
@@ -35,28 +65,18 @@ export class TimeTrackBarComponent implements OnInit {
       }
       , 1000);
     }else {
-      // this.stopTimer();
       this.myStopTimer();
+      this.setStopTime();
     }
     this.classBtn = this.classBtn === 'play-btn' ? 'stop-btn' : 'play-btn';
   }
 
-  /*tickerFunc(tick) {
-    this.ticks = tick;
-    this.secondToTime();
-  }
-
-  stopTimer() {
-    this.sub.unsubscribe();
-  }*/
-
   myTickerFunc() {
     this.ticks += 1;
-    console.log(this.ticks);
     this.secondToTime();
   }
 
-  myStopTimer(){
+  myStopTimer() {
     clearInterval(this.myVar);
   }
 
@@ -82,8 +102,30 @@ export class TimeTrackBarComponent implements OnInit {
       this.classDrop[num] = 'dropdown div-task';
     }
   }
+
   onBlur(num: number) {
     console.log('blur');
     this.classDrop[num] = 'hidden';
+  }
+
+  setStartTime() {
+    let curr = new Date();
+    this.timer.start_time = curr.toString();
+  }
+
+  setStopTime() {
+    let curr = new Date();
+    this.timer.stop_time = curr.toString();
+    this.timer.project_category_user_id = this._currentCategory.pcu_id;
+    this.timer.task_name = this.description;
+    this.timerPost.timer = this.timer;
+    console.log(this.timerPost);
+    this.timerService.addNewTimer(this.timerPost)
+    .then(res => {
+      console.log(res);
+    })
+    .catch(err => {
+      console.log(err);
+    });
   }
 }

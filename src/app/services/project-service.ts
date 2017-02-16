@@ -9,10 +9,10 @@ import { ProjectDefault, ProjectGetAll, ProjectPost, ProjectGetOne,
     import { HeadersService }   from './headers-service';
     import 'rxjs/add/operator/toPromise';
 
-    @Injectable()
-    export class ProjectService {
-        headersService: HeadersService = new HeadersService();
-        projectUrl: String = 'https://timecloudbackend.herokuapp.com/api/projects';
+@Injectable()
+export class ProjectService {
+    headersService: HeadersService = new HeadersService();
+    projectUrl: string = 'https://timecloudbackend.herokuapp.com/api/projects';
 
         constructor(private http: Http) {}
 
@@ -21,16 +21,16 @@ import { ProjectDefault, ProjectGetAll, ProjectPost, ProjectGetOne,
             return Promise.reject(error.message || error);
         }
 
-        addProject(projectPost: ProjectPost): Promise<any> {
-            let requestUrl = this.projectUrl+'/new';
-            let headers = new Headers;
-            this.headersService.createAuthHeaders(headers);
-            return this.http
-            .post(requestUrl, JSON.stringify(projectPost), {headers: headers})
-            .toPromise()
-            .then(res => res.json())
-            .catch(this.handleError);
-        }
+    addProject(projectPost: ProjectPost): Promise<any> {
+        let requestUrl = this.projectUrl;
+        let headers = new Headers;
+        this.headersService.createAuthHeaders(headers);
+        return this.http
+        .post(requestUrl, JSON.stringify(projectPost), {headers: headers})
+        .toPromise()
+        .then(res => res.json())
+        .catch(this.handleError);
+    }
 
         //get project under user role with param id.
         getProject(id: String): Promise<ProjectGetOne>{

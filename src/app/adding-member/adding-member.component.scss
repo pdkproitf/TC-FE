@@ -3,13 +3,13 @@
 .hidden{
     display:none;
 }
-/deep/ button{
-    color: $fontWhiteBorder !important;
-    background-color: transparent !important;
+button.rem-btn{
+    color: $fontWhiteBorder ;
+    background-color: transparent ;
     width: auto;
     height: auto;
-    margin-right: 0 !important;
-    border: none !important;
+    margin-right: 0 ;
+    border: none ;
     outline: none;
 
 }
