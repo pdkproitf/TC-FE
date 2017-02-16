@@ -47,7 +47,7 @@
             </tr>
         </table>
         <br/>
-        <input class="add-btn" (focus)="displayDiv()" (keyup)="keyUpSearch()" type="text" name="search-name"
+        <input class="add-btn" (focus)="displayDiv()" (blur)="undisplayDiv()" (keyup)="keyUpSearch()" type="text" name="search-name"
         [(ngModel)]="searchName">
         <a href="#">Add all people</a>
         <div class="notice">
@@ -57,7 +57,7 @@
         <div [class]="classDiv">
         <!--<div class="member-to-add">-->
             <ul class="member-list">
-                <li *ngFor="let em of employeePostsSearch; let i = index;" (click)="addEmployee(em.employee)">{{em.employee.first_name}} {{em.employee.last_name}}</li>
+                <li *ngFor="let em of employeePostsSearch; let i = index;" (mousedown)="addEmployee(em.employee)">{{em.employee.first_name}} {{em.employee.last_name}}</li>
             </ul>
         </div>
     </div>

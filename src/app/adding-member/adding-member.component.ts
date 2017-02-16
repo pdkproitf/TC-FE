@@ -35,11 +35,12 @@ export class AddingMemberComponent implements OnInit {
   }
 
   addEmployee(employee: Employee) {
-    this.employees.push(employee);
-    let member = new Member;
-    member.user_id = employee.id;
-    this.onAdd.emit(member);
-    this.undisplayDiv();
+    if (this.employees.indexOf(employee) < 0) {
+      this.employees.push(employee);
+      let member = new Member;
+      member.user_id = employee.id;
+      this.onAdd.emit(member);
+    }
   }
 
   removeEmployee(i) {
