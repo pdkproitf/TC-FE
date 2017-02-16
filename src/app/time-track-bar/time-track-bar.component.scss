@@ -27,6 +27,10 @@
         margin-left: 6%;
         color: $fontWhiteBorder;
         border: none;
+        &:focus{
+            background: #ABDCFF;
+            background-size: 70%;
+        }
         
     }
     .time-display{
@@ -63,7 +67,7 @@
     background: white;
     box-shadow: 0px 2px 4px $whiteBorder;
     position: absolute;
-    z-index: 1;
+    z-index: 2;
     &.div-des{
         height: 300px;
         margin-left: 1%;
@@ -75,6 +79,25 @@
         overflow-y: auto;
         margin-left: 40%;
         width: 25%;
+    }
+    &.div-time{
+        height: 250px;
+        margin-left: 62%;
+        width: 18%;
+        background-color: #2548CE;
+        color: white;
+        z-index: 2;
+        &:after{
+            z-index: 2;
+            content: " ";
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 10px;
+            border-style: solid;
+            border-color: transparent transparent #2548CE transparent;
+        }
     }
 }
 .hidden{

@@ -46,7 +46,7 @@ export class TimeTrackBarComponent implements OnInit {
   @Output()
   outCategory = new EventEmitter<CategoryInProject>();
   myVar;
-  classDrop: string[] = ['hidden', 'hidden'];
+  classDrop: string[] = ['hidden', 'hidden', 'hidden'];
   timer: Timer = new Timer();
   timerPost: TimerPost = new TimerPost();
 
@@ -106,6 +106,8 @@ export class TimeTrackBarComponent implements OnInit {
       this.classDrop[num] = 'dropdown div-des';
     }else if (num === 1) {
       this.classDrop[num] = 'dropdown div-task';
+    }else if (num === 2) {
+      this.classDrop[num] = 'dropdown div-time';
     }
   }
 
