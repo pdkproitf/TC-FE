@@ -2,7 +2,7 @@ import { ProjectJoin } from './../models/project-join';
 import { CategoryInProject } from './../models/category-in-project';
 import { Timer, TimerPost } from './../models/timer';
 import { TimerService } from './../services/timer-service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Observable, Subscription } from 'rxjs/Rx';
 
 @Component({
@@ -43,6 +43,8 @@ export class TimeTrackBarComponent implements OnInit {
   }
   @Input()
   projectJoins: ProjectJoin[];
+  @Output()
+  outCategory = new EventEmitter<CategoryInProject>();
   myVar;
   classDrop: string[] = ['hidden', 'hidden'];
   timer: Timer = new Timer();
@@ -131,5 +133,9 @@ export class TimeTrackBarComponent implements OnInit {
     .catch(err => {
       console.log(err);
     });
+  }
+
+  selectCategory(arg) {
+    this.outCategory.emit(arg);
   }
 }

@@ -16,6 +16,7 @@ export class DashboardComponent implements OnInit {
   }
   selectCategory(arg) {
     this.currentCategory = arg;
+    console.log(arg);
   }
   getProjectJoins(arg) {
     this.projectJoins = arg;
