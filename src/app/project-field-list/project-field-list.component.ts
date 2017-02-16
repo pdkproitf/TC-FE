@@ -1,7 +1,7 @@
 import { CategoryInProject } from './../models/category-in-project';
 import { ProjectJoinService } from './../services/project-join-service';
 import { ProjectJoin } from './../models/project-join';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'app-project-field-list',
@@ -14,6 +14,7 @@ export class ProjectFieldListComponent implements OnInit {
   outCategory = new EventEmitter<CategoryInProject>();
   @Output()
   outProjectJoins = new EventEmitter<ProjectJoin[]>();
+  @Input()
   currentCategory = new CategoryInProject();
   constructor(private projectJoinService: ProjectJoinService) { }
 
@@ -30,7 +31,7 @@ export class ProjectFieldListComponent implements OnInit {
 
   selectCategory(arg) {
     this.outCategory.emit(arg);
-    this.currentCategory = arg;
+    // this.currentCategory = arg;
   }
 
 }
