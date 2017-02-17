@@ -1,6 +1,6 @@
 <div class="timer-container" (mouseenter)="showSpan()" (mouseleave)="hideSpan()">
   <div [class]="classDiv">
-  <span [class]="spanClass"><button type="button" pButton icon="fa-trash"></button></span>
+  <span [class]="spanClass"><button (click)="deleteTimer()" type="button" pButton icon="fa-trash"></button></span>
   <ul class="aa">
     <li class="des">{{timerFetch.task_name}}</li>
     <li class="cli-ta">{{timerFetch.project_name}} - {{timerFetch.category_name}}</li>

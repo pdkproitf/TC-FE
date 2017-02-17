@@ -1,3 +1,4 @@
+import { TimerService } from './../services/timer-service';
 import { TimerFetch } from './../models/timer-fetch';
 import { Component, OnInit, Input } from '@angular/core';
 
@@ -22,7 +23,7 @@ export class DetailDateLogLiComponent implements OnInit {
   from;
   to;
   total;
-  constructor() { }
+  constructor(private timerService: TimerService) { }
 
   ngOnInit() {
   }
@@ -61,5 +62,9 @@ export class DetailDateLogLiComponent implements OnInit {
     if (minutes < 10) {minutesString = '0' + minutesString; }
     if (seconds < 10) {secondsString = '0' + secondsString; }
     this.total = hoursString + ':' + minutesString + ':' + secondsString;
+  }
+
+  deleteTimer() {
+    this.timerService.deleteTimer(this.timerFetch.id);
   }
 }
