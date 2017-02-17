@@ -6,7 +6,7 @@
             </th>
             <th (click)="sortProject()" style="cursor: pointer;"><span><i id="sort-project" class="fa fa-angle-down"></i></span></th>
             <th style="width: 20%">Client</th>
-            <th style="width: 12%">Tracked time (h)</th>
+            <th style="width: 12%">Tracked time (h:m)</th>
             <th style="width: 20%">Members</th>
             <th style="width: 20%"></th>
         </tr>
@@ -17,7 +17,7 @@
                 </td>
                 <td><div class="column-text"> {{project.default.name}} </div></td>
                 <td class="column-text">{{project.client.name}}</td>
-                <td class="column-text">{{project.tracked_time * 10}}</td>
+                <td class="column-text">{{project.tracked_time}}</td>
                 <td class="column-text">
                     <div class="project-user inline-block" >
                         <div *ngIf="project.members">
