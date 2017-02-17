@@ -13,11 +13,16 @@ export class DetailDateLogComponent implements OnInit {
   time: string[] = ['0:00', '8:00', '8:00', '8:00', '8:00', '8:00', '0:00', '40:00'];
   fullWeekTimer;
   currentTimers;
+  firstWeekDay: Date;
   constructor(private timerFetchService: TimerFetchService) { }
 
   ngOnInit() {
     let curr = new Date();
+    let curr1 = new Date()
     this.classDay[curr.getDay()] = 'active';
+    let first = curr1.getDate() - curr1.getDay();
+    this.firstWeekDay = new Date(curr1.setDate(first));
+    console.log(this.firstWeekDay);
     this.timerFetchService.getTimerFetch('2017-02-12', '2017-02-18')
     .then(res => {
       this.fullWeekTimer = res;
@@ -34,6 +39,12 @@ export class DetailDateLogComponent implements OnInit {
         this.classDay[i] = '';
       }
     }
+    let day = this.firstWeekDay.getDate() + a;
+    let chosenDate = new Date();
+    chosenDate.setDate(day);
+    console.log(chosenDate);
+    let chosenString = this.dateToShortString(chosenDate);
+    this.currentTimers = this.fullWeekTimer[chosenString];
     this.classDay[a] = 'active';
   }
   dateToShortString(date: Date): string {
