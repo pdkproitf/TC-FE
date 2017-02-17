@@ -2,11 +2,26 @@
   <input id="desc" (focus)="onFocus(0)" (blur)="onBlur(0)" type="text" pInputText [(ngModel)]="description"
   name="description" placeholder="Description..." />
   <input id="task" (focus)="onFocus(1)" (blur)="onBlur(1)" type="text" pInputText placeholder="Task..." [value]="taskString"/>
-  <input class="time-picker" type="time" [value]="startTime" />
+  <input *ngIf="classBtn=='stop-btn'" class="time-picker" (focus)="onFocus(2)" (blur)="onBlur(2)" type="time" [value]="startTime" readonly="readonly" />
+  <input *ngIf="classBtn=='play-btn'"style="visibility: hidden;" class="time-picker" type="time" [value]="startTime" readonly="readonly" />
   <label class="time-display">{{timeCount}}</label>
   <button type="button" class="{{classBtn}}" (click)="changeClass()"></button>
 </div>
-<div [class]="classDrop[0]" (mousedown)="log($event)">
-</div>
+<!--<div [class]="classDrop[0]">
+</div>-->
 <div [class]="classDrop[1]">
+  <!--<div class="dropdown div-task">-->
+    <app-project-in-div *ngFor="let proj of projectJoins" [myProject]="proj" (outCategory)="selectCategory($event)"></app-project-in-div>
+</div>
+<!--<div class="dropdown div-time">-->
+<div [class]="classDrop[2]">
+  <table>
+    <tr>
+      <th>START IN THE PAST</th>
+    </tr>
+    <tr *ngFor="let op of options; let id = index" (mousedown)="updateStartTime(id)">
+      <td>{{op}}<br>{{optionStartTime[id] | date:"HH:mm"}}</td>
+    </tr>
+  </table>
+    
 </div>

@@ -1,0 +1,13 @@
+<div class="project-container">
+  <table>
+  <tr>
+    <th class="dot-container"><div class="dot" [style.background]="myProject.background"></div></th>
+    <th><p class="project">{{myProject.name}}</p><p class="client">({{myProject.client.name}})</p></th>
+  </tr>
+  <tr class="category" *ngFor="let cat of myProject.category; let i = index" (mousedown)="emitCategory(cat)">
+    <td></td>
+    <td>{{cat.name}}</td>
+  </tr>
+  </table>
+  <br/>
+</div>

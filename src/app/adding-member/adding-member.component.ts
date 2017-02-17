@@ -18,12 +18,13 @@ export class AddingMemberComponent implements OnInit {
   get employeePosts() {
     return this._employeePosts;
   }
-  _employeePosts: EmployeePost[] = [];
+  _employeePosts: Employee[] = [];
+
   @Output()
   onAdd = new EventEmitter<Member>();
   @Output()
   onDelete = new EventEmitter<Number>();
-  employeePostsSearch: EmployeePost[] = [];
+  employeePostsSearch: Employee[] = [];
   searchVar;
   employees: Employee[] = [];
 
@@ -34,11 +35,12 @@ export class AddingMemberComponent implements OnInit {
   }
 
   addEmployee(employee: Employee) {
-    this.employees.push(employee);
-    let member = new Member;
-    member.user_id = employee.id;
-    this.onAdd.emit(member);
-    this.undisplayDiv();
+    if (this.employees.indexOf(employee) < 0) {
+      this.employees.push(employee);
+      let member = new Member;
+      member.user_id = employee.id;
+      this.onAdd.emit(member);
+    }
   }
 
   removeEmployee(i) {
@@ -60,7 +62,7 @@ export class AddingMemberComponent implements OnInit {
     console.log(key);
     for (let i = 0; i < len; i++) {
       let obj = this.employeePosts[i];
-      if ( obj.employee.first_name.indexOf(key) > -1 || obj.employee.last_name.indexOf(key) > -1) {
+      if ( obj.first_name.indexOf(key) > -1 || obj.last_name.indexOf(key) > -1) {
         this.employeePostsSearch.push(obj);
       }
     }
