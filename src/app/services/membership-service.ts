@@ -15,13 +15,13 @@ export class MembershipService {
     }
 
     getAllMembership(): Promise<any> {
-        let requestUrl = 'https://timecloudbackend.herokuapp.com/api/memberships/all';
+        let requestUrl = 'https://timecloudbackend.herokuapp.com/api/memberships';
         let headers = new Headers();
         this.headersService.createAuthHeaders(headers);
         return this.http
         .get(requestUrl, {headers: headers})
         .toPromise()
-        .then(res => res.json())
+        .then(res => res.json().data)
         .catch(error => this.handleError(error));
     }
 

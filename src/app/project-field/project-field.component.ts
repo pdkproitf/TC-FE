@@ -1,5 +1,6 @@
+import { CategoryInProject } from './../models/category-in-project';
+import { ProjectJoin } from './../models/project-join';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Project } from '../models/project';
 @Component({
   selector: 'app-project-field',
   templateUrl: './project-field.component.html',
@@ -7,35 +8,56 @@ import { Project } from '../models/project';
 })
 export class ProjectFieldComponent implements OnInit {
   @Input()
-  myProject: Project;
-  classBtns = ['play-btn', 'play-btn', 'play-btn'];
-  private _sharedVar = '';
+  myProject: ProjectJoin;
+  _currentCategory = new CategoryInProject();
   @Input()
-  set sharedVar(name: string){
-    this._sharedVar = name;
-    console.log('Changed');
+  set currentCategory(arg) {
+    this._currentCategory = arg;
+    if (this._currentCategory.project !== this.myProject.name) {
+      let len = this.classBtns.length;
+      for (let j = 0; j < len; j++) {
+        this.classBtns[j] = 'play-btn';
+      }
+    }
   }
-  get sharedVar(){
-    return this._sharedVar;
+  get currentCategory() {
+    return this._currentCategory;
   }
-  @Output() sharedVarChange = new EventEmitter();
+  classBtns = [];
+  hidden = false;
+  @Output()
+  outCategory = new EventEmitter<CategoryInProject>();
+
   constructor() { }
 
   ngOnInit() {
+    let len = this.myProject.category.length;
+    for (let i = 0; i < len; i++) {
+      this.classBtns.push('play-btn');
+    }
   }
 
   changeClass(i): void {
-    for (let j = 0; j < 3; j++) {
+    let len = this.classBtns.length;
+    for (let j = 0; j < len; j++) {
       if (j !== i) {
         this.classBtns[j] = 'play-btn';
       }
     }
     this.classBtns[i] = this.classBtns[i] === 'play-btn' ? 'stop-btn' : 'play-btn';
+    let outCat = new CategoryInProject();
+    outCat.category = this.myProject.category[i].name;
+    outCat.project = this.myProject.name;
+    outCat.pcu_id = this.myProject.category[i].pcu_id;
+    outCat.color = this.myProject.background;
+    this.outCategory.emit(outCat);
   }
 
-  change(newValue) {
-    console.log('newvalue', newValue);
-    this._sharedVar = newValue;
-    this.sharedVarChange.emit(newValue);
+  hideProj() {
+    this.hidden = true;
+  }
+
+  showProj() {
+    this.hidden = false;
   }
 }

@@ -3,6 +3,7 @@
 ul{
     list-style-type: none;
     font-family: $headerFont;
+    margin-bottom: 0;
     li{
         display: inline-block;
         margin-right: 20px;
@@ -42,37 +43,6 @@ ul{
             position: relative;
             left: 4px;
             top: 2px;
-        }
-    }
-    &.days-in-week{
-        margin-left: 10%;
-        margin-right: 10%;
-        .head-list{
-            background: red;
-            height: 20px;
-            margin: 0;
-        }
-        padding-left: 0px;
-        li{
-            margin-top: 30px;
-            margin-bottom: 0px;
-            margin-left: 0px;
-            margin-right: 0px;
-            width:12.5%;
-            text-align: center;
-            
-            border-bottom: solid 1px black;
-            border-top: solid 1px black;
-            background-color: white;
-            h6{
-                font-size: 20px;
-            }
-            h5{
-                font-size: 24px;
-            }
-            &:hover{
-                background-color: transparent !important;
-            }
         }
     }
 }

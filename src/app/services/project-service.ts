@@ -21,7 +21,7 @@ export class ProjectService {
     }
 
     addProject(projectPost: ProjectPost): Promise<any> {
-        let requestUrl = this.projectUrl+'/new';
+        let requestUrl = this.projectUrl +'';
         let headers = new Headers;
         this.headersService.createAuthHeaders(headers);
         return this.http
@@ -148,7 +148,8 @@ export class ProjectService {
         return project;
     }
 
-    convertSecondToTime(seconds: number): String{
+    convertSecondToTime(times: String): String{
+        var seconds = Number(times);
         return Math.floor(seconds/(60*60)) + ":" +  Math.floor((seconds % (60*60))/(60));
     }
 }

@@ -1,4 +1,11 @@
-:host /deep/ body{
-    background: linear-gradient(180deg, #FBFCFF 0%, #F6F8FD 100%) !important;
-    background-repeat: no-repeat !important;
+.below{
+    background: linear-gradient(180deg, #FBFCFF 0%, #F6F8FD 100%);
+}
+.beneath,.end-page{
+    background-color: #F2F5F7;
+    width: 100%;
+    height: auto;
+}
+.end-page{
+    min-height: 200px;
 }

@@ -1,4 +1,14 @@
 <app-member-menu-bar [currentState]="0"></app-member-menu-bar>
-<app-time-track-bar></app-time-track-bar>
-<app-project-field-list></app-project-field-list>
-<app-date-log></app-date-log>
+<app-time-track-bar [currentCategory]="currentCategory" [projectJoins]="projectJoins"
+(outCategory)="selectCategory($event)"></app-time-track-bar>
+<div class="below">
+    <app-project-field-list (outCategory)="selectCategory($event)" (outProjectJoins)="getProjectJoins($event)"
+    [currentCategory]="currentCategory"></app-project-field-list>
+    <app-date-log></app-date-log>
+    <br/>
+</div>
+<div class="beneath">
+    <app-detail-date-log></app-detail-date-log>
+</div>
+<div class="end-page">
+</div>

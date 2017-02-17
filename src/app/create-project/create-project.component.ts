@@ -168,7 +168,6 @@ export class CreateProjectComponent implements OnInit {
       this.employeesToAdd.push(arg);
       this.employeesRoleToAdd.push(false);
     }
-    this.undisplayDiv();
   }
 
   removeEmployee(arg) {

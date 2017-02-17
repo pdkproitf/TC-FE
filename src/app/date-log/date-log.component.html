@@ -1,13 +1,6 @@
 <ul class="date-chooser">
-  <li><button class="previous"></button></li>
-  <li>Date a - Date b</li>
-  <li><button class="next"></button></li>
-  <li>Current Date:<p-calendar [(ngModel)]="value" [showIcon]="true"></p-calendar></li>
+  <li><button class="previous" (click)="prevWeek()"></button></li>
+  <li>{{firstWeekMonth}} {{firstWeekDate}} - {{lastWeekMonth}} {{lastWeekDate}}</li>
+  <li><button class="next" (click)="nextWeek()"></button></li>
+  <li>Current Date:<p-calendar [(ngModel)]="chosenDate" [showIcon]="true"></p-calendar></li>
 </ul>
-<div class="week">
-  <div class=head-list></div>
-  <ul class="days-in-week">
-    <li *ngFor="let day of days; let i = index;"><p>{{day}}</p><p>{{time[i]}}</p></li>
-  </ul>
-</div>
-<app-detail-date-log></app-detail-date-log>
