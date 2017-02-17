@@ -4,7 +4,7 @@
             <th>
                 Task
             </th>
-            <th class="right-colum">Tracked(h)</th>
+            <th class="right-colum">Tracked(h:m)</th>
         </tr>
         <tbody *ngIf="project && project.project_category">
             <tr class="project-line"  *ngFor="let project_category of project.project_category;" id="task-row-{{project_category.id}}">
@@ -28,7 +28,7 @@
                         </div>
                     </div>
                 </td>
-                <div class="right-colum"> {{project.tracked_time}} </div>
+                <div class="right-colum"> {{project_category.tracked_time}} </div>
             </tr>
         </tbody>
     </table>
