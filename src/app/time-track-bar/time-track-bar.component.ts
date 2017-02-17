@@ -167,6 +167,7 @@ export class TimeTrackBarComponent implements OnInit {
   updateStartTime(id) {
     let difference = this.startDateTime.getTime() - this.optionStartTime[id].getTime();
     difference /= 1000;
+    difference = Math.round(difference);
     this.startDateTime = this.optionStartTime[id];
     let current = this.startDateTime;
     let hoursString = current.getHours() < 10 ? '0' + current.getHours().toString() : current.getHours().toString();
