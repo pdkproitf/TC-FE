@@ -82,8 +82,8 @@
     }
     &.div-time{
         height: 250px;
-        margin-left: 62%;
-        width: 18%;
+        margin-left: 63%;
+        width: 15%;
         background-color: #2548CE;
         color: white;
         z-index: 2;
@@ -97,6 +97,26 @@
             border-width: 10px;
             border-style: solid;
             border-color: transparent transparent #2548CE transparent;
+        }
+        table{
+            width: 100%;
+            font-family: $headerFont;
+            text-align: left;
+            font-size: 14px;
+            th{
+                padding-left: 4%;
+                padding-top: 4%;
+                font-weight: normal;
+            }
+            td{
+                padding-left: 4%;
+                padding-top: 2%;
+                padding-bottom: 2%;
+                &:hover{
+                    background: gray;
+                    cursor: pointer;
+                }
+            }
         }
     }
 }

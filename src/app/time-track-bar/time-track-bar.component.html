@@ -15,5 +15,13 @@
 </div>
 <!--<div class="dropdown div-time">-->
 <div [class]="classDrop[2]">
+  <table>
+    <tr>
+      <th>START IN THE PAST</th>
+    </tr>
+    <tr *ngFor="let op of options; let id = index" (mousedown)="updateStartTime(id)">
+      <td>{{op}}<br>{{optionStartTime[id] | date:"HH:mm"}}</td>
+    </tr>
+  </table>
     
 </div>
