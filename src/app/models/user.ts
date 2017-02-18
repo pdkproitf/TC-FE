@@ -10,3 +10,8 @@ export class User {
 export class UserPost {
     user: User;
 }
+
+export class UserTrackTime {
+    user: User;
+    tracked_time: number;
+}

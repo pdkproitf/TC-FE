@@ -28,7 +28,14 @@
                         </div>
                     </div>
                 </td>
-                <div class="right-colum"> {{project_category.tracked_time}} </div>
+                <div class="right-colum">
+                    <strong>{{project_category.tracked_time}}</strong>
+                    <div class="member-tracker" style="display: none; padding-top: -4px">
+                        <div style=" padding-top: 16px"  *ngFor="let member of project_category.memberList">
+                            {{member.tracked_time}}
+                        </div>
+                    </div>
+                </div>
             </tr>
         </tbody>
     </table>

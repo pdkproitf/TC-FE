@@ -37,14 +37,14 @@ export class CategoryMembers {
 export class ProjectCategoryMember {
     user: User;
     roles: Role[];
-    tracked_time: String;
+    tracked_time: number;
 }
 
 export class ProjectCategory{
     id: number;
     category: Category;
     memberList: ProjectCategoryMember[];
-    tracked_time: String;
+    tracked_time: number;
 }
 
 export class ProjectDefault{
@@ -69,14 +69,14 @@ export class Project {
 export class ProjectGetAll {
     default: ProjectDefault;
     client: Client;
-    tracked_time: String;
+    tracked_time: number;
     members: Employee[];
 }
 
 export class ProjectGetOne {
     default: ProjectDefault;
     client: Client;
-    tracked_time: String;
+    tracked_time: number;
     project_category: ProjectCategory[];
 }
 

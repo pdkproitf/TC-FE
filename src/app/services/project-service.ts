@@ -81,7 +81,7 @@ export class ProjectService {
         project.default = pDefault;
         project.client = object['info']['client'];
 
-        project.tracked_time = this.convertSecondToTime(object['tracked_time']);
+        project.tracked_time = object['tracked_time'];
         project.members = object['member'];
 
         return project;
@@ -102,7 +102,7 @@ export class ProjectService {
                 var client: Client = new Client();
                 client.name = data['info']['client_name'];
 
-                project.tracked_time = this.convertSecondToTime(data['info']['tracked_time']);
+                project.tracked_time = data['info']['tracked_time'];
 
                 project.default = pDefault;
                 project.client = client;
@@ -130,14 +130,14 @@ export class ProjectService {
                                 var projectCategoryMember: ProjectCategoryMember = new ProjectCategoryMember();
                                 projectCategoryMember.user = member['user'];
                                 projectCategoryMember.roles = member['role'];
-                                projectCategoryMember.tracked_time = this.convertSecondToTime(member['tracked_time']);
+                                projectCategoryMember.tracked_time = member['tracked_time'];
                                 memberList.push(projectCategoryMember);
                             })
                         }
                         project_category.memberList = memberList;
 
                         project_category.id = data['id'];
-                        project_category.tracked_time = this.convertSecondToTime(data['tracked_time'])
+                        project_category.tracked_time = data['tracked_time']
 
                         projectCategory.push(project_category);
                     });

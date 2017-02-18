@@ -14,10 +14,11 @@
             height: 32px;
             float: left;
             .text{
-                padding-top: 1%;
+                padding-top: 7px;
             }
             .user-name{
                 display: none;
+                font-weight: lighter;
             }
         }
         .text{
@@ -46,7 +47,7 @@
         }
         .right-colum{
             text-align: center;
-            padding-top: 2%;
+            padding: 8px;
         }
         .inline{
             float: left;
