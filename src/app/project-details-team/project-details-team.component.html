@@ -13,14 +13,14 @@
                         <i class="fa fa-plus" aria-hidden="true"></i>
                     </div>
                     <div class="project-user inline">
-                        <div *ngIf="!member.image" class="oval user-avatar"></div>
+                        <div *ngIf="!member.user.image" class="oval user-avatar"></div>
                         <div *ngIf="member.user.image" class="oval user-avatar" [ngStyle]="{'background-image': 'url('+member.user.image+')'}"></div>
                     </div>
                     <div class="column-text inline" >
                         <div class="text">
                             <div class="inline">{{member.user.first_name + ' ' + member.user.last_name}}</div>
                             <div *ngFor="let role of member.roles">
-                                <div class="user-pm inline" *ngIf="role.name=='PM'">
+                                <div class="user-pm inline" *ngIf="role.name =='PM'">
                                     <span class="user-pm-text">PM</span>
                                 </div>
                             </div>
@@ -41,8 +41,8 @@
                 </td>
                 <div class="right-colum">
                     {{member.tracked_time | timeFromSeconds}}
-                    <div class="member-tracker" style="display: none; padding-top: -4px">
-                        <div style=" padding-top: 12px; color: rgba(54,54,54,0.7);"  *ngFor="let categogy of (categoryOfMemberHash.get(member.user.id))">
+                    <div class="member-tracker team-tracked-details">
+                        <div class="team-tracked-details-text"  *ngFor="let categogy of (categoryOfMemberHash.get(member.user.id))">
                             {{categogy.tracked_time | timeFromSeconds}}
                         </div>
                     </div>

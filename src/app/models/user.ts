@@ -1,3 +1,4 @@
+import { Role } from './role'
 export class User {
     name: string;
     first_name: string;
@@ -11,7 +12,8 @@ export class UserPost {
     user: User;
 }
 
-export class UserTrackTime {
+export class UserRoleTrackTime {
     user: User;
     tracked_time: number;
+    roles: Role[];
 }

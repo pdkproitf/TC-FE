@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnChanges, SimpleChange } from '@angular/core';
 import { ProjectGetOne, ProjectCategoryMember, ProjectCategory }   from '../models/project';
-import { User, UserTrackTime }   from '../models/user';
+import { User, UserRoleTrackTime }   from '../models/user';
 import { CategoryTrackedTime }   from '../models/category';
 declare var $:any;
 
@@ -12,7 +12,7 @@ declare var $:any;
 export class ProjectDetailsTeamComponent implements OnInit, OnChanges {
     is_show_member_details: Map<Number, boolean> = new Map<Number, boolean>();
     categoryOfMemberHash: Map<Number, Array<CategoryTrackedTime>> = new Map<Number, Array<CategoryTrackedTime>>();
-    membersDistionary: Array<UserTrackTime> = [];
+    membersDistionary: Array<UserRoleTrackTime> = [];
     @Input() project: ProjectGetOne;
     constructor() { }
 
@@ -52,8 +52,7 @@ export class ProjectDetailsTeamComponent implements OnInit, OnChanges {
                 var categoryTrackedTimes = this.categoryOfMemberHash.get(projectCategoryMember.user.id)
                 if(categoryTrackedTimes){
                     this.computeTotalTimeOfMember(projectCategoryMember);
-                }
-                else{
+                }else{
                     categoryTrackedTimes = [];
                     // convert to user track time for distionary
                     this.membersDistionary.push(this.convetUserTrachTime(projectCategoryMember));
@@ -67,10 +66,11 @@ export class ProjectDetailsTeamComponent implements OnInit, OnChanges {
         })
     }
 
-    convetUserTrachTime(object: Object): UserTrackTime{
-        var userTrackTime :UserTrackTime = new UserTrackTime();
+    convetUserTrachTime(object: Object): UserRoleTrackTime{
+        var userTrackTime :UserRoleTrackTime = new UserRoleTrackTime();
         userTrackTime.user = object['user'];
         userTrackTime.tracked_time = object['tracked_time'];
+        userTrackTime.roles = object['roles'];
         return userTrackTime;
     }
 

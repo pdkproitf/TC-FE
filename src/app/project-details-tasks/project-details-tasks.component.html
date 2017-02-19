@@ -30,8 +30,8 @@
                 </td>
                 <div class="right-colum">
                     <strong>{{project_category.tracked_time | timeFromSeconds}}</strong>
-                    <div class="member-tracker" style="display: none; padding-top: -4px">
-                        <div style=" padding-top: 16px"  *ngFor="let member of project_category.memberList">
+                    <div class="member-tracker tracked-details">
+                        <div class="tracked-text" *ngFor="let member of project_category.memberList">
                             {{member.tracked_time | timeFromSeconds}}
                         </div>
                     </div>

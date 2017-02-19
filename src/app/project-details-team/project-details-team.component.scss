@@ -40,4 +40,11 @@ table{
         width: 60%;
     }
     .user-list-tasks{ display: none; }
+    .team-tracked-details{
+        display: none; padding-top: -4px;
+        .team-tracked-details-text{
+            padding-top: 12px;
+            color: rgba(54,54,54,0.7);
+        }
+    }
 }

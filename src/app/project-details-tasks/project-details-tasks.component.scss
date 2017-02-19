@@ -52,5 +52,12 @@
         .inline{
             float: left;
         }
+        .tracked-details{
+            display: none;
+            padding-top: -4px;
+            .tracked-text{
+                padding-top: 16px;
+            }
+        }
     }
 }
