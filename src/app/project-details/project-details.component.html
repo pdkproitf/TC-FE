@@ -10,7 +10,7 @@
                 <span *ngIf="project && project.default">{{project.default.name}}</span>
             </div>
             <div class="tracked" *ngIf="project">
-                <strong >{{project.tracked_time}}</strong> times tracked
+                <strong >{{project.tracked_time | timeFromSeconds}}</strong> times tracked
             </div>
         </div>
         <div class="project-control">

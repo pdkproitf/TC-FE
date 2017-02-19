@@ -20,7 +20,7 @@
                         <div class="group-user" *ngIf="project_category.memberList">
                             <div class="project-user" *ngFor="let member of project_category.memberList">
                                 <div *ngIf="!member.image" class="oval user-avatar inline"></div>
-                                <div *ngIf="member.image" class="oval user-avatar inline"></div>
+                                <div *ngIf="member.image" class="oval user-avatar inline" [ngStyle]="{'background-image': 'url('+member.image+')'}"></div>
                                 <div class="user-name text inline">
                                     {{member.user.first_name}}
                                 </div>
@@ -29,10 +29,10 @@
                     </div>
                 </td>
                 <div class="right-colum">
-                    <strong>{{project_category.tracked_time}}</strong>
+                    <strong>{{project_category.tracked_time | timeFromSeconds}}</strong>
                     <div class="member-tracker" style="display: none; padding-top: -4px">
                         <div style=" padding-top: 16px"  *ngFor="let member of project_category.memberList">
-                            {{member.tracked_time}}
+                            {{member.tracked_time | timeFromSeconds}}
                         </div>
                     </div>
                 </div>

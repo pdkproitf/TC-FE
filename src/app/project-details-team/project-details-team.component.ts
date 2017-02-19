@@ -20,43 +20,7 @@ export class ProjectDetailsTeamComponent implements OnInit, OnChanges {
         if(this.project){
             this.membersDistionary = [];
             this.categoryOfMemberHash = new Map<Number, Array<CategoryTrackedTime>>();;
-            this.project.project_category.forEach(res => {
-                res.memberList.forEach(projectCategoryMember => {
-                    var categoryTrackedTimes = this.categoryOfMemberHash.get(projectCategoryMember.user.id)
-                    if(categoryTrackedTimes){
-                        var categoryTrackedTime: CategoryTrackedTime = new CategoryTrackedTime();
-                        categoryTrackedTime.category = res.category;
-                        categoryTrackedTime.tracked_time = projectCategoryMember.tracked_time;
-
-                        categoryTrackedTimes.push(categoryTrackedTime);
-                        this.categoryOfMemberHash.set(projectCategoryMember.user.id, categoryTrackedTimes);
-
-                        this.membersDistionary.forEach(member => {
-                            if(member.user.id == projectCategoryMember.user.id)
-                                member.tracked_time += projectCategoryMember.tracked_time
-
-                        })
-                    }
-                    else{
-                        categoryTrackedTimes = [];
-
-                        var categoryTrackedTime: CategoryTrackedTime = new CategoryTrackedTime();
-                        categoryTrackedTime.category = res.category;
-                        categoryTrackedTime.tracked_time = projectCategoryMember.tracked_time;
-
-                        categoryTrackedTimes.push(categoryTrackedTime);
-                        this.categoryOfMemberHash.set(projectCategoryMember.user.id, categoryTrackedTimes);
-
-                        var userTrackTime :UserTrackTime = new UserTrackTime();
-                        userTrackTime.user = projectCategoryMember.user;
-                        userTrackTime.tracked_time = projectCategoryMember.tracked_time;
-
-                        this.membersDistionary.push(userTrackTime);
-                    }
-                    this.is_show_member_details.set(projectCategoryMember.user.id, false);
-                    console.log('categorys', this.categoryOfMemberHash);
-                })
-            })
+            this.handlingData();
         }
     }
 
@@ -80,5 +44,49 @@ export class ProjectDetailsTeamComponent implements OnInit, OnChanges {
             $('#team-row-'+id).find('.member-tracker').css({'display': 'block'});
         }
         this.is_show_member_details.set(id, !flag);
+    }
+
+    handlingData(){
+        this.project.project_category.forEach(res => {
+            res.memberList.forEach(projectCategoryMember => {
+                var categoryTrackedTimes = this.categoryOfMemberHash.get(projectCategoryMember.user.id)
+                if(categoryTrackedTimes){
+                    this.computeTotalTimeOfMember(projectCategoryMember);
+                }
+                else{
+                    categoryTrackedTimes = [];
+                    // convert to user track time for distionary
+                    this.membersDistionary.push(this.convetUserTrachTime(projectCategoryMember));
+                }
+                // updat hash
+                categoryTrackedTimes.push(this.convetProjectCategoryMember(res, projectCategoryMember));
+                this.categoryOfMemberHash.set(projectCategoryMember.user.id, categoryTrackedTimes);
+
+                this.is_show_member_details.set(projectCategoryMember.user.id, false);
+            })
+        })
+    }
+
+    convetUserTrachTime(object: Object): UserTrackTime{
+        var userTrackTime :UserTrackTime = new UserTrackTime();
+        userTrackTime.user = object['user'];
+        userTrackTime.tracked_time = object['tracked_time'];
+        return userTrackTime;
+    }
+
+    convetProjectCategoryMember(res:Object, projectCategoryMember: Object): CategoryTrackedTime{
+        // convert to CategoryTrackedTime fo hash
+        var categoryTrackedTime: CategoryTrackedTime = new CategoryTrackedTime();
+        categoryTrackedTime.category = res['category'];
+        categoryTrackedTime.tracked_time = projectCategoryMember['tracked_time'];
+        return categoryTrackedTime;
+    }
+
+    // compute total time of a member
+    computeTotalTimeOfMember(projectCategoryMember: Object){
+        this.membersDistionary.forEach(member => {
+            if(member.user.id == projectCategoryMember['user']['id'])
+            member.tracked_time += projectCategoryMember['tracked_time']
+        })
     }
 }

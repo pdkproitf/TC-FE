@@ -17,17 +17,17 @@
                 </td>
                 <td><div class="column-text"> {{project.default.name}} </div></td>
                 <td class="column-text">{{project.client.name}}</td>
-                <td class="column-text">{{project.tracked_time}}</td>
+                <td class="column-text">{{project.tracked_time | timeFromSeconds}}</td>
                 <td class="column-text">
                     <div class="project-user inline-block" >
                         <div *ngIf="project.members">
                             <div *ngFor="let member of project.members.slice(0,3)">
-                                <div  *ngIf="project.default.background" class="oval user-avatar"></div>
-                                <div *ngIf="!project.default.background" class="oval" [style.background]="project.default.background"></div>
+                                <div  *ngIf="!member.image" class="oval user-avatar"></div>
+                                <div *ngIf="member.image" class="oval" [ngStyle]="{'background-image': 'url('+member.image+')'}" ></div>
                             </div>
                         </div>
                     </div>
-                    <div class="over-member inline" *ngIf="project.members.length > 4">
+                    <div class="over-member inline" *ngIf="project.members.length > 3">
                         <div class="oval">
                             <div class="text">
                                 +{{project.members.length - 3}}

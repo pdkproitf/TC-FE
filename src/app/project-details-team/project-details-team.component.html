@@ -12,7 +12,10 @@
                     <div class="plus inline" (click)="team_user_details(member.user.id)">
                         <i class="fa fa-plus" aria-hidden="true"></i>
                     </div>
-                    <div class="project-user inline"><div class="oval user-avatar"></div></div>
+                    <div class="project-user inline">
+                        <div *ngIf="!member.image" class="oval user-avatar"></div>
+                        <div *ngIf="member.user.image" class="oval user-avatar" [ngStyle]="{'background-image': 'url('+member.user.image+')'}"></div>
+                    </div>
                     <div class="column-text inline" >
                         <div class="text">
                             <div class="inline">{{member.user.first_name + ' ' + member.user.last_name}}</div>
@@ -37,10 +40,10 @@
                     </div>
                 </td>
                 <div class="right-colum">
-                    {{member.tracked_time}}
+                    {{member.tracked_time | timeFromSeconds}}
                     <div class="member-tracker" style="display: none; padding-top: -4px">
                         <div style=" padding-top: 12px; color: rgba(54,54,54,0.7);"  *ngFor="let categogy of (categoryOfMemberHash.get(member.user.id))">
-                            {{categogy.tracked_time}}
+                            {{categogy.tracked_time | timeFromSeconds}}
                         </div>
                     </div>
                 </div>
