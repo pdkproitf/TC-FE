@@ -1,5 +1,5 @@
 import { TimerFetchService } from './../services/timer-fetch-service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-date-log',
@@ -17,6 +17,8 @@ export class DateLogComponent implements OnInit {
   lastWeekMonth;
   currentDate: Date;
   chosenDate: Date;
+  @Output()
+  outDates = new EventEmitter<Date[]>();
   constructor(private timerFetchService: TimerFetchService) { }
 
   ngOnInit() {
@@ -30,6 +32,8 @@ export class DateLogComponent implements OnInit {
 
     this.firstDate = new Date(curr1.setDate(first));
     this.lastDate = new Date(curr2.setDate(last));
+
+    this.outDates.emit([this.firstDate, this.lastDate]);
 
     this.firstWeekDate = this.firstDate.getDate();
     this.firstWeekMonth = this.monthsName[this.firstDate.getMonth()];
@@ -49,6 +53,8 @@ export class DateLogComponent implements OnInit {
     this.firstDate = new Date(curr1.setDate(first));
     this.lastDate = new Date(curr2.setDate(last));
 
+    this.outDates.emit([this.firstDate, this.lastDate]);
+
     this.firstWeekDate = this.firstDate.getDate();
     this.firstWeekMonth = this.monthsName[this.firstDate.getMonth()];
     this.lastWeekDate = this.lastDate.getDate();
@@ -65,6 +71,8 @@ export class DateLogComponent implements OnInit {
 
     this.firstDate = new Date(curr1.setDate(first));
     this.lastDate = new Date(curr2.setDate(last));
+
+    this.outDates.emit([this.firstDate, this.lastDate]);
 
     this.firstWeekDate = this.firstDate.getDate();
     this.firstWeekMonth = this.monthsName[this.firstDate.getMonth()];

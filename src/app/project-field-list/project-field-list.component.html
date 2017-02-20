@@ -1,5 +1,5 @@
 <br/><br/>
-<p-carousel numVisible="5" headerText="" [value]="projectJoins">
+<p-carousel *ngIf="projectJoins.length > 0" numVisible="5" headerText="" [value]="projectJoins">
     <template let-project>
         <div class="project-field">
             <app-project-field (outCategory)="selectCategory($event)" [myProject]="project"

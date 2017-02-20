@@ -1,6 +1,6 @@
 import { TimerFetch } from './../models/timer-fetch';
 import { TimerFetchService } from './../services/timer-fetch-service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-detail-date-log',
@@ -14,16 +14,49 @@ export class DetailDateLogComponent implements OnInit {
   fullWeekTimer;
   currentTimers;
   firstWeekDay: Date;
+  lastWeekDay: Date;
+  firstString: string;
+  lastString: string;
+  _weekAnchor: Date[] = [];
+  @Input()
+  set weekAnchor(arg) {
+    this._weekAnchor = arg;
+    this.firstWeekDay = arg[0];
+    this.lastWeekDay = arg[1];
+    this.firstString = this.dateToShortString(this.firstWeekDay);
+    this.lastString = this.dateToShortString(this.lastWeekDay);
+
+    let curr = new Date();
+    let number = curr.getDay();
+    let firstDateTmp = new Date(this.firstWeekDay);
+    let chosenDate = new Date(firstDateTmp.setDate(this.firstWeekDay.getDate() + number));
+    console.log(chosenDate);
+    this.timerFetchService.getTimerFetch(this.firstString, this.lastString)
+    .then(res => {
+      this.fullWeekTimer = res;
+      let chooseString = this.dateToShortString(chosenDate);
+      this.currentTimers = this.fullWeekTimer[chooseString];
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  }
+  get weekAnchor() {
+    return this._weekAnchor;
+  }
   constructor(private timerFetchService: TimerFetchService) { }
 
   ngOnInit() {
     let curr = new Date();
-    let curr1 = new Date()
+    let curr1 = new Date();
+    let curr2 = new Date();
     this.classDay[curr.getDay()] = 'active';
     let first = curr1.getDate() - curr1.getDay();
     this.firstWeekDay = new Date(curr1.setDate(first));
-    console.log(this.firstWeekDay);
-    this.timerFetchService.getTimerFetch('2017-02-12', '2017-02-18')
+    this.lastWeekDay = new Date(curr2.setDate(first + 6));
+    this.firstString = this.dateToShortString(this.firstWeekDay);
+    this.lastString = this.dateToShortString(this.lastWeekDay);
+    this.timerFetchService.getTimerFetch(this.firstString, this.lastString)
     .then(res => {
       this.fullWeekTimer = res;
       let chooseString = this.dateToShortString(curr);

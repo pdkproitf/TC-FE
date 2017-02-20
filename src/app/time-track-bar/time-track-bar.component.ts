@@ -27,7 +27,7 @@ export class TimeTrackBarComponent implements OnInit {
 
   @Input()
   set currentCategory(curCat) {
-    if (curCat.category !== undefined && curCat.project !== undefined) {
+    /* if (curCat.category !== undefined && curCat.project !== undefined) {
       if (curCat.pcu_id === this._currentCategory.pcu_id) {
         if (this.classBtn === 'stop-btn') {
           this.changeClass();
@@ -42,6 +42,14 @@ export class TimeTrackBarComponent implements OnInit {
         this._currentCategory = curCat;
         this.taskString = this.currentCategory.project + ' - ' + this.currentCategory.category;
       }
+    }*/
+    if (curCat.category !== undefined && curCat.project !== undefined) {
+      if (this.classBtn === 'stop-btn') {
+        this.changeClass();
+      }
+      this.changeClass();
+      this._currentCategory = curCat;
+      this.taskString = this.currentCategory.project + ' - ' + this.currentCategory.category;
     }
   }
   get currentCategory() {
@@ -74,6 +82,8 @@ export class TimeTrackBarComponent implements OnInit {
     }else {
       this.myStopTimer();
       this.setStopTime();
+      this.description = '';
+      this.taskString = '';
     }
     this.classBtn = this.classBtn === 'play-btn' ? 'stop-btn' : 'play-btn';
   }
@@ -136,6 +146,7 @@ export class TimeTrackBarComponent implements OnInit {
     this.timerService.addNewTimer(this.timerPost)
     .then(res => {
       console.log(res);
+      this.currentCategory = this.emptyCategory;
     })
     .catch(err => {
       console.log(err);

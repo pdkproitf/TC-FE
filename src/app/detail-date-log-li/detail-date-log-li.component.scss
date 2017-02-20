@@ -1,6 +1,7 @@
 @import '../general-style/color-style.scss';
 @import '../general-style/font-style.scss';
 .timer-container{
+    font-family: $headerFont;
     &:hover{
         cursor: pointer;
         background: #F6F7FD;
