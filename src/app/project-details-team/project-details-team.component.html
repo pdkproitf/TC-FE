@@ -12,29 +12,41 @@
                     <div class="plus inline" (click)="team_user_details(member.user.id)">
                         <i class="fa fa-plus" aria-hidden="true"></i>
                     </div>
-                    <div class="project-user inline"><div class="oval user-avatar"></div></div>
+                    <div class="project-user inline">
+                        <div *ngIf="!member.user.image" class="oval user-avatar"></div>
+                        <div *ngIf="member.user.image" class="oval user-avatar" [ngStyle]="{'background-image': 'url('+member.user.image+')'}"></div>
+                    </div>
                     <div class="column-text inline" >
                         <div class="text">
-                            <div class="inline">{{member.user.first_name}}</div>
+                            <div class="inline">{{member.user.first_name + ' ' + member.user.last_name}}</div>
                             <div *ngFor="let role of member.roles">
-                                <div class="user-pm inline" *ngIf="role.name=='PM'">
+                                <div class="user-pm inline" *ngIf="role.name =='PM'">
                                     <span class="user-pm-text">PM</span>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="user-tasks" (click)="team_user_details()">
-                            {{categoryOfMemberHash.get(member.user.id).length + ' Tasks'}}
+                        <div class="group-tasks user-tasks" (click)="team_user_details()">
+                            <div class="text">
+                                {{categoryOfMemberHash.get(member.user.id).length + ' Tasks'}}
+                            </div>
                         </div>
 
-                        <div class="group-tasks" *ngFor="let categogy of (categoryOfMemberHash.get(member.user.id))">
+                        <div class="group-tasks user-list-tasks" *ngFor="let cate_mem of (categoryOfMemberHash.get(member.user.id))">
                             <div class="text">
-                                {{categogy}}
+                                {{cate_mem.category.name}}
                             </div>
                         </div>
                     </div>
                 </td>
-                <div class="right-colum"> {{member.tracked_time}} </div>
+                <div class="right-colum">
+                    {{member.tracked_time | timeFromSeconds}}
+                    <div class="member-tracker team-tracked-details">
+                        <div class="team-tracked-details-text"  *ngFor="let categogy of (categoryOfMemberHash.get(member.user.id))">
+                            {{categogy.tracked_time | timeFromSeconds}}
+                        </div>
+                    </div>
+                </div>
             </tr>
         </tbody>
     </table>

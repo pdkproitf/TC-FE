@@ -1,13 +1,7 @@
 @import '../project-details-tasks/project-details-tasks.component.scss';
 table{
-    .user-tasks{
-        height: 24px;
-        font-family: Lato;
-        font-size: 16px;
-        line-height: 24px;
-        color: rgba(54,54,54,0.7);
-        padding-top: 3%;
-        cursor: pointer;
+    #user-tasks{
+        display: block;
     }
     .user-pm{
         width: 35px;
@@ -27,15 +21,14 @@ table{
         }
     }
     .group-tasks{
-        display: none;;
-        padding-top: 3%;
+        margin-top: 10px;
         .text{
             height: 24px;
             font-family: Lato;
             font-size: 16px;
             line-height: 24px;
             color: rgba(54,54,54,0.7);
-            margin-top: 3%;
+            font-weight: lighter;
         }
     }
     .oval{
@@ -45,5 +38,13 @@ table{
         float: left;
         padding-left: 0%;
         width: 60%;
+    }
+    .user-list-tasks{ display: none; }
+    .team-tracked-details{
+        display: none; padding-top: -4px;
+        .team-tracked-details-text{
+            padding-top: 12px;
+            color: rgba(54,54,54,0.7);
+        }
     }
 }

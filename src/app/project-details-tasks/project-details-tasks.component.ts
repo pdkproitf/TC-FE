@@ -15,7 +15,6 @@ export class ProjectDetailsTasksComponent implements OnInit, OnChanges {
 
     ngOnInit() {
         if(this.project){
-            console.log('task project', this.project);
             this.is_show_project_categoy_details= new Map<Number, boolean>();
             this.project.project_category.forEach(res => {
                 this.is_show_project_categoy_details.set(res.id, false);
@@ -32,11 +31,15 @@ export class ProjectDetailsTasksComponent implements OnInit, OnChanges {
         if(flag){
             $('#task-row-'+id).find('.fa-minus').removeClass('fa-minus').addClass('fa-plus');
             $('#task-row-'+id).find('.project-user').css({'float': 'left'});
+
             $('#task-row-'+id).find('.user-name').css({'display': 'none'})
+            $('#task-row-'+id).find('.member-tracker').css({'display': 'none'})
         }else{
             $('#task-row-'+id).find('.fa-plus').removeClass('fa-plus').addClass('fa-minus');
             $('#task-row-'+id).find('.project-user').css({'float': 'none'});
+
             $('#task-row-'+id).find('.user-name').css({'display': 'block'})
+            $('#task-row-'+id).find('.member-tracker').css({'display': 'block'})
         }
         this.is_show_project_categoy_details.set(id, !flag);
     }
