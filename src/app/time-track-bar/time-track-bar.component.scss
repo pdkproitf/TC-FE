@@ -8,7 +8,7 @@
     z-index:1;
     background: white;
     .ui-inputtext{
-        margin-top: 3%;
+        margin-top: 40px;
         margin-left: 1%;
         outline: none;
         border: solid 0px white;
@@ -27,6 +27,7 @@
         margin-left: 6%;
         color: $fontWhiteBorder;
         border: none;
+        width: 6%;
         &:focus{
             background: #ABDCFF;
             background-size: 70%;
@@ -46,7 +47,7 @@
         height: 50px;
         margin-left: 6%;
         position: relative;
-        top: 10%;
+        top: 12px;
         &.stop-btn{
             background-color: #EE593A;
             border: solid 3px #EE593A;

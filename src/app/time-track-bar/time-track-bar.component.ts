@@ -63,10 +63,6 @@ export class TimeTrackBarComponent implements OnInit {
   }
 
   changeClass(): void {
-    let current = new Date();
-    let hoursString = current.getHours() < 10 ? '0' + current.getHours().toString() : current.getHours().toString();
-    let minutesString = current.getMinutes() < 10 ? '0' + current.getMinutes().toString() : current.getMinutes().toString();
-    this.startTime = hoursString + ':' + minutesString;
     if (this.classBtn === 'play-btn') {
       this.setStartTime();
       this.ticks = -1;
