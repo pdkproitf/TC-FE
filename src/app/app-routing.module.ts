@@ -11,7 +11,8 @@ import { AppComponent } from './app.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ProjectDetailsComponent } from './project-details/project-details.component'
+import { ProjectDetailsComponent } from './project-details/project-details.component';
+import { TimeoffManageComponent } from './timeoff-manage/timeoff-manage.component';
 
 const routes: Routes = [
     { path: 'sign-up', component: SignUpComponent, canActivate: [NotLoggedIn] },
@@ -23,6 +24,7 @@ const routes: Routes = [
     { path: 'new-project', component: CreateProjectComponent, canActivate: [AuthenLoggedIn] },
     { path: 'manage-member', component: ManageMemberComponent, canActivate: [AuthenLoggedIn] },
     { path: 'projects/:id', component: ProjectDetailsComponent, canActivate: [AuthenLoggedIn] },
+    { path: 'timeoffs', component: TimeoffManageComponent, canActivate: [AuthenLoggedIn] },
     // { path: '', component: AppComponent }
     // { path: '', redirectTo: '/home', pathMatch: 'full'}
 ];

@@ -44,6 +44,7 @@ import { ProjectDetailsTeamComponent } from './project-details-team/project-deta
 import { DetailDateLogLiComponent } from './detail-date-log-li/detail-date-log-li.component';
 import { ProjectInDivComponent } from './project-in-div/project-in-div.component';
 import { TimeFromSecondsPipe } from './time-from-seconds.pipe';
+import { TimeoffManageComponent } from './timeoff-manage/timeoff-manage.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { TimeFromSecondsPipe } from './time-from-seconds.pipe';
     ProjectDetailsTeamComponent,
     DetailDateLogLiComponent,
     ProjectInDivComponent,
-    TimeFromSecondsPipe
+    TimeFromSecondsPipe,
+    TimeoffManageComponent
   ],
   imports: [
     BrowserModule,
