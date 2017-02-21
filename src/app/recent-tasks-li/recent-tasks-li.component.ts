@@ -1,5 +1,5 @@
 import { TimerFetch } from './../models/timer-fetch';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-recent-tasks-li',
@@ -9,9 +9,25 @@ import { Component, OnInit, Input } from '@angular/core';
 export class RecentTasksLiComponent implements OnInit {
   @Input()
   task: TimerFetch;
+  @Output()
+  emitStart = new EventEmitter<TimerFetch>();
+  hover: boolean = false;
+  spanClass = 'hide';
   constructor() { }
 
   ngOnInit() {
+  }
+
+  showSpan() {
+    this.spanClass = 'show';
+  }
+
+  hideSpan() {
+    this.spanClass = 'hide';
+  }
+
+  startTimer() {
+    this.emitStart.emit(this.task);
   }
 
 }

@@ -7,9 +7,8 @@
   <label class="time-display">{{timeCount}}</label>
   <button type="button" class="{{classBtn}}" (click)="changeClass()"></button>
 </div>
-<!--<div [class]="classDrop[0]">-->
-  <div class="dropdown div-des">
-    <app-recent-tasks [recentTasks]="recentTasks"></app-recent-tasks>
+<div [class]="classDrop[0]">
+    <app-recent-tasks [recentTasks]="recentTasks" (emitStart)="getTimerFetchStart($event)"></app-recent-tasks>
 </div>
 <div [class]="classDrop[1]">
   <!--<div class="dropdown div-task">-->

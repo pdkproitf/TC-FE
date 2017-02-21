@@ -1,5 +1,5 @@
 import { TimerFetch } from './../models/timer-fetch';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-recent-tasks',
@@ -9,9 +9,17 @@ import { Component, OnInit, Input } from '@angular/core';
 export class RecentTasksComponent implements OnInit {
   @Input()
   recentTasks: TimerFetch[] = [];
+  @Input()
+  num = 0;
+  @Output()
+  emitStart = new EventEmitter<TimerFetch>();
   constructor() { }
 
   ngOnInit() {
+  }
+
+  startTimer(arg) {
+    this.emitStart.emit(arg);
   }
 
 }

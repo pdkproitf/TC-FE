@@ -1,2 +1,5 @@
-<td>{{task.task_name}}</td>
-<td>{{task.project_name}}-{{task.category_name}}</td>
+<tr (mouseenter)="showSpan()" (mouseleave)="hideSpan()">
+    <td class="task-name">{{task.task_name}}</td>
+    <td class="pro-cat">{{task.project_name}}-{{task.category_name}}</td>
+    <td class="play-btn"><span [class]="spanClass"><button (mousedown)="startTimer()" type="button" pButton icon="fa-play-circle"></button></span></td>
+</tr>

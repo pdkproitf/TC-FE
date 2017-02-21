@@ -70,14 +70,14 @@
     position: absolute;
     z-index: 2;
     &.div-des{
-        height: 300px;
+        max-height: 300px;
         margin-left: 1%;
         width: 30%;
-        box-shadow: 0px 0px 20px $whiteBorder;
+        box-shadow: 0px 2px 5px $whiteBorder;
     }
 
     &.div-task{
-        height: 425px;
+        max-height: 425px;
         overflow-y: auto;
         margin-left: 40%;
         width: 25%;

@@ -1,8 +1,7 @@
 <div class="recent-tasks">
-  <input type=text class="search-box" placeholder="Search project...">
+  <input *ngIf="num===1" type=text class="search-box" placeholder="Search project...">
+  <p class="recta">Recent tasks</p>
   <table class="tasks">
-    <tr *ngFor="let task of recentTasks; let id = index;">
-      <app-recent-tasks-li [task]="task"></app-recent-tasks-li>
-    </tr>
+      <app-recent-tasks-li *ngFor="let task of recentTasks; let id = index;" [task]="task" (emitStart)="startTimer($event)"></app-recent-tasks-li>
   </table>
 </div>
