@@ -214,6 +214,13 @@ export class CreateProjectComponent implements OnInit {
     console.log(arg);
     this.employeesRoleToAdd[i] = arg;
   }
+
+  addAll(arg) {
+    arg.preventDefault();
+    for ( let a of this.employeePosts) {
+      this.addEmployee(a.employee);
+    }
+  }
 // --------------------------------End Adding member ---------------->
 // -------------------------------Adding Tasks --------------------->
   displayTaskAddDialog() {

@@ -59,7 +59,7 @@
         <br/>
         <input class="add-btn" (focus)="displayDiv()" (blur)="undisplayDiv()" (keyup)="keyUpSearch()" type="text" name="search-name"
         [(ngModel)]="searchName">
-        <a href="#">Add all people</a>
+        <a href="" (click)="addAll($event)">Add all people</a>
         <div class="notice">
             <p>Need to add someone?</p>
             <p>Go to <a routerLink="/manage-member">Manage</a> to invite them to TimeCloud</p>
