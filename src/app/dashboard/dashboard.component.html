@@ -4,11 +4,12 @@
 <div class="below">
     <app-project-field-list (outCategory)="selectCategory($event)" (outProjectJoins)="getProjectJoins($event)"
     [currentCategory]="currentCategory"></app-project-field-list>
-    <app-date-log (outDates)="getDates($event)"></app-date-log>
+    <app-date-log (outDates)="getDates($event)" (outSpecificDate)="detailDateLog.setDate($event)">
+    </app-date-log>
     <br/>
 </div>
 <div class="beneath">
-    <app-detail-date-log [weekAnchor]="weekAnchor"></app-detail-date-log>
+    <app-detail-date-log [weekAnchor]="weekAnchor" #detailDateLog></app-detail-date-log>
 </div>
 <div class="end-page">
 </div>

@@ -30,7 +30,6 @@ export class DetailDateLogComponent implements OnInit {
     let number = curr.getDay();
     let firstDateTmp = new Date(this.firstWeekDay);
     let chosenDate = new Date(firstDateTmp.setDate(this.firstWeekDay.getDate() + number));
-    console.log(chosenDate);
     this.timerFetchService.getTimerFetch(this.firstString, this.lastString)
     .then(res => {
       this.fullWeekTimer = res;
@@ -66,6 +65,7 @@ export class DetailDateLogComponent implements OnInit {
       console.log(err);
     });
   }
+
   setActiveDay(a) {
     for (let i = 0; i < 8; i++) {
       if ( i !== a) {
@@ -80,12 +80,37 @@ export class DetailDateLogComponent implements OnInit {
     this.currentTimers = this.fullWeekTimer[chosenString];
     this.classDay[a] = 'active';
   }
+
   dateToShortString(date: Date): string {
     let yearString = date.getFullYear().toString();
     let monthString = ((date.getMonth() + 1) < 10) ? '0' + (date.getMonth() + 1).toString() : (date.getMonth() + 1).toString();
     let dateString = (date.getDate() < 10) ? '0' + date.getDate().toString() : date.getDate().toString();
     let res = yearString + '-' + monthString + '-' + dateString;
     return res;
+  }
+
+  setDate(arg: Date) {
+    for (let i = 0; i < 8; i++) {
+      this.classDay[i] = '';
+    }
+    let curr = arg;
+    let curr1 = new Date(curr);
+    let curr2 = new Date(curr);
+    this.classDay[curr.getDay()] = 'active';
+    let first = curr1.getDate() - curr1.getDay();
+    this.firstWeekDay = new Date(curr1.setDate(first));
+    this.lastWeekDay = new Date(curr2.setDate(first + 6));
+    this.firstString = this.dateToShortString(this.firstWeekDay);
+    this.lastString = this.dateToShortString(this.lastWeekDay);
+    this.timerFetchService.getTimerFetch(this.firstString, this.lastString)
+    .then(res => {
+      this.fullWeekTimer = res;
+      let chooseString = this.dateToShortString(curr);
+      this.currentTimers = this.fullWeekTimer[chooseString];
+    })
+    .catch(err => {
+      console.log(err);
+    });
   }
 
 }
