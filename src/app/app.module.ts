@@ -44,7 +44,10 @@ import { ProjectDetailsTeamComponent } from './project-details-team/project-deta
 import { DetailDateLogLiComponent } from './detail-date-log-li/detail-date-log-li.component';
 import { ProjectInDivComponent } from './project-in-div/project-in-div.component';
 import { TimeFromSecondsPipe } from './time-from-seconds.pipe';
-import { TimeoffManageComponent } from './timeoff-manage/timeoff-manage.component';
+import { TimeoffManageComponent }   from './timeoff-manage/timeoff-manage.component';
+import { CreateTimeoffComponent }   from './create-timeoff/create-timeoff.component';
+import { ReactiveFormsModule }      from '@angular/forms';
+import { RadioButtonModule }    from 'primeng/primeng';
 
 @NgModule({
   declarations: [
@@ -74,7 +77,8 @@ import { TimeoffManageComponent } from './timeoff-manage/timeoff-manage.componen
     DetailDateLogLiComponent,
     ProjectInDivComponent,
     TimeFromSecondsPipe,
-    TimeoffManageComponent
+    TimeoffManageComponent,
+    CreateTimeoffComponent
   ],
   imports: [
     BrowserModule,
@@ -91,7 +95,9 @@ import { TimeoffManageComponent } from './timeoff-manage/timeoff-manage.componen
     DropdownModule,
     DialogModule,
     PaginatorModule,
-    TabViewModule
+    TabViewModule,
+    ReactiveFormsModule,
+    RadioButtonModule
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
   AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService,

@@ -1,0 +1,148 @@
+.new-timeoff{
+    background-color: #F2F5F7;
+    .new-timeoff-container{
+        width: 80%;
+        margin: auto;
+        margin-top: 4%;
+        padding-bottom: 10%;
+        h2{
+            width: 212px;
+            height: 29px;
+            font-family: Montserrat;
+            font-size: 24px;
+            font-weight: bold;
+            line-height: 29px;
+            color: #363636;
+        }
+        .new-timeoff-content{
+            display: inline-flex;
+            .new-timeoff-form{
+                width: 900px;
+                background-color: #FFFFFF;
+                box-shadow: 0 2px 3px 0 rgba(0,0,0,0.06);
+                border-radius: 3px;
+                display: inline-block;
+                padding-bottom: 5%;
+                .form-header{
+                    margin: 5% 5% 0 5%;
+                    .start-time{
+                        display: inline-block;
+                        .pick-day{margin-bottom: 15px;}
+                        .choice-type-day{
+                            text-align: left;
+                            .ui-g-12{
+                                padding-left: 0px;
+                            }
+                        }
+                        #choice-type-end-day{
+                            display: none;
+                        }
+                    }
+                    .arrow-right{
+                        display: inline-block;
+                        margin-left: 8%;
+                        color: #898989;
+                        margin-right: 4%;
+                    }
+                    & label{
+                        width: 62px;
+                        height: 24px;
+                        font-family: Lato;
+                        font-size: 16px;
+                        font-weight: bold;
+                        line-height: 24px;
+                        color: #363636;
+                    }
+                }
+                .form-description{
+                    margin: 5% 5% 0 5%;
+                    font-family: Lato;
+                    font-size: 16px;
+                    line-height: 24px;
+                    & p{
+                        font-weight: bold;
+                        color: #363636;
+                    }
+                    & textarea{
+                        width: 100%;
+                        height: 137px;
+                        background-color: rgba(255, 255, 255, 0);
+                        box-shadow: rgba(54, 54, 54, 0.298039) 0px -1px 0px 0px inset;
+                        border: none;
+                        font-family: Lato;
+                        font-size: 16px;
+                        resize: none;
+                    }
+                }
+                .form-button{
+                    margin: 5% 5% 0 5%;
+                    font-family: Lato;
+                    font-size: 16px;
+                    line-height: 24px;
+                    border-radius: 3px;
+                    & .submit{
+                        width: 146px;
+                        height: 40px;
+                        background-color: #0066CC;
+                        color: #FFFFFF;
+                        cursor: pointer;
+                    }
+                    & .cancel{
+                        width: 90px;
+                        height: 40px;
+                        background-color: rgba(0,102,204,0);
+                        border: 1px solid rgba(54,54,54,0.3);
+                        color: rgba(54,54,54,0.7);
+                        cursor: pointer;
+                    }
+                    & .cancel:active{border: 2px solid rgba(54, 54, 54, 0.3);}
+                }
+            }
+        }
+        .timeoff-balance{
+            width: 30%;
+            display: inline-block;
+            margin-left: 2%;
+            & p{
+                font-family: Lato;
+                font-size: 18px;
+                font-weight: bold;
+                line-height: 22px;
+                color: #363636;
+                margin-top: 0px;
+                margin-bottom: 1em;
+            }
+            .inform{
+                border-bottom: 1px solid #DDDDDD;
+                margin-bottom: 1em;
+                .details{
+                    padding: .25em;
+                    .details-content{
+                        font-family: Lato;
+                        font-size: 16px;
+                        line-height: 24px;
+                        color: rgba(54,54,54,0.7);
+                    }
+                    .details-value{
+                        font-family: Lato;
+                        font-size: 16px;
+                        font-weight: bold;
+                        text-align: right;
+                        line-height: 24px;
+                        color: #363636;
+                        float: right;
+                        padding-right: 10%;
+                    }
+                }
+            }
+            .approver{
+                font-size: 16px;
+                line-height: 24px;
+                color: rgba(54,54,54,0.7);
+                & strong{
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+}

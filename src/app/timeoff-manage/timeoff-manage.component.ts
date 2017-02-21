@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit }    from '@angular/core';
+import { Router }               from '@angular/router'
 
 @Component({
-  selector: 'app-timeoff-manage',
-  templateUrl: './timeoff-manage.component.html',
-  styleUrls: ['./timeoff-manage.component.scss']
+    selector: 'app-timeoff-manage',
+    templateUrl: './timeoff-manage.component.html',
+    styleUrls: ['./timeoff-manage.component.scss']
 })
 export class TimeoffManageComponent implements OnInit {
 
-  constructor() { }
+    constructor(private router: Router) { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
+    createTimeOff(){
+        this.router.navigate(['/new-timeoff']);
+    }
 }
