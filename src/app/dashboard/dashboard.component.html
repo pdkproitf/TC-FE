@@ -1,5 +1,5 @@
 <app-member-menu-bar [currentState]="0"></app-member-menu-bar>
-<app-time-track-bar [currentCategory]="currentCategory" [projectJoins]="projectJoins"
+<app-time-track-bar [currentCategory]="currentCategory" [projectJoins]="projectJoins" #timeTrackBar
 (outCategory)="selectCategory($event)" [recentTasks]="recentTasks" (addedTimer)="detailDateLog.addTimer($event)"></app-time-track-bar>
 <div class="below">
     <app-project-field-list (outCategory)="selectCategory($event)" (outProjectJoins)="getProjectJoins($event)"
@@ -9,7 +9,7 @@
     <br/>
 </div>
 <div class="beneath">
-    <app-detail-date-log [weekAnchor]="weekAnchor" #detailDateLog></app-detail-date-log>
+    <app-detail-date-log [weekAnchor]="weekAnchor" (emitStart)="timeTrackBar.getTimerFetchStart($event)" #detailDateLog></app-detail-date-log>
 </div>
 <div class="end-page">
 </div>

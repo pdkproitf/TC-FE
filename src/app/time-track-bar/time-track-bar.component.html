@@ -2,8 +2,8 @@
   <input id="desc" (focus)="onFocus(0)" (blur)="onBlur(0)" type="text" pInputText [(ngModel)]="description"
   name="description" placeholder="Description..." />
   <input id="task" (focus)="onFocus(1)" (blur)="onBlur(1)" type="text" pInputText placeholder="Task..." [value]="taskString"/>
-  <input *ngIf="classBtn=='stop-btn'" class="time-picker" (focus)="onFocus(2)" (blur)="onBlur(2)" type="text" [value]="startDateTime | date:'HH:mm a'" readonly="readonly" />
-  <input *ngIf="classBtn=='play-btn'"style="visibility: hidden;" class="time-picker" type="text" [value]="startDateTime | date:'HH:mm a'" readonly="readonly" />
+  <input *ngIf="classBtn=='stop-btn'" class="time-picker" (focus)="onFocus(2)" (blur)="onBlur(2)" type="text" [value]="startDateTime | date:'hh:mm a'" readonly="readonly" />
+  <input *ngIf="classBtn=='play-btn'"style="visibility: hidden;" class="time-picker" type="text" [value]="startDateTime | date:'hh:mm a'" readonly="readonly" />
   <label class="time-display">{{timeCount}}</label>
   <button type="button" class="{{classBtn}}" (click)="changeClass()"></button>
 </div>
@@ -22,7 +22,7 @@
       <th>START IN THE PAST</th>
     </tr>
     <tr *ngFor="let op of options; let id = index" (mousedown)="updateStartTime(id)">
-      <td>{{op}}<br>{{optionStartTime[id] | date:"HH:mm a"}}</td>
+      <td>{{op}}<br>{{optionStartTime[id] | date:"hh:mm a"}}</td>
     </tr>
   </table>
     

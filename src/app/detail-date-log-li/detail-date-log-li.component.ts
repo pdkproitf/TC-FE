@@ -22,6 +22,8 @@ export class DetailDateLogLiComponent implements OnInit {
   }
   @Output()
   emitDelete = new EventEmitter();
+  @Output()
+  emitStart = new EventEmitter<TimerFetch>();
   from;
   to;
   total;
@@ -74,5 +76,9 @@ export class DetailDateLogLiComponent implements OnInit {
     .catch(err => {
       console.log(err);
     });
+  }
+
+  startTimer() {
+    this.emitStart.emit(this.timerFetch);
   }
 }

@@ -1,6 +1,6 @@
 import { TimerFetch } from './../models/timer-fetch';
 import { TimerFetchService } from './../services/timer-fetch-service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-detail-date-log',
@@ -19,6 +19,8 @@ export class DetailDateLogComponent implements OnInit {
   lastString: string;
   currentDateString: string;
   _weekAnchor: Date[] = [];
+  @Output()
+  emitStart = new EventEmitter<TimerFetch>();
   @Input()
   set weekAnchor(arg) {
     this._weekAnchor = arg;
@@ -121,5 +123,9 @@ export class DetailDateLogComponent implements OnInit {
 
   addTimer(arg) {
     this.fullWeekTimer[this.currentDateString].unshift(arg);
+  }
+
+  onStart(arg) {
+    this.emitStart.emit(arg);
   }
 }

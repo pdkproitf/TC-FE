@@ -190,4 +190,15 @@ export class TimeTrackBarComponent implements OnInit {
     this.generateOptions();
     this.timer.start_time = this.startDateTime.toString();
   }
+
+  getTimerFetchStart(arg) {
+    console.log(arg);
+    if (this.classBtn === 'stop-btn') {
+      this.changeClass();
+    }
+    this.changeClass();
+    this.taskString = arg.project_name + ' - ' + arg.category_name;
+    this.timer.task_id = arg.task_id;
+    this.description = arg.task_name;
+  }
 }
