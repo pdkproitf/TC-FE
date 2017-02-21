@@ -21,7 +21,7 @@ export class CreateTimeoffComponent implements OnInit {
     }
 
     public timeoffForm = this.fb.group({
-        date_start: [this.minDateValue, Validators.required],
+        date_start: [null, Validators.required],
         date_end: [null, Validators.required],
         is_start_half_day: ['false', Validators.required],
         is_end_half_day: ["false", Validators.required],
