@@ -1,3 +1,4 @@
+import { TimerFetch } from './../models/timer-fetch';
 import { ProjectJoin } from './../models/project-join';
 import { CategoryInProject } from './../models/category-in-project';
 import { Timer, TimerPost } from './../models/timer';
@@ -59,11 +60,14 @@ export class TimeTrackBarComponent implements OnInit {
   projectJoins: ProjectJoin[];
   @Output()
   outCategory = new EventEmitter<CategoryInProject>();
+  @Output()
+  addedTimer = new EventEmitter<TimerFetch>();
   myVar;
   classDrop: string[] = ['hidden', 'hidden', 'hidden'];
   timer: Timer = new Timer();
   timerPost: TimerPost = new TimerPost();
-
+  @Input()
+  recentTasks: TimerFetch[] = [];
   constructor(private timerService: TimerService) { }
 
   ngOnInit() {
@@ -146,6 +150,7 @@ export class TimeTrackBarComponent implements OnInit {
     this.timerService.addNewTimer(this.timerPost)
     .then(res => {
       console.log(res);
+      this.addedTimer.emit(res.data);
       this.currentCategory = this.emptyCategory;
     })
     .catch(err => {

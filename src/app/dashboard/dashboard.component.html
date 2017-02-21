@@ -1,6 +1,6 @@
 <app-member-menu-bar [currentState]="0"></app-member-menu-bar>
 <app-time-track-bar [currentCategory]="currentCategory" [projectJoins]="projectJoins"
-(outCategory)="selectCategory($event)"></app-time-track-bar>
+(outCategory)="selectCategory($event)" [recentTasks]="recentTasks" (addedTimer)="detailDateLog.addTimer($event)"></app-time-track-bar>
 <div class="below">
     <app-project-field-list (outCategory)="selectCategory($event)" (outProjectJoins)="getProjectJoins($event)"
     [currentCategory]="currentCategory"></app-project-field-list>

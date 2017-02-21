@@ -1,0 +1,8 @@
+<div class="recent-tasks">
+  <input type=text class="search-box" placeholder="Search project...">
+  <table class="tasks">
+    <tr *ngFor="let task of recentTasks; let id = index;">
+      <app-recent-tasks-li [task]="task"></app-recent-tasks-li>
+    </tr>
+  </table>
+</div>

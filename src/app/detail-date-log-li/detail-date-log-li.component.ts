@@ -1,6 +1,6 @@
 import { TimerService } from './../services/timer-service';
 import { TimerFetch } from './../models/timer-fetch';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-detail-date-log-li',
@@ -20,6 +20,8 @@ export class DetailDateLogLiComponent implements OnInit {
   get timerFetch() {
     return this._timerFetch;
   }
+  @Output()
+  emitDelete = new EventEmitter();
   from;
   to;
   total;
@@ -65,6 +67,12 @@ export class DetailDateLogLiComponent implements OnInit {
   }
 
   deleteTimer() {
-    this.timerService.deleteTimer(this.timerFetch.id);
+    this.timerService.deleteTimer(this.timerFetch.id)
+    .then(res => {
+      this.emitDelete.emit(res);
+    })
+    .catch(err => {
+      console.log(err);
+    });
   }
 }

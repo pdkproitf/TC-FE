@@ -43,6 +43,8 @@ import { ProjectDetailsTasksComponent } from './project-details-tasks/project-de
 import { ProjectDetailsTeamComponent } from './project-details-team/project-details-team.component';
 import { DetailDateLogLiComponent } from './detail-date-log-li/detail-date-log-li.component';
 import { ProjectInDivComponent } from './project-in-div/project-in-div.component';
+import { RecentTasksComponent } from './recent-tasks/recent-tasks.component';
+import { RecentTasksLiComponent } from './recent-tasks-li/recent-tasks-li.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +72,9 @@ import { ProjectInDivComponent } from './project-in-div/project-in-div.component
     ProjectDetailsTasksComponent,
     ProjectDetailsTeamComponent,
     DetailDateLogLiComponent,
-    ProjectInDivComponent
+    ProjectInDivComponent,
+    RecentTasksComponent,
+    RecentTasksLiComponent
   ],
   imports: [
     BrowserModule,

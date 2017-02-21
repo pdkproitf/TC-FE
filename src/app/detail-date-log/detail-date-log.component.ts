@@ -12,11 +12,12 @@ export class DetailDateLogComponent implements OnInit {
   classDay: string[] = ['', '', '', '', '', '', '', '', ''];
   time: string[] = ['0:00', '8:00', '8:00', '8:00', '8:00', '8:00', '0:00', '40:00'];
   fullWeekTimer;
-  currentTimers;
+  currentTimers = [];
   firstWeekDay: Date;
   lastWeekDay: Date;
   firstString: string;
   lastString: string;
+  currentDateString: string;
   _weekAnchor: Date[] = [];
   @Input()
   set weekAnchor(arg) {
@@ -27,6 +28,7 @@ export class DetailDateLogComponent implements OnInit {
     this.lastString = this.dateToShortString(this.lastWeekDay);
 
     let curr = new Date();
+    this.currentDateString = this.dateToShortString(curr);
     let number = curr.getDay();
     let firstDateTmp = new Date(this.firstWeekDay);
     let chosenDate = new Date(firstDateTmp.setDate(this.firstWeekDay.getDate() + number));
@@ -113,4 +115,11 @@ export class DetailDateLogComponent implements OnInit {
     });
   }
 
+  onDelete(id) {
+    this.currentTimers.splice(id, 1);
+  }
+
+  addTimer(arg) {
+    this.fullWeekTimer[this.currentDateString].unshift(arg);
+  }
 }
