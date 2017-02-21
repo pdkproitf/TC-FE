@@ -61,7 +61,7 @@ export class ProjectService {
                     projects.push(this.convertProjectReceive(json));
                 });
             }
-            console.log('get project ', res.json());
+            console.log('get projects ', res.json());
             return projects;
         })
         .catch(this.handleError);
@@ -71,17 +71,10 @@ export class ProjectService {
         var project :ProjectGetAll;
         project = new ProjectGetAll()
 
-        var pDefault :ProjectDefault;
-        pDefault = new ProjectDefault()
-
-        pDefault.id = object['info']['id'];
-        pDefault.name = object['info']['name'];
-        pDefault.background = object['info']['background'];
-
-        project.default = pDefault;
+        project.default = this.convertProjectDefault(object);
         project.client = object['info']['client'];
 
-        project.tracked_time = this.convertSecondToTime(object['tracked_time']);
+        project.tracked_time = object['tracked_time'];
         project.members = object['member'];
 
         return project;
@@ -92,19 +85,11 @@ export class ProjectService {
         if(object['data']){
             var data = object['data'];
             if(data['info']){
-                var pDefault :ProjectDefault;
-                pDefault = new ProjectDefault()
-
-                pDefault.id = data['info']['id'];
-                pDefault.background = data['info']['background'];
-                pDefault.name = data['info']['name'];
-
                 var client: Client = new Client();
                 client.name = data['info']['client_name'];
 
-                project.tracked_time = this.convertSecondToTime(data['info']['tracked_time']);
-
-                project.default = pDefault;
+                project.tracked_time = data['info']['tracked_time'];
+                project.default = this.convertProjectDefault(data);
                 project.client = client;
             }
             if(data['project_category']){
@@ -113,33 +98,7 @@ export class ProjectService {
                 if(data['project_category']){
 
                     data['project_category'].forEach(data => {
-                        var project_category =  new ProjectCategory();
-                        // category
-                        var category: Category = new Category();
-                        if(data['category']){
-                            category.id = data['category']['id'];
-                            category.name = data['category']['name'];
-                        }
-                        project_category.category = category;
-
-                        // member list
-                        var memberList: ProjectCategoryMember[] = [];
-                        var members = data['member']
-                        if(members){
-                            members.forEach(member => {
-                                var projectCategoryMember: ProjectCategoryMember = new ProjectCategoryMember();
-                                projectCategoryMember.user = member['user'];
-                                projectCategoryMember.roles = member['role'];
-                                projectCategoryMember.tracked_time = this.convertSecondToTime(member['tracked_time']);
-                                memberList.push(projectCategoryMember);
-                            })
-                        }
-                        project_category.memberList = memberList;
-
-                        project_category.id = data['id'];
-                        project_category.tracked_time = this.convertSecondToTime(data['tracked_time'])
-
-                        projectCategory.push(project_category);
+                        projectCategory.push(this.convertProjectCategory(data));
                     });
                 }
                 project.project_category = projectCategory;
@@ -148,8 +107,46 @@ export class ProjectService {
         return project;
     }
 
-    convertSecondToTime(times: String): String{
-        var seconds = Number(times);
-        return Math.floor(seconds/(60*60)) + ":" +  Math.floor((seconds % (60*60))/(60));
+    convertProjectDefault(data: Object): ProjectDefault{
+        var pDefault :ProjectDefault;
+        pDefault = new ProjectDefault()
+
+        pDefault.id = data['info']['id'];
+        pDefault.background = data['info']['background'];
+        pDefault.name = data['info']['name'];
+        return pDefault;
+    }
+
+    convertCategory(data: Object): Category{
+        var category: Category = new Category();
+        if(data['category']){
+            category.id = data['category']['id'];
+            category.name = data['category']['name'];
+        }
+        return category;
+    }
+
+    convertProjectCategoryMember(data: Object): ProjectCategoryMember[]{
+        var memberList: ProjectCategoryMember[] = [];
+        var members = data['member']
+        if(members){
+            members.forEach(member => {
+                var projectCategoryMember: ProjectCategoryMember = new ProjectCategoryMember();
+                projectCategoryMember.user = member['user'];
+                projectCategoryMember.roles = member['role'];
+                projectCategoryMember.tracked_time = member['tracked_time'];
+                memberList.push(projectCategoryMember);
+            })
+        }
+        return memberList;
+    }
+    convertProjectCategory(data: Object): ProjectCategory{
+        var project_category =  new ProjectCategory();
+        project_category.category = this.convertCategory(data);
+        project_category.memberList = this.convertProjectCategoryMember(data);
+        project_category.id = data['id'];
+        project_category.tracked_time = data['tracked_time'];
+
+        return project_category;
     }
 }

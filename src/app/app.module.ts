@@ -45,6 +45,7 @@ import { DetailDateLogLiComponent } from './detail-date-log-li/detail-date-log-l
 import { ProjectInDivComponent } from './project-in-div/project-in-div.component';
 import { RecentTasksComponent } from './recent-tasks/recent-tasks.component';
 import { RecentTasksLiComponent } from './recent-tasks-li/recent-tasks-li.component';
+import { TimeFromSecondsPipe } from './time-from-seconds.pipe';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { RecentTasksLiComponent } from './recent-tasks-li/recent-tasks-li.compon
     DetailDateLogLiComponent,
     ProjectInDivComponent,
     RecentTasksComponent,
-    RecentTasksLiComponent
+    RecentTasksLiComponent,
+    TimeFromSecondsPipe
   ],
   imports: [
     BrowserModule,

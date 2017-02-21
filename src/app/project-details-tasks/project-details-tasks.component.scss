@@ -14,10 +14,11 @@
             height: 32px;
             float: left;
             .text{
-                padding-top: 1%;
+                padding-top: 7px;
             }
             .user-name{
                 display: none;
+                font-weight: lighter;
             }
         }
         .text{
@@ -46,10 +47,17 @@
         }
         .right-colum{
             text-align: center;
-            padding-top: 2%;
+            padding: 8px;
         }
         .inline{
             float: left;
+        }
+        .tracked-details{
+            display: none;
+            padding-top: -4px;
+            .tracked-text{
+                padding-top: 16px;
+            }
         }
     }
 }
