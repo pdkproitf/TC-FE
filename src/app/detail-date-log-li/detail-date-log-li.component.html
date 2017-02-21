@@ -4,9 +4,9 @@
   <ul class="aa">
     <li class="des">{{timerFetch.task_name}}</li>
     <li class="cli-ta">{{timerFetch.project_name}} - {{timerFetch.category_name}}</li>
-    <li class="fro-to">{{from}} -> {{to}}</li>
+    <li class="fro-to">{{timerFetch.start_time|date:'hh:mm a'}} -> {{timerFetch.stop_time|date:'hh:mm a'}}</li>
     <li class="to-ti">{{total}}</li>
   </ul>
-  <span [class]="spanClass"><button type="button" pButton icon="fa-play-circle"></button></span>
+  <span [class]="spanClass"><button (click)="startTimer()" type="button" pButton icon="fa-play-circle"></button></span>
   </div>
 </div>

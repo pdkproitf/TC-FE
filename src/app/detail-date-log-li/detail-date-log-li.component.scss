@@ -1,6 +1,7 @@
 @import '../general-style/color-style.scss';
 @import '../general-style/font-style.scss';
 .timer-container{
+    font-family: $headerFont;
     &:hover{
         cursor: pointer;
         background: #F6F7FD;
@@ -38,13 +39,13 @@
         li{
             display: inline-block;
             &.des{
-                width: 45%;
+                width: 40%;
             }
             &.cli-ta{
                 width: 25%;
             }
             &.fro-to{
-                width: 15%;
+                width: 20%;
             }
             &.to-ti{
                 float:right;

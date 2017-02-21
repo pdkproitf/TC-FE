@@ -1,0 +1,23 @@
+@import '../general-style/color-style.scss';
+@import '../general-style/font-style.scss';
+.recent-tasks{
+    font-family: $headerFont;
+    input{
+        margin: 4%;
+        width: 95%;
+        margin: auto;
+        padding: 2%;
+        font-size: 16px;
+    }
+    p{
+        &.recta{
+            font-size: 14px;
+            padding-left: 2%;
+            color: rgba(54,54,54,0.7);
+        }
+    }
+    .tasks{
+        width: 100%;
+        border-spacing: 0;
+    }
+}

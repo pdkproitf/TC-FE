@@ -13,12 +13,12 @@ export class ProjectFieldComponent implements OnInit {
   @Input()
   set currentCategory(arg) {
     this._currentCategory = arg;
-    if (this._currentCategory.project !== this.myProject.name) {
+    /* if (this._currentCategory.project !== this.myProject.name) {
       let len = this.classBtns.length;
       for (let j = 0; j < len; j++) {
         this.classBtns[j] = 'play-btn';
       }
-    }
+    }*/
   }
   get currentCategory() {
     return this._currentCategory;
@@ -38,13 +38,13 @@ export class ProjectFieldComponent implements OnInit {
   }
 
   changeClass(i): void {
-    let len = this.classBtns.length;
+    /* let len = this.classBtns.length;
     for (let j = 0; j < len; j++) {
       if (j !== i) {
         this.classBtns[j] = 'play-btn';
       }
     }
-    this.classBtns[i] = this.classBtns[i] === 'play-btn' ? 'stop-btn' : 'play-btn';
+    this.classBtns[i] = this.classBtns[i] === 'play-btn' ? 'stop-btn' : 'play-btn';*/
     let outCat = new CategoryInProject();
     outCat.category = this.myProject.category[i].name;
     outCat.project = this.myProject.name;
