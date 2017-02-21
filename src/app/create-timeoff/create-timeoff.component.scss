@@ -5,6 +5,7 @@
         margin: auto;
         margin-top: 4%;
         padding-bottom: 10%;
+        overflow: hidden;
         h2{
             width: 212px;
             height: 29px;
@@ -15,17 +16,20 @@
             color: #363636;
         }
         .new-timeoff-content{
-            display: inline-flex;
             .new-timeoff-form{
-                width: 900px;
+                width: 70%;
+                min-width: 357px;
                 background-color: #FFFFFF;
                 box-shadow: 0 2px 3px 0 rgba(0,0,0,0.06);
                 border-radius: 3px;
-                display: inline-block;
                 padding-bottom: 5%;
+                margin-bottom: 5%;
+                float: left;
                 .form-header{
-                    margin: 5% 5% 0 5%;
+                    margin: 5% 5% 5% 2%;
+                    text-align: left;;
                     .start-time{
+                        width: 40%;
                         display: inline-block;
                         .pick-day{margin-bottom: 15px;}
                         .choice-type-day{
@@ -39,19 +43,18 @@
                         }
                     }
                     .arrow-right{
-                        display: inline-block;
-                        margin-left: 8%;
                         color: #898989;
-                        margin-right: 4%;
+                        display: inline-block;
+                        width: 15%;
+                        text-align: center;
                     }
                     & label{
-                        width: 62px;
-                        height: 24px;
                         font-family: Lato;
                         font-size: 16px;
                         font-weight: bold;
                         line-height: 24px;
                         color: #363636;
+                        margin-right: 5%;
                     }
                 }
                 .form-description{
@@ -100,9 +103,9 @@
             }
         }
         .timeoff-balance{
-            width: 30%;
-            display: inline-block;
+            min-width: 180px;
             margin-left: 2%;
+            float: left;
             & p{
                 font-family: Lato;
                 font-size: 18px;
@@ -143,6 +146,13 @@
                     font-weight: 600;
                 }
             }
+        }
+    }
+    /deep/ .ui-calendar{
+        width: 60%;
+        .ui-inputtext {
+            cursor: pointer;
+            width: 80%;
         }
     }
 }
