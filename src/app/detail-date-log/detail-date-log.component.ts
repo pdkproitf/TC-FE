@@ -1,6 +1,6 @@
 import { TimerFetch } from './../models/timer-fetch';
 import { TimerFetchService } from './../services/timer-fetch-service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-detail-date-log',
@@ -12,18 +12,54 @@ export class DetailDateLogComponent implements OnInit {
   classDay: string[] = ['', '', '', '', '', '', '', '', ''];
   time: string[] = ['0:00', '8:00', '8:00', '8:00', '8:00', '8:00', '0:00', '40:00'];
   fullWeekTimer;
-  currentTimers;
+  currentTimers = [];
   firstWeekDay: Date;
+  lastWeekDay: Date;
+  firstString: string;
+  lastString: string;
+  currentDateString: string;
+  _weekAnchor: Date[] = [];
+  @Output()
+  emitStart = new EventEmitter<TimerFetch>();
+  @Input()
+  set weekAnchor(arg) {
+    this._weekAnchor = arg;
+    this.firstWeekDay = arg[0];
+    this.lastWeekDay = arg[1];
+    this.firstString = this.dateToShortString(this.firstWeekDay);
+    this.lastString = this.dateToShortString(this.lastWeekDay);
+
+    let curr = new Date();
+    this.currentDateString = this.dateToShortString(curr);
+    let number = curr.getDay();
+    let firstDateTmp = new Date(this.firstWeekDay);
+    let chosenDate = new Date(firstDateTmp.setDate(this.firstWeekDay.getDate() + number));
+    this.timerFetchService.getTimerFetch(this.firstString, this.lastString)
+    .then(res => {
+      this.fullWeekTimer = res;
+      let chooseString = this.dateToShortString(chosenDate);
+      this.currentTimers = this.fullWeekTimer[chooseString];
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  }
+  get weekAnchor() {
+    return this._weekAnchor;
+  }
   constructor(private timerFetchService: TimerFetchService) { }
 
   ngOnInit() {
     let curr = new Date();
-    let curr1 = new Date()
+    let curr1 = new Date();
+    let curr2 = new Date();
     this.classDay[curr.getDay()] = 'active';
     let first = curr1.getDate() - curr1.getDay();
     this.firstWeekDay = new Date(curr1.setDate(first));
-    console.log(this.firstWeekDay);
-    this.timerFetchService.getTimerFetch('2017-02-12', '2017-02-18')
+    this.lastWeekDay = new Date(curr2.setDate(first + 6));
+    this.firstString = this.dateToShortString(this.firstWeekDay);
+    this.lastString = this.dateToShortString(this.lastWeekDay);
+    this.timerFetchService.getTimerFetch(this.firstString, this.lastString)
     .then(res => {
       this.fullWeekTimer = res;
       let chooseString = this.dateToShortString(curr);
@@ -33,6 +69,7 @@ export class DetailDateLogComponent implements OnInit {
       console.log(err);
     });
   }
+
   setActiveDay(a) {
     for (let i = 0; i < 8; i++) {
       if ( i !== a) {
@@ -47,6 +84,7 @@ export class DetailDateLogComponent implements OnInit {
     this.currentTimers = this.fullWeekTimer[chosenString];
     this.classDay[a] = 'active';
   }
+
   dateToShortString(date: Date): string {
     let yearString = date.getFullYear().toString();
     let monthString = ((date.getMonth() + 1) < 10) ? '0' + (date.getMonth() + 1).toString() : (date.getMonth() + 1).toString();
@@ -55,4 +93,39 @@ export class DetailDateLogComponent implements OnInit {
     return res;
   }
 
+  setDate(arg: Date) {
+    for (let i = 0; i < 8; i++) {
+      this.classDay[i] = '';
+    }
+    let curr = arg;
+    let curr1 = new Date(curr);
+    let curr2 = new Date(curr);
+    this.classDay[curr.getDay()] = 'active';
+    let first = curr1.getDate() - curr1.getDay();
+    this.firstWeekDay = new Date(curr1.setDate(first));
+    this.lastWeekDay = new Date(curr2.setDate(first + 6));
+    this.firstString = this.dateToShortString(this.firstWeekDay);
+    this.lastString = this.dateToShortString(this.lastWeekDay);
+    this.timerFetchService.getTimerFetch(this.firstString, this.lastString)
+    .then(res => {
+      this.fullWeekTimer = res;
+      let chooseString = this.dateToShortString(curr);
+      this.currentTimers = this.fullWeekTimer[chooseString];
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  }
+
+  onDelete(id) {
+    this.currentTimers.splice(id, 1);
+  }
+
+  addTimer(arg) {
+    this.fullWeekTimer[this.currentDateString].unshift(arg);
+  }
+
+  onStart(arg) {
+    this.emitStart.emit(arg);
+  }
 }

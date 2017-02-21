@@ -1,0 +1,43 @@
+@import '../general-style/color-style.scss';
+@import '../general-style/font-style.scss';
+tr{
+    
+    &:hover{
+        cursor: pointer;
+        background: #F6F7FD;
+    }
+    td{
+        font-family: $headerFont;
+        font-size: 14px;
+        line-height: 17px;
+        color: $colorHeader;
+        &.task-name{
+            width: 30%;
+            padding-left: 4%;
+        }
+        &.pro-cat{
+            width: 65%;
+        }
+        &.play-btn{
+            .show{
+                .ui-button{
+                background: transparent;
+                border-radius: 50px;
+                color: $fontWhiteBorder;
+                font-size: 20px;
+                border: none;
+                }
+            }
+            .hide{
+                visibility: hidden;
+                .ui-button{
+                background: transparent;
+                border-radius: 50px;
+                color: $fontWhiteBorder;
+                font-size: 20px;
+                border: none;
+                }
+            }
+        }
+    }
+}

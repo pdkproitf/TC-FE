@@ -1,5 +1,5 @@
 import { TimerFetchService } from './../services/timer-fetch-service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-date-log',
@@ -17,6 +17,10 @@ export class DateLogComponent implements OnInit {
   lastWeekMonth;
   currentDate: Date;
   chosenDate: Date;
+  @Output()
+  outDates = new EventEmitter<Date[]>();
+  @Output()
+  outSpecificDate = new EventEmitter<Date>();
   constructor(private timerFetchService: TimerFetchService) { }
 
   ngOnInit() {
@@ -31,6 +35,8 @@ export class DateLogComponent implements OnInit {
     this.firstDate = new Date(curr1.setDate(first));
     this.lastDate = new Date(curr2.setDate(last));
 
+    this.outDates.emit([this.firstDate, this.lastDate]);
+
     this.firstWeekDate = this.firstDate.getDate();
     this.firstWeekMonth = this.monthsName[this.firstDate.getMonth()];
     this.lastWeekDate = this.lastDate.getDate();
@@ -40,7 +46,10 @@ export class DateLogComponent implements OnInit {
 
   prevWeek() {
     let pre = this.currentDate.getDate() - 7;
+    this.chosenDate.setDate(pre);
+    console.log(this.chosenDate);
     let curr = new Date(this.currentDate.setDate(pre));
+
     let curr1 = new Date(curr);
     let curr2 = new Date(curr);
     let first = curr.getDate() - curr.getDay();
@@ -48,6 +57,8 @@ export class DateLogComponent implements OnInit {
 
     this.firstDate = new Date(curr1.setDate(first));
     this.lastDate = new Date(curr2.setDate(last));
+
+    this.outDates.emit([this.firstDate, this.lastDate]);
 
     this.firstWeekDate = this.firstDate.getDate();
     this.firstWeekMonth = this.monthsName[this.firstDate.getMonth()];
@@ -57,7 +68,10 @@ export class DateLogComponent implements OnInit {
 
   nextWeek() {
     let pre = this.currentDate.getDate() + 7;
+    this.chosenDate.setDate(pre);
+    console.log(this.chosenDate);
     let curr = new Date(this.currentDate.setDate(pre));
+
     let curr1 = new Date(curr);
     let curr2 = new Date(curr);
     let first = curr.getDate() - curr.getDay();
@@ -66,10 +80,28 @@ export class DateLogComponent implements OnInit {
     this.firstDate = new Date(curr1.setDate(first));
     this.lastDate = new Date(curr2.setDate(last));
 
+    this.outDates.emit([this.firstDate, this.lastDate]);
+
     this.firstWeekDate = this.firstDate.getDate();
     this.firstWeekMonth = this.monthsName[this.firstDate.getMonth()];
     this.lastWeekDate = this.lastDate.getDate();
     this.lastWeekMonth = this.monthsName[this.lastDate.getMonth()];
+  }
+
+  emitChosenDate(arg) {
+    // console.log(this.chosenDate);
+    this.currentDate = new Date(this.chosenDate);
+    this.outSpecificDate.emit(this.currentDate);
+  }
+
+  emitChosenDate0(arg) {
+    if (JSON.stringify(this.currentDate) === JSON.stringify(this.chosenDate)) {
+      return;
+    }else {
+      // console.log(this.chosenDate);
+      this.currentDate = new Date(this.chosenDate);
+      this.outSpecificDate.emit(this.currentDate);
+    }
   }
 
 }

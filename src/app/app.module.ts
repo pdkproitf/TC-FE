@@ -43,6 +43,8 @@ import { ProjectDetailsTasksComponent } from './project-details-tasks/project-de
 import { ProjectDetailsTeamComponent } from './project-details-team/project-details-team.component';
 import { DetailDateLogLiComponent } from './detail-date-log-li/detail-date-log-li.component';
 import { ProjectInDivComponent } from './project-in-div/project-in-div.component';
+import { RecentTasksComponent } from './recent-tasks/recent-tasks.component';
+import { RecentTasksLiComponent } from './recent-tasks-li/recent-tasks-li.component';
 import { TimeFromSecondsPipe } from './time-from-seconds.pipe';
 import { TimeoffManageComponent }   from './timeoff-manage/timeoff-manage.component';
 import { CreateTimeoffComponent }   from './create-timeoff/create-timeoff.component';
@@ -78,7 +80,10 @@ import { RadioButtonModule }    from 'primeng/primeng';
     ProjectInDivComponent,
     TimeFromSecondsPipe,
     TimeoffManageComponent,
-    CreateTimeoffComponent
+    CreateTimeoffComponent,
+    RecentTasksComponent,
+    RecentTasksLiComponent,
+    TimeFromSecondsPipe
   ],
   imports: [
     BrowserModule,
