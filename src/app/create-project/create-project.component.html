@@ -42,7 +42,17 @@
             </tr>
             <tr class="data" *ngFor="let em of employeesToAdd; let id = index;">
                 <td><button pButton type="button" icon="fa-times" (click)="removeEmployee(em)"></button></td>
-                <td>{{em.first_name}} {{em.last_name}}</td>
+                <td>
+                    <tr>
+                        <td class="avatar" *ngIf="em.image != null"><img src="{{em.image}}"></td>
+                        <td class="avatar" *ngIf="em.image == null"><img src="assets/image-profile/default-avatar.png"></td>
+                        <td>
+                            {{em.first_name}} {{em.last_name}}
+                            <br/>
+                            {{em.email}}    
+                        </td>
+                    </tr>
+                </td>
                 <td><input type="checkbox" (change)="chbFunc($event.target.checked, id)"></td>
             </tr>
         </table>
@@ -56,9 +66,17 @@
         </div>
         <div [class]="classDiv">
         <!--<div class="member-to-add">-->
-            <ul class="member-list">
-                <li *ngFor="let em of employeePostsSearch; let i = index;" (mousedown)="addEmployee(em.employee)">{{em.employee.first_name}} {{em.employee.last_name}}</li>
-            </ul>
+            <table class="member-list">
+                <tr *ngFor="let em of employeePostsSearch; let i = index;" (mousedown)="addEmployee(em.employee)">
+                    <td class="avatar" *ngIf="em.employee.image != null"><img src="{{em.employee.image}}"></td>
+                    <td class="avatar" *ngIf="em.employee.image == null"><img src="assets/image-profile/default-avatar.png"></td>
+                    <td class="info">
+                        {{em.employee.first_name}} {{em.employee.last_name}}
+                        <br/>
+                        {{em.employee.email}}
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
     <br/><br/><br/>

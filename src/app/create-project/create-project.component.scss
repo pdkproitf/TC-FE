@@ -101,50 +101,9 @@ body{
                 position:relative;
                 top: 20px;
             }
-/*            button{
-                width: 121px;
-                height: 48px;
-                background-color: white;
-                font-family: $headerFont;
-                font-size: 16px;
-                text-align: center;
-                line-height: 24px;
-                margin: 0px;
-                padding: 0px;
-                border: solid 1px black;
-                display: inline-block;
-                &.active{
-                    background-color: $blueColor;
-                    color: white;
-                }
-            }*/
         }
     }
-/*    button{
-        width: 121px;
-        height: 42px;
-        background-color: white;
-        font-family: $headerFont;
-        font-size: 16px;
-        text-align: center;
-        line-height: 24px;
-        margin: 0px;
-        padding: 0px;
-        border: solid 1px black;
-        margin-right: 10px;
-        &.active{
-            background-color: $blueColor;
-            color: white;
-        }
-        &.add-btn{
-            border: solid 0px white;
-            background: $whiteBorder;
-            width: 16%;
-            height: 42px;
-            border-radius: 50px;
-            color: $fontWhiteBorder;
-        }
-    }*/
+
     // -------------------------------- Team members --------------------------------
     .team-member{
         .member-table{
@@ -164,6 +123,13 @@ body{
                     &.p-m{
                         width: 30%;
                     }
+                }
+                td{
+                    img{
+                            height: 32px;
+                            width: 32px;
+                            border-radius: 50%;
+                        }
                 }
                 input{
                     box-shadow: none;
@@ -219,18 +185,30 @@ body{
                 border-style: solid;
                 border-color: transparent transparent white transparent;
             }
-            ul{
+
+            table{
                 width: 100%;
-                display: table;
-                text-align: center;
+                text-align: left;
                 font-weight: normal;
-                li{
+                border-spacing: 0;
+                padding-top: 20px;
+                padding-bottom: 20px;
+                tr{
                     width: 100%;
-                    display:block;
                     &:hover{
                         background-color: $blueColor;
                         color: white;
                         cursor: pointer;
+                    }
+                    td{
+                        &.avatar{
+                            padding-left: 10%;
+                        }
+                        img{
+                            height: 32px;
+                            width: 32px;
+                            border-radius: 50%;
+                        }
                     }
                 }
             }

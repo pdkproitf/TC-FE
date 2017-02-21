@@ -10,8 +10,16 @@
   <div>
     <input class="add-btn" (focus)="displayDiv()" (blur)="undisplayDiv()" (keyup)="keyUpSearch()" type="text" [(ngModel)]="searchName">
     <div [class]="classDiv">
-      <ul class="member-list">
-        <li *ngFor="let em of employeePostsSearch; let i = index;" (mousedown)="addEmployee(em)">{{em.first_name}} {{em.last_name}}</li>
-      </ul>
+      <table class="member-list">
+                <tr *ngFor="let em of employeePostsSearch; let i = index;" (mousedown)="addEmployee(em)">
+                    <td class="avatar" *ngIf="em.image != null"><img src="{{em.image}}"></td>
+                    <td class="avatar" *ngIf="em.image == null"><img src="assets/image-profile/default-avatar.png"></td>
+                    <td class="info">
+                        {{em.first_name}} {{em.last_name}}
+                        <br/>
+                        {{em.email}}
+                    </td>
+                </tr>
+            </table>
     </div>
 </div>
