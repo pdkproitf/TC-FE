@@ -10,9 +10,10 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class DetailDateLogComponent implements OnInit {
   days: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Total'];
   classDay: string[] = ['', '', '', '', '', '', '', '', ''];
-  time: string[] = ['0:00', '8:00', '8:00', '8:00', '8:00', '8:00', '0:00', '40:00'];
+  time: string[] = ['00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00'];
+  timeSeconds = [0, 0, 0, 0, 0, 0, 0, 0];
   fullWeekTimer;
-  currentTimers = [];
+  currentTimers: TimerFetch[] = [];
   firstWeekDay: Date;
   lastWeekDay: Date;
   firstString: string;
@@ -64,6 +65,7 @@ export class DetailDateLogComponent implements OnInit {
       this.fullWeekTimer = res;
       let chooseString = this.dateToShortString(curr);
       this.currentTimers = this.fullWeekTimer[chooseString];
+      this.generateTotalTime();
     })
     .catch(err => {
       console.log(err);
@@ -83,6 +85,7 @@ export class DetailDateLogComponent implements OnInit {
     let chosenString = this.dateToShortString(chosenDate);
     this.currentTimers = this.fullWeekTimer[chosenString];
     this.classDay[a] = 'active';
+    console.log(this.currentTimers);
   }
 
   dateToShortString(date: Date): string {
@@ -122,10 +125,60 @@ export class DetailDateLogComponent implements OnInit {
   }
 
   addTimer(arg) {
+    if (this.fullWeekTimer[this.currentDateString] === undefined || this.fullWeekTimer[this.currentDateString] == null) {
+      this.fullWeekTimer[this.currentDateString] = [];
+    }
     this.fullWeekTimer[this.currentDateString].unshift(arg);
+    this.generateTotalTime();
   }
 
   onStart(arg) {
     this.emitStart.emit(arg);
+  }
+
+  generateTotalTime() {
+    this.timeSeconds[7] = 0;
+    for ( let i = 0; i < 7; i++) {
+      let date = new Date(this.firstWeekDay);
+      date.setDate(this.firstWeekDay.getDate() + i);
+      let stringDate = this.dateToShortString(date);
+      let arrayTimer = this.fullWeekTimer[stringDate];
+      this.timeSeconds[i] = this.totalTimeInDate(arrayTimer);
+      this.timeSeconds[7] += this.timeSeconds[i];
+      this.time[i] = this.secondToTime(this.timeSeconds[i]);
+    }
+    this.time[7] = this.secondToTime(this.timeSeconds[7]);
+  }
+
+  totalTimeInDate(arrayTimer: TimerFetch[]) {
+    let result = 0;
+    if (arrayTimer === undefined || arrayTimer == null) {
+      return result;
+    }else {
+      let len = arrayTimer.length;
+      for (let i = 0; i < len; i++) {
+        let start = new Date(arrayTimer[i].start_time).getTime();
+        let stop = new Date(arrayTimer[i].stop_time).getTime();
+        let diff = stop - start;
+        diff /= 1000;
+        diff = Math.round(diff);
+        result += diff;
+      }
+    return result;
+    }
+  }
+
+  secondToTime(ticks): string {
+    let sec_num = ticks;
+    let hours   = Math.floor(sec_num / 3600);
+    let minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+    let seconds = sec_num - (hours * 3600) - (minutes * 60);
+    let hoursString = hours.toString();
+    let minutesString = minutes.toString();
+    let secondsString = seconds.toString();
+    if (hours   < 10) {hoursString   = '0' + hoursString; }
+    if (minutes < 10) {minutesString = '0' + minutesString; }
+    if (seconds < 10) {secondsString = '0' + secondsString; }
+    return hoursString + ':' + minutesString + ':' + secondsString;
   }
 }
