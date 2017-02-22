@@ -10,6 +10,7 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange
 export class AddingMemberComponent implements OnInit {
   classDiv: string = 'hidden';
   searchName: string = 'Add more people...';
+  all: boolean = false;
   @Input()
   set employeePosts(para){
     this._employeePosts = para;
@@ -26,7 +27,15 @@ export class AddingMemberComponent implements OnInit {
     for (let emp of this.employees) {
       let i = this.employeePostsSearch.indexOf(emp);
       if (i < 0) {
-        this.removeEmployee(emp);
+        let j = this.employees.indexOf(emp);
+        if (j > -1) {
+          this.employees.splice(j, 1);
+        }
+      }
+    }
+    if (this.all) {
+      for (let em of this.employeePostsSearch) {
+        this.addEmployee(em);
       }
     }
   }
@@ -57,9 +66,11 @@ export class AddingMemberComponent implements OnInit {
   }
 
   removeEmployee(emp) {
-    let i = this.employees.indexOf(emp);
-    if (i > -1) {
-      this.employees.splice(i, 1);
+    if (!this.all) {
+      let i = this.employees.indexOf(emp);
+      if (i > -1) {
+        this.employees.splice(i, 1);
+      }
     }
   }
 
@@ -94,7 +105,12 @@ export class AddingMemberComponent implements OnInit {
     this.employeePostsSearch = this.employeePosts;
   }
 
-  printSmth() {
-    console.log('affected');
+  checkAll(arg) {
+    this.all = arg;
+    if (this.all) {
+      for (let em of this.employeePostsSearch) {
+        this.addEmployee(em);
+      }
+    }
   }
 }
