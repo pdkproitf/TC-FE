@@ -2,7 +2,7 @@
 <ul class="current-list">
   <li *ngFor="let emp of employees; let i = index">
     <div class="content">
-      <button class="rem-btn" pButton type="button" (click)="removeEmployee(i)" icon="fa-times"></button>
+      <button class="rem-btn" pButton type="button" (click)="removeEmployee(emp)" icon="fa-times"></button>
       <p>{{emp.first_name}} {{emp.last_name}}</p>
     </div>
   </li>

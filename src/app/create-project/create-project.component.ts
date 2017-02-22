@@ -76,7 +76,7 @@ export class CreateProjectComponent implements OnInit {
     .then(res => {
       this.employeePosts = res;
       this.employeePostsSearch = this.employeePosts;
-      console.log(this.employeePosts);
+      // console.log(this.employeePosts);
     })
     .catch(err => console.log(err));
 
