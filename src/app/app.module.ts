@@ -50,6 +50,7 @@ import { TimeoffManageComponent }   from './timeoff-manage/timeoff-manage.compon
 import { CreateTimeoffComponent }   from './create-timeoff/create-timeoff.component';
 import { ReactiveFormsModule }      from '@angular/forms';
 import { RadioButtonModule }    from 'primeng/primeng';
+import { TimeoffListRequestComponent } from './timeoff-list-request/timeoff-list-request.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,8 @@ import { RadioButtonModule }    from 'primeng/primeng';
     CreateTimeoffComponent,
     RecentTasksComponent,
     RecentTasksLiComponent,
-    TimeFromSecondsPipe
+    TimeFromSecondsPipe,
+    TimeoffListRequestComponent
   ],
   imports: [
     BrowserModule,
