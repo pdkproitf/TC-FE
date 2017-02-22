@@ -1,0 +1,35 @@
+.timeoff-manage{
+    background-color: white;
+    width: 80%;
+    margin: auto;
+    .timeoff-manage-header{
+        p{
+            width: 175px;
+            height: 48px;
+            font-family: Montserrat;
+            font-size: 40px;
+            font-weight: bold;
+            line-height: 48px;
+            color: #363636;
+            display: inline-block;
+            margin-top: 5%;
+        }
+        button{
+            width: 167px;
+            height: 40px;
+            background-color: #0066CC;
+            border-radius: 3px;
+            &.button-create{
+                font-family: Lato;
+                font-size: 16px;
+                text-align: center;
+                line-height: 24px;
+                color: #FFFFFF;
+                float: right;
+                margin-top: 5%;
+                cursor: pointer;;
+            }
+        }
+    }
+
+}

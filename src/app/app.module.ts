@@ -46,6 +46,11 @@ import { ProjectInDivComponent } from './project-in-div/project-in-div.component
 import { RecentTasksComponent } from './recent-tasks/recent-tasks.component';
 import { RecentTasksLiComponent } from './recent-tasks-li/recent-tasks-li.component';
 import { TimeFromSecondsPipe } from './time-from-seconds.pipe';
+import { TimeoffManageComponent }   from './timeoff-manage/timeoff-manage.component';
+import { CreateTimeoffComponent }   from './create-timeoff/create-timeoff.component';
+import { ReactiveFormsModule }      from '@angular/forms';
+import { RadioButtonModule }    from 'primeng/primeng';
+import { TimeoffListRequestComponent } from './timeoff-list-request/timeoff-list-request.component';
 
 @NgModule({
   declarations: [
@@ -74,9 +79,13 @@ import { TimeFromSecondsPipe } from './time-from-seconds.pipe';
     ProjectDetailsTeamComponent,
     DetailDateLogLiComponent,
     ProjectInDivComponent,
+    TimeFromSecondsPipe,
+    TimeoffManageComponent,
+    CreateTimeoffComponent,
     RecentTasksComponent,
     RecentTasksLiComponent,
-    TimeFromSecondsPipe
+    TimeFromSecondsPipe,
+    TimeoffListRequestComponent
   ],
   imports: [
     BrowserModule,
@@ -93,7 +102,9 @@ import { TimeFromSecondsPipe } from './time-from-seconds.pipe';
     DropdownModule,
     DialogModule,
     PaginatorModule,
-    TabViewModule
+    TabViewModule,
+    ReactiveFormsModule,
+    RadioButtonModule
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
   AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService,

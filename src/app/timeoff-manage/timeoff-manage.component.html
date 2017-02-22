@@ -1,0 +1,10 @@
+<app-member-menu-bar [currentState]="2"></app-member-menu-bar>
+<div class="timeoff-manage">
+    <div class="timeoff-manage-header">
+        <p>Time Off</p>
+        <button class="button-create" (click)="createTimeOff()" type="button">Request time off</button>
+    </div>
+    <div class="timeoff-manage-content">
+        <app-timeoff-list-request></app-timeoff-list-request>
+    </div>
+</div>
