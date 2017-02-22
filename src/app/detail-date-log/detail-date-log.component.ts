@@ -40,6 +40,7 @@ export class DetailDateLogComponent implements OnInit {
       this.fullWeekTimer = res;
       let chooseString = this.dateToShortString(chosenDate);
       this.currentTimers = this.fullWeekTimer[chooseString];
+      this.generateTotalTime();
     })
     .catch(err => {
       console.log(err);
@@ -85,7 +86,6 @@ export class DetailDateLogComponent implements OnInit {
     let chosenString = this.dateToShortString(chosenDate);
     this.currentTimers = this.fullWeekTimer[chosenString];
     this.classDay[a] = 'active';
-    console.log(this.currentTimers);
   }
 
   dateToShortString(date: Date): string {
@@ -122,6 +122,7 @@ export class DetailDateLogComponent implements OnInit {
 
   onDelete(id) {
     this.currentTimers.splice(id, 1);
+    this.generateTotalTime();
   }
 
   addTimer(arg) {
