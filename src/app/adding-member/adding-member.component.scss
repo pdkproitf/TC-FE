@@ -76,6 +76,32 @@ ul{
             }
         }
     }
+    table{
+        width: 100%;
+        text-align: left;
+        font-weight: normal;
+        border-spacing: 0;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        tr{
+            width: 100%;
+            &:hover{
+                background-color: $blueColor;
+                color: white;
+                cursor: pointer;
+            }
+            td{
+                &.avatar{
+                    padding-left: 10%;
+                }
+                img{
+                    height: 32px;
+                    width: 32px;
+                    border-radius: 50%;
+                }
+            }
+        }
+    }
 }
 ul.current-list{
     list-style-type: none;

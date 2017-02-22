@@ -14,6 +14,7 @@ export class MemberMenuBarComponent implements OnInit {
   user: User = new User();
   auth: Auth = new Auth();
   authPost: AuthPost = new AuthPost();
+  imageUrl: string;
   @Input()
   currentState: number = 0;
   classActive: string[] = ['', '', '', '', ''];
@@ -25,6 +26,7 @@ export class MemberMenuBarComponent implements OnInit {
     let userInfo = localStorage.getItem('UserInfo');
     let userObj = JSON.parse(userInfo);
     this.user.name = userObj.first_name;
+    this.imageUrl = userObj.image;
     this.items = [
                     {label: 'Profile', icon: 'fa-user-circle'},
                     {label: 'Setting', icon: 'fa-cog'},

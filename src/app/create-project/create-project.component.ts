@@ -76,6 +76,7 @@ export class CreateProjectComponent implements OnInit {
     .then(res => {
       this.employeePosts = res;
       this.employeePostsSearch = this.employeePosts;
+      // console.log(this.employeePosts);
     })
     .catch(err => console.log(err));
 
@@ -212,6 +213,13 @@ export class CreateProjectComponent implements OnInit {
   chbFunc(arg, i) {
     console.log(arg);
     this.employeesRoleToAdd[i] = arg;
+  }
+
+  addAll(arg) {
+    arg.preventDefault();
+    for ( let a of this.employeePosts) {
+      this.addEmployee(a.employee);
+    }
   }
 // --------------------------------End Adding member ---------------->
 // -------------------------------Adding Tasks --------------------->

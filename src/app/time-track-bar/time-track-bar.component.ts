@@ -44,10 +44,13 @@ export class TimeTrackBarComponent implements OnInit {
         this.taskString = this.currentCategory.project + ' - ' + this.currentCategory.category;
       }
     }*/
-    if (curCat.category !== undefined && curCat.project !== undefined) {
+    if (this.description === '' && this.taskString === '' && this.classBtn === 'stop-btn') {
+      this._currentCategory = curCat;
+      this.taskString = this.currentCategory.project + ' - ' + this.currentCategory.category;
+    } else if (curCat.category !== undefined && curCat.project !== undefined) {
       if (this.classBtn === 'stop-btn') {
-        this.changeClass();
-      }
+      this.changeClass();
+    }
       this.changeClass();
       this._currentCategory = curCat;
       this.taskString = this.currentCategory.project + ' - ' + this.currentCategory.category;

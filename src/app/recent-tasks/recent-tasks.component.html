@@ -1,4 +1,4 @@
-<div class="recent-tasks">
+<div class="recent-tasks" *ngIf="recentTasks.length > 0">
   <input *ngIf="num===1" type=text class="search-box" placeholder="Search project...">
   <p class="recta">Recent tasks</p>
   <table class="tasks">

@@ -1,6 +1,6 @@
 import { Member } from './../models/project';
 import { EmployeePost, Employee } from './../models/employee';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-adding-member',
@@ -10,6 +10,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class AddingMemberComponent implements OnInit {
   classDiv: string = 'hidden';
   searchName: string = 'Add more people...';
+  all: boolean = false;
   @Input()
   set employeePosts(para){
     this._employeePosts = para;
@@ -19,7 +20,28 @@ export class AddingMemberComponent implements OnInit {
     return this._employeePosts;
   }
   _employeePosts: Employee[] = [];
-
+  _size: Number;
+  @Input()
+  set size(para) {
+    this._size = para;
+    for (let emp of this.employees) {
+      let i = this.employeePostsSearch.indexOf(emp);
+      if (i < 0) {
+        let j = this.employees.indexOf(emp);
+        if (j > -1) {
+          this.employees.splice(j, 1);
+        }
+      }
+    }
+    if (this.all) {
+      for (let em of this.employeePostsSearch) {
+        this.addEmployee(em);
+      }
+    }
+  }
+  get size() {
+    return this._size;
+  }
   @Output()
   onAdd = new EventEmitter<Member>();
   @Output()
@@ -43,9 +65,13 @@ export class AddingMemberComponent implements OnInit {
     }
   }
 
-  removeEmployee(i) {
-    this.employees.splice(i, 1);
-    this.onDelete.emit(i);
+  removeEmployee(emp) {
+    if (!this.all) {
+      let i = this.employees.indexOf(emp);
+      if (i > -1) {
+        this.employees.splice(i, 1);
+      }
+    }
   }
 
   keyUpSearch() {
@@ -77,5 +103,14 @@ export class AddingMemberComponent implements OnInit {
     this.classDiv = 'hidden';
     this.searchName = 'Add more people...';
     this.employeePostsSearch = this.employeePosts;
+  }
+
+  checkAll(arg) {
+    this.all = arg;
+    if (this.all) {
+      for (let em of this.employeePostsSearch) {
+        this.addEmployee(em);
+      }
+    }
   }
 }

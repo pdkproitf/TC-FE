@@ -13,6 +13,8 @@ ul{
 :host /deep/ .ui-carousel {
     margin: 0px;
     padding: 0px;
+    padding-left: 2%;
+    padding-right: 2%;
     border: solid 0px white; 
     background-color: transparent !important;   
     .ui-carousel-header{

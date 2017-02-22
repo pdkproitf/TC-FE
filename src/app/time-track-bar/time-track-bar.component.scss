@@ -7,6 +7,7 @@
     position:relative;
     z-index:1;
     background: white;
+    padding-left: 2%;
     .ui-inputtext{
         margin-top: 40px;
         margin-left: 1%;
@@ -45,7 +46,7 @@
         border-radius: 50%;
         width: 50px;
         height: 50px;
-        margin-left: 6%;
+        margin-left: 5%;
         position: relative;
         top: 12px;
         &.stop-btn{
@@ -71,7 +72,7 @@
     z-index: 2;
     &.div-des{
         max-height: 300px;
-        margin-left: 1%;
+        margin-left: 3%;
         width: 30%;
         box-shadow: 0px 2px 5px $whiteBorder;
     }
@@ -79,12 +80,12 @@
     &.div-task{
         max-height: 425px;
         overflow-y: auto;
-        margin-left: 40%;
+        margin-left: 42%;
         width: 25%;
     }
     &.div-time{
         height: 250px;
-        margin-left: 63%;
+        margin-left: 65%;
         width: 15%;
         background-color: #2548CE;
         color: white;
