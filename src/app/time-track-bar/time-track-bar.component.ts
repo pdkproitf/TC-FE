@@ -28,22 +28,6 @@ export class TimeTrackBarComponent implements OnInit {
 
   @Input()
   set currentCategory(curCat) {
-    /* if (curCat.category !== undefined && curCat.project !== undefined) {
-      if (curCat.pcu_id === this._currentCategory.pcu_id) {
-        if (this.classBtn === 'stop-btn') {
-          this.changeClass();
-        }
-        this._currentCategory = this.emptyCategory;
-        this.taskString = '';
-        return;
-      }else {
-        if (this.classBtn === 'stop-btn') {
-          this.changeClass();
-        }
-        this._currentCategory = curCat;
-        this.taskString = this.currentCategory.project + ' - ' + this.currentCategory.category;
-      }
-    }*/
     if (this.description === '' && this.taskString === '' && this.classBtn === 'stop-btn') {
       this._currentCategory = curCat;
       this.taskString = this.currentCategory.project + ' - ' + this.currentCategory.category;
@@ -62,7 +46,16 @@ export class TimeTrackBarComponent implements OnInit {
     return this._currentCategory;
   }
   @Input()
-  projectJoins: ProjectJoin[];
+  set projectJoins(arg) {
+    this._projectJoins = arg;
+    this.filterProjectJoin('');
+  }
+  get projectJoins() {
+    return this._projectJoins;
+  }
+  _projectJoins: ProjectJoin[];
+  projectJoinsSearch: ProjectJoin[];
+  varTimeOut;
   @Output()
   outCategory = new EventEmitter<CategoryInProject>();
   @Output()
@@ -207,5 +200,19 @@ export class TimeTrackBarComponent implements OnInit {
     this.taskString = arg.project_name + ' - ' + arg.category_name;
     this.timer.task_id = arg.task_id;
     this.description = arg.task_name;
+  }
+
+  filterProjectJoin(arg: string) {
+    this.projectJoinsSearch = [];
+    for (let project of this.projectJoins) {
+      if (project.name.indexOf(arg) > -1) {
+        this.projectJoinsSearch.push(project);
+      }
+    }
+  }
+
+  doFilter() {
+    clearTimeout(this.varTimeOut);
+    this.varTimeOut = setTimeout(() => this.filterProjectJoin(this.taskString), 2000);
   }
 }
