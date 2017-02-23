@@ -1,3 +1,4 @@
+import { ProjectJoin } from './../models/project-join';
 import { TimerService } from './../services/timer-service';
 import { TimerFetch } from './../models/timer-fetch';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
@@ -27,6 +28,10 @@ export class DetailDateLogLiComponent implements OnInit {
   from;
   to;
   total;
+  @Input()
+  projectJoins: ProjectJoin[] = [];
+  @Input()
+  recentTasks: TimerFetch[] = [];
   constructor(private timerService: TimerService) { }
 
   ngOnInit() {

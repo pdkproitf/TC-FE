@@ -16,7 +16,7 @@
         margin-left: 8%;
     }
     .ui-inputtext{
-        margin-top: 40px;
+        margin-top: 36px;
         margin-left: 1%;
         outline: none;
         border: solid 0px white;
@@ -34,7 +34,7 @@
         margin-left: 6%;
         color: $fontWhiteBorder;
         border: none;
-        width: 6%;
+        width: 8%;
         &:focus{
             background: #ABDCFF;
             background-size: 70%;
@@ -44,7 +44,7 @@
     .time-display{
         font-size: 20px;
         font-family: Lato;
-        margin-left: 4%;
+        margin-left: 2%;
         font-weight: bold;
         color: #212345;
     }

@@ -144,11 +144,12 @@ export class TimeTrackBarComponent implements OnInit {
   setStartTime() {
     let curr = new Date();
     this.startDateTime = curr;
-    this.timer.start_time = curr.toString();
+    this.timeToString();
     this.generateOptions();
   }
 
   setStopTime() {
+    this.timer.start_time = this.startDateTime.toString();
     let curr = new Date();
     this.lastEndDateTime = curr;
     this.timer.stop_time = curr.toString();
@@ -197,7 +198,7 @@ export class TimeTrackBarComponent implements OnInit {
     this.ticks += difference;
     this.secondToTime();
     this.generateOptions();
-    this.timer.start_time = this.startDateTime.toString();
+    // this.timer.start_time = this.startDateTime.toString();
   }
 
   getTimerFetchStart(arg) {
@@ -237,5 +238,34 @@ export class TimeTrackBarComponent implements OnInit {
   doFilter0() {
     clearTimeout(this.varTimeOut);
     this.varTimeOut = setTimeout(() => this.filterRecentTasks(this.description), 2000);
+  }
+
+  setTime(arg) {
+    console.log(this.startTime);
+    this.stringToTime();
+  }
+
+  timeToString() {
+    let hours = this.startDateTime.getHours();
+    let hoursString = (hours < 10) ? '0' + hours.toString() : hours.toString();
+    let minutes = this.startDateTime.getMinutes();
+    let minutesString = (minutes < 10) ? '0' + minutes.toString() : minutes.toString();
+    this.startTime = hoursString + ':' + minutesString;
+  }
+
+  stringToTime() {
+    let timeValue = this.startTime.split(':');
+    let old = this.startDateTime.getTime();
+    let hours = parseInt(timeValue[0], 10);
+    let minutes = parseInt(timeValue[1], 10);
+    this.startDateTime.setHours(hours);
+    this.startDateTime.setMinutes(minutes);
+    let neww = this.startDateTime.getTime();
+    let diff = -neww + old;
+    diff /= 1000;
+    diff = Math.round(diff);
+    this.ticks += diff;
+    this.secondToTime();
+    this.generateOptions();
   }
 }

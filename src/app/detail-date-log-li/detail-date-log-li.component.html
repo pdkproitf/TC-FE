@@ -4,9 +4,37 @@
   <ul class="aa">
     <li class="des">{{timerFetch.task_name}}</li>
     <li class="cli-ta">{{timerFetch.project_name}} - {{timerFetch.category_name}}</li>
-    <li class="fro-to">{{timerFetch.start_time|date:'hh:mm a'}} -> {{timerFetch.stop_time|date:'hh:mm a'}}</li>
+    <li class="fro-to">{{timerFetch.start_time|date:'hh:mm a'}} - {{timerFetch.stop_time|date:'hh:mm a'}}</li>
     <li class="to-ti">{{total}}</li>
   </ul>
   <span [class]="spanClass"><button (click)="startTimer()" type="button" pButton icon="fa-play-circle"></button></span>
   </div>
+</div>
+<div class="dropdown div-task">
+<!--<div [class]="classDrop[0]">-->
+    <app-recent-tasks [recentTasks]="recentTasks" (emitStart)="getTimerFetchStart($event)"></app-recent-tasks>
+</div>
+<!--<div [class]="classDrop[1]">-->
+<div class="dropdown div-task">
+  <div class="search-box">
+      <input class="search-text" type="text">
+      <span class="fa fa-search imgspan"></span>
+    </div>
+    <br/><br/>
+    <div class="content">
+    <app-project-in-div *ngFor="let proj of projectJoins" [myProject]="proj" (outCategory)="selectCategory($event)"></app-project-in-div>
+    </div>
+</div>
+
+<div class="dropdown div-time">
+<!--<div [class]="classDrop[2]">-->
+  <!--<table>
+    <tr>
+      <th>START IN THE PAST</th>
+    </tr>
+    <tr *ngFor="let op of options; let id = index" (mousedown)="updateStartTime(id)">
+      <td>{{op}}<br>{{optionStartTime[id] | date:"hh:mm a"}}</td>
+    </tr>
+  </table>-->
+    
 </div>

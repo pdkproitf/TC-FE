@@ -1,3 +1,4 @@
+import { ProjectJoin } from './../models/project-join';
 import { TimerFetch } from './../models/timer-fetch';
 import { TimerFetchService } from './../services/timer-fetch-service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
@@ -49,6 +50,10 @@ export class DetailDateLogComponent implements OnInit {
   get weekAnchor() {
     return this._weekAnchor;
   }
+  @Input()
+  projectJoins: ProjectJoin[] = [];
+  @Input()
+  recentTasks: TimerFetch[] = [];
   constructor(private timerFetchService: TimerFetchService) { }
 
   ngOnInit() {
