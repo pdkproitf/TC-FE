@@ -13,7 +13,7 @@
         height: 12px;
         border-radius: 50%;
         display: inline-block;
-        margin-left: 10%;
+        margin-left: 8%;
     }
     .ui-inputtext{
         margin-top: 40px;
@@ -78,20 +78,20 @@
     z-index: 2;
     &.div-des{
         max-height: 300px;
+        overflow-y: auto;
         margin-left: 3%;
         width: 30%;
-        box-shadow: 0px 2px 5px $whiteBorder;
     }
 
     &.div-task{
         max-height: 425px;
         overflow-y: auto;
-        margin-left: 44%;
+        margin-left: 42%;
         width: 25%;
     }
     &.div-time{
         height: 250px;
-        margin-left: 65%;
+        margin-left: 66%;
         width: 15%;
         background-color: #2548CE;
         color: white;
