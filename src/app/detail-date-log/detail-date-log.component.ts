@@ -65,6 +65,9 @@ export class DetailDateLogComponent implements OnInit {
     .then(res => {
       this.fullWeekTimer = res;
       let chooseString = this.dateToShortString(curr);
+      if (this.fullWeekTimer[chooseString] === undefined) {
+        this.fullWeekTimer[chooseString] = [];
+      }
       this.currentTimers = this.fullWeekTimer[chooseString];
       this.generateTotalTime();
     })
@@ -84,6 +87,9 @@ export class DetailDateLogComponent implements OnInit {
     chosenDate.setDate(day);
     console.log(chosenDate);
     let chosenString = this.dateToShortString(chosenDate);
+    if (this.fullWeekTimer[chosenString] === undefined) {
+      this.fullWeekTimer[chosenString] = [];
+    }
     this.currentTimers = this.fullWeekTimer[chosenString];
     this.classDay[a] = 'active';
   }
@@ -113,11 +119,15 @@ export class DetailDateLogComponent implements OnInit {
     .then(res => {
       this.fullWeekTimer = res;
       let chooseString = this.dateToShortString(curr);
+      if (this.fullWeekTimer[chooseString] === undefined) {
+        this.fullWeekTimer[chooseString] = [];
+      }
       this.currentTimers = this.fullWeekTimer[chooseString];
     })
     .catch(err => {
       console.log(err);
     });
+    this.generateTotalTime();
   }
 
   onDelete(id) {
@@ -126,10 +136,11 @@ export class DetailDateLogComponent implements OnInit {
   }
 
   addTimer(arg) {
-    if (this.fullWeekTimer[this.currentDateString] === undefined || this.fullWeekTimer[this.currentDateString] == null) {
-      this.fullWeekTimer[this.currentDateString] = [];
+    if (this.fullWeekTimer[this.currentDateString] === undefined) {
+      console.log(this.fullWeekTimer[this.currentDateString]);
+    } else {
+      this.fullWeekTimer[this.currentDateString].unshift(arg);
     }
-    this.fullWeekTimer[this.currentDateString].unshift(arg);
     this.generateTotalTime();
   }
 
@@ -138,7 +149,10 @@ export class DetailDateLogComponent implements OnInit {
   }
 
   generateTotalTime() {
-    this.timeSeconds[7] = 0;
+    for ( let i = 0; i < 8; i++) {
+      this.timeSeconds[i] = 0;
+      this.time[i] = '00:00:00';
+    }
     for ( let i = 0; i < 7; i++) {
       let date = new Date(this.firstWeekDay);
       date.setDate(this.firstWeekDay.getDate() + i);

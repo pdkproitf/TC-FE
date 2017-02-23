@@ -21,7 +21,7 @@ export class TimeTrackBarComponent implements OnInit {
   emptyCategory = new CategoryInProject();
   taskString = '';
   description = '';
-
+  taskColor = '';
   startDateTime: Date;
   lastEndDateTime: Date;
   optionStartTime: Date[] = [new Date(), new Date(), new Date(), new Date(), new Date()];
@@ -47,6 +47,7 @@ export class TimeTrackBarComponent implements OnInit {
     if (this.description === '' && this.taskString === '' && this.classBtn === 'stop-btn') {
       this._currentCategory = curCat;
       this.taskString = this.currentCategory.project + ' - ' + this.currentCategory.category;
+      this.taskColor = this.currentCategory.color;
     } else if (curCat.category !== undefined && curCat.project !== undefined) {
       if (this.classBtn === 'stop-btn') {
       this.changeClass();
@@ -54,6 +55,7 @@ export class TimeTrackBarComponent implements OnInit {
       this.changeClass();
       this._currentCategory = curCat;
       this.taskString = this.currentCategory.project + ' - ' + this.currentCategory.category;
+      this.taskColor = this.currentCategory.color;
     }
   }
   get currentCategory() {
@@ -86,11 +88,13 @@ export class TimeTrackBarComponent implements OnInit {
         this.myTickerFunc();
       }
       , 1000);
+      window.scrollTo(0, 0);
     }else {
       this.myStopTimer();
       this.setStopTime();
       this.description = '';
       this.taskString = '';
+      this.taskColor = '';
     }
     this.classBtn = this.classBtn === 'play-btn' ? 'stop-btn' : 'play-btn';
   }

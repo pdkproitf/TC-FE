@@ -1,5 +1,12 @@
+<div class="container">
 <br/><br/>
-<p-carousel *ngIf="projectJoins.length > 0" numVisible="5" headerText="" [value]="projectJoins">
+<div class="search-group" *ngIf="projectJoins.length > 0">
+    <span [class]="classImageSearch"></span>
+    <input class="search-text" type="text" [(ngModel)]="searchPattern"
+    (keyup)="doFilter()" (focus)="onFocus()" (blur)="onBlur()"/>
+</div>
+<br/>
+<p-carousel *ngIf="projectJoins.length > 0" numVisible="5" headerText="" [value]="projectJoinsSearch">
     <template let-project>
         <div class="project-field">
             <app-project-field (outCategory)="selectCategory($event)" [myProject]="project"
@@ -8,3 +15,4 @@
         </div>
     </template>
 </p-carousel>
+</div>

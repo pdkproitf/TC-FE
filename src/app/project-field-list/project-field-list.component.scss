@@ -1,41 +1,75 @@
-ul{
-    list-style-type: none;
-    li{
-        display:inline-block;
-        margin-left: 20px;
+@import '../general-style/color-style.scss';
+@import '../general-style/font-style.scss';
+.container{
+    font-family: $headerFont;
+    .search-group{
+        margin-left: 3%;
+        margin-bottom: 5px;
+        .search-text{
+            font-size: 24px;
+            width: 25%;
+            background: transparent;
+            position: absolute;
+            border: none;
+            &:hover{
+                cursor: pointer;
+            }
+        }
+        .imgspan{
+            font-size: 24px;
+            position: absolute;
+            margin-left: 0.5%;
+            margin-top: 0.25%;
+            color: $fontWhiteBorder;
+        }
+        .imghidden{
+            font-size: 24px;
+            position: absolute;
+            margin-left: 0.5%;
+            margin-top: 0.25%;
+            color: $fontWhiteBorder;
+            visibility: hidden;
+        }
     }
-}
+    ul{
+        list-style-type: none;
+        li{
+            display:inline-block;
+            margin-left: 20px;
+        }
+    }
 
-.project-field{
-    margin-left: 15px;
-}
+    .project-field{
+        margin-left: 15px;
+    }
 
-:host /deep/ .ui-carousel {
-    margin: 0px;
-    padding: 0px;
-    padding-left: 2%;
-    padding-right: 2%;
-    border: solid 0px white; 
-    background-color: transparent !important;   
-    .ui-carousel-header{
-        border-radius: 0 0 0 0;
+    /deep/ .ui-carousel {
         margin: 0px;
         padding: 0px;
-        border: solid 0px white;
-        background-color: transparent !important;
-        background: transparent !important;
-    }
-    .ui-carousel-header-title{
-        font-family: Lato;
-        font-size: 16px;
-        background-color: transparent !important;
-    }
-    .ui-carousel-viewport{
-        border: solid 0px white;
-    }
-    li{
-        border: solid 0px white;
-        background-color: transparent !important; 
+        padding-left: 2%;
+        padding-right: 2%;
+        border: solid 0px white; 
+        background-color: transparent !important;   
+        .ui-carousel-header{
+            border-radius: 0 0 0 0;
+            margin: 0px;
+            padding: 0px;
+            border: solid 0px white;
+            background-color: transparent !important;
+            background: transparent !important;
+        }
+        .ui-carousel-header-title{
+            font-family: Lato;
+            font-size: 16px;
+            background-color: transparent !important;
+        }
+        .ui-carousel-viewport{
+            border: solid 0px white;
+        }
+        li{
+            border: solid 0px white;
+            background-color: transparent !important; 
+        }
     }
 }
 
