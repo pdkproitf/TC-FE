@@ -65,7 +65,15 @@ export class TimeTrackBarComponent implements OnInit {
   timer: Timer = new Timer();
   timerPost: TimerPost = new TimerPost();
   @Input()
-  recentTasks: TimerFetch[] = [];
+  set recentTasks(arg) {
+    this._recentTasks = arg;
+    this.filterRecentTasks('');
+  }
+  get recentTasks() {
+    return this._recentTasks;
+  }
+  _recentTasks: TimerFetch[] = [];
+  recentTasksSearch: TimerFetch[];
   constructor(private timerService: TimerService) { }
 
   ngOnInit() {
@@ -120,6 +128,7 @@ export class TimeTrackBarComponent implements OnInit {
     console.log('focus');
     if (num === 0) {
       this.classDrop[num] = 'dropdown div-des';
+      this.filterRecentTasks(this.description);
     }else if (num === 1) {
       this.classDrop[num] = 'dropdown div-task';
     }else if (num === 2) {
@@ -214,5 +223,19 @@ export class TimeTrackBarComponent implements OnInit {
   doFilter() {
     clearTimeout(this.varTimeOut);
     this.varTimeOut = setTimeout(() => this.filterProjectJoin(this.taskString), 2000);
+  }
+
+  filterRecentTasks(arg: string) {
+    this.recentTasksSearch = [];
+    for (let task of this.recentTasks) {
+      if (task.task_name.indexOf(arg) > -1) {
+        this.recentTasksSearch.push(task);
+      }
+    }
+  }
+
+  doFilter0() {
+    clearTimeout(this.varTimeOut);
+    this.varTimeOut = setTimeout(() => this.filterRecentTasks(this.description), 2000);
   }
 }
