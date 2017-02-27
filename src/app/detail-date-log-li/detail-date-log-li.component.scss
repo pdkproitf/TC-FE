@@ -32,24 +32,220 @@
         list-style-type: none;
         display: table;
         padding: 0;
-        padding-top: 30px;
+        padding-top: 20px;
         width: 90%;
         box-shadow: inset 0 -1px 0 0 #EEEEEE;
         height: 35px;
         li{
             display: inline-block;
+            
             &.des{
                 width: 40%;
             }
             &.cli-ta{
-                width: 25%;
+                width: 35%;
             }
             &.fro-to{
-                width: 20%;
+                width: 15%;
+                font-size: 14px;
             }
             &.to-ti{
                 float:right;
-                width: 10%;
+                
+            }
+            &:hover{
+                p{
+                    border-bottom: solid 2px $blueColor;
+                }
+            }
+            p{
+                padding: 0;
+                margin: 0;
+                border-bottom: solid 0px transparent;
+                transition: border-color 1s ease;
+                display:inline-block;
+                
+            }
+        }
+    }
+}
+.hiddenDiv{
+    display: none;
+}
+.dropdown{
+    font-family: $headerFont;
+    background: white;
+    box-shadow: 0px 2px 4px $whiteBorder;
+    position: absolute;
+    z-index: 2;
+    &.div-des{
+        max-height: 400px;
+        margin-left: 0%;
+        width: 29.5%;
+        .content{
+            max-height: 350px;
+            overflow-y: auto;
+        } 
+    .search-box{
+            width: 98%;
+            padding: 1%;
+            height: 28px;
+            border-bottom: solid 1px $shadowColor;
+            .search-text{
+                width: 82%;
+                font-size: 16px;
+                padding: 1%;
+                position: absolute;
+            }
+            .imgspan{
+                z-index: 3;
+                position: absolute;
+                left: 79%;
+                top: 10px;
+                font-size: 16px;
+                height: 20px;
+                width: 20px;
+                border-radius: 50%;
+                text-align: center;
+                color: #727272;
+                &.submit{
+                    left: 87%;
+                }
+                &.cancel{
+                    left: 93%;
+                }
+                &:hover{
+                    background: #727272;
+                    color: white;
+                    cursor: pointer;
+                }
+            }
+        }              
+    }
+
+    &.div-task{
+        max-height: 400px;
+        margin-left: 30%;
+        width: 25%;
+        .content{
+            padding-top: 0;
+            margin-top: 0;
+            max-height: 350px;
+            overflow-y: auto;
+        } 
+        .search-box{
+            width: 98%;
+            padding: 1%;
+            height: 28px;
+            border-bottom: solid 1px $shadowColor;
+            .search-text{
+                width: 82%;
+                font-size: 16px;
+                padding: 1%;
+                position: absolute;
+            }
+            .imgspan{
+                z-index: 3;
+                position: absolute;
+                left: 79%;
+                top: 2%;
+                font-size: 16px;
+                height: 20px;
+                width: 20px;
+                border-radius: 50%;
+                text-align: center;
+                color: #727272;
+                &.submit{
+                    left: 87%;
+                }
+                &.cancel{
+                    left: 93%;
+                }
+                &:hover{
+                    background: #727272;
+                    color: white;
+                    cursor: pointer;
+                }
+            }
+        }       
+    }
+    &.div-time{
+        height: 350px;
+        margin-left: 55.5%;
+        width: 24.5%;
+        background-color: white;
+        z-index: 2;
+        table.edit-time{
+            margin-top: 16px;
+            margin-left: 16px;
+            width: 80%;
+            td{
+                font-size: 12px;
+                padding: 0;
+                p{
+                    padding: 0;
+                    margin: 0;
+                }
+                &.total-time{
+                    font-size: 16px;
+                }
+                .time-picker{
+                    font-family: Lato;
+                    color: $fontWhiteBorder;
+                    border: none;
+                    &:focus{
+                        background: #ABDCFF;
+                        background-size: 70%;
+                    }
+        
+                }
+            }
+        }
+        .imgspan{
+            z-index: 3;
+            position: absolute;
+            left: 79%;
+            top: 2%;
+            font-size: 16px;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            text-align: center;
+            color: #727272;
+            &.submit{
+                left: 87%;
+            }
+            &.cancel{
+                left: 93%;
+            }
+            &:hover{
+                background: #727272;
+                color: white;
+                cursor: pointer;
+            }
+        }
+        .calendar{
+            position: absolute;
+            bottom: 0px;
+            width: 100%;
+            margin: auto;
+            /deep/.ui-calendar{
+                width: 100%;
+                .ui-datepicker{
+                    width: 100%;
+                    border: none !important;
+                    .ui-datepicker-header{
+                        background: transparent;
+                    }
+                    .ui-datepicker-calendar{
+                        thead{
+                            th {
+                                background: transparent;
+                            }
+                            border-bottom: solid 1px black;
+                        }
+                    }
+                }
             }
         }
     }

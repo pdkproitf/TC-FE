@@ -21,32 +21,17 @@ export class TimeTrackBarComponent implements OnInit {
   emptyCategory = new CategoryInProject();
   taskString = '';
   description = '';
-
+  taskColor = '';
   startDateTime: Date;
   lastEndDateTime: Date;
   optionStartTime: Date[] = [new Date(), new Date(), new Date(), new Date(), new Date()];
 
   @Input()
   set currentCategory(curCat) {
-    /* if (curCat.category !== undefined && curCat.project !== undefined) {
-      if (curCat.pcu_id === this._currentCategory.pcu_id) {
-        if (this.classBtn === 'stop-btn') {
-          this.changeClass();
-        }
-        this._currentCategory = this.emptyCategory;
-        this.taskString = '';
-        return;
-      }else {
-        if (this.classBtn === 'stop-btn') {
-          this.changeClass();
-        }
-        this._currentCategory = curCat;
-        this.taskString = this.currentCategory.project + ' - ' + this.currentCategory.category;
-      }
-    }*/
     if (this.description === '' && this.taskString === '' && this.classBtn === 'stop-btn') {
       this._currentCategory = curCat;
       this.taskString = this.currentCategory.project + ' - ' + this.currentCategory.category;
+      this.taskColor = this.currentCategory.color;
     } else if (curCat.category !== undefined && curCat.project !== undefined) {
       if (this.classBtn === 'stop-btn') {
       this.changeClass();
@@ -54,13 +39,23 @@ export class TimeTrackBarComponent implements OnInit {
       this.changeClass();
       this._currentCategory = curCat;
       this.taskString = this.currentCategory.project + ' - ' + this.currentCategory.category;
+      this.taskColor = this.currentCategory.color;
     }
   }
   get currentCategory() {
     return this._currentCategory;
   }
   @Input()
-  projectJoins: ProjectJoin[];
+  set projectJoins(arg) {
+    this._projectJoins = arg;
+    this.filterProjectJoin('');
+  }
+  get projectJoins() {
+    return this._projectJoins;
+  }
+  _projectJoins: ProjectJoin[];
+  projectJoinsSearch: ProjectJoin[];
+  varTimeOut;
   @Output()
   outCategory = new EventEmitter<CategoryInProject>();
   @Output()
@@ -70,7 +65,15 @@ export class TimeTrackBarComponent implements OnInit {
   timer: Timer = new Timer();
   timerPost: TimerPost = new TimerPost();
   @Input()
-  recentTasks: TimerFetch[] = [];
+  set recentTasks(arg) {
+    this._recentTasks = arg;
+    this.filterRecentTasks('');
+  }
+  get recentTasks() {
+    return this._recentTasks;
+  }
+  _recentTasks: TimerFetch[] = [];
+  recentTasksSearch: TimerFetch[];
   constructor(private timerService: TimerService) { }
 
   ngOnInit() {
@@ -86,11 +89,13 @@ export class TimeTrackBarComponent implements OnInit {
         this.myTickerFunc();
       }
       , 1000);
+      window.scrollTo(0, 0);
     }else {
       this.myStopTimer();
       this.setStopTime();
       this.description = '';
       this.taskString = '';
+      this.taskColor = '';
     }
     this.classBtn = this.classBtn === 'play-btn' ? 'stop-btn' : 'play-btn';
   }
@@ -123,6 +128,7 @@ export class TimeTrackBarComponent implements OnInit {
     console.log('focus');
     if (num === 0) {
       this.classDrop[num] = 'dropdown div-des';
+      this.filterRecentTasks(this.description);
     }else if (num === 1) {
       this.classDrop[num] = 'dropdown div-task';
     }else if (num === 2) {
@@ -138,11 +144,12 @@ export class TimeTrackBarComponent implements OnInit {
   setStartTime() {
     let curr = new Date();
     this.startDateTime = curr;
-    this.timer.start_time = curr.toString();
+    this.timeToString();
     this.generateOptions();
   }
 
   setStopTime() {
+    this.timer.start_time = this.startDateTime.toString();
     let curr = new Date();
     this.lastEndDateTime = curr;
     this.timer.stop_time = curr.toString();
@@ -191,7 +198,7 @@ export class TimeTrackBarComponent implements OnInit {
     this.ticks += difference;
     this.secondToTime();
     this.generateOptions();
-    this.timer.start_time = this.startDateTime.toString();
+    // this.timer.start_time = this.startDateTime.toString();
   }
 
   getTimerFetchStart(arg) {
@@ -203,5 +210,62 @@ export class TimeTrackBarComponent implements OnInit {
     this.taskString = arg.project_name + ' - ' + arg.category_name;
     this.timer.task_id = arg.task_id;
     this.description = arg.task_name;
+  }
+
+  filterProjectJoin(arg: string) {
+    this.projectJoinsSearch = [];
+    for (let project of this.projectJoins) {
+      if (project.name.indexOf(arg) > -1) {
+        this.projectJoinsSearch.push(project);
+      }
+    }
+  }
+
+  doFilter() {
+    clearTimeout(this.varTimeOut);
+    this.varTimeOut = setTimeout(() => this.filterProjectJoin(this.taskString), 2000);
+  }
+
+  filterRecentTasks(arg: string) {
+    this.recentTasksSearch = [];
+    for (let task of this.recentTasks) {
+      if (task.task_name.indexOf(arg) > -1) {
+        this.recentTasksSearch.push(task);
+      }
+    }
+  }
+
+  doFilter0() {
+    clearTimeout(this.varTimeOut);
+    this.varTimeOut = setTimeout(() => this.filterRecentTasks(this.description), 2000);
+  }
+
+  setTime(arg) {
+    console.log(this.startTime);
+    this.stringToTime();
+  }
+
+  timeToString() {
+    let hours = this.startDateTime.getHours();
+    let hoursString = (hours < 10) ? '0' + hours.toString() : hours.toString();
+    let minutes = this.startDateTime.getMinutes();
+    let minutesString = (minutes < 10) ? '0' + minutes.toString() : minutes.toString();
+    this.startTime = hoursString + ':' + minutesString;
+  }
+
+  stringToTime() {
+    let timeValue = this.startTime.split(':');
+    let old = this.startDateTime.getTime();
+    let hours = parseInt(timeValue[0], 10);
+    let minutes = parseInt(timeValue[1], 10);
+    this.startDateTime.setHours(hours);
+    this.startDateTime.setMinutes(minutes);
+    let neww = this.startDateTime.getTime();
+    let diff = -neww + old;
+    diff /= 1000;
+    diff = Math.round(diff);
+    this.ticks += diff;
+    this.secondToTime();
+    this.generateOptions();
   }
 }

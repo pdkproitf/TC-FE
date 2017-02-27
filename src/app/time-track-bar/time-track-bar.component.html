@@ -1,18 +1,21 @@
 <div class="tracker-container"> 
   <input id="desc" (focus)="onFocus(0)" (blur)="onBlur(0)" type="text" pInputText [(ngModel)]="description"
-  name="description" placeholder="Description..." />
-  <input id="task" (focus)="onFocus(1)" (blur)="onBlur(1)" type="text" pInputText placeholder="Task..." [value]="taskString"/>
-  <input *ngIf="classBtn=='stop-btn'" class="time-picker" (focus)="onFocus(2)" (blur)="onBlur(2)" type="text" [value]="startDateTime | date:'hh:mm a'" readonly="readonly" />
-  <input *ngIf="classBtn=='play-btn'"style="visibility: hidden;" class="time-picker" type="text" [value]="startDateTime | date:'hh:mm a'" readonly="readonly" />
+  name="description" (keyup)="doFilter0()" placeholder="Description..." />
+  <div class="dot-color" [style.background]="taskColor"></div>
+  <input id="task" (focus)="onFocus(1)" (blur)="onBlur(1)" type="text" pInputText placeholder="Task..."
+  (keyup)="doFilter()" [(ngModel)]="taskString" name="task-string"/>
+  <input *ngIf="classBtn=='stop-btn'" class="time-picker" (focus)="onFocus(2)" (blur)="onBlur(2); setTime($event.target.value)" type="time"
+  name="start-time" [(ngModel)]="startTime"/>
+  <input *ngIf="classBtn=='play-btn'"style="visibility: hidden;" class="time-picker" type="time" [value]="startTime" readonly="readonly" />
   <label class="time-display">{{timeCount}}</label>
   <button type="button" class="{{classBtn}}" (click)="changeClass()"></button>
 </div>
 <div [class]="classDrop[0]">
-    <app-recent-tasks [recentTasks]="recentTasks" (emitStart)="getTimerFetchStart($event)"></app-recent-tasks>
+    <app-recent-tasks [recentTasks]="recentTasksSearch" (emitStart)="getTimerFetchStart($event)"></app-recent-tasks>
 </div>
 <div [class]="classDrop[1]">
   <!--<div class="dropdown div-task">-->
-    <app-project-in-div *ngFor="let proj of projectJoins" [myProject]="proj" (outCategory)="selectCategory($event)"></app-project-in-div>
+    <app-project-in-div *ngFor="let proj of projectJoinsSearch" [myProject]="proj" (outCategory)="selectCategory($event)"></app-project-in-div>
 </div>
 <!--<div class="dropdown div-time">-->
 <div [class]="classDrop[2]">

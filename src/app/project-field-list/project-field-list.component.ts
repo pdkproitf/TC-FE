@@ -10,6 +10,10 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 })
 export class ProjectFieldListComponent implements OnInit {
   projectJoins: ProjectJoin[] = [];
+  projectJoinsSearch: ProjectJoin[] = [];
+  classImageSearch = 'fa fa-search imgspan';
+  searchPattern = '';
+  varTimeOut;
   @Output()
   outCategory = new EventEmitter<CategoryInProject>();
   @Output()
@@ -23,6 +27,7 @@ export class ProjectFieldListComponent implements OnInit {
     .then(res => {
       this.projectJoins = res;
       this.outProjectJoins.emit(this.projectJoins);
+      this.filterProjectJoin('');
     })
     .catch(err => {
       console.log(err);
@@ -32,6 +37,30 @@ export class ProjectFieldListComponent implements OnInit {
   selectCategory(arg) {
     this.outCategory.emit(arg);
     // this.currentCategory = arg;
+  }
+
+  onBlur() {
+    if (this.searchPattern === '') {
+      this.classImageSearch = 'fa fa-search imgspan';
+    }
+  }
+
+  onFocus() {
+    this.classImageSearch = 'fa fa-search imghidden';
+  }
+
+  filterProjectJoin(arg: string) {
+    this.projectJoinsSearch = [];
+    for (let project of this.projectJoins) {
+      if (project.name.indexOf(arg) > -1) {
+        this.projectJoinsSearch.push(project);
+      }
+    }
+  }
+
+  doFilter() {
+    clearTimeout(this.varTimeOut);
+    this.varTimeOut = setTimeout(() => this.filterProjectJoin(this.searchPattern), 2000);
   }
 
 }
