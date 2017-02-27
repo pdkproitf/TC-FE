@@ -38,21 +38,39 @@
         height: 35px;
         li{
             display: inline-block;
+            
             &.des{
                 width: 40%;
             }
             &.cli-ta{
-                width: 25%;
+                width: 35%;
             }
             &.fro-to{
-                width: 20%;
+                width: 15%;
+                font-size: 14px;
             }
             &.to-ti{
                 float:right;
-                width: 10%;
+                
+            }
+            &:hover{
+                p{
+                    border-bottom: solid 2px $blueColor;
+                }
+            }
+            p{
+                padding: 0;
+                margin: 0;
+                border-bottom: solid 0px transparent;
+                transition: border-color 1s ease;
+                display:inline-block;
+                
             }
         }
     }
+}
+.hiddenDiv{
+    display: none;
 }
 .dropdown{
     font-family: $headerFont;
@@ -61,25 +79,20 @@
     position: absolute;
     z-index: 2;
     &.div-des{
-        max-height: 300px;
-        overflow-y: auto;
-        margin-left: 0%;
-        width: 30%;
-    }
-
-    &.div-task{
         max-height: 400px;
-        margin-left: 30%;
-        width: 25%;
+        margin-left: 0%;
+        width: 29.5%;
         .content{
             max-height: 350px;
             overflow-y: auto;
         } 
-        .search-box{
-            width: 100%;
+    .search-box{
+            width: 98%;
             padding: 1%;
+            height: 28px;
+            border-bottom: solid 1px $shadowColor;
             .search-text{
-                width: 95%;
+                width: 82%;
                 font-size: 16px;
                 padding: 1%;
                 position: absolute;
@@ -87,46 +100,151 @@
             .imgspan{
                 z-index: 3;
                 position: absolute;
-                left: 90%;
+                left: 79%;
+                top: 10px;
+                font-size: 16px;
+                height: 20px;
+                width: 20px;
+                border-radius: 50%;
+                text-align: center;
+                color: #727272;
+                &.submit{
+                    left: 87%;
+                }
+                &.cancel{
+                    left: 93%;
+                }
+                &:hover{
+                    background: #727272;
+                    color: white;
+                    cursor: pointer;
+                }
+            }
+        }              
+    }
+
+    &.div-task{
+        max-height: 400px;
+        margin-left: 30%;
+        width: 25%;
+        .content{
+            padding-top: 0;
+            margin-top: 0;
+            max-height: 350px;
+            overflow-y: auto;
+        } 
+        .search-box{
+            width: 98%;
+            padding: 1%;
+            height: 28px;
+            border-bottom: solid 1px $shadowColor;
+            .search-text{
+                width: 82%;
+                font-size: 16px;
+                padding: 1%;
+                position: absolute;
+            }
+            .imgspan{
+                z-index: 3;
+                position: absolute;
+                left: 79%;
                 top: 2%;
+                font-size: 16px;
+                height: 20px;
+                width: 20px;
+                border-radius: 50%;
+                text-align: center;
+                color: #727272;
+                &.submit{
+                    left: 87%;
+                }
+                &.cancel{
+                    left: 93%;
+                }
+                &:hover{
+                    background: #727272;
+                    color: white;
+                    cursor: pointer;
+                }
             }
         }       
     }
     &.div-time{
-        height: 250px;
-        margin-left: 66%;
-        width: 15%;
-        background-color: #2548CE;
-        color: white;
+        height: 350px;
+        margin-left: 55.5%;
+        width: 24.5%;
+        background-color: white;
         z-index: 2;
-        &:after{
-            z-index: 2;
-            content: " ";
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            margin-left: -5px;
-            border-width: 10px;
-            border-style: solid;
-            border-color: transparent transparent #2548CE transparent;
-        }
-        table{
-            width: 100%;
-            font-family: $headerFont;
-            text-align: left;
-            font-size: 14px;
-            th{
-                padding-left: 4%;
-                padding-top: 4%;
-                font-weight: normal;
-            }
+        table.edit-time{
+            margin-top: 16px;
+            margin-left: 16px;
+            width: 80%;
             td{
-                padding-left: 4%;
-                padding-top: 2%;
-                padding-bottom: 2%;
-                &:hover{
-                    background: gray;
-                    cursor: pointer;
+                font-size: 12px;
+                padding: 0;
+                p{
+                    padding: 0;
+                    margin: 0;
+                }
+                &.total-time{
+                    font-size: 16px;
+                }
+                .time-picker{
+                    font-family: Lato;
+                    color: $fontWhiteBorder;
+                    border: none;
+                    &:focus{
+                        background: #ABDCFF;
+                        background-size: 70%;
+                    }
+        
+                }
+            }
+        }
+        .imgspan{
+            z-index: 3;
+            position: absolute;
+            left: 79%;
+            top: 2%;
+            font-size: 16px;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            text-align: center;
+            color: #727272;
+            &.submit{
+                left: 87%;
+            }
+            &.cancel{
+                left: 93%;
+            }
+            &:hover{
+                background: #727272;
+                color: white;
+                cursor: pointer;
+            }
+        }
+        .calendar{
+            position: absolute;
+            bottom: 0px;
+            width: 100%;
+            margin: auto;
+            /deep/.ui-calendar{
+                width: 100%;
+                .ui-datepicker{
+                    width: 100%;
+                    border: none !important;
+                    .ui-datepicker-header{
+                        background: transparent;
+                    }
+                    .ui-datepicker-calendar{
+                        thead{
+                            th {
+                                background: transparent;
+                            }
+                            border-bottom: solid 1px black;
+                        }
+                    }
                 }
             }
         }

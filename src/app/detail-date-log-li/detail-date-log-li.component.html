@@ -2,39 +2,57 @@
   <div [class]="classDiv">
   <span [class]="spanClass"><button (click)="deleteTimer()" type="button" pButton icon="fa-trash"></button></span>
   <ul class="aa">
-    <li class="des">{{timerFetch.task_name}}</li>
-    <li class="cli-ta">{{timerFetch.project_name}} - {{timerFetch.category_name}}</li>
-    <li class="fro-to">{{timerFetch.start_time|date:'hh:mm a'}} - {{timerFetch.stop_time|date:'hh:mm a'}}</li>
-    <li class="to-ti">{{total}}</li>
+    <li (click)="showDiv(0)" class="des"><p>{{timerFetch.task_name}}</p></li>
+    <li (click)="showDiv(1)" class="cli-ta"><p>{{timerFetch.project_name}} - {{timerFetch.category_name}}</p></li>
+    <li (click)="showDiv(2)" class="fro-to"><p>{{timerFetch.start_time|date:'hh:mm a'}} - {{timerFetch.stop_time|date:'hh:mm a'}}</p></li>
+    <li class="to-ti"><p>{{total}}</p></li>
   </ul>
   <span [class]="spanClass"><button (click)="startTimer()" type="button" pButton icon="fa-play-circle"></button></span>
   </div>
 </div>
-<div class="dropdown div-task">
-<!--<div [class]="classDrop[0]">-->
-    <app-recent-tasks [recentTasks]="recentTasks" (emitStart)="getTimerFetchStart($event)"></app-recent-tasks>
-</div>
-<!--<div [class]="classDrop[1]">-->
-<div class="dropdown div-task">
+
+<div [class]="divClass[0]">
   <div class="search-box">
-      <input class="search-text" type="text">
-      <span class="fa fa-search imgspan"></span>
-    </div>
-    <br/><br/>
-    <div class="content">
-    <app-project-in-div *ngFor="let proj of projectJoins" [myProject]="proj" (outCategory)="selectCategory($event)"></app-project-in-div>
-    </div>
+    <input class="search-text" name="search-text" [(ngModel)]="editDes"  type="text">
+    <!--<span class="fa fa-search imgspan"></span>-->
+    <span (click)="submitDes()" class="fa fa-check imgspan submit"></span>
+    <span (click)="hideDiv(0)" class="fa fa-times imgspan cancel"></span>
+  </div>
+  <div class="content" *ngIf="recentTasks.length > 0">
+    <app-recent-tasks [recentTasks]="recentTasks" (emitStart)="getTimerFetchStart($event)"></app-recent-tasks>
+  </div>
+</div>
+<div [class]="divClass[1]">
+  <div class="search-box">
+    <input class="search-text" name="search-text" [(ngModel)]="searchPattern" (keyup)="doFilter()" type="text">
+    <!--<span class="fa fa-search imgspan"></span>-->
+    <span class="fa fa-check imgspan submit"></span>
+    <span (click)="hideDiv(1)" class="fa fa-times imgspan cancel"></span>
+  </div>
+  <div class="content" *ngIf="projectJoinsSearch.length > 0">
+    <app-project-in-div *ngFor="let proj of projectJoinsSearch" [myProject]="proj" (outCategory)="selectCategory($event)"></app-project-in-div>
+  </div>
 </div>
 
-<div class="dropdown div-time">
-<!--<div [class]="classDrop[2]">-->
-  <!--<table>
-    <tr>
-      <th>START IN THE PAST</th>
+<div [class]="divClass[2]">
+  <table class="edit-time">
+    <tr class="set-time">
+      <td>
+        <p>Start:</p>
+        <input class="time-picker" type="time" name="start-time" (blur)="editTimerTime(0)" [(ngModel)]="startString"/>
+      </td>
+      <td>
+        <p>End:</p>
+        <input class="time-picker" type="time" name="end-time" (blur)="editTimerTime(1)" [(ngModel)]="endString"/>
+      </td>
+      <td class="total-time">
+        <p>{{totalString}}</p>
+      </td>
     </tr>
-    <tr *ngFor="let op of options; let id = index" (mousedown)="updateStartTime(id)">
-      <td>{{op}}<br>{{optionStartTime[id] | date:"hh:mm a"}}</td>
-    </tr>
-  </table>-->
-    
+  </table>
+  <span class="fa fa-check imgspan submit"></span>
+  <span (click)="hideDiv(2)" class="fa fa-times imgspan cancel"></span>
+  <div class="calendar">
+    <p-calendar [inline]="true" (onSelect)="selectEditDate($event)"></p-calendar>
+  </div>   
 </div>
