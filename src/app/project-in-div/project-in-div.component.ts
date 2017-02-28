@@ -21,7 +21,7 @@ export class ProjectInDivComponent implements OnInit {
     let outCat = new CategoryInProject();
     outCat.project = this.myProject.name;
     outCat.category = arg.name;
-    outCat.pcu_id = arg.pcu_id;
+    outCat.category_member_id = arg.category_member_id;
     outCat.color = this.myProject.background;
     this.outCategory.emit(outCat);
   }

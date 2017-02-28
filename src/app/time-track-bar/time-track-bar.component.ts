@@ -153,7 +153,7 @@ export class TimeTrackBarComponent implements OnInit {
     let curr = new Date();
     this.lastEndDateTime = curr;
     this.timer.stop_time = curr.toString();
-    this.timer.project_category_user_id = this._currentCategory.pcu_id;
+    this.timer.category_member_id = this._currentCategory.category_member_id;
     this.timer.task_name = this.description;
     this.timerPost.timer = this.timer;
     console.log(this.timerPost);
@@ -208,8 +208,8 @@ export class TimeTrackBarComponent implements OnInit {
     }
     this.changeClass();
     this.taskString = arg.project_name + ' - ' + arg.category_name;
-    this.timer.task_id = arg.task_id;
-    this.description = arg.task_name;
+    this.timer.task_id = arg.task.id;
+    this.description = arg.task.name;
   }
 
   filterProjectJoin(arg: string) {

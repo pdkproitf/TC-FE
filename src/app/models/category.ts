@@ -1,7 +1,7 @@
 export class Category {
     id: number;
     name: string;
-    pcu_id: number;
+    category_member_id: number;
 }
 
 export class CategoryPost {
