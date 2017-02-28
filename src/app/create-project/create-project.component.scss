@@ -301,6 +301,9 @@ body{
         padding: 0px;
         border: solid 1px black !important;
         margin-right: 10px;
+        &:hover{
+            cursor: pointer;
+        }
         &.active{
             background-color: $blueColor !important;
             color: white !important;

@@ -15,7 +15,7 @@ export class ClientService {
     }
 
     addClient(clientPost: ClientPost): Promise<any> {
-        let requestUrl = 'https://timecloudbackend.herokuapp.com/api/clients/new';
+        let requestUrl = 'https://timecloudbackend.herokuapp.com/api/clients';
         let headers = new Headers();
         this.headersService.createAuthHeaders(headers);
         return this.http
@@ -26,7 +26,7 @@ export class ClientService {
     }
 
     getAllClient(): Promise<any> {
-        let requestUrl = 'https://timecloudbackend.herokuapp.com/api/clients/all';
+        let requestUrl = 'https://timecloudbackend.herokuapp.com/api/clients';
         let headers = new Headers();
         this.headersService.createAuthHeaders(headers);
         return this.http

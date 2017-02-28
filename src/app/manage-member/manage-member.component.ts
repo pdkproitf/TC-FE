@@ -34,12 +34,12 @@ export class ManageMemberComponent implements OnInit {
   }
 
   onSubmitMember() {
-    this.membershipPost.membership = this.membership;
-    this.membershipService.addNewMembership(this.membershipPost)
+    this.membershipService.addNewMembership(this.membership)
     .then(res => {
-      this.newEmployeePost = res;
-      this.employeePosts.push(this.newEmployeePost);
-      this.undisplayDialog();
+      //this.newEmployeePost = res;
+      //this.employeePosts.push(this.newEmployeePost);
+      //this.undisplayDialog();
+      console.log(res);
     })
     .catch(err => console.log(err));
   }

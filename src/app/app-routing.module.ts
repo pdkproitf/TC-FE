@@ -17,6 +17,7 @@ import { CreateTimeoffComponent } from './create-timeoff/create-timeoff.componen
 
 const routes: Routes = [
     { path: 'sign-up', component: SignUpComponent, canActivate: [NotLoggedIn] },
+    { path: 'sign-up/:token', component: SignUpComponent, canActivate: [NotLoggedIn] },
     { path: 'sign-in', component: SignInComponent, canActivate: [NotLoggedIn] },
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthenLoggedIn] },
     { path: '', component: MarketingPageComponent, canActivate: [NotLoggedIn] },

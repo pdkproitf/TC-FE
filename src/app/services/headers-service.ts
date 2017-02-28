@@ -5,9 +5,10 @@ export class HeadersService {
         if (localStorage.getItem('UserInfo') != null) {
             let userInfo = localStorage.getItem('UserInfo');
             let userObj = JSON.parse(userInfo);
-            headers.append('uid', userObj.uid);
-            headers.append('client', userObj.client);
-            headers.append('access_token', userObj.token);
+            headers.append('uid', userObj.user.uid);
+            headers.append('client', userObj.user.client);
+            headers.append('access_token', userObj.user.token);
+            headers.append('company_domain', userObj.company.domain);
         }
     }
 }

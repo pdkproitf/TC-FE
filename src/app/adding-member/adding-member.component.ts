@@ -1,4 +1,5 @@
-import { Member } from './../models/project';
+import { MemberCat } from './../models/project';
+import { Member } from './../models/member';
 import { EmployeePost, Employee } from './../models/employee';
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 
@@ -19,7 +20,7 @@ export class AddingMemberComponent implements OnInit {
   get employeePosts() {
     return this._employeePosts;
   }
-  _employeePosts: Employee[] = [];
+  _employeePosts: Member[] = [];
   _size: Number;
   @Input()
   set size(para) {
@@ -43,12 +44,12 @@ export class AddingMemberComponent implements OnInit {
     return this._size;
   }
   @Output()
-  onAdd = new EventEmitter<Member>();
+  onAdd = new EventEmitter<MemberCat>();
   @Output()
   onDelete = new EventEmitter<Number>();
-  employeePostsSearch: Employee[] = [];
+  employeePostsSearch: Member[] = [];
   searchVar;
-  employees: Employee[] = [];
+  employees: Member[] = [];
 
   constructor() { }
 
@@ -56,11 +57,11 @@ export class AddingMemberComponent implements OnInit {
     this.employeePostsSearch = this._employeePosts;
   }
 
-  addEmployee(employee: Employee) {
+  addEmployee(employee) {
     if (this.employees.indexOf(employee) < 0) {
       this.employees.push(employee);
-      let member = new Member;
-      member.user_id = employee.id;
+      let member = new MemberCat;
+      member.member_id = employee.id;
       this.onAdd.emit(member);
     }
   }
@@ -88,7 +89,7 @@ export class AddingMemberComponent implements OnInit {
     console.log(key);
     for (let i = 0; i < len; i++) {
       let obj = this.employeePosts[i];
-      if ( obj.first_name.indexOf(key) > -1 || obj.last_name.indexOf(key) > -1) {
+      if ( obj.user.first_name.indexOf(key) > -1 || obj.user.last_name.indexOf(key) > -1) {
         this.employeePostsSearch.push(obj);
       }
     }
