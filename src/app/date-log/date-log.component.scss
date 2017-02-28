@@ -38,10 +38,11 @@ ul{
         box-shadow: 1px 1px 2px 2px $shadowColor;
         border-radius: 50%;
         background-color: white;
+        text-align: center;
         .ui-button-icon-left{
             color:black;
             position: relative;
-            left: 4px;
+            left: 5px;
             top: 2px;
         }
     }

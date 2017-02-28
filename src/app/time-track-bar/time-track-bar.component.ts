@@ -160,7 +160,7 @@ export class TimeTrackBarComponent implements OnInit {
     this.timerService.addNewTimer(this.timerPost)
     .then(res => {
       console.log(res);
-      this.addedTimer.emit(res.data);
+      this.addedTimer.emit(res);
       this.currentCategory = this.emptyCategory;
     })
     .catch(err => {
@@ -229,7 +229,7 @@ export class TimeTrackBarComponent implements OnInit {
   filterRecentTasks(arg: string) {
     this.recentTasksSearch = [];
     for (let task of this.recentTasks) {
-      if (task.task_name.indexOf(arg) > -1) {
+      if (task.task.name.indexOf(arg) > -1) {
         this.recentTasksSearch.push(task);
       }
     }

@@ -48,7 +48,7 @@ export class ProjectFieldComponent implements OnInit {
     let outCat = new CategoryInProject();
     outCat.category = this.myProject.category[i].name;
     outCat.project = this.myProject.name;
-    outCat.pcu_id = this.myProject.category[i].pcu_id;
+    outCat.category_member_id = this.myProject.category[i].category_member_id;
     outCat.color = this.myProject.background;
     this.outCategory.emit(outCat);
   }
