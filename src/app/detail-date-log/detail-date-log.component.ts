@@ -68,6 +68,7 @@ export class DetailDateLogComponent implements OnInit {
     this.lastString = this.dateToShortString(this.lastWeekDay);
     this.timerFetchService.getTimerFetch(this.firstString, this.lastString)
     .then(res => {
+      console.log(res);
       this.fullWeekTimer = res;
       let chooseString = this.dateToShortString(curr);
       if (this.fullWeekTimer[chooseString] === undefined) {
@@ -88,7 +89,7 @@ export class DetailDateLogComponent implements OnInit {
       }
     }
     let day = this.firstWeekDay.getDate() + a;
-    let chosenDate = new Date();
+    let chosenDate = new Date(this.firstWeekDay);
     chosenDate.setDate(day);
     console.log(chosenDate);
     let chosenString = this.dateToShortString(chosenDate);
