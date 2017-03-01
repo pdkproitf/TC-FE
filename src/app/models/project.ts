@@ -1,6 +1,6 @@
 import { Client } from './client';
 import { Employee } from './employee';
-import { Category } from './category';
+import { Category, CategoryGetOne } from './category';
 import { Member } from './member';
 import { User } from './user';
 import { Role } from './role';
@@ -57,12 +57,15 @@ export class ProjectGetAll {
     tracked_time: number;
 }
 
-
+// using for load one project from api
 export class ProjectGetOne {
-    // default: ProjectDefault;
+    id: number;
+    name: string;
+    background: string;
     client: Client;
+    members: Member[];
     tracked_time: number;
-    project_category: ProjectCategory[];
+    categories: CategoryGetOne[];
 }
 
 export class ProjectPost {

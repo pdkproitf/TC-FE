@@ -42,7 +42,7 @@ export class ProjectService {
         .toPromise()
         .then(res => {
             console.log('get project '+id, res.json());
-            return res.json();
+            return res.json().data as ProjectGetOne;
         })
         .catch(this.handleError);
     }

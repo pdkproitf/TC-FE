@@ -5,6 +5,7 @@ import { CategoryService } from './services/category-service';
 import { MembershipService } from './services/membership-service';
 import { ClientService } from './services/client-service';
 import { ProjectService } from './services/project-service';
+import { TimeoffService } from './services/timeoff-service';
 import { NotLoggedIn } from './services/not-logged-in';
 import { AuthenLoggedIn } from './services/authen-logged-in';
 import { UserService } from './services/user-service';
@@ -108,7 +109,7 @@ import { TimeoffListRequestComponent } from './timeoff-list-request/timeoff-list
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
   AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService,
-  TimerService, ProjectJoinService, TimerFetchService],
+  TimerService, ProjectJoinService, TimerFetchService, TimeoffService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

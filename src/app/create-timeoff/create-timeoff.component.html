@@ -9,15 +9,15 @@
                         <div class="start-time">
                             <div class="pick-day">
                                 <label>Start On:</label>
-                                <p-calendar [formControl]="timeoffForm.controls['date_start']" [minDate]="minDateValue" [showIcon]="true" readonlyInput="readonlyInput" dateFormat="M dd" placeholder="Pick a date..." (onSelect)="setAutoEndDay($event)"></p-calendar>
+                                <p-calendar [formControl]="timeoffForm.controls['start_date']" [minDate]="minDateValue" [showIcon]="true" readonlyInput="readonlyInput" dateFormat="M dd" placeholder="Pick a date..." (onSelect)="setAutoEndDay($event)"></p-calendar>
                             </div>
 
                             <div class="choice-type-day">
                                 <div class="ui-g-12">
-                                    <p-radioButton name="start_day" value="false" label="All day" [formControl]="timeoffForm.controls['is_start_half_day']"></p-radioButton>
+                                    <p-radioButton name="start_date" value="false" label="All day" [formControl]="timeoffForm.controls['is_start_half_day']"></p-radioButton>
                                 </div>
                                 <div class="ui-g-12">
-                                    <p-radioButton name="start_day" value="true" label="Half day" [formControl]="timeoffForm.controls['is_start_half_day']"></p-radioButton>
+                                    <p-radioButton name="start_date" value="true" label="Half day" [formControl]="timeoffForm.controls['is_start_half_day']"></p-radioButton>
                                 </div>
                             </div>
                         </div>
@@ -29,15 +29,15 @@
                         <div class="start-time">
                             <div class="pick-day">
                                 <label>End On:</label>
-                                <p-calendar [formControl]="timeoffForm.controls['date_end']"  [minDate]="minDateValue" [showIcon]="true" readonlyInput="readonlyInput" dateFormat="M dd" placeholder="Pick a date..."></p-calendar>
+                                <p-calendar [formControl]="timeoffForm.controls['end_date']"  [minDate]="minDateValue" [showIcon]="true" readonlyInput="readonlyInput" dateFormat="M dd" placeholder="Pick a date..." (onSelect)="setShowChoiceTypeEndDay($event)"></p-calendar>
                             </div>
 
                             <div class="choice-type-day" id="choice-type-end-day">
                                 <div class="ui-g-12">
-                                    <p-radioButton name="end_day" value="false" label="All day"  [formControl]="timeoffForm.controls['is_end_half_day']"  ></p-radioButton>
+                                    <p-radioButton name="end_date" value="false" label="All day"  [formControl]="timeoffForm.controls['is_end_half_day']"  ></p-radioButton>
                                 </div>
                                 <div class="ui-g-12">
-                                    <p-radioButton name="end_day" value="true" label="Half day"  [formControl]="timeoffForm.controls['is_end_half_day']"  ></p-radioButton>
+                                    <p-radioButton name="end_date" value="true" label="Half day"  [formControl]="timeoffForm.controls['is_end_half_day']"  ></p-radioButton>
                                 </div>
                             </div>
                         </div>
