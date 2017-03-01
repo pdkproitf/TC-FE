@@ -15,7 +15,7 @@ export class ProjectJoinService {
     }
 
     getProjectJoin(): Promise<any> {
-        let requestUrl = this.projectUrl + '/join';
+        let requestUrl = this.projectUrl + '/assigned';
         let headers = new Headers;
         this.headersService.createAuthHeaders(headers);
         return this.http

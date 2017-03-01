@@ -20,7 +20,7 @@ export class SignInComponent implements OnInit {
   log(): void{
     console.log(this.user);
   }
-  
+
   signIn(): void {
     console.log('signin');
     this.userPost.user = this.user;

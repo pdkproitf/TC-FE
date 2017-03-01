@@ -24,6 +24,12 @@
       <input pInputText type="password" class="form-control" id="password" [(ngModel)]="user.password"
       placeholder="6+ characters" required name="password">
     </div>
+    <div *ngIf="!isInvited" class="form-group">
+      <br/>
+      <label for="password">Company Domain: </label><br/>
+      <input pInputText type="text" class="form-control" id="company" [(ngModel)]="user.company_domain"
+      placeholder="Company-Example" required name="company">
+    </div>
     <br/><br/>
     <!--
     <div class="form-group">

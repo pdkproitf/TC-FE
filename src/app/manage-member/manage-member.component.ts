@@ -1,3 +1,4 @@
+import { Member } from './../models/member';
 import { EmployeePost } from './../models/employee';
 import { Membership, MembershipPost } from './../models/membership';
 import { MembershipService } from './../services/membership-service';
@@ -11,10 +12,10 @@ import { Component, OnInit } from '@angular/core';
 export class ManageMemberComponent implements OnInit {
   display: boolean = false;
   membership: Membership = new Membership();
-  membershipPost: MembershipPost = new MembershipPost();
+  // membershipPost: MembershipPost = new MembershipPost();
 
-  employeePosts: EmployeePost[] = [];
-  newEmployeePost: EmployeePost = new EmployeePost();
+  employeePosts: Member[] = [];
+  // newEmployeePost: EmployeePost = new EmployeePost();
   constructor(private membershipService: MembershipService) { }
 
   ngOnInit() {
@@ -34,12 +35,10 @@ export class ManageMemberComponent implements OnInit {
   }
 
   onSubmitMember() {
-    this.membershipPost.membership = this.membership;
-    this.membershipService.addNewMembership(this.membershipPost)
+    this.membershipService.addNewMembership(this.membership)
     .then(res => {
-      this.newEmployeePost = res;
-      this.employeePosts.push(this.newEmployeePost);
       this.undisplayDialog();
+      console.log(res);
     })
     .catch(err => console.log(err));
   }

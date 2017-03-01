@@ -1,12 +1,12 @@
 import { Category } from './../models/category';
-import { CategoryService } from './../services/category-service';
+import { Member } from './../models/member';
 import { EmployeePost, Employee } from './../models/employee';
 import { MembershipService } from './../services/membership-service';
 import { ProjectService } from './../services/project-service';
 import { Client, ClientPost } from './../models/client';
 import { ClientService } from './../services/client-service';
 import { Router } from '@angular/router';
-import { Project, ProjectPost, MemberRole, ExistingCategory, NewCategory, MemberList, Member } from './../models/project';
+import { Project, ProjectPost, MemberRole, NewCategory, MemberCat, MemberCatList } from './../models/project';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 
@@ -25,85 +25,78 @@ export class CreateProjectComponent implements OnInit {
   client: Client = new Client();
   clientPost: ClientPost = new ClientPost();
   display: boolean = false;
+  defaultCategories: string[] = ['Design', 'Develop', 'Deploy', 'Test', 'Maintain' ];
 
 
   classDiv: string = 'hidden';
   searchName: string = 'Add more people...';
-  employeePosts: EmployeePost[] = [];
-  employeePostsSearch: EmployeePost[] = [];
+  members: Member[] = [];
+  membersSearch: Member[] = [];
   searchVar;
-  employeesToAdd: Employee[] = [];
-  employeesRoleToAdd: boolean[] = [];
+  membersToAdd: Member[] = [];
+  membersRoleToAdd: boolean[] = [];
 
 
-  existingCategories: Category[] = [];
-  existingCategoriesToAdd: ExistingCategory[] = [];
-  existingBillable: boolean[] = [];
-  existingMembemLists: MemberList[] = [];
-
-
-  newCategories: Category[] = [];
-  newCategoriesToAdd: NewCategory[] = [];
+  category = new Category();
+  newCategories: NewCategory[] = [];
+  // newCategoriesToAdd: NewCategory[] = [];
   newBillable: boolean[] = [];
-  newMemberLists: MemberList[] = [];
+  newMemberLists: MemberCatList[] = [];
 
 
 
   displayTaskAdd: boolean = false;
-  category: Category = new Category();
 
 
 
   constructor(private router: Router, private location: Location
   , private clientService: ClientService, private projectService: ProjectService,
-  private membershipService: MembershipService, private categoryService: CategoryService) { }
+  private membershipService: MembershipService) { }
 
   ngOnInit() {
-    this.project.report_permission = 1;
+    this.project.is_member_report = false;
     this.project.background = '#FFBB47';
 
     this.clientService.getAllClient()
     .then(res => {
       let len = res.length;
-      this.project.client_id = res[0].id;
-      for ( let i = 0; i < len; i++) {
-        this.currentClients.push(res[i]);
+      if (len > 0) {
+        this.project.client_id = res[0].id;
+        for ( let i = 0; i < len; i++) {
+          this.currentClients.push(res[i]);
         }
+      }
     })
     .catch(error => console.log(error));
 
     this.membershipService.getAllMembership()
     .then(res => {
-      this.employeePosts = res;
-      this.employeePostsSearch = this.employeePosts;
-      // console.log(this.employeePosts);
+      this.members = res;
+      this.membersSearch = this.members;
+      console.log(res);
     })
     .catch(err => console.log(err));
 
-    this.categoryService.getDefaultCategories()
-    .then(res => {
-      this.existingCategories = res;
-      let len = this.existingCategories.length;
-      for (let i = 0; i < len; i++) {
-        this.existingBillable.push(false);
-        this.existingMembemLists.push(new MemberList());
-      }
-      this.updateExistingCategoriesToAdd();
-    })
-    .catch(err => console.log(err));
+    for (let str of this.defaultCategories) {
+      let newCat = new NewCategory();
+      newCat.is_billable = false;
+      newCat.category_name = str;
+      newCat.members = [];
+      this.newCategories.push(newCat);
+      this.newBillable.push(false);
+      this.newMemberLists.push(new MemberCatList());
+    }
   }
 
-  setTypeReport(num: number) {
-    this.reportType = num;
-    this.project.report_permission = num;
-    num -= 1;
-    if (this.classBtn[num] !== 'active') {
-      this.classBtn[num] = 'active';
-    }
-    for (let i = 0; i < 2; i++ ) {
-      if (i !== num ) {
-        this.classBtn[i] = '';
-      }
+  setTypeReport(arg) {
+    console.log(arg);
+    this.project.is_member_report = arg;
+    if (arg === false) {
+      this.classBtn[0] = 'active';
+      this.classBtn[1] = '';
+    } else {
+      this.classBtn[0] = '';
+      this.classBtn[1] = 'active';
     }
   }
 
@@ -124,6 +117,7 @@ export class CreateProjectComponent implements OnInit {
     this.projectService.addProject(this.projectPost)
     .then(res => {
       console.log(res);
+      this.router.navigate(['projects']);
     })
     .catch(error => {
       console.log(error);
@@ -144,6 +138,7 @@ export class CreateProjectComponent implements OnInit {
     this.clientPost.client = this.client;
     this.clientService.addClient(this.clientPost)
     .then(res => {
+      console.log(res);
       this.display = false;
       this.currentClients.push(res);
       this.project.client_id = res.id;
@@ -161,21 +156,21 @@ export class CreateProjectComponent implements OnInit {
   undisplayDiv() {
     this.classDiv = 'hidden';
     this.searchName = 'Add more people...';
-    this.employeePostsSearch = this.employeePosts;
+    this.membersSearch = this.members;
   }
 
   addEmployee(arg) {
-    if (this.employeesToAdd.indexOf(arg) < 0) {
-      this.employeesToAdd.push(arg);
-      this.employeesRoleToAdd.push(false);
+    if (this.membersToAdd.indexOf(arg) < 0) {
+      this.membersToAdd.push(arg);
+      this.membersRoleToAdd.push(false);
     }
   }
 
   removeEmployee(arg) {
-    if (this.employeesToAdd.indexOf(arg) > -1) {
-      let i = this.employeesToAdd.indexOf(arg);
-      this.employeesToAdd.splice(i, 1);
-      this.employeesRoleToAdd.splice(i, 1);
+    if (this.membersToAdd.indexOf(arg) > -1) {
+      let i = this.membersToAdd.indexOf(arg);
+      this.membersToAdd.splice(i, 1);
+      this.membersRoleToAdd.splice(i, 1);
     }
   }
 
@@ -183,42 +178,42 @@ export class CreateProjectComponent implements OnInit {
     clearTimeout(this.searchVar);
     this.searchVar = setTimeout(() => {
       this.updateEmployeePostsSearch();
-    }, 2000);
+    }, 500);
   }
 
   updateEmployeePostsSearch() {
     let key = this.searchName;
-    let len = this.employeePosts.length;
-    this.employeePostsSearch = [];
+    let len = this.members.length;
+    this.membersSearch = [];
     console.log(key);
     for (let i = 0; i < len; i++) {
-      let obj = this.employeePosts[i];
-      if ( obj.employee.first_name.indexOf(key) > -1 || obj.employee.last_name.indexOf(key) > -1) {
-        this.employeePostsSearch.push(obj);
+      let obj = this.members[i];
+      if ( obj.user.first_name.indexOf(key) > -1 || obj.user.last_name.indexOf(key) > -1) {
+        this.membersSearch.push(obj);
       }
     }
   }
 
   updateMemberRoleToProject() {
-    let len = this.employeesToAdd.length;
+    let len = this.membersToAdd.length;
     this.project.member_roles = [];
     for (let i = 0; i < len; i++) {
       let memberRole = new MemberRole();
-      memberRole.user_id = this.employeesToAdd[i].id;
-      memberRole.role_id = this.employeesRoleToAdd[i] ? 1 : null;
+      memberRole.member_id = this.membersToAdd[i].id;
+      memberRole.is_pm = this.membersRoleToAdd[i];
       this.project.member_roles.push(memberRole);
     }
   }
 
   chbFunc(arg, i) {
     console.log(arg);
-    this.employeesRoleToAdd[i] = arg;
+    this.membersRoleToAdd[i] = arg;
   }
 
   addAll(arg) {
     arg.preventDefault();
-    for ( let a of this.employeePosts) {
-      this.addEmployee(a.employee);
+    for ( let a of this.members) {
+      this.addEmployee(a);
     }
   }
 // --------------------------------End Adding member ---------------->
@@ -234,85 +229,65 @@ export class CreateProjectComponent implements OnInit {
   }
 
   onSubmitTask() {
-    let cat = new Category();
-    cat.name = this.category.name;
+    let cat = new NewCategory();
+    cat.category_name = this.category.name;
+    cat.is_billable = false;
+    cat.members = [];
     this.newCategories.push(cat);
     this.newBillable.push(false);
-    this.newMemberLists.push(new MemberList());
+    this.newMemberLists.push(new MemberCatList());
     this.displayTaskAdd = false;
   }
 
-  updateExistingCategoriesToAdd() {
-    this.existingCategoriesToAdd = [];
-    let len = this.existingCategories.length;
-    for (let i = 0; i < len; i++) {
-      let existingCat = new ExistingCategory();
-      existingCat.billable = this.existingBillable[i];
-      existingCat.members = this.existingMembemLists[i].members;
-      existingCat.category_id = this.existingCategories[i].id;
-      this.existingCategoriesToAdd.push(existingCat);
-    }
-  }
 
-  updateNewCategoriesToAdd() {
+  /*updateNewCategoriesToAdd() {
     this.newCategoriesToAdd = [];
     let len = this.newCategories.length;
     for (let i = 0; i < len; i++) {
       let newCat = new NewCategory();
       newCat.billable = this.newBillable[i];
-      newCat.category_name = this.newCategories[i].name;
-      newCat.members = this.newMemberLists[i].members;
+      newCat.category_name = this.newCategories[i].category_name;
+      newCat.members = this.newMemberLists[i].memberCats;
       this.newCategoriesToAdd.push(newCat);
+    }
+  }*/
+
+  updateNewCategories(){
+    let len = this.newCategories.length;
+    for (let i = 0; i < len; i++) {
+      this.newCategories[i].is_billable = this.newBillable[i];
+      this.newCategories[i].members = this.newMemberLists[i].memberCats;
     }
   }
 
   updateCategoriesToProject() {
-    this.updateExistingCategoriesToAdd();
-    this.updateNewCategoriesToAdd();
-    this.project.category_members.existing = this.existingCategoriesToAdd;
-    this.project.category_members.new_one = this.newCategoriesToAdd;
-  }
-
-  removeExistingTask(i) {
-    this.existingCategories.splice(i, 1);
-    this.existingCategoriesToAdd.splice(i, 1);
-    this.existingBillable.splice(i, 1);
-    this.existingMembemLists.splice(i, 1);
+    //this.updateNewCategoriesToAdd();
+    //this.project.category_members = this.newCategoriesToAdd;
+    this.updateNewCategories();
+    this.project.category_members = this.newCategories
   }
 
   removeNewTask(i) {
     this.newCategories.splice(i, 1);
-    this.newCategoriesToAdd.splice(i, 1);
+    // this.newCategoriesToAdd.splice(i, 1);
     this.newBillable.splice(i, 1);
     this.newMemberLists.splice(i, 1);
-  }
-
-  existingChkFunc(arg, i) {
-    this.existingBillable[i] = arg;
   }
 
   newChkFunc(arg, i) {
     this.newBillable[i] = arg;
   }
 
-  existingAddMember(mem: Member, i: number) {
-    this.existingMembemLists[i].members.push(mem);
-  }
-
-  newAddMember(mem: Member, i: number) {
-    this.newMemberLists[i].members.push(mem);
-  }
-
-  existingDeleteMember(key, i) {
-    this.existingMembemLists[i].members.splice(key, 1);
+  newAddMember(mem: MemberCat, i: number) {
+    this.newMemberLists[i].memberCats.push(mem);
+    console.log(mem);
   }
 
   newDeleteMember(key, i) {
-    this.newMemberLists[i].members.splice(key, i);
+    this.newMemberLists[i].memberCats.splice(key, i);
   }
 
   printEvent(arg) {
     console.log(arg);
   }
-
 }

@@ -15,7 +15,7 @@ export class MembershipService {
     }
 
     getAllMembership(): Promise<any> {
-        let requestUrl = 'https://timecloudbackend.herokuapp.com/api/memberships';
+        let requestUrl = 'https://timecloudbackend.herokuapp.com/api/members';
         let headers = new Headers();
         this.headersService.createAuthHeaders(headers);
         return this.http
@@ -25,8 +25,8 @@ export class MembershipService {
         .catch(error => this.handleError(error));
     }
 
-    addNewMembership(memberShipPost: MembershipPost): Promise<any> {
-        let requestUrl = 'https://timecloudbackend.herokuapp.com/api/memberships/new';
+    addNewMembership(memberShipPost): Promise<any> {
+        let requestUrl = 'https://timecloudbackend.herokuapp.com/api/members';
         let headers = new Headers();
         this.headersService.createAuthHeaders(headers);
         return this.http

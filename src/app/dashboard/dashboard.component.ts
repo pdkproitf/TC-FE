@@ -45,7 +45,7 @@ export class DashboardComponent implements OnInit {
   isTimerInRecent(arg: TimerFetch) {
     let len = this.recentTasks.length;
     for (let i = 0; i < len; i++) {
-      if (this.recentTasks[i].task_id === arg.task_id) {
+      if (this.recentTasks[i].task.id === arg.task.id) {
         return i;
       }
     }

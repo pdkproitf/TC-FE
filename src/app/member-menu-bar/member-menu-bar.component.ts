@@ -25,8 +25,9 @@ export class MemberMenuBarComponent implements OnInit {
     this.classActive[this.currentState] = 'active';
     let userInfo = localStorage.getItem('UserInfo');
     let userObj = JSON.parse(userInfo);
-    this.user.name = userObj.first_name;
-    this.imageUrl = userObj.image;
+    console.log(userObj);
+    this.user.name = userObj.user.first_name;
+    this.imageUrl = userObj.user.image;
     this.items = [
                     {label: 'Profile', icon: 'fa-user-circle'},
                     {label: 'Setting', icon: 'fa-cog'},
@@ -41,9 +42,9 @@ export class MemberMenuBarComponent implements OnInit {
     let userInfo = localStorage.getItem('UserInfo');
     let userObj = JSON.parse(userInfo);
     console.log(userObj);
-    this.auth.access_token = userObj.token;
-    this.auth.client = userObj.client;
-    this.auth.uid = userObj.uid;
+    this.auth.access_token = userObj.user.token;
+    this.auth.client = userObj.user.client;
+    this.auth.uid = userObj.user.uid;
     this.authPost.auth = this.auth;
     this.userService.logOut(this.authPost).then(
       (data) => {

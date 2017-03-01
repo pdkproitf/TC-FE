@@ -2,8 +2,11 @@
   <div [class]="classDiv">
   <span [class]="spanClass"><button (click)="deleteTimer()" type="button" pButton icon="fa-trash"></button></span>
   <ul class="aa">
-    <li (click)="showDiv(0)" class="des"><p>{{timerFetch.task_name}}</p></li>
-    <li (click)="showDiv(1)" class="cli-ta"><p>{{timerFetch.project_name}} - {{timerFetch.category_name}}</p></li>
+    <li (click)="showDiv(0)" class="des"><p>{{timerFetch.task.name}}</p></li>
+    <li (click)="showDiv(1)" class="pro-ta">
+      <div class="dot" [style.background]="timerFetch.background"></div>
+      <p>{{timerFetch.project_name}} - {{timerFetch.category_name}}</p>
+    </li>
     <li (click)="showDiv(2)" class="fro-to"><p>{{timerFetch.start_time|date:'hh:mm a'}} - {{timerFetch.stop_time|date:'hh:mm a'}}</p></li>
     <li class="to-ti"><p>{{total}}</p></li>
   </ul>

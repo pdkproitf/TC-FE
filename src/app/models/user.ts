@@ -7,6 +7,8 @@ export class User {
     password: string;
     password_confirmation: string;
     id: Number;
+    company_domain: string;
+    invited_token: string;
 }
 export class UserPost {
     user: User;
