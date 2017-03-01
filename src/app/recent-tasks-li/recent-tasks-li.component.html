@@ -1,5 +1,5 @@
 <tr (mouseenter)="showSpan()" (mouseleave)="hideSpan()">
-    <td class="task-name">{{task.task_name}}</td>
-    <td class="pro-cat">{{task.project_name}}-{{task.category_name}}</td>
+    <td class="task-name">{{task.task.name | slice:0:9}}</td>
+    <td class="pro-cat"><div class="dot" [style.background]="task.background"></div>{{task.project_name}}-{{task.category_name}}</td>
     <td class="play-btn"><span [class]="spanClass"><button (mousedown)="startTimer()" type="button" pButton icon="fa-play-circle"></button></span></td>
 </tr>
