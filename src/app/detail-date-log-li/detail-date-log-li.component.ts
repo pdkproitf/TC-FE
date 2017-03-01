@@ -112,7 +112,7 @@ export class DetailDateLogLiComponent implements OnInit {
   }
   doFilter() {
     clearTimeout(this.varTimeOut);
-    this.varTimeOut = setTimeout(() => this.filterProjectJoin(this.searchPattern), 2000);
+    this.varTimeOut = setTimeout(() => this.filterProjectJoin(this.searchPattern), 500);
   }
 
   showDiv(i) {

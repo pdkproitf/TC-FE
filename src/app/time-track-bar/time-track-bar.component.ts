@@ -233,7 +233,7 @@ export class TimeTrackBarComponent implements OnInit {
 
   doFilter() {
     clearTimeout(this.varTimeOut);
-    this.varTimeOut = setTimeout(() => this.filterProjectJoin(this.taskString), 2000);
+    this.varTimeOut = setTimeout(() => this.filterProjectJoin(this.taskString), 500);
   }
 
   filterRecentTasks(arg: string) {
@@ -247,7 +247,7 @@ export class TimeTrackBarComponent implements OnInit {
 
   doFilter0() {
     clearTimeout(this.varTimeOut);
-    this.varTimeOut = setTimeout(() => this.filterRecentTasks(this.description), 2000);
+    this.varTimeOut = setTimeout(() => this.filterRecentTasks(this.description), 500);
   }
 
   setTime(arg) {

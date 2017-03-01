@@ -209,6 +209,28 @@
                 }
             }
         }
+        .option{
+            height: 300px;
+            width: 80%;
+            z-index: 4;
+            position: absolute;
+            background: $blueColor;
+            color: white;
+            &:after{
+                z-index: 4;
+                content: " ";
+                position: absolute;
+                bottom: 100%;
+                left: 50%;
+                margin-left: -5px;
+                border-width: 10px;
+                border-style: solid;
+                border-color: transparent transparent #2548CE transparent;
+            }
+            &.start{
+                left: -30%;
+            }
+        }
         .imgspan{
             z-index: 3;
             position: absolute;

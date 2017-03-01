@@ -36,7 +36,7 @@
     <app-project-in-div *ngFor="let proj of projectJoinsSearch" [myProject]="proj" (outCategory)="selectCategory($event)"></app-project-in-div>
   </div>
 </div>
-
+<!-- /////////////////////////////////Edit Time //////////////////////////////////////////// -->
 <div [class]="divClass[2]">
   <table class="edit-time">
     <tr class="set-time">
@@ -55,6 +55,8 @@
   </table>
   <span class="fa fa-check imgspan submit"></span>
   <span (click)="hideDiv(2)" class="fa fa-times imgspan cancel"></span>
+  <div class="option start"></div>
+  <div class="option end"></div>
   <div class="calendar">
     <p-calendar [inline]="true" (onSelect)="selectEditDate($event)"></p-calendar>
   </div>   
