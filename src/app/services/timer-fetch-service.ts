@@ -24,4 +24,15 @@ export class TimerFetchService {
         .then(res => res.json())
         .catch(err => this.handleError(err));
     }
+
+    getRecentTasks(num): Promise<any> {
+        let requestUrl = 'https://timecloudbackend.herokuapp.com/api/tasks/recent?number=' + num;
+        let headers = new Headers();
+        this.headersService.createAuthHeaders(headers);
+        return this.http
+        .get(requestUrl, {headers: headers})
+        .toPromise()
+        .then(res => res.json())
+        .catch(err => this.handleError(err));
+    }
 }

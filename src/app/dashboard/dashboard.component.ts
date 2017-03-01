@@ -1,3 +1,4 @@
+import { TimerFetchService } from './../services/timer-fetch-service';
 import { TimerFetch } from './../models/timer-fetch';
 import { Timer } from './../models/timer';
 import { ProjectJoin } from './../models/project-join';
@@ -14,10 +15,10 @@ export class DashboardComponent implements OnInit {
   projectJoins: ProjectJoin[] = [];
   weekAnchor: Date[] = [];
   recentTasks: TimerFetch[] = [];
-  constructor() { }
+  constructor(private timerFetchService: TimerFetchService) { }
 
   ngOnInit() {
-
+    this.getRecentTask(10);
   }
   selectCategory(arg) {
     this.currentCategory = arg;
@@ -32,23 +33,17 @@ export class DashboardComponent implements OnInit {
   }
 
   print(arg: TimerFetch) {
-    if (arg.task_name !== '') {
-      if (this.isTimerInRecent(arg) === -1) {
-        this.recentTasks.unshift(arg);
-      }
-      console.log(this.recentTasks);
-    } else {
-      return;
-    }
+    console.log(arg);
   }
 
-  isTimerInRecent(arg: TimerFetch) {
-    let len = this.recentTasks.length;
-    for (let i = 0; i < len; i++) {
-      if (this.recentTasks[i].task.id === arg.task.id) {
-        return i;
-      }
-    }
-    return -1;
+  getRecentTask(num) {
+    this.timerFetchService.getRecentTasks(num)
+    .then(res => {
+      this.recentTasks = res;
+      console.log(this.recentTasks);
+    })
+    .catch( err => {
+      console.log(err);
+    });
   }
 }

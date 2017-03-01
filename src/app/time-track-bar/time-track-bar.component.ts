@@ -32,6 +32,7 @@ export class TimeTrackBarComponent implements OnInit {
       this._currentCategory = curCat;
       this.taskString = this.currentCategory.project + ' - ' + this.currentCategory.category;
       this.taskColor = this.currentCategory.color;
+      window.scrollTo(0, 0);
     } else if (curCat.category !== undefined && curCat.project !== undefined) {
       if (this.classBtn === 'stop-btn') {
       this.changeClass();
@@ -40,6 +41,13 @@ export class TimeTrackBarComponent implements OnInit {
       this._currentCategory = curCat;
       this.taskString = this.currentCategory.project + ' - ' + this.currentCategory.category;
       this.taskColor = this.currentCategory.color;
+    }
+    let i = this.doesHaveRecentTask(curCat);
+    if (i > -1) {
+      this.timer.category_member_id = this.recentTasks[i].category_member_id;
+      this.timer.task_id = this.recentTasks[i].task.id;
+      this.timer.task_name = this.recentTasks[i].task.name;
+      this.description = this.recentTasks[i].task.name;
     }
   }
   get currentCategory() {
@@ -96,6 +104,7 @@ export class TimeTrackBarComponent implements OnInit {
       this.description = '';
       this.taskString = '';
       this.taskColor = '';
+      this.timer = new Timer();
     }
     this.classBtn = this.classBtn === 'play-btn' ? 'stop-btn' : 'play-btn';
   }
@@ -210,6 +219,7 @@ export class TimeTrackBarComponent implements OnInit {
     this.taskString = arg.project_name + ' - ' + arg.category_name;
     this.timer.task_id = arg.task.id;
     this.description = arg.task.name;
+    this.taskColor = arg.background;
   }
 
   filterProjectJoin(arg: string) {
@@ -267,5 +277,16 @@ export class TimeTrackBarComponent implements OnInit {
     this.ticks += diff;
     this.secondToTime();
     this.generateOptions();
+  }
+
+  doesHaveRecentTask(curCat: CategoryInProject): number {
+    let len = this.recentTasks.length;
+    for (let i = 0; i < len; i++) {
+      let recentTask = this.recentTasks[i];
+      if (curCat.category_member_id === recentTask.category_member_id) {
+        return i;
+      }
+    }
+    return -1;
   }
 }
