@@ -1,17 +1,13 @@
-import { ProjectDefault, ProjectGetAll, ProjectPost, ProjectGetOne, ProjectCategory, ProjectCategoryMember } from './../models/project';
-import { User }     from './../models/user';
-import { Client }   from './../models/client';
-import { Employee } from './../models/employee';
-import { Category } from './../models/category';
-import { Injectable }       from '@angular/core';
-import { Headers, Http }    from '@angular/http';
-import { HeadersService }   from './headers-service';
+import { Injectable }           from '@angular/core';
+import { Headers, Http }        from '@angular/http';
+import { HeadersService }       from './headers-service';
+import { TimeOff, TimeOffPost } from './../models/timeoff';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class TimeoffService {
     headersService: HeadersService = new HeadersService();
-    projectUrl: String = 'https://timecloudbackend.herokuapp.com/api/projects';
+    timeoffUrl: String = 'https://timecloudbackend.herokuapp.com/api/timeoffs';
 
     constructor(private http: Http) {}
 
@@ -20,12 +16,13 @@ export class TimeoffService {
         return Promise.reject(error.message || error);
     }
 
-    addProject(projectPost: ProjectPost): Promise<any> {
-        let requestUrl = this.projectUrl +'';
+    createTimeOff(timeoffPost: TimeOffPost): Promise<any> {
+        let requestUrl = this.timeoffUrl +'';
         let headers = new Headers;
+        console.log('data create ', JSON.stringify(timeoffPost));
         this.headersService.createAuthHeaders(headers);
         return this.http
-        .post(requestUrl, JSON.stringify(projectPost), {headers: headers})
+        .post(requestUrl, JSON.stringify(timeoffPost), {headers: headers})
         .toPromise()
         .then(res => res.json())
         .catch(this.handleError);

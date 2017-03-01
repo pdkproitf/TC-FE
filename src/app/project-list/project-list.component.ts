@@ -13,6 +13,15 @@ export class ProjectListComponent implements OnInit {
     constructor(private projectService: ProjectService) { }
 
     ngOnInit() {
-        this.projectService.getProjects().then(result => this.project_lists = result);
+        this.projectService.getProjects().then(
+            (result) => {
+                this.project_lists = result;
+                console.log('result',result);
+            },
+            (error) => {
+                alert(error);
+                console.log('error',error);
+            }
+        );
     }
 }

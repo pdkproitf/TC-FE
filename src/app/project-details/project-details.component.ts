@@ -20,24 +20,29 @@ export class ProjectDetailsComponent implements OnInit {
     //     background: '#1abc9c',
     // });
     constructor(private route: ActivatedRoute, private projectService: ProjectService) {
-        projectService.getProject(route.snapshot.params['id']).then(result =>{
-            this.project = result;
-        });
-    }
+        projectService.getProject(route.snapshot.params['id']).then(
+            (result) =>{
+                this.project = result;
+                console.log('project', result);
+            },
+            (error) => {
+                alert(error);
+            });
+        }
 
-    ngOnInit() {
-    }
+        ngOnInit() {
+        }
 
-    // go to in here after click to SAVE button
-    save(project: ProjectGetOne){
-        console.log('save');
+        // go to in here after click to SAVE button
+        save(project: ProjectGetOne){
+            console.log('save');
+        }
+        // go to in here after click to DELETE button
+        delete(project: ProjectGetOne){
+            console.log('delete');
+        }
+        // go to in here after click to EDIT button
+        edit(project: ProjectGetOne){
+            console.log('edit');
+        }
     }
-    // go to in here after click to DELETE button
-    delete(project: ProjectGetOne){
-        console.log('delete');
-    }
-    // go to in here after click to EDIT button
-    edit(project: ProjectGetOne){
-        console.log('edit');
-    }
-}
