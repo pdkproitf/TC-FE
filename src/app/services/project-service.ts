@@ -1,5 +1,6 @@
-import { ProjectDefault, ProjectGetAll, ProjectPost, ProjectGetOne, ProjectCategory, ProjectCategoryMember } from './../models/project';
+import { ProjectGetAll, ProjectPost, ProjectGetOne, ProjectCategory, ProjectCategoryMember } from './../models/project';
 import { User }     from './../models/user';
+import { Member } from './../models/member';
 import { Client }   from './../models/client';
 import { Employee } from './../models/employee';
 import { Category } from './../models/category';
@@ -41,7 +42,7 @@ export class ProjectService {
         .toPromise()
         .then(res => {
             console.log('get project '+id, res.json());
-            return this.convertProjectGetOne(res.json());
+            return res.json();
         })
         .catch(this.handleError);
     }
@@ -57,96 +58,13 @@ export class ProjectService {
         .then(res => {
             var projects: ProjectGetAll[] = [];
             if(res.json().data){
+                console.log('get projects ', res.json());
                 res.json().data.forEach(json => {
-                    projects.push(this.convertProjectReceive(json));
+                    projects.push(json as ProjectGetAll);
                 });
             }
-            console.log('get projects ', res.json());
             return projects;
         })
         .catch(this.handleError);
-    }
-
-    convertProjectReceive(object: Object): ProjectGetAll{
-        var project :ProjectGetAll;
-        project = new ProjectGetAll()
-
-        project.default = this.convertProjectDefault(object);
-        project.client = object['info']['client'];
-
-        project.tracked_time = object['tracked_time'];
-        project.members = object['member'];
-
-        return project;
-    }
-
-    convertProjectGetOne(object: Object): ProjectGetOne{
-        var project: ProjectGetOne = new ProjectGetOne();
-        if(object['data']){
-            var data = object['data'];
-            if(data['info']){
-                var client: Client = new Client();
-                client.name = data['info']['client_name'];
-
-                project.tracked_time = data['info']['tracked_time'];
-                project.default = this.convertProjectDefault(data);
-                project.client = client;
-            }
-            if(data['project_category']){
-                var projectCategory: ProjectCategory[] = [];
-
-                if(data['project_category']){
-
-                    data['project_category'].forEach(data => {
-                        projectCategory.push(this.convertProjectCategory(data));
-                    });
-                }
-                project.project_category = projectCategory;
-            }
-        }
-        return project;
-    }
-
-    convertProjectDefault(data: Object): ProjectDefault{
-        var pDefault :ProjectDefault;
-        pDefault = new ProjectDefault()
-
-        pDefault.id = data['info']['id'];
-        pDefault.background = data['info']['background'];
-        pDefault.name = data['info']['name'];
-        return pDefault;
-    }
-
-    convertCategory(data: Object): Category{
-        var category: Category = new Category();
-        if(data['category']){
-            category.id = data['category']['id'];
-            category.name = data['category']['name'];
-        }
-        return category;
-    }
-
-    convertProjectCategoryMember(data: Object): ProjectCategoryMember[]{
-        var memberList: ProjectCategoryMember[] = [];
-        var members = data['member']
-        if(members){
-            members.forEach(member => {
-                var projectCategoryMember: ProjectCategoryMember = new ProjectCategoryMember();
-                projectCategoryMember.user = member['user'];
-                projectCategoryMember.roles = member['role'];
-                projectCategoryMember.tracked_time = member['tracked_time'];
-                memberList.push(projectCategoryMember);
-            })
-        }
-        return memberList;
-    }
-    convertProjectCategory(data: Object): ProjectCategory{
-        var project_category =  new ProjectCategory();
-        project_category.category = this.convertCategory(data);
-        project_category.memberList = this.convertProjectCategoryMember(data);
-        project_category.id = data['id'];
-        project_category.tracked_time = data['tracked_time'];
-
-        return project_category;
     }
 }
