@@ -54,6 +54,7 @@ export class DetailDateLogComponent implements OnInit {
   projectJoins: ProjectJoin[] = [];
   @Input()
   recentTasks: TimerFetch[] = [];
+  endLastTimer: Date;
   constructor(private timerFetchService: TimerFetchService) { }
 
   ngOnInit() {
@@ -80,6 +81,7 @@ export class DetailDateLogComponent implements OnInit {
     .catch(err => {
       console.log(err);
     });
+    this.endLastTimer = new Date();
   }
 
   setActiveDay(a) {
@@ -148,6 +150,7 @@ export class DetailDateLogComponent implements OnInit {
       this.fullWeekTimer[this.currentDateString].unshift(arg);
     }
     this.generateTotalTime();
+    this.endLastTimer = new Date(arg.stop_time);
   }
 
   onStart(arg) {
