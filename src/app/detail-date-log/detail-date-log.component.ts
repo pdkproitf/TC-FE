@@ -151,6 +151,7 @@ export class DetailDateLogComponent implements OnInit {
     }
     this.generateTotalTime();
     this.endLastTimer = new Date(arg.stop_time);
+    console.log(this.recentTasks);
   }
 
   onStart(arg) {

@@ -1,6 +1,8 @@
+import { Task } from './../models/task';
 import { ProjectJoin } from './../models/project-join';
 import { TimerService } from './../services/timer-service';
 import { TimerFetch } from './../models/timer-fetch';
+import { Timer, TimerPut } from './../models/timer';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -11,6 +13,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class DetailDateLogLiComponent implements OnInit {
   spanClass = 'hidden';
   _timerFetch: TimerFetch = new TimerFetch();
+  timer: Timer = new Timer();
+  timerPut: TimerPut = new TimerPut();
   divClass: string[] = ['hiddenDiv', 'hiddenDiv', 'hiddenDiv'];
   @Input()
   set timerFetch(value) {
@@ -35,7 +39,8 @@ export class DetailDateLogLiComponent implements OnInit {
   searchPattern: string;
   editDes: string;
   @Input()
-  recentTasks: TimerFetch[] = [];
+  recentTasks: Task[] = [];
+  recentTasksSearch: Task[];
 
   @Input()
   endLastTimer: Date;
@@ -58,6 +63,7 @@ export class DetailDateLogLiComponent implements OnInit {
     this.startString = this.timeToString(this.timerFetch.start_time);
     this.endString = this.timeToString(this.timerFetch.stop_time);
     this.generateOptions();
+    this.recentTasksSearch = this.recentTasks;
   }
 
   showSpan() {
@@ -104,9 +110,30 @@ export class DetailDateLogLiComponent implements OnInit {
   }
 // -------------------- edit timer's description ------------------------------------
   submitDes() {
-    this.timerFetch.task.name = this.editDes;
-    this.hideDiv(0);
-    this.editDes = '';
+    this.timer.task_name = this.editDes;
+    this.timer.category_member_id = this.timerFetch.category_member_id;
+    this.submitEdit();
+  }
+
+  filterRecentTasks(arg: string) {
+    this.recentTasksSearch = [];
+    for (let task of this.recentTasks) {
+      if (task.name.indexOf(arg) > -1) {
+        this.recentTasksSearch.push(task);
+      }
+    }
+  }
+
+  doFilter0() {
+    clearTimeout(this.varTimeOut);
+    this.varTimeOut = setTimeout(() => this.filterRecentTasks(this.editDes), 500);
+  }
+
+  getTaskInfo(arg: Task) {
+    console.log(arg);
+    this.timer.task_id = arg.id;
+    this.timer.category_member_id = arg.category_member_id;
+    this.submitEdit();
   }
 
 // -------------------- edit timer's category --------------------------------------
@@ -133,6 +160,7 @@ export class DetailDateLogLiComponent implements OnInit {
       str = 'dropdown div-time';
     }
     this.divClass[i] = str;
+    this.filterRecentTasks('');
   }
 
   hideDiv(i) {
@@ -250,5 +278,23 @@ export class DetailDateLogLiComponent implements OnInit {
     }
     this.totalString = this.secondToTime(this.totalTimeEdit());
     this.generateOptions();
+  }
+
+  submitEdit() {
+    let id = this.timerFetch.id;
+    this.timer.start_time = this.startDateEdit.toString();
+    this.timer.stop_time = this.endDateEdit.toString();
+    //
+    this.timerPut.timer_update = this.timer;
+    this.timerService.editTimer(id, this.timerPut)
+    .then(res => {
+      console.log(res);
+      this.timerFetch = res;
+    })
+    .catch(err => {
+      console.log(err);
+    });
+    this.hideDiv(0);
+    this.editDes = '';
   }
 }

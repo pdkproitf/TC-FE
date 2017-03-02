@@ -16,13 +16,13 @@
 
 <div [class]="divClass[0]">
   <div class="search-box">
-    <input class="search-text" name="search-text" [(ngModel)]="editDes"  type="text">
+    <input class="search-text" name="search-text" [(ngModel)]="editDes" (keyup)="doFilter0()"  type="text">
     <!--<span class="fa fa-search imgspan"></span>-->
     <span (click)="submitDes()" class="fa fa-check imgspan submit"></span>
     <span (click)="hideDiv(0)" class="fa fa-times imgspan cancel"></span>
   </div>
-  <div class="content" *ngIf="recentTasks.length > 0">
-    <app-recent-tasks [recentTasks]="recentTasks" (emitStart)="getTimerFetchStart($event)"></app-recent-tasks>
+  <div class="content" *ngIf="recentTasksSearch.length > 0">
+    <app-recent-tasks [recentTasks]="recentTasksSearch" (emitStart)="getTaskInfo($event)"></app-recent-tasks>
   </div>
 </div>
 <div [class]="divClass[1]">

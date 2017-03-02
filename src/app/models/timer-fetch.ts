@@ -10,7 +10,7 @@ export class TimerFetch {
     background: string;
 }
 
-export class Task {
+class Task {
     id: number;
     name: string;
 }

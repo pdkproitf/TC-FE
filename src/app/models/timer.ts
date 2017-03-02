@@ -9,3 +9,7 @@ export class Timer {
 export class TimerPost {
     timer: Timer;
 }
+
+export class TimerPut {
+    timer_update: Timer;
+}
