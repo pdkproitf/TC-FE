@@ -11,7 +11,7 @@
   <button type="button" class="{{classBtn}}" (click)="changeClass()"></button>
 </div>
 <div [class]="classDrop[0]">
-    <app-recent-tasks [recentTasks]="recentTasksSearch" (emitStart)="getTimerFetchStart($event)"></app-recent-tasks>
+    <app-recent-tasks [recentTasks]="recentTasksSearch" (emitStart)="getTaskStart($event)"></app-recent-tasks>
 </div>
 <div [class]="classDrop[1]">
   <!--<div class="dropdown div-task">-->

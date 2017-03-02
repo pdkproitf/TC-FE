@@ -1,3 +1,4 @@
+import { TaskService } from './services/task-service';
 import { TimerFetchService } from './services/timer-fetch-service';
 import { ProjectJoinService } from './services/project-join-service';
 import { TimerService } from './services/timer-service';
@@ -108,7 +109,7 @@ import { TimeoffListRequestComponent } from './timeoff-list-request/timeoff-list
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
   AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService,
-  TimerService, ProjectJoinService, TimerFetchService],
+  TimerService, ProjectJoinService, TimerFetchService, TaskService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

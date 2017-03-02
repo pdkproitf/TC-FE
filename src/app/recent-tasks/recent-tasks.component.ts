@@ -1,3 +1,4 @@
+import { Task } from './../models/task';
 import { TimerFetch } from './../models/timer-fetch';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
@@ -8,7 +9,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class RecentTasksComponent implements OnInit {
   @Input()
-  recentTasks: TimerFetch[] = [];
+  recentTasks: Task[] = [];
   @Input()
   num = 0;
   @Output()

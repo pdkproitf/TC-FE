@@ -1,10 +1,9 @@
 import { HeadersService } from './headers-service';
-import { User } from './../models/user';
 import { Headers, Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 @Injectable()
-export class TimerFetchService {
+export class TaskService {
     headersService: HeadersService = new HeadersService();
     constructor(private http: Http) { }
 
@@ -13,15 +12,14 @@ export class TimerFetchService {
         return Promise.reject(error.message || error);
     }
 
-    getTimerFetch(from: string, to: string): Promise<any> {
-        let requestUrl = 'https://timecloudbackend.herokuapp.com/api/timers?period[from_day]=' +
-        from + '&period[to_day]=' + to;
+    getRecentTasks(num): Promise<any> {
+        let requestUrl = 'https://timecloudbackend.herokuapp.com/api/tasks/recent?number=' + num;
         let headers = new Headers();
         this.headersService.createAuthHeaders(headers);
         return this.http
         .get(requestUrl, {headers: headers})
         .toPromise()
-        .then(res => res.json())
+        .then(res => res.json().data)
         .catch(err => this.handleError(err));
     }
 }
