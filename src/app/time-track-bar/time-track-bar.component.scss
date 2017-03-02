@@ -2,7 +2,7 @@
 @import '../general-style/font-style.scss';
 .tracker-container{
     height: 100px;
-    width: 100%;
+    width: 98%;
     box-shadow: 0px 4px 20px #E9EAEE;
     position:relative;
     z-index:1;
@@ -31,10 +31,10 @@
     .time-picker{
         font-size: 16px;
         font-family: Lato;
-        margin-left: 6%;
+        margin-left: 5%;
         color: $fontWhiteBorder;
         border: none;
-        width: 8%;
+        width: 9%;
         &:focus{
             background: #ABDCFF;
             background-size: 70%;

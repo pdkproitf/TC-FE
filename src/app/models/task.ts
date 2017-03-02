@@ -5,4 +5,5 @@ export class Task {
     category_name: string;
     background: string;
     last_stop_time: string;
+    category_member_id: number;
 }

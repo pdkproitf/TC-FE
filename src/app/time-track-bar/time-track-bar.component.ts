@@ -28,7 +28,7 @@ export class TimeTrackBarComponent implements OnInit {
   optionStartTime: Date[] = [new Date(), new Date(), new Date(), new Date(), new Date()];
 
   @Input()
-  set currentCategory(curCat) {
+  set currentCategory(curCat: CategoryInProject) {
     if (this.description === '' && this.taskString === '' && this.classBtn === 'stop-btn') {
       this._currentCategory = curCat;
       this.taskString = this.currentCategory.project + ' - ' + this.currentCategory.category;
@@ -164,6 +164,9 @@ export class TimeTrackBarComponent implements OnInit {
     this.lastEndDateTime = curr;
     this.timer.stop_time = curr.toString();
     this.timer.category_member_id = this._currentCategory.category_member_id;
+    if (this.description !== this.timer.task_name){
+      this.timer.task_id = null;
+    }
     this.timer.task_name = this.description;
     this.timerPost.timer = this.timer;
     console.log(this.timerPost);
@@ -219,6 +222,8 @@ export class TimeTrackBarComponent implements OnInit {
     this.changeClass();
     this.taskString = arg.project_name + ' - ' + arg.category_name;
     this.timer.task_id = arg.task.id;
+    this.timer.task_name = arg.task.name;
+    this.currentCategory.category_member_id = arg.category_member_id;
     this.description = arg.task.name;
     this.taskColor = arg.background;
   }
@@ -231,6 +236,8 @@ export class TimeTrackBarComponent implements OnInit {
     this.changeClass();
     this.taskColor = arg.background;
     this.timer.task_id = arg.id;
+    this.timer.task_name = arg.name;
+    this.currentCategory.category_member_id = arg.category_member_id;
     this.description = arg.name;
     this.taskString = arg.project_name + ' - ' + arg.category_name;
   }
