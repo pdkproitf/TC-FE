@@ -250,6 +250,27 @@ export class DetailDateLogLiComponent implements OnInit {
     this.endDateEdit.setMonth(month);
     this.startDateEdit.setFullYear(year);
     this.endDateEdit.setFullYear(year);
+    let len = this.strOption.length;
+    for (let i = 0; i < len; i++) {
+      this.startEarlier[i].setDate(dat);
+      this.startEarlier[i].setMonth(month);
+      this.startEarlier[i].setFullYear(year);
+
+      this.startLater[i].setDate(dat);
+      this.startLater[i].setMonth(month);
+      this.startLater[i].setFullYear(year);
+
+      this.endEarlier[i].setDate(dat);
+      this.endEarlier[i].setMonth(month);
+      this.endEarlier[i].setFullYear(year);
+
+      this.endLater[i].setDate(dat);
+      this.endLater[i].setMonth(month);
+      this.endLater[i].setFullYear(year);
+    }
+    this.endLastTimer.setDate(dat);
+    this.endLastTimer.setMonth(month);
+    this.endLastTimer.setFullYear(year);
   }
 
   generateOptions() {
