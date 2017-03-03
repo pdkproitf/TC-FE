@@ -2,10 +2,12 @@ import { HeadersService }   from './headers-service';
 import { Headers, Http }    from '@angular/http';
 import { Injectable }       from '@angular/core';
 import 'rxjs/add/operator/toPromise';
+import { ServerDomain } from '../models/server-domain';
+
 @Injectable()
 export class ProjectJoinService {
     headersService: HeadersService = new HeadersService();
-    projectUrl: string = 'https://timecloudbackend.herokuapp.com/api/projects';
+    projectUrl: string = new ServerDomain().domain + '/projects';
 
     constructor(private http: Http) {}
 

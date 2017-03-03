@@ -2,12 +2,13 @@ import { Injectable }           from '@angular/core';
 import { Headers, Http }        from '@angular/http';
 import { HeadersService }       from './headers-service';
 import { TimeOff, TimeOffPost } from './../models/timeoff';
+import { ServerDomain } from '../models/server-domain';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class TimeoffService {
     headersService: HeadersService = new HeadersService();
-    timeoffUrl: String = 'https://timecloudbackend.herokuapp.com/api/timeoffs';
+    timeoffUrl: String = new ServerDomain().domain + '/timeoffs';
 
     constructor(private http: Http) {}
 
