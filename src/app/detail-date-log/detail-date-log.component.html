@@ -6,7 +6,7 @@
 <div class="tasks-container">
     <ul class="tasks-in-date">
         <li *ngFor="let timer of currentTimers; let id = index;"><app-detail-date-log-li [timerFetch]="timer"
-          [projectJoins]="projectJoins" [recentTasks]="recentTasks" [endLastTimer]="endLastTimer"
+          [projectJoins]="projectJoins" [recentTasks]="recentTasks" [endLastTimer]="endLastTimer" (timeEditedEmit)="refreshAfterEdit($event)"
           (emitDelete)="onDelete(id)" (emitStart)="onStart($event)"></app-detail-date-log-li>
         </li>
     </ul>

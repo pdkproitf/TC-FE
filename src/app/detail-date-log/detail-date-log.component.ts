@@ -206,4 +206,24 @@ export class DetailDateLogComponent implements OnInit {
     if (seconds < 10) {secondsString = '0' + secondsString; }
     return hoursString + ':' + minutesString + ':' + secondsString;
   }
+
+  refreshAfterEdit(event) {
+    if (event) {
+      let curr = new Date();
+      this.timerFetchService.getTimerFetch(this.firstString, this.lastString)
+      .then(res => {
+        console.log(res);
+        this.fullWeekTimer = res;
+        let chooseString = this.dateToShortString(curr);
+        if (this.fullWeekTimer[chooseString] === undefined) {
+            this.fullWeekTimer[chooseString] = [];
+        }
+        this.currentTimers = this.fullWeekTimer[chooseString];
+        this.generateTotalTime();
+        })
+      .catch(err => {
+        console.log(err);
+      });
+    }
+  }
 }

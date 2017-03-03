@@ -56,6 +56,9 @@ export class DetailDateLogLiComponent implements OnInit {
   endEarlier: Date[] = [];
   endLater: Date[] = [];
 
+  @Output()
+  timeEditedEmit = new EventEmitter<boolean>();
+  isTimeEdited: boolean = false;
   constructor(private timerService: TimerService) { }
 
   ngOnInit() {
@@ -169,11 +172,19 @@ export class DetailDateLogLiComponent implements OnInit {
 
   setCategory(arg) {
     console.log(arg);
-    this.timerFetch.category_name = arg.category;
-    this.timerFetch.category_member_id = arg.category_member_id;
-    this.timerFetch.project_name = arg.project;
-    this.timerFetch.background = arg.color;
+    // this.timerFetch.category_name = arg.category;
+    this.timer.category_member_id = arg.category_member_id;
+    this.timer.task_name = this.timerFetch.task.name;
+    this.submitEdit();
+    this.hideDiv(1);
   }
+
+  /*submitCat() {
+    this.timer.category_member_id = null;
+    this.timer.task_id = null;
+    this.timer.task_name = this.timerFetch.task_name;
+    this.submitEdit();
+  }*/
 // --------------------------edit timer's time -----------------------------
   timeToString(dateTimePara) {
     let dateTime = new Date(dateTimePara);
@@ -280,21 +291,37 @@ export class DetailDateLogLiComponent implements OnInit {
     this.generateOptions();
   }
 
+  submitTime() {
+    this.timer.task_id = this.timerFetch.task.id;
+    this.timer.category_member_id = this.timerFetch.category_member_id;
+    this.isTimeEdited = true;
+    this.submitEdit();
+    this.hideDiv(2);
+  }
+
+  cancelTime() {
+    this.startDateEdit = new Date(this.timerFetch.start_time);
+    this.endDateEdit = new Date(this.timerFetch.stop_time);
+    this.totalString = this.secondToTime(this.totalTimeEdit());
+    this.generateOptions();
+  }
+
+// ------------------------- Submit Edit ---------------------------
   submitEdit() {
     let id = this.timerFetch.id;
     this.timer.start_time = this.startDateEdit.toString();
     this.timer.stop_time = this.endDateEdit.toString();
-    //
     this.timerPut.timer_update = this.timer;
     this.timerService.editTimer(id, this.timerPut)
     .then(res => {
+      this.timeEditedEmit.emit(this.isTimeEdited);
+      this.isTimeEdited = false;
       console.log(res);
       this.timerFetch = res;
     })
     .catch(err => {
       console.log(err);
     });
-    this.hideDiv(0);
     this.editDes = '';
   }
 }
