@@ -6,19 +6,19 @@
             </th>
             <th class="right-colum">Tracked(h:m)</th>
         </tr>
-        <tbody *ngIf="project && project.project_category">
-            <tr class="project-line"  *ngFor="let project_category of project.project_category;" id="task-row-{{project_category.id}}">
+        <tbody *ngIf="project && project.categories">
+            <tr class="project-line"  *ngFor="let project_category of project.categories;" id="task-row-{{project_category.id}}">
                 <td style="width: 60%;">
                     <div class="plus inline" (click)="tasks_user_details(project_category.id)">
                         <i class="fa fa-plus" aria-hidden="true"></i>
                     </div>
                     <div class="column-text inline">
                         <div class="text">
-                            <span *ngIf="project_category.category">{{project_category.category.name}}</span>
+                            <span>{{project_category.name}}</span>
                         </div>
 
-                        <div class="group-user" *ngIf="project_category.memberList">
-                            <div class="project-user" *ngFor="let member of project_category.memberList">
+                        <div class="group-user" *ngIf="project_category.members">
+                            <div class="project-user" *ngFor="let member of project_category.members">
                                 <div *ngIf="!member.image" class="oval user-avatar inline"></div>
                                 <div *ngIf="member.image" class="oval user-avatar inline" [ngStyle]="{'background-image': 'url('+member.image+')'}"></div>
                                 <div class="user-name text inline">
@@ -31,7 +31,7 @@
                 <div class="right-colum">
                     <strong>{{project_category.tracked_time | timeFromSeconds}}</strong>
                     <div class="member-tracker tracked-details">
-                        <div class="tracked-text" *ngFor="let member of project_category.memberList">
+                        <div class="tracked-text" *ngFor="let member of project_category.members">
                             {{member.tracked_time | timeFromSeconds}}
                         </div>
                     </div>

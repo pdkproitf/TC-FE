@@ -7,9 +7,9 @@
             <th class="right-colum">Tracked(h:m)</th>
         </tr>
         <tbody *ngIf="project && membersDistionary">
-            <tr class="project-line" *ngFor="let member of membersDistionary" id="team-row-{{member.user.id}}">
+            <tr class="project-line" *ngFor="let member of project.members" id="team-row-{{member.user.id}}">
                 <td style="width: 60%;">
-                    <div class="plus inline" (click)="team_user_details(member.user.id)">
+                    <div class="plus inline" (click)="team_user_details(member.id)">
                         <i class="fa fa-plus" aria-hidden="true"></i>
                     </div>
                     <div class="project-user inline">
