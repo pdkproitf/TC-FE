@@ -12,18 +12,11 @@ import { ProjectService }   from '../services/project-service';
 export class ProjectDetailsComponent implements OnInit {
 
     project: ProjectGetOne;
-    // project: Project = ({
-    //     name: 'Temp Project',
-    //     tasks: ['Task1', 'Task2', 'Task3', 'Task 4', 'Task 5'],
-    //     client_id: 1,
-    //     report_permission: 2,
-    //     background: '#1abc9c',
-    // });
     constructor(private route: ActivatedRoute, private projectService: ProjectService) {
         projectService.getProject(route.snapshot.params['id']).then(
             (result) =>{
+                console.log('project base', result);
                 this.project = result;
-                console.log('project', result);
             },
             (error) => {
                 alert(error);
