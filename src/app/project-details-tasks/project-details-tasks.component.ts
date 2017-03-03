@@ -16,7 +16,7 @@ export class ProjectDetailsTasksComponent implements OnInit, OnChanges {
     ngOnInit() {
         if(this.project){
             this.is_show_project_categoy_details= new Map<Number, boolean>();
-            this.project.project_category.forEach(res => {
+            this.project.categories.forEach(res => {
                 this.is_show_project_categoy_details.set(res.id, false);
             })
         }
