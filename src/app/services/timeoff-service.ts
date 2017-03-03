@@ -27,4 +27,25 @@ export class TimeoffService {
         .then(res => res.json())
         .catch(this.handleError);
     }
+
+    // load all timeoff current user under user role.
+    getTimeOffs(): Promise<TimeOff[]>{
+        let requestUrl = this.timeoffUrl + '';
+        let headers = new Headers;
+        this.headersService.createAuthHeaders(headers);
+        return this.http
+        .get(requestUrl, {headers: headers})
+        .toPromise()
+        .then(res => {
+            var timeoffs: TimeOff[] = [];
+            if(res.json().data){
+                console.log('get timeoffs ', res.json());
+                res.json().data.forEach(json => {
+                    timeoffs.push(json as TimeOff);
+                });
+            }
+            return timeoffs;
+        })
+        .catch(this.handleError);
+    }
 }
