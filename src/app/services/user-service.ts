@@ -3,11 +3,14 @@ import { User } from './../models/user';
 import { Headers, Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
+import { ServerDomain } from '../models/server-domain';
+
 @Injectable()
 export class UserService {
     LoggedIn: boolean = false;
     redirectUrl: string;
     headersService: HeadersService = new HeadersService();
+    serverdomain: ServerDomain = new ServerDomain();
 
     constructor(private http: Http) {
         this.LoggedIn = !!localStorage.getItem('UserInfo');
@@ -24,7 +27,7 @@ export class UserService {
     }
 
     signUp(user): Promise<any> {
-        let requestUrl = 'https://timecloudbackend.herokuapp.com/api/users';
+        let requestUrl = this.serverdomain.domain + '/users';
         let headers = new Headers;
         this.headersService.createAuthHeaders(headers);
         return this.http
@@ -35,7 +38,7 @@ export class UserService {
     }
 
     signIn(user): Promise<any>{
-        let requestUrl = 'https://timecloudbackend.herokuapp.com/api/users/sign-in';
+        let requestUrl = this.serverdomain.domain + '/users/sign-in';
         let headers = new Headers;
         this.headersService.createAuthHeaders(headers);
         return this.http

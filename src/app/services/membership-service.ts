@@ -3,10 +3,12 @@ import { HeadersService } from './headers-service';
 import { Headers, Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
+import { ServerDomain } from '../models/server-domain';
+
 @Injectable()
 export class MembershipService {
     headersService = new HeadersService();
-
+    serverdomain: ServerDomain = new ServerDomain();
     constructor(private http: Http) {}
 
     private handleError(error: any): Promise<any> {
@@ -15,7 +17,7 @@ export class MembershipService {
     }
 
     getAllMembership(): Promise<any> {
-        let requestUrl = 'https://timecloudbackend.herokuapp.com/api/members';
+        let requestUrl = this.serverdomain.domain + '/members';
         let headers = new Headers();
         this.headersService.createAuthHeaders(headers);
         return this.http
@@ -26,7 +28,7 @@ export class MembershipService {
     }
 
     addNewMembership(memberShipPost): Promise<any> {
-        let requestUrl = 'https://timecloudbackend.herokuapp.com/api/members';
+        let requestUrl = this.serverdomain.domain +'/members';
         let headers = new Headers();
         this.headersService.createAuthHeaders(headers);
         return this.http

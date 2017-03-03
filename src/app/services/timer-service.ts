@@ -4,9 +4,13 @@ import { HeadersService } from './headers-service';
 import { Headers, Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
+import { ServerDomain } from '../models/server-domain';
+
 @Injectable()
 export class TimerService {
     headersService: HeadersService = new HeadersService();
+    serverdomain: ServerDomain = new ServerDomain();
+
     constructor(private http: Http) {
     }
 
@@ -16,7 +20,7 @@ export class TimerService {
     }
 
     addNewTimer(timePost: TimerPost): Promise<any> {
-        let requestUrl = 'https://timecloudbackend.herokuapp.com/api/timers';
+        let requestUrl = this.serverdomain.domain + '/timers';
         let headers = new Headers();
         this.headersService.createAuthHeaders(headers);
         return this.http
@@ -27,7 +31,7 @@ export class TimerService {
     }
 
     deleteTimer(id: number): Promise<any> {
-        let requestUrl = 'https://timecloudbackend.herokuapp.com/api/timers/' + id.toString();
+        let requestUrl = this.serverdomain.domain + '/timers/' + id.toString();
         let headers = new Headers();
         this.headersService.createAuthHeaders(headers);
         return this.http
