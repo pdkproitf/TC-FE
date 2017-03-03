@@ -1,4 +1,4 @@
-import { TimerFetch } from './../models/timer-fetch';
+import { Task } from './../models/task';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
@@ -8,9 +8,9 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 })
 export class RecentTasksLiComponent implements OnInit {
   @Input()
-  task: TimerFetch;
+  task: Task;
   @Output()
-  emitStart = new EventEmitter<TimerFetch>();
+  emitStart = new EventEmitter<Task>();
   hover: boolean = false;
   spanClass = 'hide';
   constructor() { }

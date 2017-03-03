@@ -26,6 +26,7 @@ export class ProjectFieldListComponent implements OnInit {
     this.projectJoinService.getProjectJoin()
     .then(res => {
       this.projectJoins = res;
+      console.log(this.projectJoins);
       this.outProjectJoins.emit(this.projectJoins);
       this.filterProjectJoin('');
     })

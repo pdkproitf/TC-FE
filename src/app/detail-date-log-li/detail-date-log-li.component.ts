@@ -1,6 +1,8 @@
+import { Task } from './../models/task';
 import { ProjectJoin } from './../models/project-join';
 import { TimerService } from './../services/timer-service';
 import { TimerFetch } from './../models/timer-fetch';
+import { Timer, TimerPut } from './../models/timer';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -11,6 +13,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class DetailDateLogLiComponent implements OnInit {
   spanClass = 'hidden';
   _timerFetch: TimerFetch = new TimerFetch();
+  timer: Timer = new Timer();
+  timerPut: TimerPut = new TimerPut();
   divClass: string[] = ['hiddenDiv', 'hiddenDiv', 'hiddenDiv'];
   @Input()
   set timerFetch(value) {
@@ -35,21 +39,34 @@ export class DetailDateLogLiComponent implements OnInit {
   searchPattern: string;
   editDes: string;
   @Input()
-  recentTasks: TimerFetch[] = [];
+  recentTasks: Task[] = [];
+  recentTasksSearch: Task[];
 
+  @Input()
+  endLastTimer: Date;
   startString: string;
   endString: string;
   totalString: string;
   startDateEdit: Date;
   endDateEdit: Date;
-  miniDiv = ['minihidden', 'minihidden'];
-  editTimeOption = ['5 min', '10 min', '15 min', '30 min'];
+  miniDiv = ['option hide', 'option hide'];
+  strOption = [5, 10, 15, 30];
+  startEarlier: Date[] = [];
+  startLater: Date[] = [];
+  endEarlier: Date[] = [];
+  endLater: Date[] = [];
+
+  @Output()
+  timeEditedEmit = new EventEmitter<boolean>();
+  isTimeEdited: boolean = false;
   constructor(private timerService: TimerService) { }
 
   ngOnInit() {
     this.projectJoinsSearch = this.projectJoins;
     this.startString = this.timeToString(this.timerFetch.start_time);
     this.endString = this.timeToString(this.timerFetch.stop_time);
+    this.generateOptions();
+    this.recentTasksSearch = this.recentTasks;
   }
 
   showSpan() {
@@ -96,9 +113,30 @@ export class DetailDateLogLiComponent implements OnInit {
   }
 // -------------------- edit timer's description ------------------------------------
   submitDes() {
-    this.timerFetch.task_name = this.editDes;
-    this.hideDiv(0);
-    this.editDes = '';
+    this.timer.task_name = this.editDes;
+    this.timer.category_member_id = this.timerFetch.category_member_id;
+    this.submitEdit();
+  }
+
+  filterRecentTasks(arg: string) {
+    this.recentTasksSearch = [];
+    for (let task of this.recentTasks) {
+      if (task.name.indexOf(arg) > -1) {
+        this.recentTasksSearch.push(task);
+      }
+    }
+  }
+
+  doFilter0() {
+    clearTimeout(this.varTimeOut);
+    this.varTimeOut = setTimeout(() => this.filterRecentTasks(this.editDes), 500);
+  }
+
+  getTaskInfo(arg: Task) {
+    console.log(arg);
+    this.timer.task_id = arg.id;
+    this.timer.category_member_id = arg.category_member_id;
+    this.submitEdit();
   }
 
 // -------------------- edit timer's category --------------------------------------
@@ -112,7 +150,7 @@ export class DetailDateLogLiComponent implements OnInit {
   }
   doFilter() {
     clearTimeout(this.varTimeOut);
-    this.varTimeOut = setTimeout(() => this.filterProjectJoin(this.searchPattern), 2000);
+    this.varTimeOut = setTimeout(() => this.filterProjectJoin(this.searchPattern), 500);
   }
 
   showDiv(i) {
@@ -125,11 +163,28 @@ export class DetailDateLogLiComponent implements OnInit {
       str = 'dropdown div-time';
     }
     this.divClass[i] = str;
+    this.filterRecentTasks('');
   }
 
   hideDiv(i) {
     this.divClass[i] = 'hiddenDiv';
   }
+
+  setCategory(arg) {
+    console.log(arg);
+    // this.timerFetch.category_name = arg.category;
+    this.timer.category_member_id = arg.category_member_id;
+    this.timer.task_name = this.timerFetch.task.name;
+    this.submitEdit();
+    this.hideDiv(1);
+  }
+
+  /*submitCat() {
+    this.timer.category_member_id = null;
+    this.timer.task_id = null;
+    this.timer.task_name = this.timerFetch.task_name;
+    this.submitEdit();
+  }*/
 // --------------------------edit timer's time -----------------------------
   timeToString(dateTimePara) {
     let dateTime = new Date(dateTimePara);
@@ -138,6 +193,20 @@ export class DetailDateLogLiComponent implements OnInit {
     let minutes = dateTime.getMinutes();
     let minutesString = (minutes < 10) ? '0' + minutes.toString() : minutes.toString();
     return hoursString + ':' + minutesString;
+  }
+
+  showMini(i) {
+    let str = '';
+    if (i === 0) {
+      str = 'option start';
+    } else if (i === 1) {
+      str = 'option end';
+    }
+    this.miniDiv[i] = str;
+  }
+
+  hideMini(i) {
+    this.miniDiv[i] = 'option hide';
   }
 
   stringToTime(str, date: Date) {
@@ -166,7 +235,7 @@ export class DetailDateLogLiComponent implements OnInit {
   totalTimeEdit() {
     let from = this.startDateEdit.getTime();
     let to = this.endDateEdit.getTime();
-    return (to - from) / 1000;
+    return Math.round((to - from) / 1000);
   }
 
   selectEditDate(event) {
@@ -181,5 +250,99 @@ export class DetailDateLogLiComponent implements OnInit {
     this.endDateEdit.setMonth(month);
     this.startDateEdit.setFullYear(year);
     this.endDateEdit.setFullYear(year);
+    let len = this.strOption.length;
+    for (let i = 0; i < len; i++) {
+      this.startEarlier[i].setDate(dat);
+      this.startEarlier[i].setMonth(month);
+      this.startEarlier[i].setFullYear(year);
+
+      this.startLater[i].setDate(dat);
+      this.startLater[i].setMonth(month);
+      this.startLater[i].setFullYear(year);
+
+      this.endEarlier[i].setDate(dat);
+      this.endEarlier[i].setMonth(month);
+      this.endEarlier[i].setFullYear(year);
+
+      this.endLater[i].setDate(dat);
+      this.endLater[i].setMonth(month);
+      this.endLater[i].setFullYear(year);
+    }
+    this.endLastTimer.setDate(dat);
+    this.endLastTimer.setMonth(month);
+    this.endLastTimer.setFullYear(year);
+  }
+
+  generateOptions() {
+    let i = 0;
+    for (let num of this.strOption) {
+      let diff = num * 60 * 1000;
+      this.startEarlier[i] = new Date (this.startDateEdit.getTime() - diff);
+      this.startLater[i] = new Date (this.startDateEdit.getTime() + diff);
+      this.endEarlier[i] = new Date (this.endDateEdit.getTime() - diff);
+      this.endLater[i] = new Date (this.endDateEdit.getTime() + diff);
+      i++;
+    }
+  }
+
+  selectOption(table, column, index) {
+    if (index > 3) {
+      this.startDateEdit = new Date(this.endLastTimer);
+    } else {
+      let target;
+      if (table === 0) {
+        if (column === 0) {
+          target = this.startEarlier;
+        }else {
+          target = this.startLater;
+        }
+        this.startDateEdit = new Date(target[index]);
+        this.startString = this.timeToString(this.startDateEdit);
+      } else {
+        if (column === 0) {
+          target = this.endEarlier;
+        }else {
+          target = this.endLater;
+        }
+        this.endDateEdit = new Date(target[index]);
+        this.endString = this.timeToString(this.endDateEdit);
+      }
+    }
+    this.totalString = this.secondToTime(this.totalTimeEdit());
+    this.generateOptions();
+  }
+
+  submitTime() {
+    this.timer.task_id = this.timerFetch.task.id;
+    this.timer.category_member_id = this.timerFetch.category_member_id;
+    this.isTimeEdited = true;
+    this.submitEdit();
+    this.hideDiv(2);
+  }
+
+  cancelTime() {
+    this.startDateEdit = new Date(this.timerFetch.start_time);
+    this.endDateEdit = new Date(this.timerFetch.stop_time);
+    this.totalString = this.secondToTime(this.totalTimeEdit());
+    this.generateOptions();
+  }
+
+// ------------------------- Submit Edit ---------------------------
+  submitEdit() {
+    let id = this.timerFetch.id;
+    this.timer.start_time = this.startDateEdit.toString();
+    this.timer.stop_time = this.endDateEdit.toString();
+    this.timerPut.timer_update = this.timer;
+    this.timerService.editTimer(id, this.timerPut)
+    .then(res => {
+      this.timeEditedEmit.emit(this.isTimeEdited);
+      this.isTimeEdited = false;
+      console.log(res);
+      this.timerFetch = res;
+    })
+    .catch(err => {
+      console.log(err);
+    });
+    this.editDes = '';
   }
 }

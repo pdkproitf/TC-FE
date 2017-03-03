@@ -54,6 +54,7 @@ export class DetailDateLogComponent implements OnInit {
   projectJoins: ProjectJoin[] = [];
   @Input()
   recentTasks: TimerFetch[] = [];
+  endLastTimer: Date;
   constructor(private timerFetchService: TimerFetchService) { }
 
   ngOnInit() {
@@ -80,6 +81,7 @@ export class DetailDateLogComponent implements OnInit {
     .catch(err => {
       console.log(err);
     });
+    this.endLastTimer = new Date();
   }
 
   setActiveDay(a) {
@@ -148,6 +150,8 @@ export class DetailDateLogComponent implements OnInit {
       this.fullWeekTimer[this.currentDateString].unshift(arg);
     }
     this.generateTotalTime();
+    this.endLastTimer = new Date(arg.stop_time);
+    console.log(this.recentTasks);
   }
 
   onStart(arg) {
@@ -201,5 +205,27 @@ export class DetailDateLogComponent implements OnInit {
     if (minutes < 10) {minutesString = '0' + minutesString; }
     if (seconds < 10) {secondsString = '0' + secondsString; }
     return hoursString + ':' + minutesString + ':' + secondsString;
+  }
+
+  refreshAfterEdit(event) {
+    if (event) {
+      let curr = new Date();
+      let day = curr.getDay();
+      this.timerFetchService.getTimerFetch(this.firstString, this.lastString)
+      .then(res => {
+        console.log(res);
+        this.fullWeekTimer = res;
+        let chooseString = this.dateToShortString(curr);
+        if (this.fullWeekTimer[chooseString] === undefined) {
+            this.fullWeekTimer[chooseString] = [];
+        }
+        this.currentTimers = this.fullWeekTimer[chooseString];
+        this.generateTotalTime();
+        this.setActiveDay(day);
+        })
+      .catch(err => {
+        console.log(err);
+      });
+    }
   }
 }

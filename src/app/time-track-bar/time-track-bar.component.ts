@@ -1,3 +1,4 @@
+import { Task } from './../models/task';
 import { TimerFetch } from './../models/timer-fetch';
 import { ProjectJoin } from './../models/project-join';
 import { CategoryInProject } from './../models/category-in-project';
@@ -27,7 +28,7 @@ export class TimeTrackBarComponent implements OnInit {
   optionStartTime: Date[] = [new Date(), new Date(), new Date(), new Date(), new Date()];
 
   @Input()
-  set currentCategory(curCat) {
+  set currentCategory(curCat: CategoryInProject) {
     if (this.description === '' && this.taskString === '' && this.classBtn === 'stop-btn') {
       this._currentCategory = curCat;
       this.taskString = this.currentCategory.project + ' - ' + this.currentCategory.category;
@@ -42,13 +43,12 @@ export class TimeTrackBarComponent implements OnInit {
       this.taskString = this.currentCategory.project + ' - ' + this.currentCategory.category;
       this.taskColor = this.currentCategory.color;
     }
-    let i = this.doesHaveRecentTask(curCat);
+    /*let i = this.doesHaveRecentTask(curCat);
     if (i > -1) {
-      this.timer.category_member_id = this.recentTasks[i].category_member_id;
-      this.timer.task_id = this.recentTasks[i].task.id;
-      this.timer.task_name = this.recentTasks[i].task.name;
-      this.description = this.recentTasks[i].task.name;
-    }
+      this.timer.task_id = this.recentTasks[i].id;
+      this.timer.task_name = this.recentTasks[i].name;
+      this.description = this.recentTasks[i].name;
+    }*/
   }
   get currentCategory() {
     return this._currentCategory;
@@ -76,12 +76,13 @@ export class TimeTrackBarComponent implements OnInit {
   set recentTasks(arg) {
     this._recentTasks = arg;
     this.filterRecentTasks('');
+    console.log(this.recentTasks);
   }
   get recentTasks() {
     return this._recentTasks;
   }
-  _recentTasks: TimerFetch[] = [];
-  recentTasksSearch: TimerFetch[];
+  _recentTasks: Task[] = [];
+  recentTasksSearch: Task[];
   constructor(private timerService: TimerService) { }
 
   ngOnInit() {
@@ -163,6 +164,9 @@ export class TimeTrackBarComponent implements OnInit {
     this.lastEndDateTime = curr;
     this.timer.stop_time = curr.toString();
     this.timer.category_member_id = this._currentCategory.category_member_id;
+    if (this.description !== this.timer.task_name){
+      this.timer.task_id = null;
+    }
     this.timer.task_name = this.description;
     this.timerPost.timer = this.timer;
     console.log(this.timerPost);
@@ -218,8 +222,24 @@ export class TimeTrackBarComponent implements OnInit {
     this.changeClass();
     this.taskString = arg.project_name + ' - ' + arg.category_name;
     this.timer.task_id = arg.task.id;
+    this.timer.task_name = arg.task.name;
+    this.currentCategory.category_member_id = arg.category_member_id;
     this.description = arg.task.name;
     this.taskColor = arg.background;
+  }
+
+  getTaskStart(arg) {
+    console.log(arg);
+    if (this.classBtn === 'stop-btn') {
+      this.changeClass();
+    }
+    this.changeClass();
+    this.taskColor = arg.background;
+    this.timer.task_id = arg.id;
+    this.timer.task_name = arg.name;
+    this.currentCategory.category_member_id = arg.category_member_id;
+    this.description = arg.name;
+    this.taskString = arg.project_name + ' - ' + arg.category_name;
   }
 
   filterProjectJoin(arg: string) {
@@ -233,13 +253,13 @@ export class TimeTrackBarComponent implements OnInit {
 
   doFilter() {
     clearTimeout(this.varTimeOut);
-    this.varTimeOut = setTimeout(() => this.filterProjectJoin(this.taskString), 2000);
+    this.varTimeOut = setTimeout(() => this.filterProjectJoin(this.taskString), 500);
   }
 
   filterRecentTasks(arg: string) {
     this.recentTasksSearch = [];
     for (let task of this.recentTasks) {
-      if (task.task.name.indexOf(arg) > -1) {
+      if (task.name.indexOf(arg) > -1) {
         this.recentTasksSearch.push(task);
       }
     }
@@ -247,7 +267,7 @@ export class TimeTrackBarComponent implements OnInit {
 
   doFilter0() {
     clearTimeout(this.varTimeOut);
-    this.varTimeOut = setTimeout(() => this.filterRecentTasks(this.description), 2000);
+    this.varTimeOut = setTimeout(() => this.filterRecentTasks(this.description), 500);
   }
 
   setTime(arg) {
@@ -280,10 +300,11 @@ export class TimeTrackBarComponent implements OnInit {
   }
 
   doesHaveRecentTask(curCat: CategoryInProject): number {
+    console.log(curCat);
     let len = this.recentTasks.length;
     for (let i = 0; i < len; i++) {
       let recentTask = this.recentTasks[i];
-      if (curCat.category_member_id === recentTask.category_member_id) {
+      if (curCat.category === recentTask.category_name && curCat.project === recentTask.project_name) {
         return i;
       }
     }

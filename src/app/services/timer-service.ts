@@ -1,5 +1,5 @@
 import { ProjectInDivComponent } from './../project-in-div/project-in-div.component';
-import { TimerPost } from './../models/timer';
+import { TimerPost, TimerPut } from './../models/timer';
 import { HeadersService } from './headers-service';
 import { Headers, Http } from '@angular/http';
 import { Injectable } from '@angular/core';
@@ -20,7 +20,7 @@ export class TimerService {
         let headers = new Headers();
         this.headersService.createAuthHeaders(headers);
         return this.http
-        .post(requestUrl, timePost, {headers: headers})
+        .post(requestUrl, JSON.stringify(timePost), {headers: headers})
         .toPromise()
         .then(res => res.json())
         .catch(err => this.handleError(err));
@@ -35,5 +35,17 @@ export class TimerService {
         .toPromise()
         .then(res => res.json())
         .catch(err => this.handleError(err));
+    }
+
+    editTimer(id: number, timerPut: TimerPut): Promise<any> {
+        let requestUrl = 'https://timecloudbackend.herokuapp.com/api/timers/' + id.toString();
+        let headers = new Headers();
+        this.headersService.createAuthHeaders(headers);
+        return this.http
+        .put(requestUrl, JSON.stringify(timerPut), {headers: headers})
+        .toPromise()
+        .then(res => res.json().data)
+        .catch(err => this.handleError(err));
+
     }
 }

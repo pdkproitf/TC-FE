@@ -261,10 +261,10 @@ export class CreateProjectComponent implements OnInit {
   }
 
   updateCategoriesToProject() {
-    //this.updateNewCategoriesToAdd();
-    //this.project.category_members = this.newCategoriesToAdd;
+    // this.updateNewCategoriesToAdd();
+    // this.project.category_members = this.newCategoriesToAdd;
     this.updateNewCategories();
-    this.project.category_members = this.newCategories
+    this.project.category_members = this.newCategories;
   }
 
   removeNewTask(i) {

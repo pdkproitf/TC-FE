@@ -16,45 +16,71 @@
 
 <div [class]="divClass[0]">
   <div class="search-box">
-    <input class="search-text" name="search-text" [(ngModel)]="editDes"  type="text">
+    <input class="search-text" name="search-text" [(ngModel)]="editDes" (keyup)="doFilter0()"  type="text">
     <!--<span class="fa fa-search imgspan"></span>-->
     <span (click)="submitDes()" class="fa fa-check imgspan submit"></span>
     <span (click)="hideDiv(0)" class="fa fa-times imgspan cancel"></span>
   </div>
-  <div class="content" *ngIf="recentTasks.length > 0">
-    <app-recent-tasks [recentTasks]="recentTasks" (emitStart)="getTimerFetchStart($event)"></app-recent-tasks>
+  <div class="content" *ngIf="recentTasksSearch.length > 0">
+    <app-recent-tasks [recentTasks]="recentTasksSearch" (emitStart)="getTaskInfo($event)"></app-recent-tasks>
   </div>
 </div>
 <div [class]="divClass[1]">
   <div class="search-box">
     <input class="search-text" name="search-text" [(ngModel)]="searchPattern" (keyup)="doFilter()" type="text">
     <!--<span class="fa fa-search imgspan"></span>-->
-    <span class="fa fa-check imgspan submit"></span>
+    <!--<span (click)="submitCat()" class="fa fa-check imgspan submit"></span>-->
     <span (click)="hideDiv(1)" class="fa fa-times imgspan cancel"></span>
   </div>
   <div class="content" *ngIf="projectJoinsSearch.length > 0">
-    <app-project-in-div *ngFor="let proj of projectJoinsSearch" [myProject]="proj" (outCategory)="selectCategory($event)"></app-project-in-div>
+    <app-project-in-div *ngFor="let proj of projectJoinsSearch" [myProject]="proj" (outCategory)="setCategory($event)"></app-project-in-div>
   </div>
 </div>
-
+<!-- /////////////////////////////////Edit Time //////////////////////////////////////////// -->
 <div [class]="divClass[2]">
   <table class="edit-time">
     <tr class="set-time">
       <td>
         <p>Start:</p>
-        <input class="time-picker" type="time" name="start-time" (blur)="editTimerTime(0)" [(ngModel)]="startString"/>
+        <input class="time-picker" type="time" name="start-time" (focus)="showMini(0)" (blur)="editTimerTime(0); hideMini(0)" [(ngModel)]="startString"/>
       </td>
       <td>
         <p>End:</p>
-        <input class="time-picker" type="time" name="end-time" (blur)="editTimerTime(1)" [(ngModel)]="endString"/>
+        <input class="time-picker" type="time" name="end-time" (focus)="showMini(1)" (blur)="editTimerTime(1); hideMini(1)" [(ngModel)]="endString"/>
       </td>
       <td class="total-time">
         <p>{{totalString}}</p>
       </td>
     </tr>
   </table>
-  <span class="fa fa-check imgspan submit"></span>
+  <span (click)="submitTime()" class="fa fa-check imgspan submit"></span>
   <span (click)="hideDiv(2)" class="fa fa-times imgspan cancel"></span>
+  <div *ngFor="let classStr of miniDiv; let i = index;" [class]="classStr">
+    <table class="table-option">
+      <tr class="table-head">
+        <th class="earlier">EARLIER</th>
+        <th class="later">LATER</th>
+      </tr>
+      <tr class="table-data" *ngFor="let op of strOption; let iTime = index">
+        <td (mousedown)="selectOption(i, 0, iTime)">
+          <p class="op-name">{{op}} min</p>
+          <p *ngIf="i === 0" class="op-value">{{startEarlier[iTime] | date: 'hh:mm a'}}</p>
+          <p *ngIf="i === 1" class="op-value">{{endEarlier[iTime] | date: 'hh:mm a'}}</p>
+        </td>
+        <td (mousedown)="selectOption(i, 1, iTime)">
+          <p class="op-name">{{op}} min</p>
+          <p *ngIf="i === 0" class="op-value">{{startLater[iTime] | date: 'hh:mm a'}}</p>
+          <p *ngIf="i === 1" class="op-value">{{endLater[iTime] | date: 'hh:mm a'}}</p>
+        </td>
+      </tr>
+      <tr class="table-data" *ngIf="i === 0">
+        <td (mousedown)="selectOption(0, 0, 4)">
+          <p class="op-name">End of last timer</p>
+          <p class="op-value">{{endLastTimer | date: 'hh:mm a'}}</p>
+        </td>
+      </tr>
+    </table>
+  </div>
   <div class="calendar">
     <p-calendar [inline]="true" (onSelect)="selectEditDate($event)"></p-calendar>
   </div>   
