@@ -210,6 +210,7 @@ export class DetailDateLogComponent implements OnInit {
   refreshAfterEdit(event) {
     if (event) {
       let curr = new Date();
+      let day = curr.getDay();
       this.timerFetchService.getTimerFetch(this.firstString, this.lastString)
       .then(res => {
         console.log(res);
@@ -220,6 +221,7 @@ export class DetailDateLogComponent implements OnInit {
         }
         this.currentTimers = this.fullWeekTimer[chooseString];
         this.generateTotalTime();
+        this.setActiveDay(day);
         })
       .catch(err => {
         console.log(err);
