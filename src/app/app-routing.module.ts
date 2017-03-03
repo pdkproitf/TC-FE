@@ -1,3 +1,4 @@
+import { EditProjectComponent } from './edit-project/edit-project.component';
 import { ManageMemberComponent } from './manage-member/manage-member.component';
 import { CreateProjectComponent } from './create-project/create-project.component';
 import { ProjectManageComponent } from './project-manage/project-manage.component';
@@ -28,6 +29,7 @@ const routes: Routes = [
     { path: 'projects/:id', component: ProjectDetailsComponent, canActivate: [AuthenLoggedIn] },
     { path: 'timeoffs', component: TimeoffManageComponent, canActivate: [AuthenLoggedIn] },
     { path: 'new-timeoff', component: CreateTimeoffComponent, canActivate: [AuthenLoggedIn] },
+    { path: 'edit-project/:id', component: EditProjectComponent, canActivate: [AuthenLoggedIn] },
     // { path: '', component: AppComponent }
     // { path: '', redirectTo: '/home', pathMatch: 'full'}
 ];
