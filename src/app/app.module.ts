@@ -54,6 +54,7 @@ import { RadioButtonModule }    from 'primeng/primeng';
 import { TimeoffListRequestComponent } from './timeoff-list-request/timeoff-list-request.component';
 import { MomentModule } from 'angular2-moment';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
+import { TimeoffPendingRequestsComponent } from './timeoff-pending-requests/timeoff-pending-requests.component';
 
 @NgModule({
   declarations: [
@@ -89,7 +90,8 @@ import { CapitalizePipe } from './pipes/capitalize.pipe';
     RecentTasksLiComponent,
     TimeFromSecondsPipe,
     TimeoffListRequestComponent,
-    CapitalizePipe
+    CapitalizePipe,
+    TimeoffPendingRequestsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,6 @@
 import { Component, OnInit, OnChanges, SimpleChange }    from '@angular/core';
-import { TimeOff }              from '../models/timeoff';
 import { TimeoffService }       from '../services/timeoff-service';
-import { TimeOffArray }              from '../models/timeoff';
+import { TimeOff }              from '../models/timeoff';
 declare var $:any;
 
 @Component({
@@ -16,7 +15,6 @@ export class TimeoffListRequestComponent implements OnInit {
     show_timeoff_details: Map<Number, boolean> = new Map<Number, boolean>();
 
     ngOnInit() {
-        this.timeoffs = new TimeOffArray().timeoffs;
         console.log("timeOffs", this.timeoffs);
         this.timeoffService.getTimeOffs().then(
             (result) => {
@@ -25,7 +23,7 @@ export class TimeoffListRequestComponent implements OnInit {
                 console.log('result',result);
             },
             (error) => {
-                alert(error);
+                // alert(error);
                 console.log('error',error);
             }
         );
