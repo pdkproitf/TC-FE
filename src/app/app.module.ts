@@ -6,6 +6,7 @@ import { CategoryService } from './services/category-service';
 import { MembershipService } from './services/membership-service';
 import { ClientService } from './services/client-service';
 import { ProjectService } from './services/project-service';
+import { TimeoffService } from './services/timeoff-service';
 import { NotLoggedIn } from './services/not-logged-in';
 import { AuthenLoggedIn } from './services/authen-logged-in';
 import { UserService } from './services/user-service';
@@ -46,12 +47,15 @@ import { DetailDateLogLiComponent } from './detail-date-log-li/detail-date-log-l
 import { ProjectInDivComponent } from './project-in-div/project-in-div.component';
 import { RecentTasksComponent } from './recent-tasks/recent-tasks.component';
 import { RecentTasksLiComponent } from './recent-tasks-li/recent-tasks-li.component';
-import { TimeFromSecondsPipe } from './time-from-seconds.pipe';
+import { TimeFromSecondsPipe } from './pipes/time-from-seconds.pipe';
 import { TimeoffManageComponent }   from './timeoff-manage/timeoff-manage.component';
 import { CreateTimeoffComponent }   from './create-timeoff/create-timeoff.component';
 import { ReactiveFormsModule }      from '@angular/forms';
 import { RadioButtonModule }    from 'primeng/primeng';
 import { TimeoffListRequestComponent } from './timeoff-list-request/timeoff-list-request.component';
+import { MomentModule } from 'angular2-moment';
+import { CapitalizePipe } from './pipes/capitalize.pipe';
+import { TimeoffPendingRequestsComponent } from './timeoff-pending-requests/timeoff-pending-requests.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +90,9 @@ import { TimeoffListRequestComponent } from './timeoff-list-request/timeoff-list
     RecentTasksComponent,
     RecentTasksLiComponent,
     TimeFromSecondsPipe,
-    TimeoffListRequestComponent
+    TimeoffListRequestComponent,
+    CapitalizePipe,
+    TimeoffPendingRequestsComponent
   ],
   imports: [
     BrowserModule,
@@ -105,11 +111,12 @@ import { TimeoffListRequestComponent } from './timeoff-list-request/timeoff-list
     PaginatorModule,
     TabViewModule,
     ReactiveFormsModule,
-    RadioButtonModule
+    RadioButtonModule,
+    MomentModule
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
   AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService,
-  TimerService, ProjectJoinService, TimerFetchService, TaskService],
+  TimerService, ProjectJoinService, TimerFetchService, TaskService, TimeoffService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

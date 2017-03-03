@@ -20,8 +20,8 @@ export class ProjecTableComponent implements OnInit, OnChanges {
     ngOnInit() {
         if(this.projects.length > 1){
             this.projects.sort(function(a, b){
-                if(a.default.name < b.default.name) return -1;
-                if(a.default.name > b.default.name) return 1;
+                if(a.name < b.name) return -1;
+                if(a.name > b.name) return 1;
                 return 0;
             });
             var j = 1;
@@ -49,7 +49,7 @@ export class ProjecTableComponent implements OnInit, OnChanges {
 
     // link to peoject detail page
     projectDetails(project: ProjectGetAll) {
-        this.router.navigate(['/projects', project.default.id]);
+        this.router.navigate(['/projects', project.id]);
     }
 
     // show or hide project control each row

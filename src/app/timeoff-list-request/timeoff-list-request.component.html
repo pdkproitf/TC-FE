@@ -2,70 +2,45 @@
     <p><strong>5</strong> days used / <strong>7</strong> remaining</p>
     <div class="sort">
         <p>All types</p>
-        <p><i class="fa fa-sort-desc" aria-hidden="true"></i></p>
+        <p (click)="all_types()"><i class="fa fa-sort-desc" aria-hidden="true"></i></p>
     </div>
 </div>
 <div class="content">
-    <div class="request">
-        <div class="thumbnai">
+    <div class="request" *ngFor="let timeoff of timeoffs">
+        <div *ngIf="timeoff" class="thumbnai" id="thumbnai-{{timeoff.id}}">
             <div class="dates">
-                <div class="from-date">
-                    <div class="month">Dec</div>
-                    <div class="date">25</div>
-                    <i class="fa fa-long-arrow-right right-arrow" aria-hidden="true"></i>
-                </div>
+                <div class="dates-content">
+                    <div class="from-date">
+                        <div class="month">{{timeoff.start_date | date:'MMM ' }}</div>
+                        <div class="date">{{timeoff.start_date | date: 'dd' }}</div>
+                        <i class="fa fa-long-arrow-right right-arrow" aria-hidden="true"></i>
+                    </div>
 
-                <div class="to-date">
-                    <div class="status"><p>Approved</p></div>
-                    <div class="month">Dec</div>
-                    <div class="date">25</div>
-                </div>
+                    <div class="to-date">
+                        <div class="status {{timeoff.status}}"><p>{{timeoff.status | capitalize}}</p></div>
+                        <div class="month">{{timeoff.end_date | date:'MMM ' }}</div>
+                        <div class="date">{{timeoff.end_date | date: 'dd' }}</div>
+                    </div>
 
-                <div class="remain-date">
-                    (3 day)
+                    <div class="remain-date">({{ (timeoff.end_date | amDifference: timeoff.start_date :'days' : true) + 1 - (timeoff.is_start_half_day? 0.5:0) - (timeoff.is_end_half_day? 0.5:0) }} days)</div>
                 </div>
             </div>
 
-            <div class="description">
-                <p> Dear Mr. Smith, At the current time, all of my work is completed. I will also make sure that all pending.
-                    We will use a lot of white space and thin line icon. It will attract user’s attention to conten.
-                </p>
+            <div class="description" (click)="showDetails(timeoff.id)">
+                <p *ngIf="show_timeoff_details.get(timeoff.id)">{{timeoff.description}}</p>
+                <p *ngIf="!show_timeoff_details.get(timeoff.id)">{{timeoff.description.slice(0,190)}} ...</p>
+                <div class="description-details" id="description-details-{{timeoff.id}}">
+                    <p>This request</p>
+                    <div class="details-day">{{ (timeoff.start_date | date: 'MMM  dd') + '     '+ (timeoff.is_start_half_day? '(Half day)':'(All day)') }}</div>
+                    <i class="fa fa-long-arrow-right details-arrow" aria-hidden="true"></i>
+                    <div class="details-day">{{ (timeoff.end_date | date: 'MMM  dd') + '     '+ (timeoff.is_end_half_day? '(Half day)':'(All day)') }}</div>
+                </div>
+
                 <div class="footer">
-                    <span class="time-send">You requested 1 months ago</span>
-                    <span class="time-approved">Christophe approved 1 months ago</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="request">
-        <div class="thumbnai">
-            <div class="dates">
-                <div class="from-date">
-                    <div class="month">oct</div>
-                    <div class="date">25</div>
-                    <i class="fa fa-long-arrow-right right-arrow" aria-hidden="true"></i>
-                </div>
-
-                <div class="to-date">
-                    <div class="status inject"><p>Rejected</p></div>
-                    <div class="month">oct</div>
-                    <div class="date">31</div>
-                </div>
-
-                <div class="remain-date">
-                    (6 day)
-                </div>
-            </div>
-
-            <div class="description">
-                <p>
-                    Dear Mr. Smith, At the current time, all of my work is completed. I will also make sure that all pending.
-                    We will use a lot of white space and thin line icon. It will attract user’s attention to conten.
-                </p>
-                <div class="footer">
-                    <span class="time-send">You requested 1 months ago</span>
-                    <span class="time-approved">Christophe approved 1 months ago</span>
+                    <span class="time-request">You requested {{timeoff.created_at | amTimeAgo}}</span>
+                    <div class="time-request-block" ></div>
+                    <span *ngIf="timeoff.status == 'pending'" class="time-request">Wating for approval</span>
+                    <span *ngIf="timeoff.status != 'pending'" class="time-request">{{timeoff.approver.user.last_name +' ' + timeoff.status + ' ' + (timeoff.updated_at | amTimeAgo)}}</span>
                 </div>
             </div>
         </div>
