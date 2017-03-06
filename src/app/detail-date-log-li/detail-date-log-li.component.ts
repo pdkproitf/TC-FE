@@ -80,7 +80,7 @@ export class DetailDateLogLiComponent implements OnInit {
   totalTime(): number {
     let from = new Date(this.timerFetch.start_time).getTime();
     let to = new Date(this.timerFetch.stop_time).getTime();
-    return (to - from) / 1000;
+    return Math.round((to - from) / 1000);
   }
 
   secondToTime(totalTime) {
@@ -236,7 +236,16 @@ export class DetailDateLogLiComponent implements OnInit {
   totalTimeEdit() {
     let from = this.startDateEdit.getTime();
     let to = this.endDateEdit.getTime();
-    return Math.round((to - from) / 1000);
+    let res = Math.round((to - from) / 1000);
+    if (res >= 0) {
+      return res;
+    } else {
+      this.startString = this.timeToString(this.timerFetch.start_time);
+      this.endString = this.timeToString(this.timerFetch.stop_time);
+      this.startDateEdit = new Date(this.timerFetch.start_time);
+      this.endDateEdit = new Date(this.timerFetch.stop_time);
+      this.totalTime();
+    }
   }
 
   selectEditDate(event) {
