@@ -1,13 +1,13 @@
-<h2>Pending request (5)</h2>
+<h2>Pending request ({{_timeoffs.length}})</h2>
 
 <div class="content">
-    <div class="request" *ngFor="let i of arr">
-        <div class="avatar"></div>
-        <div class="details" (click)="showDetails(i)">
+    <div class="request" *ngFor="let timeoff of _timeoffs">
+        <div class="avatar" *ngIf="!timeoff.sender.user.image"></div>
+        <div class="avatar" *ngIf="timeoff.sender.user.image" [ngStyle]="{'background-image': 'url('+timeoff.sender.user.image+')'}" ></div>
+        <div class="details" (click)="showDetails(timeoff.id)">
             <div class="inform">
-                <span class="name">Jose W.</span> <br>
-                <span class="days-off">Vacation on Aug 31 - Sep 1 </span> <span class="total-days-off">(2 days)</span> <br>
-
+                <span class="name">{{timeoff.sender.user.first_name + timeoff.sender.user.last_name}}</span> <br>
+                <span class="days-off">Vacation on {{timeoff.start_date | date: 'MMM dd'}} - {{timeoff.end_date | date: 'MMM dd'}} </span> <span class="total-days-off">({{ (timeoff.end_date | amDifference: timeoff.start_date :'days' : true) + 1 - (timeoff.is_start_half_day? 0.5:0) - (timeoff.is_end_half_day? 0.5:0) }} days)</span> <br>
             </div>
 
             <div class="control">
@@ -29,16 +29,16 @@
                 </div>
             </div>
 
-            <div class="description" id="description-{{i}}">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <div class="description" id="description-{{timeoff.id}}">
+                <p>{{timeoff.description}}</p>
                 <div class="description-details" id="description-details-">
                     <p>This request</p>
-                    <div class="details-day">Aug 31 (All day)</div>
+                    <div class="details-day">{{ (timeoff.start_date | date: 'MMM  dd') + '     '+ (timeoff.is_start_half_day? '(Half day)':'(All day)') }}</div>
                     <i class="fa fa-long-arrow-right details-arrow" aria-hidden="true"></i>
-                    <div class="details-day">Sep 1 (All day)</div>
+                    <div class="details-day">{{ (timeoff.end_date | date: 'MMM  dd') + '     '+ (timeoff.is_end_half_day? '(Half day)':'(All day)') }}</div>
                 </div>
             </div>
-            <div class="request-at">JRequested 1 days ago</div>
+            <div class="request-at">Requested {{timeoff.created_at | amTimeAgo}}</div>
         </div>
     </div>
 </div>

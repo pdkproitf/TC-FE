@@ -1,5 +1,7 @@
-import { Component, OnInit }    from '@angular/core';
-import { Router }               from '@angular/router'
+import { TimeOff, TimeOffGetAll }   from '../models/timeoff';
+import { Component, OnInit }        from '@angular/core';
+import { TimeoffService }           from '../services/timeoff-service';
+import { Router }                   from '@angular/router'
 
 @Component({
     selector: 'app-timeoff-manage',
@@ -8,9 +10,24 @@ import { Router }               from '@angular/router'
 })
 export class TimeoffManageComponent implements OnInit {
 
-    constructor(private router: Router) { }
+    list_timeoff: TimeOffGetAll = new TimeOffGetAll();
+    userObj: Object;
+
+    constructor(private router: Router, private timeoffService: TimeoffService) { }
 
     ngOnInit() {
+        this.timeoffService.getTimeOffs().then(
+            (result) => {
+                this.list_timeoff = result;
+                console.log('list_timeoff',result);
+            },
+            (error) => {
+                // alert(error);
+                console.log('error',error);
+            }
+        );
+        let userInfo = localStorage.getItem('UserInfo');
+        this.userObj = JSON.parse(userInfo);
     }
 
     createTimeOff(){
