@@ -116,6 +116,7 @@ export class DetailDateLogLiComponent implements OnInit {
     this.timer.task_name = this.editDes;
     this.timer.category_member_id = this.timerFetch.category_member_id;
     this.submitEdit();
+    this.hideDiv(0);
   }
 
   filterRecentTasks(arg: string) {

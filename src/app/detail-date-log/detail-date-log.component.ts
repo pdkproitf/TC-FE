@@ -23,6 +23,8 @@ export class DetailDateLogComponent implements OnInit {
   _weekAnchor: Date[] = [];
   @Output()
   emitStart = new EventEmitter<TimerFetch>();
+  @Output()
+  emitEdit = new EventEmitter<boolean>();
   @Input()
   set weekAnchor(arg) {
     this._weekAnchor = arg;
@@ -227,5 +229,6 @@ export class DetailDateLogComponent implements OnInit {
         console.log(err);
       });
     }
+    this.emitEdit.emit(event);
   }
 }

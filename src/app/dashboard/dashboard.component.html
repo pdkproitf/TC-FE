@@ -9,7 +9,7 @@
     <br/>
 </div>
 <div class="beneath">
-    <app-detail-date-log [weekAnchor]="weekAnchor" (emitStart)="timeTrackBar.getTimerFetchStart($event)" 
+    <app-detail-date-log [weekAnchor]="weekAnchor" (emitStart)="timeTrackBar.getTimerFetchStart($event)" (emitEdit)="getRecentTask(10)"
     [projectJoins]="projectJoins" [recentTasks]="recentTasks" #detailDateLog></app-detail-date-log>
 </div>
 <div class="end-page">

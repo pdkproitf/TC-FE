@@ -43,12 +43,12 @@ export class TimeTrackBarComponent implements OnInit {
       this.taskString = this.currentCategory.project + ' - ' + this.currentCategory.category;
       this.taskColor = this.currentCategory.color;
     }
-    /*let i = this.doesHaveRecentTask(curCat);
+    let i = this.doesHaveRecentTask(curCat);
     if (i > -1) {
       this.timer.task_id = this.recentTasks[i].id;
       this.timer.task_name = this.recentTasks[i].name;
       this.description = this.recentTasks[i].name;
-    }*/
+    }
   }
   get currentCategory() {
     return this._currentCategory;
@@ -164,12 +164,11 @@ export class TimeTrackBarComponent implements OnInit {
     this.lastEndDateTime = curr;
     this.timer.stop_time = curr.toString();
     this.timer.category_member_id = this._currentCategory.category_member_id;
-    if (this.description !== this.timer.task_name){
+    if (this.description !== this.timer.task_name) {
       this.timer.task_id = null;
     }
     this.timer.task_name = this.description;
     this.timerPost.timer = this.timer;
-    console.log(this.timerPost);
     this.timerService.addNewTimer(this.timerPost)
     .then(res => {
       console.log(res);
@@ -181,8 +180,11 @@ export class TimeTrackBarComponent implements OnInit {
     });
   }
 
-  selectCategory(arg) {
-    this.outCategory.emit(arg);
+  selectCategory(arg: CategoryInProject) {
+    this._currentCategory = arg;
+    this.taskString = this.currentCategory.project + ' - ' + this.currentCategory.category;
+    this.taskColor = this.currentCategory.color;
+    this.timer.task_id = null;
   }
 
   generateOptions() {
