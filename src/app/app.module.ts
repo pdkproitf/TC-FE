@@ -57,6 +57,7 @@ import { MomentModule } from 'angular2-moment';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
 import { TimeoffPendingRequestsComponent } from './timeoff-pending-requests/timeoff-pending-requests.component';
 import { EditProjectComponent } from './edit-project/edit-project.component';
+import { MembersConfirmComponent } from './members-confirm/members-confirm.component';
 
 @NgModule({
   declarations: [
@@ -94,7 +95,8 @@ import { EditProjectComponent } from './edit-project/edit-project.component';
     TimeoffListRequestComponent,
     CapitalizePipe,
     TimeoffPendingRequestsComponent,
-    EditProjectComponent
+    EditProjectComponent,
+    MembersConfirmComponent
   ],
   imports: [
     BrowserModule,

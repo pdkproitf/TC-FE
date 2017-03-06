@@ -5,6 +5,7 @@
   <br><br><br><br><br><br>
   <h2>Get started absolutely free.</h2>
   <p class="des">Free forever. No credit card needed.</p>
+  <h4 *ngIf="companyName !== ''">Welcome to company <i>{{companyName}}</i>!</h4>
   <br><br><br>  
   <form (ngSubmit)="submit()">
     <div class="form-group">

@@ -20,6 +20,10 @@ $mainColor: #212345;
         color: $colorHeader;
         margin: 0;
     };
+    h4{
+        color: $colorHeader;
+        margin: 0;
+    }
     p{
         font-family: $headerFont;
         &.asking{

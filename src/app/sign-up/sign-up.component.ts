@@ -12,7 +12,7 @@ export class SignUpComponent implements OnInit {
   userPost: UserPost = new UserPost();
   submitted: boolean = false;
   isInvited: boolean = false;
-
+  companyName: string = '';
   constructor( private userService: UserService, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -20,6 +20,7 @@ export class SignUpComponent implements OnInit {
     if (para['token']) {
       this.isInvited = true;
       this.user.invited_token = para['token'];
+      this.companyName = para['companyName'];
     }else {
       this.isInvited = false;
     }
