@@ -173,7 +173,7 @@ export class TimeTrackBarComponent implements OnInit {
     .then(res => {
       console.log(res);
       this.addedTimer.emit(res);
-      this.currentCategory = this.emptyCategory;
+      this._currentCategory = this.emptyCategory;
     })
     .catch(err => {
       console.log(err);
@@ -239,7 +239,7 @@ export class TimeTrackBarComponent implements OnInit {
     this.taskColor = arg.background;
     this.timer.task_id = arg.id;
     this.timer.task_name = arg.name;
-    this.currentCategory.category_member_id = arg.category_member_id;
+    this._currentCategory.category_member_id = arg.category_member_id;
     this.description = arg.name;
     this.taskString = arg.project_name + ' - ' + arg.category_name;
   }

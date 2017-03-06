@@ -173,7 +173,7 @@ export class DetailDateLogLiComponent implements OnInit {
 
   setCategory(arg) {
     console.log(arg);
-    // this.timerFetch.category_name = arg.category;
+    // this._timerFetch.category_name = arg.category;
     this.timer.category_member_id = arg.category_member_id;
     this.timer.task_name = this.timerFetch.task.name;
     this.submitEdit();
@@ -348,7 +348,7 @@ export class DetailDateLogLiComponent implements OnInit {
       this.timeEditedEmit.emit(this.isTimeEdited);
       this.isTimeEdited = false;
       console.log(res);
-      this.timerFetch = res;
+      this._timerFetch = res;
     })
     .catch(err => {
       console.log(err);
