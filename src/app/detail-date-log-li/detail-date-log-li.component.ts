@@ -138,6 +138,7 @@ export class DetailDateLogLiComponent implements OnInit {
     this.timer.task_id = arg.id;
     this.timer.category_member_id = arg.category_member_id;
     this.submitEdit();
+    this.hideDiv(0);
   }
 
 // -------------------- edit timer's category --------------------------------------

@@ -13,7 +13,7 @@
         <label for="client"></label>
         <!--<input type="text" class="form-control" id="client" [(ngModel)]="project.client_id"
         name="client-id" placeholder="Client" required>-->
-        <select class="form-control"  id="power" required [(ngModel)]="project.client_id" name="select_client_id">
+        <select class="form-control"  id="client" required [(ngModel)]="project.client_id" name="select_client_id">
             <option *ngFor="let client of currentClients" [value]="client.id">{{client.name}}</option>
         </select>
         <button class="add-btn" (click)="displayDialog()" pButton type="button" label="Add new client..."></button>
@@ -34,7 +34,7 @@
 <!-- -Adding members to project  -->
     <h2>Team members</h2>
     <div class = "team-member">
-        <table class="member-table">
+        <table class="member-table" *ngIf="membersToAdd.length > 0">
             <tr>
                 <th class="delete"></th>
                 <th class="people-name">People</th>
@@ -47,19 +47,18 @@
                         <td class="avatar" *ngIf="em.user.image != null"><img src="{{em.user.image}}"></td>
                         <td class="avatar" *ngIf="em.user.image == null"><img src="assets/image-profile/default-avatar.png"></td>
                         <td>
-                            {{em.user.first_name}} {{em.user.last_name}}
-                            <br/>
-                            {{em.user.email}}    
+                            <p class="name">{{em.user.first_name}} {{em.user.last_name}}</p>
+                            <p class="email">{{em.user.email}}</p>    
                         </td>
                     </tr>
                 </td>
-                <td><input type="checkbox" (change)="chbFunc($event.target.checked, id)"></td>
+                <td><input type="checkbox" class="checkbox" (change)="chbFunc($event.target.checked, id)"></td>
             </tr>
         </table>
         <br/>
         <input class="add-btn" (focus)="displayDiv()" (blur)="undisplayDiv()" (keyup)="keyUpSearch()" type="text" name="search-name"
         [(ngModel)]="searchName">
-        <a href="" (click)="addAll($event)">Add all people</a>
+        <a class="add-all" href="" (click)="addAll($event)">Add all people</a>
         <div class="notice">
             <p>Need to add someone?</p>
             <p>Go to <a routerLink="/manage-member">Manage</a> to invite them to TimeCloud</p>
@@ -71,9 +70,8 @@
                     <td class="avatar" *ngIf="em.user.image != null"><img src="{{em.user.image}}"></td>
                     <td class="avatar" *ngIf="em.user.image == null"><img src="assets/image-profile/default-avatar.png"></td>
                     <td class="info">
-                        {{em.user.first_name}} {{em.user.last_name}}
-                        <br/>
-                        {{em.user.email}}
+                        <p class="name">{{em.user.first_name}} {{em.user.last_name}}</p>
+                        <p class="email">{{em.user.email}}</p>
                     </td>
                 </tr>
             </table>
@@ -84,7 +82,7 @@
 <!-- Adding tasks to project -->
     <h2>Tasks</h2>
     <div class = "tasks">
-        <table class="tasks-table">
+        <table class="tasks-table" *ngIf="newCategories.length > 0">
             <tr>
                 <th class="delete-name"> </th>
                 <th class="member-list">Visible to</th>
