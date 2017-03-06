@@ -1,7 +1,7 @@
 import { Injectable }           from '@angular/core';
 import { Headers, Http }        from '@angular/http';
 import { HeadersService }       from './headers-service';
-import { TimeOff, TimeOffPost } from './../models/timeoff';
+import { TimeOff, TimeOffPost, TimeOffGetAll } from './../models/timeoff';
 import { ServerDomain } from '../models/server-domain';
 import 'rxjs/add/operator/toPromise';
 
@@ -30,7 +30,7 @@ export class TimeoffService {
     }
 
     // load all timeoff current user under user role.
-    getTimeOffs(): Promise<TimeOff[]>{
+    getTimeOffs(): Promise<TimeOffGetAll>{
         let requestUrl = this.timeoffUrl + '';
         let headers = new Headers;
         this.headersService.createAuthHeaders(headers);
@@ -38,33 +38,10 @@ export class TimeoffService {
         .get(requestUrl, {headers: headers})
         .toPromise()
         .then(res => {
-            var timeoffs: TimeOff[] = [];
+            var timeoffs: TimeOffGetAll = new TimeOffGetAll();
             if(res.json().data){
-                console.log('get timeoffs ', res.json());
-                res.json().data.forEach(json => {
-                    timeoffs.push(json as TimeOff);
-                });
-            }
-            return timeoffs;
-        })
-        .catch(this.handleError);
-    }
-
-    // load all timeoff pending current user under user role.
-    getTimeOffPendings(): Promise<TimeOff[]>{
-        let requestUrl = this.timeoffUrl + '';
-        let headers = new Headers;
-        this.headersService.createAuthHeaders(headers);
-        return this.http
-        .get(requestUrl, {headers: headers})
-        .toPromise()
-        .then(res => {
-            var timeoffs: TimeOff[] = [];
-            if(res.json().data){
-                console.log('get timeoffs ', res.json());
-                res.json().data.forEach(json => {
-                    timeoffs.push(json as TimeOff);
-                });
+                console.log('get timeoffs', res.json());
+                timeoffs = res.json().data as TimeOffGetAll;
             }
             return timeoffs;
         })

@@ -22,6 +22,15 @@ export class TimeOffPost{
     }
 }
 
+export class TimeOffGetAll{
+    off_requests: TimeOff[];
+    pending_requests: TimeOff[];
+    constructor(){
+        this.off_requests = [];
+        this.pending_requests = [];
+    }
+}
+
 export class TimeOffArray{
     timeoffs: TimeOff[] = [
         // {

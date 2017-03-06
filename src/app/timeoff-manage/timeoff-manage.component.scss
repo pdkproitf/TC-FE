@@ -32,5 +32,32 @@
             }
         }
     }
-
+    /deep/.ui-tabview  {
+        :not(.ui-ribbon).ui-tabview-nav{
+            height: 48px;
+            background-color: #FFFFFF;
+            box-shadow: inset 0 -2px 0 0 #EEEEEE;
+        }
+        .ui-tabview-panel {
+            padding: 0px;
+        }
+        .ui-tabview-nav > li.ui-state-default{
+            font-family: Lato;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 24px;
+            border: 0px;
+            background: white;
+            padding-left: 0px;
+            a:link{
+                color: rgba(54,54,54,0.3);
+            }
+        }
+        .ui-tabview-nav > li.ui-state-default.ui-state-active{
+            border-bottom: solid 3px #0066CC;
+            a:link{
+                color: #363636;
+            }
+        }
+    }
 }

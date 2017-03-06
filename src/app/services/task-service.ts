@@ -2,6 +2,8 @@ import { HeadersService } from './headers-service';
 import { Headers, Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
+import { ServerDomain } from '../models/server-domain';
+
 @Injectable()
 export class TaskService {
     headersService: HeadersService = new HeadersService();
@@ -13,7 +15,7 @@ export class TaskService {
     }
 
     getRecentTasks(num): Promise<any> {
-        let requestUrl = 'https://timecloudbackend.herokuapp.com/api/tasks/recent?number=' + num;
+        let requestUrl = new ServerDomain().domain + '/tasks/recent?number=' + num;
         let headers = new Headers();
         this.headersService.createAuthHeaders(headers);
         return this.http
