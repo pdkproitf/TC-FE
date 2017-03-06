@@ -21,7 +21,8 @@ export class EditProjectComponent implements OnInit {
       console.log(this.currentProject);
     })
     .catch(err => {
-      console.log(err);
+      let content = JSON.parse(err['_body']).error;
+      alert(content);
     });
   }
 

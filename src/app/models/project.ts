@@ -19,6 +19,7 @@ export class MemberCatList {
 }
 
 export class NewCategory {
+    id: number = null;
     category_name: string;
     members: MemberCat[] = [];
     is_billable: boolean;
@@ -43,8 +44,11 @@ export class Project {
     background: string;
     is_member_report: boolean;
     tasks: string[] = [];
+
     member_roles: MemberRole[] = [];
     category_members: NewCategory[];
+
+
 }
 
 // using for load all project from api
