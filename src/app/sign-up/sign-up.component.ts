@@ -35,7 +35,10 @@ export class SignUpComponent implements OnInit {
     this.userService.signUp(this.userPost).then((res) => {
       console.log(res);
       this.submitted = true;
-    }, () => alert('failed'));
+    }).catch(err => {
+      let content = JSON.parse(err['_body']).error;
+      alert(content);
+    });
   }
 
   log() {
