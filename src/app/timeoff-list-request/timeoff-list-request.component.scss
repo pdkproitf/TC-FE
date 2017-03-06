@@ -22,16 +22,17 @@
 
 .content{
     margin-bottom: 5%;
+    .request:hover{ background-color: #F3F5F8;}
     .request{
         width: 100%;
-        margin-top: 20px;
         background-color: rgba(255,255,255,0);
         .thumbnai{
             box-shadow: inset 0 -1px 0 0 #DDE1E5;
             display: inline-flex;
             width: 100%;
             padding-bottom: 3%;
-            margin-bottom: 4%;
+            padding-bottom: 30px;
+            padding-top: 30px;
             .dates{
                 float: left;
                 margin-right: 50px;

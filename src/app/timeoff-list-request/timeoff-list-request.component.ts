@@ -1,5 +1,4 @@
-import { Component, OnInit, OnChanges, SimpleChange }    from '@angular/core';
-import { TimeoffService }       from '../services/timeoff-service';
+import { Component, OnInit, Input, OnChanges, SimpleChange }    from '@angular/core';
 import { TimeOff }              from '../models/timeoff';
 declare var $:any;
 
@@ -9,29 +8,23 @@ declare var $:any;
     styleUrls: ['./timeoff-list-request.component.scss']
 })
 export class TimeoffListRequestComponent implements OnInit {
-    constructor(private timeoffService: TimeoffService) { }
-    timeoffs :TimeOff[] = [];
+    constructor() { }
     show_description_details: Map<Number, Number> = new Map<Number, Number>();
     show_timeoff_details: Map<Number, boolean> = new Map<Number, boolean>();
 
+    _timeoffs :TimeOff[] = [];
+    @Input()
+    set timeoffs(timeoffs: TimeOff[]){
+        this._timeoffs = timeoffs || [];
+        this.sortNewest();
+    }
     ngOnInit() {
-        console.log("timeOffs", this.timeoffs);
-        this.timeoffService.getTimeOffs().then(
-            (result) => {
-                this.timeoffs = result;
-                this.sortNewest();
-                console.log('result',result);
-            },
-            (error) => {
-                // alert(error);
-                console.log('error',error);
-            }
-        );
+        console.log("timeOffs", this._timeoffs);
     }
 
     sortNewest(){
-        if(this.timeoffs.length > 1){
-            this.timeoffs.sort(function(a, b){
+        if(this._timeoffs.length > 1){
+            this._timeoffs.sort(function(a, b){
                 if(a.updated_at > b.updated_at) return -1;
                 if(a.updated_at < b.updated_at) return 1;
                 return 0;
@@ -43,7 +36,7 @@ export class TimeoffListRequestComponent implements OnInit {
     initialize_description_status(){
         this.show_timeoff_details = new Map<Number, boolean>();
         this.show_description_details = new Map<Number, Number>();
-        this.timeoffs.forEach((timeoff) =>{
+        this._timeoffs.forEach((timeoff) =>{
             this.show_timeoff_details.set(timeoff.id, false);
         })
     }

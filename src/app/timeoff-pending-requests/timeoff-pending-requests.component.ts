@@ -1,5 +1,4 @@
-import { Component, OnInit }    from '@angular/core';
-import { TimeoffService }       from '../services/timeoff-service';
+import { Component, OnInit, Input, OnChanges, SimpleChange }    from '@angular/core';
 import { TimeOff }              from '../models/timeoff';
 declare var $:any;
 
@@ -8,40 +7,46 @@ declare var $:any;
     templateUrl: './timeoff-pending-requests.component.html',
     styleUrls: ['./timeoff-pending-requests.component.scss']
 })
-export class TimeoffPendingRequestsComponent implements OnInit {
-    timeoffs :TimeOff[] = [];
-    arr: Number[] = [0, 1, 2, 3, 4];
-    is_arr: Array<Boolean> = [false, false, false, false, false];
+export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
+    is_show_pending_details: Map<Number, Boolean> = new Map<Number, Boolean>();
+    _timeoffs: TimeOff[] = [];
+    @Input()
+    set timeoffs(timeoffs: TimeOff[]){
+        this._timeoffs = timeoffs || [];
+        this.sortNewest();
+    }
 
-    constructor(private timeoffService: TimeoffService) { }
+    constructor() { }
 
     ngOnInit() {
-        console.log("timeOffs", this.timeoffs);
-        this.timeoffService.getTimeOffPendings().then(
-            (result) => {
-                this.timeoffs = result;
-                this.sortNewest();
-                console.log('result',result);
-            },
-            (error) => {
-                // alert(error);
-                console.log('error',error);
-            }
-        );
+
+    }
+
+    ngOnChanges(changes: {[propKey: string]: SimpleChange}){
+        if(changes['timeoffs']) this.ngOnInit();
     }
 
     sortNewest(){
-        if(this.timeoffs.length > 1){
-            this.timeoffs.sort(function(a, b){
+        if(this._timeoffs.length > 1){
+            this._timeoffs.sort(function(a, b){
                 if(a.updated_at > b.updated_at) return -1;
                 if(a.updated_at < b.updated_at) return 1;
                 return 0;
             });
+            this.setShowPenddingDetails();
         }
     }
 
-    showDetails(number: number){
-        this.is_arr[number]? $('#description-'+number).css({'display': 'none'}) : $('#description-'+number).css({'display': 'block'})
-        this.is_arr[number] = !this.is_arr[number];
+    setShowPenddingDetails(){
+        this.is_show_pending_details = new Map<Number, boolean>();
+        this._timeoffs.forEach(timeoff => {
+            this.is_show_pending_details.set(timeoff.id, false);
+        })
+    }
+
+    showDetails(timeoff_id: number){
+        var cf = this.is_show_pending_details.get(timeoff_id);
+        cf? $('#description-'+timeoff_id).css({'display': 'none'}) : $('#description-'+timeoff_id).css({'display': 'block'})
+        this.is_show_pending_details.set(timeoff_id, !cf);
     }
 }
