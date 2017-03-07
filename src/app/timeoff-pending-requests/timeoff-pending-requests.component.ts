@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChange }    from '@angular/core';
+import { Component, OnInit, Input, Output, OnChanges, SimpleChange, EventEmitter }    from '@angular/core';
 import { TimeOff, TimeOffPut }              from '../models/timeoff';
 import { TimeoffService }       from '../services/timeoff-service';
 declare var $:any;
@@ -17,6 +17,8 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
         this._timeoffs = timeoffs || [];
         this.sortNewest();
     }
+
+    @Output() reload = new EventEmitter();
 
     constructor(private timeoffService: TimeoffService) { }
 
@@ -72,6 +74,7 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
         this.timeoffService.answerTimeOff(id, this.timeOffPut).then(
             (result) => {
                 console.log('TimeOff' + id +'update Sucess');
+                this.reload.emit();
             },
             (error) => {
                 console.log(error.data);

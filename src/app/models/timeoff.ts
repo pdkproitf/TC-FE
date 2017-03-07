@@ -10,9 +10,9 @@ export class TimeOff{
     created_at: Date;
     updated_at: Date;
     approver: Member;
-    is_approved: boolean;
     sender_id: number
     approver_id: number
+    approver_messages: string;
 }
 
 export class TimeOffPost{

@@ -34,7 +34,9 @@
                     <div class="details-day">{{ (timeoff.start_date | date: 'MMM  dd') + '     '+ (timeoff.is_start_half_day? '(Half day)':'(All day)') }}</div>
                     <i class="fa fa-long-arrow-right details-arrow" aria-hidden="true"></i>
                     <div class="details-day">{{ (timeoff.end_date | date: 'MMM  dd') + '     '+ (timeoff.is_end_half_day? '(Half day)':'(All day)') }}</div>
+                    <p *ngIf="timeoff.status != 'pending'"><i>Message: {{timeoff.approver_messages}}</i></p>
                 </div>
+
 
                 <div class="footer">
                     <span class="time-request">You requested {{timeoff.created_at | amTimeAgo}}</span>

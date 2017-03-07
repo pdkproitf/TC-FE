@@ -16,6 +16,16 @@ export class TimeoffManageComponent implements OnInit {
     constructor(private router: Router, private timeoffService: TimeoffService) { }
 
     ngOnInit() {
+        this.getTimeOffsPending();
+        let userInfo = localStorage.getItem('UserInfo');
+        this.userObj = JSON.parse(userInfo);
+    }
+
+    createTimeOff(){
+        this.router.navigate(['/new-timeoff']);
+    }
+
+    getTimeOffsPending(){
         this.timeoffService.getTimeOffs().then(
             (result) => {
                 this.list_timeoff = result;
@@ -26,11 +36,5 @@ export class TimeoffManageComponent implements OnInit {
                 console.log('error',error);
             }
         );
-        let userInfo = localStorage.getItem('UserInfo');
-        this.userObj = JSON.parse(userInfo);
-    }
-
-    createTimeOff(){
-        this.router.navigate(['/new-timeoff']);
     }
 }

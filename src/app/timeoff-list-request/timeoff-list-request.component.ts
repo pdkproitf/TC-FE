@@ -16,10 +16,10 @@ export class TimeoffListRequestComponent implements OnInit {
     @Input()
     set timeoffs(timeoffs: TimeOff[]){
         this._timeoffs = timeoffs || [];
+        console.log("timeOffs", timeoffs);
         this.sortNewest();
     }
     ngOnInit() {
-        console.log("timeOffs", this._timeoffs);
     }
 
     sortNewest(){
