@@ -18,18 +18,25 @@
                         </div>
 
                         <div class="group-user" *ngIf="project_category.members">
-                            <div class="project-user" *ngFor="let member of project_category.members">
+                            <div class="project-user" *ngFor="let member of project_category.members.slice(0, num_of_user_show.get(project_category.id))">
                                 <div *ngIf="!member.image" class="oval user-avatar inline"></div>
                                 <div *ngIf="member.image" class="oval user-avatar inline" [ngStyle]="{'background-image': 'url('+member.image+')'}"></div>
                                 <div class="user-name text inline">
-                                    {{member.user.first_name}}
+                                    {{member.user.first_name + " " + member.user.last_name}}
+                                </div>
+                            </div>
+                            <div class="over-member inline" *ngIf="project_category.members.length > num_of_user_show.get(project_category.id)">
+                                <div class="oval">
+                                    <div class="text task-over-user">
+                                        +{{project_category.members.length - num_of_user_show.get(project_category.id)}}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </td>
                 <div class="right-colum">
-                    <strong>{{project_category.tracked_time | timeFromSeconds}}</strong>
+                    {{project_category.tracked_time | timeFromSeconds}}
                     <div class="member-tracker tracked-details">
                         <div class="tracked-text" *ngFor="let member of project_category.members">
                             {{member.tracked_time | timeFromSeconds}}

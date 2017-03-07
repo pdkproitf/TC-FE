@@ -6,8 +6,8 @@
             </th>
             <th class="right-colum">Tracked(h:m)</th>
         </tr>
-        <tbody *ngIf="project && membersDistionary">
-            <tr class="project-line" *ngFor="let member of project.members" id="team-row-{{member.user.id}}">
+        <tbody *ngIf="membersDistionary">
+            <tr class="project-line" *ngFor="let member of membersDistionary" id="team-row-{{member.id}}">
                 <td style="width: 60%;">
                     <div class="plus inline" (click)="team_user_details(member.id)">
                         <i class="fa fa-plus" aria-hidden="true"></i>
@@ -19,20 +19,18 @@
                     <div class="column-text inline" >
                         <div class="text">
                             <div class="inline">{{member.user.first_name + ' ' + member.user.last_name}}</div>
-                            <div *ngFor="let role of member.roles">
-                                <div class="user-pm inline" *ngIf="role.name =='PM'">
-                                    <span class="user-pm-text">PM</span>
-                                </div>
+                            <div class="user-pm inline" *ngIf="member.is_pm">
+                                <span class="user-pm-text">PM</span>
                             </div>
                         </div>
 
                         <div class="group-tasks user-tasks" (click)="team_user_details()">
                             <div class="text">
-                                {{categoryOfMemberHash.get(member.user.id).length + ' Tasks'}}
+                                {{categoryOfMemberHash.get(member.id).length + ' Tasks'}}
                             </div>
                         </div>
 
-                        <div class="group-tasks user-list-tasks" *ngFor="let cate_mem of (categoryOfMemberHash.get(member.user.id))">
+                        <div class="group-tasks user-list-tasks" *ngFor="let cate_mem of (categoryOfMemberHash.get(member.id))">
                             <div class="text">
                                 {{cate_mem.category.name}}
                             </div>

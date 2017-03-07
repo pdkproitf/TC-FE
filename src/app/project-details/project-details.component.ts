@@ -17,6 +17,7 @@ export class ProjectDetailsComponent implements OnInit {
             (result) =>{
                 console.log('project base', result);
                 this.project = result;
+                console.log('this.project', this.project);
             },
             (error) => {
                 alert(error);
