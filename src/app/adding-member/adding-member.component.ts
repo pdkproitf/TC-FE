@@ -13,6 +13,8 @@ export class AddingMemberComponent implements OnInit {
   searchName: string = 'Add more people...';
   all: boolean = false;
   @Input()
+  existingMembers: Member[] = [];
+  @Input()
   set employeePosts(para){
     this._employeePosts = para;
     this.employeePostsSearch = this._employeePosts;
@@ -55,6 +57,22 @@ export class AddingMemberComponent implements OnInit {
 
   ngOnInit() {
     this.employeePostsSearch = this._employeePosts;
+    this.fetchExistingMembers();
+  }
+
+  fetchExistingMembers() {
+    if (this.existingMembers.length > 0) {
+      for (let mem of this.employeePosts){
+        for (let mem0 of this.existingMembers) {
+          if (mem.id === mem0.id) {
+            if (this.employees.indexOf(mem) < 0) {
+              this.employees.push(mem);
+              let member = new MemberCat;
+            }
+          }
+        }
+      }
+    }
   }
 
   addEmployee(employee) {

@@ -7,6 +7,7 @@ import { Role } from './role';
 
 export class MemberRole {
     member_id: number;
+    id: number;
     is_pm: boolean;
 }
 
@@ -21,7 +22,9 @@ export class MemberCatList {
 export class NewCategory {
     id: number = null;
     category_name: string;
+    name: string;
     members: MemberCat[] = [];
+    member_ids: number[] = [];
     is_billable: boolean;
 }
 
@@ -48,6 +51,8 @@ export class Project {
     member_roles: MemberRole[] = [];
     category_members: NewCategory[];
 
+    members: MemberRole[] = [];
+    categories: NewCategory[] = [];
 
 }
 
@@ -70,6 +75,7 @@ export class ProjectGetOne {
     members: Member[];
     tracked_time: number;
     categories: CategoryGetOne[];
+    is_member_report: boolean;
 }
 
 export class ProjectPost {

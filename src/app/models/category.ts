@@ -10,6 +10,7 @@ export class CategoryGetOne {
     name: string;
     category_member_id: number;
     members: Member[];
+    is_billable: boolean;
 }
 
 export class CategoryPost {

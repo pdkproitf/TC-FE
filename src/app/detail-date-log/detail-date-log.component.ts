@@ -44,6 +44,7 @@ export class DetailDateLogComponent implements OnInit {
       let chooseString = this.dateToShortString(chosenDate);
       this.currentTimers = this.fullWeekTimer[chooseString];
       this.generateTotalTime();
+      this.setActiveDay(number);
     })
     .catch(err => {
       console.log(err);

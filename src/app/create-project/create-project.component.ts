@@ -171,6 +171,19 @@ export class CreateProjectComponent implements OnInit {
       let i = this.membersToAdd.indexOf(arg);
       this.membersToAdd.splice(i, 1);
       this.membersRoleToAdd.splice(i, 1);
+
+      let len = this.newMemberLists.length;
+      let id = arg.id;
+      for (let h = 0; h < len; h++) {
+        let len0 = this.newMemberLists[h].memberCats.length;
+        for (let k = 0; k < len0; k ++) {
+          console.log(this.newMemberLists[h].memberCats[k].member_id);
+          if (this.newMemberLists[h].memberCats[k].member_id === id) {
+            this.newMemberLists[h].memberCats.splice(k, 1);
+            len0 -= 1;
+          }
+        }
+      }
     }
   }
 
