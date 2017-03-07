@@ -48,6 +48,7 @@
             }
             .control{
                 display: inline-block;
+                width: 320px;
                 float: right;
                 .control-request{
                     display: inline-block;
@@ -75,9 +76,9 @@
                     }
                 }
                 .control-inform{
-                    display: inline-block;
+                    display: none;
                     margin-right: 20px;
-                    margin-left: 25px;
+                    // margin-left: 25px;
                     .oval{
                         display: inline-block;
                         width: 32px;

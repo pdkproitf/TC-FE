@@ -49,4 +49,20 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
         cf? $('#description-'+timeoff_id).css({'display': 'none'}) : $('#description-'+timeoff_id).css({'display': 'block'})
         this.is_show_pending_details.set(timeoff_id, !cf);
     }
+
+    showTimeoffControl(is_show: boolean, id: number){
+        is_show? $('#timeoff-control-'+id).css({'display': 'inline-block'}) : $('#timeoff-control-'+id).css({'display': 'none'});
+    }
+
+    edit(id: number){
+        console.log('edit timeoff '+id);
+    }
+
+    delete(id: number){
+        console.log('delete timeoff '+id);
+    }
+
+    update(id: number, status: string){
+        console.log('update timeoff '+id+' -> '+ status);
+    }
 }
