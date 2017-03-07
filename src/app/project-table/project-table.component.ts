@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, OnChanges, SimpleChange } from '@angular/core';
 import { ProjectGetAll }   from '../models/project';
 import { Router }           from '@angular/router';
+
+import {AutoCompleteModule} from 'primeng/primeng';
 declare var $:any;
 
 @Component({
@@ -14,6 +16,9 @@ export class ProjecTableComponent implements OnInit, OnChanges {
     current_page: number = 1;
     rowOfPage: number = 6;
     pages: Number[] = [];
+    classImageSearch = 'fa fa-search imgspan';
+    searchPattern = '';
+    _projects: ProjectGetAll[] = [];
 
     @Input() projects: ProjectGetAll[];
     constructor(private router: Router) { }
@@ -25,11 +30,12 @@ export class ProjecTableComponent implements OnInit, OnChanges {
                 return 0;
             });
             var j = 1;
-            for(var _i = 0; _i < this.projects.length; _i+=this.rowOfPage){
+            for(var _i = 0; _i < this._projects.length; _i+=this.rowOfPage){
                 this.pages.push(j++);
             }
+            if(this.projects.length > this.rowOfPage) this.changeIconPaginate();
         }
-        this.changeIconPaginate();
+        this._projects = this.projects;
     }
 
     ngOnChanges(changes: {[propKey: string]: SimpleChange}){
@@ -47,6 +53,27 @@ export class ProjecTableComponent implements OnInit, OnChanges {
         this.projects.reverse();
     }
 
+    search(event) {
+        console.log('letter', this.searchPattern.toUpperCase());
+        this._projects = [];
+        for (let project of this.projects) {
+            if ((project.name.toUpperCase().indexOf(this.searchPattern.toUpperCase()) > -1) || (project.name.toLowerCase() .indexOf(this.searchPattern.toLowerCase()) > -1)) {
+                this._projects.push(project);
+            }
+        }
+    }
+
+    onBlur() {
+        if (this.searchPattern === '') {
+            this.classImageSearch = 'fa fa-search imgspan';
+        }
+    }
+
+    onFocus() {
+        this.classImageSearch = 'fa fa-search imghidden';
+        $('search-group').css({'background': '#ddd'})
+    }
+
     // link to peoject detail page
     projectDetails(project: ProjectGetAll) {
         this.router.navigate(['/projects', project.id]);
@@ -54,8 +81,7 @@ export class ProjecTableComponent implements OnInit, OnChanges {
 
     // show or hide project control each row
     showProjectControl(isShow: boolean, name: String){
-        if(isShow)  $('#project-control-'+name).show();
-        else        $('#project-control-'+name).hide();
+        isShow?  $('#project-control-'+name).show():$('#project-control-'+name).hide();
     }
 
     // go to in here after click to SAVE button
@@ -83,6 +109,7 @@ export class ProjecTableComponent implements OnInit, OnChanges {
 
     // change forward anjd backforward icon
     changeIconPaginate(){
+        $('#projects-paginate').css({'display': 'block'});
         $('.fa-forward').addClass('fa fa-angle-right');
         $('.fa-backward').addClass('fa fa-angle-left');
         $('.fa-step-forward').addClass('fa fa-angle-double-right fa-1');

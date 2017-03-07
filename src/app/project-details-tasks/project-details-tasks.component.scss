@@ -30,12 +30,18 @@
             font-size: 16px;
             font-weight: bold;
             line-height: 20px;
-            color: #363636;
+            color: rgba(54, 54, 54, 0.7);
         }
 
         .column-text{
             .group-user{
                 padding-top: 10px;
+                .task-over-user{
+                    text-align: center;
+                    padding: 6px;
+                    padding-left: 4px;
+                    color: rgba(54,54,54,0.7);
+                }
             }
         }
         .plus{
@@ -58,6 +64,7 @@
             padding-top: -4px;
             .tracked-text{
                 padding-top: 16px;
+                color: rgba(54, 54, 54, 0.7);
             }
         }
     }

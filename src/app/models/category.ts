@@ -1,4 +1,4 @@
-import { Member } from './member';
+import { MemberTrackTime, Member } from './member';
 export class Category {
     id: number;
     name: string;
@@ -11,6 +11,7 @@ export class CategoryGetOne {
     category_member_id: number;
     members: Member[];
     is_billable: boolean;
+    memberTrackTimes: MemberTrackTime[];
 }
 
 export class CategoryPost {
