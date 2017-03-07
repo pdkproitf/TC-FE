@@ -1,4 +1,4 @@
-import { Member } from './member';
+import { MemberTrackTime } from './member';
 export class Category {
     id: number;
     name: string;
@@ -8,8 +8,7 @@ export class Category {
 export class CategoryGetOne {
     id: number;
     name: string;
-    category_member_id: number;
-    members: Member[];
+    members: MemberTrackTime[];
 }
 
 export class CategoryPost {
