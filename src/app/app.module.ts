@@ -58,6 +58,7 @@ import { CapitalizePipe } from './pipes/capitalize.pipe';
 import { TimeoffPendingRequestsComponent } from './timeoff-pending-requests/timeoff-pending-requests.component';
 import { EditProjectComponent } from './edit-project/edit-project.component';
 import { MembersConfirmComponent } from './members-confirm/members-confirm.component';
+import {OverlayPanelModule}     from 'primeng/primeng';
 
 @NgModule({
   declarations: [
@@ -116,7 +117,8 @@ import { MembersConfirmComponent } from './members-confirm/members-confirm.compo
     TabViewModule,
     ReactiveFormsModule,
     RadioButtonModule,
-    MomentModule
+    MomentModule,
+    OverlayPanelModule
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
   AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService,

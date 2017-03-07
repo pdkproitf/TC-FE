@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, OnChanges, SimpleChange }    from '@angular/core';
-import { TimeOff }              from '../models/timeoff';
+import { TimeOff, TimeOffPut }              from '../models/timeoff';
+import { TimeoffService }       from '../services/timeoff-service';
 declare var $:any;
 
 @Component({
@@ -10,16 +11,17 @@ declare var $:any;
 export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
     is_show_pending_details: Map<Number, Boolean> = new Map<Number, Boolean>();
     _timeoffs: TimeOff[] = [];
+    timeOffPut: TimeOffPut;
     @Input()
     set timeoffs(timeoffs: TimeOff[]){
         this._timeoffs = timeoffs || [];
         this.sortNewest();
     }
 
-    constructor() { }
+    constructor(private timeoffService: TimeoffService) { }
 
     ngOnInit() {
-
+        this.timeOffPut = new TimeOffPut();
     }
 
     ngOnChanges(changes: {[propKey: string]: SimpleChange}){
@@ -62,7 +64,18 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
         console.log('delete timeoff '+id);
     }
 
-    update(id: number, status: string){
-        console.log('update timeoff '+id+' -> '+ status);
+    showForm(status: string){
+        this.timeOffPut.answer_timeoff_request.status = status;
+    }
+
+    update(id: number, $event){
+        this.timeoffService.answerTimeOff(id, this.timeOffPut).then(
+            (result) => {
+                console.log('TimeOff' + id +'update Sucess');
+            },
+            (error) => {
+                console.log(error.data);
+            }
+        )
     }
 }

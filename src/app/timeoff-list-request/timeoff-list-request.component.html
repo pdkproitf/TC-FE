@@ -40,7 +40,7 @@
                     <span class="time-request">You requested {{timeoff.created_at | amTimeAgo}}</span>
                     <div class="time-request-block" ></div>
                     <span *ngIf="timeoff.status == 'pending'" class="time-request">Wating for approval</span>
-                    <span *ngIf="timeoff.status != 'pending'" class="time-request">{{timeoff.approver.user.last_name +' ' + timeoff.status + ' ' + (timeoff.updated_at | amTimeAgo)}}</span>
+                    <span *ngIf="timeoff.status != 'pending'" class="time-request">{{(timeoff.approver.user.first_name | capitalize )+ ' ' + (timeoff.approver.user.last_name | capitalize) +' ' + timeoff.status + ' ' + (timeoff.updated_at | amTimeAgo)}}</span>
                 </div>
             </div>
         </div>

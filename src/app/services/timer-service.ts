@@ -42,7 +42,7 @@ export class TimerService {
     }
 
     editTimer(id: number, timerPut: TimerPut): Promise<any> {
-        let requestUrl = 'https://timecloudbackend.herokuapp.com/api/timers/' + id.toString();
+        let requestUrl = this.serverdomain.domain + '/timers/' + id.toString();
         let headers = new Headers();
         this.headersService.createAuthHeaders(headers);
         return this.http

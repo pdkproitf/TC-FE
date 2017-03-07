@@ -12,8 +12,20 @@
 
             <div class="control">
                 <div class="control-request">
-                    <button class="approver" (click)="update(timeoff.id, 'approved')">Approve</button>
-                    <button class="reject" (click)="update(timeoff.id, 'rejected')">Reject</button>
+                    <button class="approver" (click)="answer.toggle($event); showForm('approved')">Approve</button>
+                    <button class="reject"   (click)="answer.toggle($event); showForm('rejected')">Reject</button>
+                    <p-overlayPanel #answer>
+                        <div class="form-container">
+                            <form (ngSubmit)="update(timeoff.id, $event); answer.hide($event, actualTarget)">
+                                <label for="">Your response</label>
+                                <div class="form-group">
+                                    <textarea [(ngModel)]="timeOffPut.answer_timeoff_request.approver_messages" name="answer" placeholder="Say something ..." required ></textarea>
+                                </div>
+                                <button class="approve" type="submit">{{timeOffPut.answer_timeoff_request.status | capitalize}} & Send</button>
+                                <button  class="cancle" (click)="answer.hide($event, actualTarget)">Cancel</button>
+                            </form>
+                        </div>
+                    </p-overlayPanel>
                 </div>
                 <div id="timeoff-control-{{timeoff.id}}" class="control-inform">
                     <div class="oval" (click)="delete(timeoff.id)">
