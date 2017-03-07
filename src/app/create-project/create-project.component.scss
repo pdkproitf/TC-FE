@@ -305,6 +305,7 @@ body{
                 }
                 td {
                     padding-bottom: 30px;
+                    padding-top: 30px;
                     font-weight: normal;
                     &.task-name{
                         font-weight: bold;
@@ -374,11 +375,17 @@ body{
         button{
             margin: 0px;
             float: left;
+            position: relative;
+            top: 30px;
+            left: 10%;
+            border: solid 0.5px $blueColor !important;
             &#left-btn{
                 border-right: none !important;
+                border-radius: 3px 0 0 3px;
             }
             &#right-btn{
                 border-left: none !important;
+                border-radius: 0 3px 3px 0;
             }
         }
     }
