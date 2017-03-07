@@ -10,9 +10,9 @@ export class TimeOff{
     created_at: Date;
     updated_at: Date;
     approver: Member;
-    is_approved: boolean;
     sender_id: number
     approver_id: number
+    approver_messages: string;
 }
 
 export class TimeOffPost{
@@ -28,6 +28,26 @@ export class TimeOffGetAll{
     constructor(){
         this.off_requests = [];
         this.pending_requests = [];
+    }
+}
+
+export class TimeOffPut{
+    answer_timeoff_request: {
+        status: string;
+        approver_messages: string;
+    }
+    timeoff: {
+        start_date: Date;
+        end_date: Date;
+        is_start_half_day: boolean;
+        is_end_half_day: boolean;
+        description: string;
+    }
+    constructor(){
+        this.answer_timeoff_request = {
+            status: '',
+            approver_messages: ''
+        };
     }
 }
 

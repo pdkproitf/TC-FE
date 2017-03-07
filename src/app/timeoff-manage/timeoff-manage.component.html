@@ -6,14 +6,14 @@
     </div>
     <div *ngIf="userObj && (userObj.role.name == ('Admin' || 'PM'))">
         <p-tabView>
-            <p-tabPanel header="Pending">
-                <div class="timeoff-manage-content">
-                    <app-timeoff-pending-requests [timeoffs]="list_timeoff.pending_requests"></app-timeoff-pending-requests>
-                </div>
-            </p-tabPanel>
             <p-tabPanel header="Your request">
                 <div class="timeoff-manage-content">
                     <app-timeoff-list-request [timeoffs]="list_timeoff.off_requests"></app-timeoff-list-request>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel header="Pending">
+                <div class="timeoff-manage-content">
+                    <app-timeoff-pending-requests [timeoffs]="list_timeoff.pending_requests" (reload)="getTimeOffsPending()"></app-timeoff-pending-requests>
                 </div>
             </p-tabPanel>
         </p-tabView>

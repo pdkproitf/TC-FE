@@ -1,8 +1,8 @@
-import { Injectable }           from '@angular/core';
-import { Headers, Http }        from '@angular/http';
+import { TimeOff, TimeOffPost, TimeOffGetAll, TimeOffPut } from './../models/timeoff';
 import { HeadersService }       from './headers-service';
-import { TimeOff, TimeOffPost, TimeOffGetAll } from './../models/timeoff';
-import { ServerDomain } from '../models/server-domain';
+import { Headers, Http }        from '@angular/http';
+import { ServerDomain }         from '../models/server-domain';
+import { Injectable }           from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
@@ -36,6 +36,24 @@ export class TimeoffService {
         this.headersService.createAuthHeaders(headers);
         return this.http
         .get(requestUrl, {headers: headers})
+        .toPromise()
+        .then(res => {
+            var timeoffs: TimeOffGetAll = new TimeOffGetAll();
+            if(res.json().data){
+                console.log('get timeoffs', res.json());
+                timeoffs = res.json().data as TimeOffGetAll;
+            }
+            return timeoffs;
+        })
+        .catch(this.handleError);
+    }
+
+    answerTimeOff(id: number, answer_object: TimeOffPut){
+        let requestUrl = this.timeoffUrl + '/'+id;
+        let headers = new Headers;
+        this.headersService.createAuthHeaders(headers);
+        return this.http
+        .put(requestUrl, JSON.stringify(answer_object) ,{headers: headers})
         .toPromise()
         .then(res => {
             var timeoffs: TimeOffGetAll = new TimeOffGetAll();
