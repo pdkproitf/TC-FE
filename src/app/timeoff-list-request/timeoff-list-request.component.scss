@@ -115,49 +115,81 @@
                     }
                 }
             }
-            .description{
-                font-family: Lato;
-                cursor: pointer;
-                p {
-                    font-size: 16px;
-                    line-height: 24px;
-                    color: #363636;
+            .show-details{
+                width: 100%;
+                .control{
+                    display: inline-block;
+                    float: right;
+                    .control-inform{
+                        display: none;
+                        margin-right: 20px;
+                        // margin-left: 25px;
+                        .oval{
+                            display: inline-block;
+                            width: 32px;
+                            height: 32px;
+                            border-radius: 50%;
+                            opacity: 0.7;
+                            background-color: #FFFFFF;
+                            box-shadow: 0 1px 2px 0 rgba(0,0,0,0.24);
+                            margin-left: 10px;
+                            .text{
+                                font-size: 14px;
+                                text-align: center;
+                                padding-top: 8px;
+                                color: rgba(54, 54, 54, 0.7);
+                            }
+                        }
+                        .oval:hover{
+                            background-color:#ddd;
+                            cursor: pointer;
+                        };
+                    }
                 }
-                .description-details{
+                .description{
                     font-family: Lato;
-                    font-size: 14px;
-                    line-height: 17px;
-                    margin-bottom: 30px;
-                    margin-top: 50px;
-                    display: none;
-                    & p {
+                    cursor: pointer;
+                    p {
+                        font-size: 16px;
+                        line-height: 24px;
+                        color: #363636;
+                    }
+                    .description-details{
+                        font-family: Lato;
+                        font-size: 14px;
+                        line-height: 17px;
+                        margin-bottom: 30px;
+                        margin-top: 50px;
+                        display: none;
+                        & p {
+                            font-size: 14px;
+                            line-height: 17px;
+                            color: rgba(54,54,54,0.7);
+                            margin-bottom: 10px;
+                            i { color: red;}
+                        }
+                        & .details-day{
+                            display: inline-block;
+                            color: #363636;
+                        }
+                        .details-arrow{
+                            margin: 0 5% 0 5%;
+                        }
+                    }
+                    .footer{
                         font-size: 14px;
                         line-height: 17px;
                         color: rgba(54,54,54,0.7);
-                        margin-bottom: 10px;
-                        i { color: red;}
-                    }
-                    & .details-day{
-                        display: inline-block;
-                        color: #363636;
-                    }
-                    .details-arrow{
-                        margin: 0 5% 0 5%;
-                    }
-                }
-                .footer{
-                    font-size: 14px;
-                    line-height: 17px;
-                    color: rgba(54,54,54,0.7);
-                    & .time-request{
-                        display: inline-block;
-                    }
-                    & .time-request-block{
-                        width: 4px;
-                        height: 4px;
-                        background-color: #DDDDDD;
-                        display: inline-block;
-                        margin: 0 8px 0 8px;
+                        & .time-request{
+                            display: inline-block;
+                        }
+                        & .time-request-block{
+                            width: 4px;
+                            height: 4px;
+                            background-color: #DDDDDD;
+                            display: inline-block;
+                            margin: 0 8px 0 8px;
+                        }
                     }
                 }
             }

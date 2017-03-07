@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, OnChanges, SimpleChange, EventEmitter }    from '@angular/core';
-import { TimeOff, TimeOffPut }              from '../models/timeoff';
+import { TimeOff, TimeOffAnswer }              from '../models/timeoff';
+import { Member }                 from '../models/member';
 import { TimeoffService }       from '../services/timeoff-service';
 declare var $:any;
 
@@ -11,7 +12,9 @@ declare var $:any;
 export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
     is_show_pending_details: Map<Number, Boolean> = new Map<Number, Boolean>();
     _timeoffs: TimeOff[] = [];
-    timeOffPut: TimeOffPut;
+    timeOffPut: TimeOffAnswer;
+    user: Member ;
+
     @Input()
     set timeoffs(timeoffs: TimeOff[]){
         this._timeoffs = timeoffs || [];
@@ -23,7 +26,9 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
     constructor(private timeoffService: TimeoffService) { }
 
     ngOnInit() {
-        this.timeOffPut = new TimeOffPut();
+        this.timeOffPut = new TimeOffAnswer();
+        let userInfo = localStorage.getItem('UserInfo');
+        this.user = JSON.parse(userInfo);
     }
 
     ngOnChanges(changes: {[propKey: string]: SimpleChange}){
@@ -71,7 +76,7 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
     }
 
     update(id: number, $event){
-        this.timeoffService.answerTimeOff(id, this.timeOffPut).then(
+        this.timeoffService.updateTimeOff(id, this.timeOffPut).then(
             (result) => {
                 console.log('TimeOff' + id +'update Sucess');
                 this.reload.emit();

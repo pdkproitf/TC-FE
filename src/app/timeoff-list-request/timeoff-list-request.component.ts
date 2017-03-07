@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, OnChanges, SimpleChange }    from '@angular/core';
 import { TimeOff }              from '../models/timeoff';
+import { Router }               from '@angular/router'
 declare var $:any;
 
 @Component({
@@ -8,7 +9,8 @@ declare var $:any;
     styleUrls: ['./timeoff-list-request.component.scss']
 })
 export class TimeoffListRequestComponent implements OnInit {
-    constructor() { }
+    constructor(private router: Router) { }
+
     show_description_details: Map<Number, Number> = new Map<Number, Number>();
     show_timeoff_details: Map<Number, boolean> = new Map<Number, boolean>();
 
@@ -48,5 +50,13 @@ export class TimeoffListRequestComponent implements OnInit {
     showDetails(id: Number){
         this.show_timeoff_details.get(id)? $('#description-details-'+id).css({'display': 'none'}):$('#description-details-'+id).css({'display': 'block'})
         this.show_timeoff_details.set(id, !this.show_timeoff_details.get(id))
+    }
+
+    showTimeoffControl(is_show: boolean,id: number){
+        is_show? $('#timeoff-control-'+id).css({'display': 'inline-block'}) : $('#timeoff-control-'+id).css({'display': 'none'});
+    }
+
+    edit(id: number){
+        this.router.navigate(['/edit-timeoff/'+id]);
     }
 }
