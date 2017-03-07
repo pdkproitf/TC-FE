@@ -3,24 +3,50 @@
 .hidden{
     display:none;
 }
-button.rem-btn{
-    color: $fontWhiteBorder ;
-    background-color: transparent ;
-    width: auto;
-    height: auto;
-    margin-right: 0 ;
-    border: none ;
-    outline: none;
-
+input[type='checkbox']{
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    &:checked + label{
+        background-color: #0066CC !important;
+        color: white !important;
+    }
+}
+ul.current-list{
+    li {
+        margin-left: 10px;
+        .content{
+            height: 40px;
+            text-align: center;
+        }
+        
+    }
+    button.rem-btn{
+        color: $fontWhiteBorder ;
+        background-color: transparent ;
+        width: 27px;
+        height: auto;
+        margin-right: 0 ;
+        border: none ;
+        outline: none;
+        position: relative;
+        top: 20%;
+    }
+    p{
+        line-height: 24px;
+        position: relative;
+        top: 20%;
+    }
 }
 .add-btn
 {
     border: solid 0px white;
     background: $whiteBorder;
-    width: 25%;
+    width: 30%;
     height: 32px;
     border-radius: 50px;
     color: $fontWhiteBorder;
+    line-height: 24px;
     font-size: 16px;
     text-align: center;
     margin-left: 0%;
@@ -87,7 +113,10 @@ ul{
             width: 100%;
             &:hover{
                 background-color: $blueColor;
-                color: white;
+                color: white !important;
+                p.email{
+                    color: white !important;
+                }
                 cursor: pointer;
             }
             td{
@@ -98,6 +127,16 @@ ul{
                     height: 32px;
                     width: 32px;
                     border-radius: 50%;
+                }
+                p{
+                    font-size: 16px;
+                    line-height: 24px;
+                    padding: 0;
+                    margin: 0;
+                    font-weight: normal;
+                    &.email{
+                        color:#7B7B7B;
+                    }
                 }
             }
         }

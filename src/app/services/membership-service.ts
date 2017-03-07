@@ -1,4 +1,4 @@
-import { MembershipPost } from './../models/membership';
+import { MembershipPost, MembershipConfirm } from './../models/membership';
 import { HeadersService } from './headers-service';
 import { Headers, Http } from '@angular/http';
 import { Injectable } from '@angular/core';
@@ -28,13 +28,24 @@ export class MembershipService {
     }
 
     addNewMembership(memberShipPost): Promise<any> {
-        let requestUrl = this.serverdomain.domain +'/members';
+        let requestUrl = this.serverdomain.domain + '/members';
         let headers = new Headers();
         this.headersService.createAuthHeaders(headers);
         return this.http
         .post(requestUrl, JSON.stringify(memberShipPost), {headers: headers})
         .toPromise()
         .then(res => res.json())
+        .catch(error => this.handleError(error));
+    }
+
+    confirmMemberShip(memberShipConfirm: MembershipConfirm): Promise<any> {
+        let requestUrl = 'https://timecloudbackend.herokuapp.com/api/members';
+        let headers = new Headers();
+        this.headersService.createAuthHeaders(headers);
+        return this.http
+        .put(requestUrl, JSON.stringify(memberShipConfirm), {headers: headers})
+        .toPromise()
+        .then(res => res.json)
         .catch(error => this.handleError(error));
     }
 

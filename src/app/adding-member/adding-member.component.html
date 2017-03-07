@@ -1,5 +1,6 @@
 <input class="chkbx" type="checkbox" (change)="checkAll($event.target.checked)" name="checkbox">All<br/>
-<ul class="current-list">
+<br *ngIf="employees.length == 0"/>
+<ul class="current-list" *ngIf="employees.length > 0">
   <li *ngFor="let emp of employees; let i = index">
     <div class="content">
       <button class="rem-btn" pButton type="button" (click)="removeEmployee(emp)" icon="fa-times"></button>
@@ -15,9 +16,8 @@
                     <td class="avatar" *ngIf="em.image != null"><img src="{{em.image}}"></td>
                     <td class="avatar" *ngIf="em.image == null"><img src="assets/image-profile/default-avatar.png"></td>
                     <td class="info">
-                        {{em.user.first_name}} {{em.user.last_name}}
-                        <br/>
-                        {{em.user.email}}
+                        <p class="name">{{em.user.first_name}} {{em.user.last_name}}</p>
+                        <p class="email">{{em.user.email}}</p>
                     </td>
                 </tr>
             </table>

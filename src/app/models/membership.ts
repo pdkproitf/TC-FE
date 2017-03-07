@@ -5,3 +5,8 @@ export class Membership {
 export class MembershipPost {
     membership: Membership;
 }
+
+export class MembershipConfirm {
+    email: string;
+    token: string;
+}

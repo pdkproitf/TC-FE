@@ -23,7 +23,7 @@ export class ProjectService {
     }
 
     addProject(projectPost: ProjectPost): Promise<any> {
-        let requestUrl = this.projectUrl +'';
+        let requestUrl = this.projectUrl + '';
         let headers = new Headers;
         this.headersService.createAuthHeaders(headers);
         return this.http
@@ -34,8 +34,8 @@ export class ProjectService {
     }
 
     //get project under user role with param id.
-    getProject(id: String): Promise<ProjectGetOne>{
-        let requestUrl = this.projectUrl + '/'+ id;
+    getProject(id: String): Promise<ProjectGetOne> {
+        let requestUrl = this.projectUrl + '/' + id;
         let headers = new Headers;
         this.headersService.createAuthHeaders(headers);
         return this.http
@@ -49,7 +49,7 @@ export class ProjectService {
     }
 
     // load all projects under user role.
-    getProjects(): Promise<ProjectGetAll[]>{
+    getProjects(): Promise<ProjectGetAll[]> {
         let requestUrl = this.projectUrl + '';
         let headers = new Headers;
         this.headersService.createAuthHeaders(headers);
@@ -67,5 +67,16 @@ export class ProjectService {
             return projects;
         })
         .catch(this.handleError);
+    }
+
+    editProject(id: number, projectPost: ProjectPost): Promise<any> {
+        let requestUrl = 'https://timecloudbackend.herokuapp.com/api/projects/' + id.toString();
+        let headers = new Headers();
+        this.headersService.createAuthHeaders(headers);
+        return this.http
+        .put(requestUrl, JSON.stringify(projectPost), {headers: headers})
+        .toPromise()
+        .then(res => res.json())
+        .catch(error => this.handleError(error));
     }
 }

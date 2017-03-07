@@ -80,7 +80,7 @@ export class DetailDateLogLiComponent implements OnInit {
   totalTime(): number {
     let from = new Date(this.timerFetch.start_time).getTime();
     let to = new Date(this.timerFetch.stop_time).getTime();
-    return (to - from) / 1000;
+    return Math.round((to - from) / 1000);
   }
 
   secondToTime(totalTime) {
@@ -116,6 +116,7 @@ export class DetailDateLogLiComponent implements OnInit {
     this.timer.task_name = this.editDes;
     this.timer.category_member_id = this.timerFetch.category_member_id;
     this.submitEdit();
+    this.hideDiv(0);
   }
 
   filterRecentTasks(arg: string) {
@@ -137,6 +138,7 @@ export class DetailDateLogLiComponent implements OnInit {
     this.timer.task_id = arg.id;
     this.timer.category_member_id = arg.category_member_id;
     this.submitEdit();
+    this.hideDiv(0);
   }
 
 // -------------------- edit timer's category --------------------------------------
@@ -172,7 +174,7 @@ export class DetailDateLogLiComponent implements OnInit {
 
   setCategory(arg) {
     console.log(arg);
-    // this.timerFetch.category_name = arg.category;
+    // this._timerFetch.category_name = arg.category;
     this.timer.category_member_id = arg.category_member_id;
     this.timer.task_name = this.timerFetch.task.name;
     this.submitEdit();
@@ -235,7 +237,16 @@ export class DetailDateLogLiComponent implements OnInit {
   totalTimeEdit() {
     let from = this.startDateEdit.getTime();
     let to = this.endDateEdit.getTime();
-    return Math.round((to - from) / 1000);
+    let res = Math.round((to - from) / 1000);
+    if (res >= 0) {
+      return res;
+    } else {
+      this.startString = this.timeToString(this.timerFetch.start_time);
+      this.endString = this.timeToString(this.timerFetch.stop_time);
+      this.startDateEdit = new Date(this.timerFetch.start_time);
+      this.endDateEdit = new Date(this.timerFetch.stop_time);
+      this.totalTime();
+    }
   }
 
   selectEditDate(event) {
@@ -338,7 +349,7 @@ export class DetailDateLogLiComponent implements OnInit {
       this.timeEditedEmit.emit(this.isTimeEdited);
       this.isTimeEdited = false;
       console.log(res);
-      this.timerFetch = res;
+      this._timerFetch = res;
     })
     .catch(err => {
       console.log(err);

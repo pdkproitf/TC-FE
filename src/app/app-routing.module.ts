@@ -1,3 +1,5 @@
+import { MembersConfirmComponent } from './members-confirm/members-confirm.component';
+import { EditProjectComponent } from './edit-project/edit-project.component';
 import { ManageMemberComponent } from './manage-member/manage-member.component';
 import { CreateProjectComponent } from './create-project/create-project.component';
 import { ProjectManageComponent } from './project-manage/project-manage.component';
@@ -17,7 +19,7 @@ import { CreateTimeoffComponent } from './create-timeoff/create-timeoff.componen
 
 const routes: Routes = [
     { path: 'sign-up', component: SignUpComponent, canActivate: [NotLoggedIn] },
-    { path: 'sign-up/:token', component: SignUpComponent, canActivate: [NotLoggedIn] },
+    { path: 'sign-up/:token/:companyName/:companyDomain', component: SignUpComponent, canActivate: [NotLoggedIn] },
     { path: 'sign-in', component: SignInComponent, canActivate: [NotLoggedIn] },
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthenLoggedIn] },
     { path: '', component: MarketingPageComponent, canActivate: [NotLoggedIn] },
@@ -28,6 +30,8 @@ const routes: Routes = [
     { path: 'projects/:id', component: ProjectDetailsComponent, canActivate: [AuthenLoggedIn] },
     { path: 'timeoffs', component: TimeoffManageComponent, canActivate: [AuthenLoggedIn] },
     { path: 'new-timeoff', component: CreateTimeoffComponent, canActivate: [AuthenLoggedIn] },
+    { path: 'edit-project/:id', component: EditProjectComponent, canActivate: [AuthenLoggedIn] },
+    { path: 'members-confirm/:token', component: MembersConfirmComponent, canActivate: [AuthenLoggedIn] },
     // { path: '', component: AppComponent }
     // { path: '', redirectTo: '/home', pathMatch: 'full'}
 ];

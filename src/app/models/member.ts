@@ -19,6 +19,7 @@ export class Member {
     id: number;
     role: RoleMember;
     user: UserMember;
+    is_pm: boolean;
 }
 
 export class MemberTrackTime{
