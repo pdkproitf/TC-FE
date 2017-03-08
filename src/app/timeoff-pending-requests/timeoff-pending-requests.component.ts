@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, OnChanges, SimpleChange, EventEmitter }    from '@angular/core';
-import { TimeOff, TimeOffAnswer }              from '../models/timeoff';
-import { Member }                 from '../models/member';
-import { TimeoffService }       from '../services/timeoff-service';
+import { TimeOff, TimeOffAnswer }   from '../models/timeoff';
+import { TimeoffService }           from '../services/timeoff-service';
+import { Member }                   from '../models/member';
 declare var $:any;
 
 @Component({
@@ -68,7 +68,17 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
     }
 
     delete(id: number){
-        console.log('delete timeoff '+id);
+        this.timeoffService.delete(id,)
+        .then(
+            (result) => {
+                console.log('timeoff delete', result);
+                this.reload.emit();
+            },
+            (errors) => {
+                alert(errors.json().error);
+                console.log('timeoff error', errors.json().error);
+            }
+        )
     }
 
     showForm(status: string){
@@ -76,7 +86,7 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
     }
 
     update(id: number, $event){
-        this.timeoffService.updateTimeOff(id, this.timeOffPut).then(
+        this.timeoffService.update(id, this.timeOffPut).then(
             (result) => {
                 console.log('TimeOff' + id +'update Sucess');
                 this.reload.emit();

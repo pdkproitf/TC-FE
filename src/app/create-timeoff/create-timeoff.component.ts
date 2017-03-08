@@ -5,7 +5,6 @@ import { CalendarModule }       from 'primeng/primeng';
 import { TimeoffService }       from '../services/timeoff-service';
 import { ActivatedRoute }       from '@angular/router';
 import { Router }               from '@angular/router';
-
 declare var $:any;
 
 @Component({
@@ -73,7 +72,7 @@ export class CreateTimeoffComponent implements OnInit {
             }
         )
         :
-        this.timeoffService.updateTimeOff(this.id, this.convertToTimeOffPost())
+        this.timeoffService.update(this.id, this.convertToTimeOffPost())
         .then(
             (result) => {
                 console.log('timeoff update', result);

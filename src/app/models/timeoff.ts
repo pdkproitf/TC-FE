@@ -11,8 +11,8 @@ export class TimeOff{
     updated_at: Date;
     approver: Member;
     sender_id: number
-    approver_id: number
     approver_messages: string;
+    status: string;
 }
 
 export class TimeOffPost{

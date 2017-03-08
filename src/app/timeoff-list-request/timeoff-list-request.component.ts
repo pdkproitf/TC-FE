@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, OnChanges, SimpleChange }    from '@angular/core';
-import { TimeOff }              from '../models/timeoff';
+import { Component, OnInit, Input, OnChanges, SimpleChange, EventEmitter, Output }    from '@angular/core';
+import { TimeOff, TimeOffPost } from './../models/timeoff';
+import { TimeoffService }       from '../services/timeoff-service';
 import { Router }               from '@angular/router'
 declare var $:any;
 
@@ -9,7 +10,7 @@ declare var $:any;
     styleUrls: ['./timeoff-list-request.component.scss']
 })
 export class TimeoffListRequestComponent implements OnInit {
-    constructor(private router: Router) { }
+    constructor(private router: Router, private timeoffService: TimeoffService) { }
 
     show_description_details: Map<Number, Number> = new Map<Number, Number>();
     show_timeoff_details: Map<Number, boolean> = new Map<Number, boolean>();
@@ -21,6 +22,9 @@ export class TimeoffListRequestComponent implements OnInit {
         console.log("timeOffs", timeoffs);
         this.sortNewest();
     }
+
+    @Output() reload = new EventEmitter();
+
     ngOnInit() {
     }
 
@@ -58,5 +62,19 @@ export class TimeoffListRequestComponent implements OnInit {
 
     edit(id: number){
         this.router.navigate(['/edit-timeoff/'+id]);
+    }
+
+    delete(id: number){
+        this.timeoffService.delete(id,)
+        .then(
+            (result) => {
+                console.log('timeoff delete', result);
+                this.reload.emit();
+            },
+            (errors) => {
+                alert(errors.json().error);
+                console.log('timeoff error', errors.json().error);
+            }
+        )
     }
 }

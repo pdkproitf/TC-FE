@@ -67,7 +67,7 @@ export class TimeoffService {
         .catch(this.handleError);
     }
 
-    updateTimeOff(id: number, update_timeoff: Object){
+    update(id: number, update_timeoff: Object){
         let requestUrl = this.timeoffUrl + '/'+id;
         let headers = new Headers;
         this.headersService.createAuthHeaders(headers);
@@ -78,6 +78,24 @@ export class TimeoffService {
             var timeoff: TimeOff = new TimeOff();
             if(res.json().data){
                 console.log('update timeoff '+id, res.json());
+                timeoff = res.json().data as TimeOff;
+            }
+            return timeoff;
+        })
+        .catch(this.handleError);
+    }
+
+    delete(id: number){
+        let requestUrl = this.timeoffUrl + '/'+id;
+        let headers = new Headers;
+        this.headersService.createAuthHeaders(headers);
+        return this.http
+        .delete(requestUrl, {headers: headers})
+        .toPromise()
+        .then(res => {
+            var timeoff: TimeOff = new TimeOff();
+            if(res.json().data){
+                console.log('delete timeoff '+id, res.json());
                 timeoff = res.json().data as TimeOff;
             }
             return timeoff;
