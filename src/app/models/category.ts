@@ -11,7 +11,6 @@ export class CategoryGetOne {
     category_member_id: number;
     members: Member[];
     is_billable: boolean;
-    memberTrackTimes: MemberTrackTime[];
 }
 
 export class CategoryPost {

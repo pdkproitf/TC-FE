@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, OnChanges, SimpleChange } from '@angular/core';
-import { ProjectGetOne }   from '../models/project';
-import { MemberTrackTime, Member }   from '../models/member';
-import { CategoryTrackedTime, CategoryGetOne, Category }   from '../models/category';
+import { Component, OnInit, Input, OnChanges, SimpleChange }    from '@angular/core';
+import { CategoryTrackedTime, CategoryGetOne, Category }        from '../models/category';
+import { MemberTrackTime, Member }      from '../models/member';
+import { ProjectGetOne }                from '../models/project';
 declare var $:any;
 
 @Component({
@@ -66,26 +66,26 @@ export class ProjectDetailsTeamComponent implements OnInit, OnChanges {
         this.is_show_member_details.set(id, !flag);
     }
 
-    getCategoryMemberTrackdTime(categoryOne: CategoryGetOne, member: MemberTrackTime): CategoryTrackedTime{
+    getCategoryMemberTrackdTime(categoryOne: CategoryGetOne, member: Object): CategoryTrackedTime{
         var cateTracked = new CategoryTrackedTime();
 
         var category = new Category();
         category.id = categoryOne.id;
         category.name = categoryOne.name;
-        category.category_member_id = member.category_member_id;
+        category.category_member_id = member['category_member_id'];
 
         cateTracked.category = category;
-        cateTracked.tracked_time = member.tracked_time;
+        cateTracked.tracked_time = member['tracked_time'];
 
         return cateTracked;
     }
 
-    updateDisMemberTrackTime(member: MemberTrackTime){
+    updateDisMemberTrackTime(member: Object){
         // update total tracketime for member
         for (var i in this.membersDistionary) {
-            if (this.membersDistionary[i].id == member.id) {
-                this.membersDistionary[i].tracked_time += member.tracked_time;
-                this.membersDistionary[i].is_pm = member.is_pm;
+            if (this.membersDistionary[i].id == member['id']) {
+                this.membersDistionary[i].tracked_time += member['tracked_time'];
+                this.membersDistionary[i].is_pm = Boolean(member['is_pm']);
                 break; //Stop this loop, we found it!
             }
         }
