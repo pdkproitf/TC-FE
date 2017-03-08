@@ -1,5 +1,7 @@
-import { Component, OnInit, Input, OnChanges, SimpleChange }    from '@angular/core';
-import { TimeOff }              from '../models/timeoff';
+import { Component, OnInit, Input, OnChanges, SimpleChange, EventEmitter, Output }    from '@angular/core';
+import { TimeOff, TimeOffPost } from './../models/timeoff';
+import { TimeoffService }       from '../services/timeoff-service';
+import { Router }               from '@angular/router'
 declare var $:any;
 
 @Component({
@@ -8,7 +10,8 @@ declare var $:any;
     styleUrls: ['./timeoff-list-request.component.scss']
 })
 export class TimeoffListRequestComponent implements OnInit {
-    constructor() { }
+    constructor(private router: Router, private timeoffService: TimeoffService) { }
+
     show_description_details: Map<Number, Number> = new Map<Number, Number>();
     show_timeoff_details: Map<Number, boolean> = new Map<Number, boolean>();
 
@@ -19,6 +22,9 @@ export class TimeoffListRequestComponent implements OnInit {
         console.log("timeOffs", timeoffs);
         this.sortNewest();
     }
+
+    @Output() reload = new EventEmitter();
+
     ngOnInit() {
     }
 
@@ -48,5 +54,27 @@ export class TimeoffListRequestComponent implements OnInit {
     showDetails(id: Number){
         this.show_timeoff_details.get(id)? $('#description-details-'+id).css({'display': 'none'}):$('#description-details-'+id).css({'display': 'block'})
         this.show_timeoff_details.set(id, !this.show_timeoff_details.get(id))
+    }
+
+    showTimeoffControl(is_show: boolean,id: number){
+        is_show? $('#timeoff-control-'+id).css({'display': 'inline-block'}) : $('#timeoff-control-'+id).css({'display': 'none'});
+    }
+
+    edit(id: number){
+        this.router.navigate(['/edit-timeoff/'+id]);
+    }
+
+    delete(id: number){
+        this.timeoffService.delete(id,)
+        .then(
+            (result) => {
+                console.log('timeoff delete', result);
+                this.reload.emit();
+            },
+            (errors) => {
+                alert(errors.json().error);
+                console.log('timeoff error', errors.json().error);
+            }
+        )
     }
 }

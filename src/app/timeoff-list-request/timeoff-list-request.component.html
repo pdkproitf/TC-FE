@@ -6,8 +6,8 @@
     </div>
 </div>
 <div class="content">
-    <div class="request" *ngFor="let timeoff of _timeoffs">
-        <div *ngIf="timeoff" class="thumbnai" id="thumbnai-{{timeoff.id}}">
+    <div class="request" *ngFor="let timeoff of _timeoffs" (mouseover)='showTimeoffControl(true, timeoff.id)' (mouseleave)='showTimeoffControl(false, timeoff.id)'>
+        <div *ngIf="timeoff" class="thumbnai" id="thumbnai-{{timeoff.id}}" >
             <div class="dates">
                 <div class="dates-content">
                     <div class="from-date">
@@ -26,23 +26,40 @@
                 </div>
             </div>
 
-            <div class="description" (click)="showDetails(timeoff.id)">
-                <p *ngIf="show_timeoff_details.get(timeoff.id)">{{timeoff.description}}</p>
-                <p *ngIf="!show_timeoff_details.get(timeoff.id)">{{timeoff.description.slice(0,190)}} ...</p>
-                <div class="description-details" id="description-details-{{timeoff.id}}">
-                    <p>This request</p>
-                    <div class="details-day">{{ (timeoff.start_date | date: 'MMM  dd') + '     '+ (timeoff.is_start_half_day? '(Half day)':'(All day)') }}</div>
-                    <i class="fa fa-long-arrow-right details-arrow" aria-hidden="true"></i>
-                    <div class="details-day">{{ (timeoff.end_date | date: 'MMM  dd') + '     '+ (timeoff.is_end_half_day? '(Half day)':'(All day)') }}</div>
-                    <p *ngIf="timeoff.status != 'pending'"><i>Message: {{timeoff.approver_messages}}</i></p>
+            <div class="show-details">
+                <div class="control">
+                    <div id="timeoff-control-{{timeoff.id}}" class="control-inform">
+                        <div class="oval" (click)="delete(timeoff.id)">
+                            <div class="text">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="oval" (click)="edit(timeoff.id)" *ngIf="timeoff.status == 'pending'">
+                            <div class="text">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
+                <div class="description" (click)="showDetails(timeoff.id)">
+                    <p *ngIf="show_timeoff_details.get(timeoff.id)">{{timeoff.description}}</p>
+                    <p *ngIf="!show_timeoff_details.get(timeoff.id)">{{timeoff.description.slice(0,190)}} ...</p>
+                    <div class="description-details" id="description-details-{{timeoff.id}}">
+                        <p>This request</p>
+                        <div class="details-day">{{ (timeoff.start_date | date: 'MMM  dd') + '     '+ (timeoff.is_start_half_day? '(Half day)':'(All day)') }}</div>
+                        <i class="fa fa-long-arrow-right details-arrow" aria-hidden="true"></i>
+                        <div class="details-day">{{ (timeoff.end_date | date: 'MMM  dd') + '     '+ (timeoff.is_end_half_day? '(Half day)':'(All day)') }}</div>
+                        <p *ngIf="timeoff.status != 'pending'"><i>Message: {{timeoff.approver_messages}}</i></p>
+                    </div>
 
-                <div class="footer">
-                    <span class="time-request">You requested {{timeoff.created_at | amTimeAgo}}</span>
-                    <div class="time-request-block" ></div>
-                    <span *ngIf="timeoff.status == 'pending'" class="time-request">Wating for approval</span>
-                    <span *ngIf="timeoff.status != 'pending'" class="time-request">{{(timeoff.approver.user.first_name | capitalize )+ ' ' + (timeoff.approver.user.last_name | capitalize) +' ' + timeoff.status + ' ' + (timeoff.updated_at | amTimeAgo)}}</span>
+
+                    <div class="footer">
+                        <span class="time-request">You requested {{timeoff.created_at | amTimeAgo}}</span>
+                        <div class="time-request-block" ></div>
+                        <span *ngIf="timeoff.status == 'pending'" class="time-request">Wating for approval</span>
+                        <span *ngIf="timeoff.status != 'pending'" class="time-request">{{(timeoff.approver.user.first_name | capitalize )+ ' ' + (timeoff.approver.user.last_name | capitalize) +' ' + timeoff.status + ' ' + (timeoff.updated_at | amTimeAgo)}}</span>
+                    </div>
                 </div>
             </div>
         </div>

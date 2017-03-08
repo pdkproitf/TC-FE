@@ -8,7 +8,7 @@
         <p-tabView>
             <p-tabPanel header="Your request">
                 <div class="timeoff-manage-content">
-                    <app-timeoff-list-request [timeoffs]="list_timeoff.off_requests"></app-timeoff-list-request>
+                    <app-timeoff-list-request [timeoffs]="list_timeoff.off_requests" (reload)="getTimeOffsPending()"></app-timeoff-list-request>
                 </div>
             </p-tabPanel>
             <p-tabPanel header="Pending">
@@ -20,6 +20,6 @@
     </div>
 
     <div *ngIf="userObj && !(userObj.role.name == ('Admin' || 'PM'))" class="timeoff-manage-content">
-        <app-timeoff-list-request [timeoffs]="list_timeoff.off_requests"></app-timeoff-list-request>
+        <app-timeoff-list-request [timeoffs]="list_timeoff.off_requests" (reload)="getTimeOffsPending()"></app-timeoff-list-request>
     </div>
 </div>

@@ -12,8 +12,10 @@
 
             <div class="control">
                 <div class="control-request">
-                    <button class="approver" (click)="answer.toggle($event); showForm('approved')">Approve</button>
-                    <button class="reject"   (click)="answer.toggle($event); showForm('rejected')">Reject</button>
+                    <div  *ngIf="(user.role.name == 'Admin' && (user.id != timeoff.sender.id)) || (user.role.name == 'PM' && (user.id != timeoff.sender.id) && ('Admin' != timeoff.sender.role.name)) ">
+                        <button class="approver" (click)="answer.toggle($event); showForm('approved')">Approve</button>
+                        <button class="reject"   (click)="answer.toggle($event); showForm('rejected')">Reject</button>
+                    </div>
                     <p-overlayPanel #answer>
                         <div class="form-container">
                             <form (ngSubmit)="update(timeoff.id, $event); answer.hide($event, actualTarget)">
