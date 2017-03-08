@@ -28,13 +28,13 @@
 
             <div class="show-details">
                 <div class="control">
-                    <div id="timeoff-control-{{timeoff.id}}" class="control-inform">
+                    <div id="timeoff-control-{{timeoff.id}}" class="control-inform" *ngIf="timeoff.status == 'pending'">
                         <div class="oval" (click)="delete(timeoff.id)">
                             <div class="text">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
                             </div>
                         </div>
-                        <div class="oval" (click)="edit(timeoff.id)" *ngIf="timeoff.status == 'pending'">
+                        <div class="oval" (click)="edit(timeoff.id)">
                             <div class="text">
                                 <i class="fa fa-pencil" aria-hidden="true"></i>
                             </div>
