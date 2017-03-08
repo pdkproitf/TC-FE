@@ -22,7 +22,7 @@ export class Member {
     is_pm: boolean;
 }
 
-export class MemberTrackTime{
+export class MemberTrackTime {
     company: Company;
     furlough_total: number;
     id: number;
@@ -31,7 +31,7 @@ export class MemberTrackTime{
     is_pm: boolean = false;
     category_member_id: number = 0;
     tracked_time: number = 0;
-    constructor(member: Member){
+    constructor(member: Member) {
         this.company = member.company;
         this.furlough_total = member.furlough_total;
         this.id = member.id;

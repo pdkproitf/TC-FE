@@ -60,7 +60,7 @@
         [(ngModel)]="searchName">
         <a class="add-all" href="" (click)="addAll($event)">Add all people</a>
         <div class="notice">
-            <p>Need to add someone?</p>
+            <p>Need to add someone?</p><br/>
             <p>Go to <a routerLink="/manage-member">Manage</a> to invite them to TimeCloud</p>
         </div>
         <div [class]="classDiv" *ngIf="membersSearch.length > 0">

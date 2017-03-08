@@ -59,6 +59,7 @@ import { TimeoffPendingRequestsComponent } from './timeoff-pending-requests/time
 import { EditProjectComponent } from './edit-project/edit-project.component';
 import { MembersConfirmComponent } from './members-confirm/members-confirm.component';
 import {OverlayPanelModule}     from 'primeng/primeng';
+import { ReportComponent } from './report/report.component';
 
 @NgModule({
   declarations: [
@@ -97,7 +98,8 @@ import {OverlayPanelModule}     from 'primeng/primeng';
     CapitalizePipe,
     TimeoffPendingRequestsComponent,
     EditProjectComponent,
-    MembersConfirmComponent
+    MembersConfirmComponent,
+    ReportComponent
   ],
   imports: [
     BrowserModule,
