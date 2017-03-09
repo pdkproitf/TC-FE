@@ -1,0 +1,50 @@
+.pass-timeoffs{
+    width: 80%;
+    margin: auto;
+    i{
+        margin-right: 5px;
+    }
+    a{
+        font-family: Lato;
+        font-size: 16px;
+        line-height: 24px;
+        color: rgba(54,54,54,0.7);
+        padding-bottom: 50px;
+    }
+    .header{
+        p{
+            width: 195px;
+            height: 38px;
+            font-family: Montserrat;
+            font-size: 32px;
+            font-weight: bold;
+            line-height: 38px;
+            color: #363636;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        button{
+            width: 125px;
+            height: 40px;
+            border: 0px;
+            background-color: #EEEEEE;
+            border-radius: 100px;
+            float: right;
+            cursor: pointer;;
+            margin-top: 20px;
+            &.button-create {
+                & p{
+                    font-family: Lato;
+                    font-size: 16px;
+                    text-align: center;
+                    line-height: 24px;
+                    display: inline;
+                    color: rgba(54,54,54,0.7);
+                }
+                & i{
+                    color: rgba(54,54,54,0.7);
+                }
+            }
+        }
+    }
+}

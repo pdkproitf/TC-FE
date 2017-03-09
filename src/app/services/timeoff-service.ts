@@ -50,7 +50,7 @@ export class TimeoffService {
 
     // load all timeoff current user under user role.
     getTimeOffs(): Promise<TimeOffGetAll>{
-        let requestUrl = this.timeoffUrl + '';
+        let requestUrl = this.timeoffUrl + '/this-year';
         let headers = new Headers;
         this.headersService.createAuthHeaders(headers);
         return this.http
@@ -61,6 +61,24 @@ export class TimeoffService {
             if(res.json().data){
                 console.log('get timeoffs', res.json());
                 timeoffs = res.json().data as TimeOffGetAll;
+            }
+            return timeoffs;
+        })
+        .catch(this.handleError);
+    }
+
+    getPassTimeOffs(){
+        let requestUrl = this.timeoffUrl + '';
+        let headers = new Headers;
+        this.headersService.createAuthHeaders(headers);
+        return this.http
+        .get(requestUrl, {headers: headers})
+        .toPromise()
+        .then(res => {
+            var timeoffs: TimeOff[] = [];
+            if(res.json().data){
+                console.log('get pass timeoffs', res.json());
+                timeoffs = res.json().data as TimeOff[];
             }
             return timeoffs;
         })
