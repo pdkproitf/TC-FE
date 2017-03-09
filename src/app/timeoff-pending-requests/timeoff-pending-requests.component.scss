@@ -22,12 +22,43 @@
             cursor: pointer;
             .inform{
                 display: inline-block;
-                .name{
-                    font-family: Lato;
-                    font-size: 16px;
-                    font-weight: bold;
-                    line-height: 24px;
-                    color: #363636;
+                .name-status{
+                    .name{
+                        font-family: Lato;
+                        font-size: 16px;
+                        font-weight: bold;
+                        line-height: 24px;
+                        color: #363636;
+                        display: inline-block;
+                    }
+                    .status{
+                        width: 54px;
+                        height: 17px;
+                        border-radius: 25px;
+                        display: inline-block;
+                        text-align: center;
+                        vertical-align: middle;
+                        padding-bottom: 3px;
+                        span{
+                            width: 36px;
+                            height: 12px;
+                            font-family: Lato;
+                            font-size: 10px;
+                            line-height: 12px;
+                        }
+                    }
+                    .pending{
+                        color: #E98E3D;
+                        background-color: #F7D8BC;
+                    }
+                    .approved{
+                        color: #1FBDA0;
+                        background-color: #BAEAE1;
+                    }
+                    .rejected{
+                        color: #E25151;
+                        background-color: #F5C6C6;
+                    }
                 }
                 .days-off{
                     font-family: Lato;

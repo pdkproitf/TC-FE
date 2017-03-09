@@ -13,10 +13,15 @@
             </p-tabPanel>
             <p-tabPanel header="Pending">
                 <div class="timeoff-manage-content">
+                    <h2>Pending request ({{list_timeoff.pending_requests.length}})</h2>
                     <app-timeoff-pending-requests [timeoffs]="list_timeoff.pending_requests" (reload)="getTimeOffsPending()"></app-timeoff-pending-requests>
                 </div>
             </p-tabPanel>
         </p-tabView>
+
+        <div class="timeoff-pass-requests">
+            <a href="/#/pass-timeoffs">Show pass Timeoffs</a>
+        </div>
     </div>
 
     <div *ngIf="userObj && !(userObj.role.name == ('Admin' || 'PM'))" class="timeoff-manage-content">

@@ -14,11 +14,16 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
     _timeoffs: TimeOff[] = [];
     timeOffPut: TimeOffAnswer;
     user: Member ;
-
+    is_show_all :Boolean = false;
+    this_year = new Date(new Date().getFullYear(), 0, 1);
     @Input()
     set timeoffs(timeoffs: TimeOff[]){
         this._timeoffs = timeoffs || [];
         this.sortNewest();
+    }
+    @Input()
+    set showAll(show: Boolean){
+        this.is_show_all = show;
     }
 
     @Output() reload = new EventEmitter();
@@ -29,6 +34,8 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
         this.timeOffPut = new TimeOffAnswer();
         let userInfo = localStorage.getItem('UserInfo');
         this.user = JSON.parse(userInfo);
+        var date = new Date();
+        console.log('date - - - - -  '+new Date(new Date().getFullYear(), 0, 1));
     }
 
     ngOnChanges(changes: {[propKey: string]: SimpleChange}){
