@@ -1,19 +1,24 @@
-<h2>Pending request ({{_timeoffs.length}})</h2>
-
 <div class="content">
     <div class="request" *ngFor="let timeoff of _timeoffs" (mouseover)='showTimeoffControl(true, timeoff.id)' (mouseleave)='showTimeoffControl(false, timeoff.id)'>
         <div class="avatar" *ngIf="!timeoff.sender.user.image"></div>
         <div class="avatar" *ngIf="timeoff.sender.user.image" [ngStyle]="{'background-image': 'url('+timeoff.sender.user.image+')'}" ></div>
         <div class="details">
             <div class="inform" (click)="showDetails(timeoff.id)">
-                <span class="name">{{timeoff.sender.user.first_name + timeoff.sender.user.last_name}}</span> <br>
+                <div class="name-status">
+                    <div class="name">{{timeoff.sender.user.first_name + timeoff.sender.user.last_name}}</div>
+                    <div *ngIf="is_show_all" class="status {{timeoff.status}}">
+                        <span>{{timeoff.status | capitalize}}</span>
+                    </div>
+                </div><br>
                 <span class="days-off">Vacation on {{timeoff.start_date | date: 'MMM dd'}} - {{timeoff.end_date | date: 'MMM dd'}} </span> <span class="total-days-off">({{ (timeoff.end_date | amDifference: timeoff.start_date :'days' : true) + 1 - (timeoff.is_start_half_day? 0.5:0) - (timeoff.is_end_half_day? 0.5:0) }} days)</span> <br>
             </div>
 
-            <div class="control">
+            <div class="control" *ngIf="timeoff.status=='pending' && ((timeoff.created_at | amDateFormat: 'YYYY-MM-DD') > (this_year | amDateFormat: 'YYYY-MM-DD'))">
                 <div class="control-request">
-                    <button class="approver" (click)="answer.toggle($event); showForm('approved')">Approve</button>
-                    <button class="reject"   (click)="answer.toggle($event); showForm('rejected')">Reject</button>
+                    <div  *ngIf="(user.role.name == 'Admin' && (user.id != timeoff.sender.id)) || (user.role.name == 'PM' && (user.id != timeoff.sender.id) && ('Admin' != timeoff.sender.role.name)) ">
+                        <button class="approver" (click)="answer.toggle($event); showForm('approved')">Approve</button>
+                        <button class="reject"   (click)="answer.toggle($event); showForm('rejected')">Reject</button>
+                    </div>
                     <p-overlayPanel #answer>
                         <div class="form-container">
                             <form (ngSubmit)="update(timeoff.id, $event); answer.hide($event, actualTarget)">

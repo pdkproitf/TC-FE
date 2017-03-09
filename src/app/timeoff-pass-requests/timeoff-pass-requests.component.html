@@ -1,0 +1,16 @@
+<app-member-menu-bar [currentState]="2"></app-member-menu-bar>
+<div class="pass-timeoffs">
+    <p><a href="/#/timeoffs"><i class="fa fa-caret-left" aria-hidden="true"></i>Back to Time Off</a></p>
+
+    <div class="header">
+        <p>All request</p>
+        <button class="button-create" (click)="createTimeOff()" type="button">
+            <p>All request</p>
+            <i class="fa fa-sort-desc" aria-hidden="true"></i>
+        </button>
+    </div>
+
+    <div class="content">
+        <app-timeoff-pending-requests [timeoffs]="_timeoffs" [showAll]="true" (reload)="getTimeOffsPending()"></app-timeoff-pending-requests>
+    </div>
+</div>

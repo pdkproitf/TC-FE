@@ -32,6 +32,15 @@
             }
         }
     }
+
+    .timeoff-pass-requests > a{
+        font-family: Lato;
+        font-size: 16px;
+        line-height: 24px;
+        color: #0066CC;
+        padding-bottom: 50px;
+    }
+
     /deep/.ui-tabview  {
         :not(.ui-ribbon).ui-tabview-nav{
             height: 48px;

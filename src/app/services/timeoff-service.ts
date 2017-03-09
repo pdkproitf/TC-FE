@@ -1,4 +1,4 @@
-import { TimeOff, TimeOffPost, TimeOffGetAll, TimeOffPut } from './../models/timeoff';
+import { TimeOff, TimeOffPost, TimeOffGetAll } from './../models/timeoff';
 import { HeadersService }       from './headers-service';
 import { Headers, Http }        from '@angular/http';
 import { ServerDomain }         from '../models/server-domain';
@@ -29,9 +29,28 @@ export class TimeoffService {
         .catch(this.handleError);
     }
 
+    // get timeoff of current user under user role.
+    getTimeOff(id: number): Promise<TimeOff>{
+        let requestUrl = this.timeoffUrl + '/'+id;
+        let headers = new Headers;
+        this.headersService.createAuthHeaders(headers);
+        return this.http
+        .get(requestUrl, {headers: headers})
+        .toPromise()
+        .then(res => {
+            var timeoff: TimeOff = new TimeOff();
+            if(res.json().data){
+                console.log('get timeoff', res.json());
+                timeoff = res.json().data as TimeOff;
+            }
+            return timeoff;
+        })
+        .catch(this.handleError);
+    }
+
     // load all timeoff current user under user role.
     getTimeOffs(): Promise<TimeOffGetAll>{
-        let requestUrl = this.timeoffUrl + '';
+        let requestUrl = this.timeoffUrl + '/this-year';
         let headers = new Headers;
         this.headersService.createAuthHeaders(headers);
         return this.http
@@ -48,20 +67,56 @@ export class TimeoffService {
         .catch(this.handleError);
     }
 
-    answerTimeOff(id: number, answer_object: TimeOffPut){
+    getPassTimeOffs(){
+        let requestUrl = this.timeoffUrl + '';
+        let headers = new Headers;
+        this.headersService.createAuthHeaders(headers);
+        return this.http
+        .get(requestUrl, {headers: headers})
+        .toPromise()
+        .then(res => {
+            var timeoffs: TimeOff[] = [];
+            if(res.json().data){
+                console.log('get pass timeoffs', res.json());
+                timeoffs = res.json().data as TimeOff[];
+            }
+            return timeoffs;
+        })
+        .catch(this.handleError);
+    }
+
+    update(id: number, update_timeoff: Object){
         let requestUrl = this.timeoffUrl + '/'+id;
         let headers = new Headers;
         this.headersService.createAuthHeaders(headers);
         return this.http
-        .put(requestUrl, JSON.stringify(answer_object) ,{headers: headers})
+        .put(requestUrl, JSON.stringify(update_timeoff) ,{headers: headers})
         .toPromise()
         .then(res => {
-            var timeoffs: TimeOffGetAll = new TimeOffGetAll();
+            var timeoff: TimeOff = new TimeOff();
             if(res.json().data){
-                console.log('get timeoffs', res.json());
-                timeoffs = res.json().data as TimeOffGetAll;
+                console.log('update timeoff '+id, res.json());
+                timeoff = res.json().data as TimeOff;
             }
-            return timeoffs;
+            return timeoff;
+        })
+        .catch(this.handleError);
+    }
+
+    delete(id: number){
+        let requestUrl = this.timeoffUrl + '/'+id;
+        let headers = new Headers;
+        this.headersService.createAuthHeaders(headers);
+        return this.http
+        .delete(requestUrl, {headers: headers})
+        .toPromise()
+        .then(res => {
+            var timeoff: TimeOff = new TimeOff();
+            if(res.json().data){
+                console.log('delete timeoff '+id, res.json());
+                timeoff = res.json().data as TimeOff;
+            }
+            return timeoff;
         })
         .catch(this.handleError);
     }

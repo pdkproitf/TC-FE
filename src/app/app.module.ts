@@ -61,6 +61,7 @@ import { MembersConfirmComponent } from './members-confirm/members-confirm.compo
 import {OverlayPanelModule}     from 'primeng/primeng';
 import { ReportComponent } from './report/report.component';
 import { ReportSearchComponent } from './report-search/report-search.component';
+import { TimeoffPassRequestsComponent } from './timeoff-pass-requests/timeoff-pass-requests.component';
 
 @NgModule({
   declarations: [
@@ -99,6 +100,8 @@ import { ReportSearchComponent } from './report-search/report-search.component';
     CapitalizePipe,
     TimeoffPendingRequestsComponent,
     EditProjectComponent,
+    MembersConfirmComponent,
+    TimeoffPassRequestsComponent,
     MembersConfirmComponent,
     ReportComponent,
     ReportSearchComponent

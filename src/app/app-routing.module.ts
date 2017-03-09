@@ -17,6 +17,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ProjectDetailsComponent } from './project-details/project-details.component';
 import { TimeoffManageComponent } from './timeoff-manage/timeoff-manage.component';
 import { CreateTimeoffComponent } from './create-timeoff/create-timeoff.component';
+import { TimeoffPassRequestsComponent } from './timeoff-pass-requests/timeoff-pass-requests.component';
 
 const routes: Routes = [
     { path: 'sign-up', component: SignUpComponent, canActivate: [NotLoggedIn] },
@@ -34,6 +35,8 @@ const routes: Routes = [
     { path: 'edit-project/:id', component: EditProjectComponent, canActivate: [AuthenLoggedIn] },
     { path: 'members-confirm/:token', component: MembersConfirmComponent, canActivate: [AuthenLoggedIn] },
     { path: 'report', component: ReportComponent, canActivate: [AuthenLoggedIn] },
+    { path: 'edit-timeoff/:id', component: CreateTimeoffComponent, canActivate: [AuthenLoggedIn] },
+    { path: 'pass-timeoffs', component: TimeoffPassRequestsComponent, canActivate: [AuthenLoggedIn] },
     // { path: '', component: AppComponent }
     // { path: '', redirectTo: '/home', pathMatch: 'full'}
 ];
