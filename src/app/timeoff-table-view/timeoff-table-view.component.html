@@ -1,0 +1,38 @@
+<table>
+    <tr>
+        <th class="search-icon">
+            <span class="fa fa-search imgspan"></span>
+        </th>
+        <th class="member">
+            <input class="search-text" type="text" [(ngModel)]="searchPattern" placeholder="Search people..."/>
+        </th>
+        <th *ngFor="let i of days">
+            <div class="day-column">
+                <label class="day-string" for="">Tue</label>
+                <label for="">8</label>
+            </div>
+        </th>
+    </tr>
+
+    <tbody *ngFor="let i of days; let in = index;">
+        <tr>
+            <td class="member">
+                    <div><p-checkbox name="groupname" value="{{i}}" [(ngModel)]="selectedValues" (click)="showCheck()"></p-checkbox></div>
+            </td>
+            <td class="member">
+                <div class="avatar"></div>
+                <div class="inform" (click)="showDetails(timeoff.id)">
+                    <div class="name-status">
+                        <div class="name">Jose W.</div>
+                        <div class="status pending">
+                            Pending
+                        </div>
+                    </div>
+                    <div class="member-type">Developper</div>
+                </div>
+            </td>
+            <td *ngFor="let i of days" class="class-{{i%7}}-{{in}}">
+            </td>
+        </tr>
+    </tbody>
+</table>
