@@ -52,7 +52,7 @@
                         </td>
                     </tr>
                 </td>
-                <td><input type="checkbox" class="checkbox" (change)="chbFunc($event.target.checked, id)"></td>
+                <td><label><input type="checkbox" class="checkbox" (change)="chbFunc($event.target.checked, id)"></label></td>
             </tr>
         </table>
         <br/>
@@ -60,7 +60,7 @@
         [(ngModel)]="searchName">
         <a class="add-all" href="" (click)="addAll($event)">Add all people</a>
         <div class="notice">
-            <p>Need to add someone?</p>
+            <p>Need to add someone?</p><br/>
             <p>Go to <a routerLink="/manage-member">Manage</a> to invite them to TimeCloud</p>
         </div>
         <div [class]="classDiv" *ngIf="membersSearch.length > 0">
@@ -83,7 +83,7 @@
     <h2>Tasks</h2>
     <div class = "tasks">
         <table class="tasks-table" *ngIf="newCategories.length > 0">
-            <tr>
+            <tr> 
                 <th class="delete-name"> </th>
                 <th class="member-list">Visible to</th>
                 <th class="billable">Billable</th>
@@ -93,7 +93,7 @@
                 <td><app-adding-member (onAdd)="newAddMember($event, i)" (onDelete)="newDeleteMember($event, i)" [employeePosts]="membersToAdd"
                 [size]="membersToAdd.length"></app-adding-member>
                 </td>
-                <td><input type="checkbox" (change)="newChkFunc($event.target.checked, i)"></td>
+                <td><label><input type="checkbox" (change)="newChkFunc($event.target.checked, i)"></label></td>
             </tr>
         </table>
         <br/>

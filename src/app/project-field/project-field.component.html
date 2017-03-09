@@ -1,4 +1,4 @@
-<div *ngIf="!hidden" class="project-container" [style.background]="myProject.background">
+<div *ngIf="!hidden" class="project-container" [style.background]="backgroundImage">
   <p class="company-name">{{myProject.client.name}}</p>
   <button pButton type="text" (click)="hideProj()" icon="fa-eye-slash"></button>
   <p class="project-name">{{myProject.name}}</p>

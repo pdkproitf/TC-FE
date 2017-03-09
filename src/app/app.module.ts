@@ -59,6 +59,8 @@ import { TimeoffPendingRequestsComponent } from './timeoff-pending-requests/time
 import { EditProjectComponent } from './edit-project/edit-project.component';
 import { MembersConfirmComponent } from './members-confirm/members-confirm.component';
 import {OverlayPanelModule}     from 'primeng/primeng';
+import { ReportComponent } from './report/report.component';
+import { ReportSearchComponent } from './report-search/report-search.component';
 import { TimeoffPassRequestsComponent } from './timeoff-pass-requests/timeoff-pass-requests.component';
 
 @NgModule({
@@ -100,6 +102,9 @@ import { TimeoffPassRequestsComponent } from './timeoff-pass-requests/timeoff-pa
     EditProjectComponent,
     MembersConfirmComponent,
     TimeoffPassRequestsComponent,
+    MembersConfirmComponent,
+    ReportComponent,
+    ReportSearchComponent
   ],
   imports: [
     BrowserModule,

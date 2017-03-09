@@ -1,3 +1,4 @@
+import { ReportComponent } from './report/report.component';
 import { MembersConfirmComponent } from './members-confirm/members-confirm.component';
 import { EditProjectComponent } from './edit-project/edit-project.component';
 import { ManageMemberComponent } from './manage-member/manage-member.component';
@@ -33,6 +34,7 @@ const routes: Routes = [
     { path: 'new-timeoff', component: CreateTimeoffComponent, canActivate: [AuthenLoggedIn] },
     { path: 'edit-project/:id', component: EditProjectComponent, canActivate: [AuthenLoggedIn] },
     { path: 'members-confirm/:token', component: MembersConfirmComponent, canActivate: [AuthenLoggedIn] },
+    { path: 'report', component: ReportComponent, canActivate: [AuthenLoggedIn] },
     { path: 'edit-timeoff/:id', component: CreateTimeoffComponent, canActivate: [AuthenLoggedIn] },
     { path: 'pass-timeoffs', component: TimeoffPassRequestsComponent, canActivate: [AuthenLoggedIn] },
     // { path: '', component: AppComponent }

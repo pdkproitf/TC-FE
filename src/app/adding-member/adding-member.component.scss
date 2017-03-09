@@ -4,12 +4,26 @@
     display:none;
 }
 input[type='checkbox']{
+    margin-left: 0%;
     width: 16px;
     height: 16px;
     border-radius: 3px;
-    &:checked + label{
-        background-color: #0066CC !important;
-        color: white !important;
+    &:after{
+        content: "  ";
+        background-color: white;
+        display: inline-block;
+        visibility: visible;    
+        width: 16px;
+        height: 16px;
+        border-radius: 3px;
+        text-align: center;
+        font-size: 14px;
+        border: solid 0.5px $blueColor;
+    }
+    &:checked:after{
+        content: "\2714";
+        color: white;
+        background-color: $blueColor
     }
 }
 ul.current-list{
