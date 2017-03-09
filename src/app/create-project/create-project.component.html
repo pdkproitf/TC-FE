@@ -52,7 +52,7 @@
                         </td>
                     </tr>
                 </td>
-                <td><input type="checkbox" class="checkbox" (change)="chbFunc($event.target.checked, id)"></td>
+                <td><label><input type="checkbox" class="checkbox" (change)="chbFunc($event.target.checked, id)"></label></td>
             </tr>
         </table>
         <br/>
@@ -93,7 +93,7 @@
                 <td><app-adding-member (onAdd)="newAddMember($event, i)" (onDelete)="newDeleteMember($event, i)" [employeePosts]="membersToAdd"
                 [size]="membersToAdd.length"></app-adding-member>
                 </td>
-                <td><input type="checkbox" (change)="newChkFunc($event.target.checked, i)"></td>
+                <td><label><input type="checkbox" (change)="newChkFunc($event.target.checked, i)"></label></td>
             </tr>
         </table>
         <br/>

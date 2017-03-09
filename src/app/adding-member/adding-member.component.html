@@ -1,4 +1,4 @@
-<input class="chkbx" type="checkbox" (change)="checkAll($event.target.checked)" name="checkbox">All<br/>
+<label><input class="chkbx" type="checkbox" (change)="checkAll($event.target.checked)" name="checkbox"></label> All<br/>
 <br *ngIf="employees.length == 0"/>
 <ul class="current-list" *ngIf="employees.length > 0">
   <li *ngFor="let emp of employees; let i = index">
