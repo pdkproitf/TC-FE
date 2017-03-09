@@ -60,6 +60,7 @@ import { EditProjectComponent } from './edit-project/edit-project.component';
 import { MembersConfirmComponent } from './members-confirm/members-confirm.component';
 import {OverlayPanelModule}     from 'primeng/primeng';
 import { ReportComponent } from './report/report.component';
+import { ReportSearchComponent } from './report-search/report-search.component';
 
 @NgModule({
   declarations: [
@@ -99,7 +100,8 @@ import { ReportComponent } from './report/report.component';
     TimeoffPendingRequestsComponent,
     EditProjectComponent,
     MembersConfirmComponent,
-    ReportComponent
+    ReportComponent,
+    ReportSearchComponent
   ],
   imports: [
     BrowserModule,
