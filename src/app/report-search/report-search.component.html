@@ -1,3 +1,4 @@
+<div class=container>
 <div class="search-report">
   <table class="search-fields">
     <tr>
@@ -5,7 +6,7 @@
         <div class="in-th when">
           <p class="title-field">When</p><br/>
           <p class="value-field">Last week</p>
-          <span class="fa fa-angle-down down-img"></span>
+          <span class="fa fa-angle-down down-img" (click)="changeClassDiv(0)"></span>
         </div>
       </th>
       <th class="what">
@@ -25,4 +26,18 @@
       </th>
     </tr>
   </table>
+</div>
+<div [class]="classDiv[0]">
+  <p-calendar  [inline]="true"></p-calendar>
+  <p-calendar  [inline]="true"></p-calendar>
+  <div class="options">
+    <table class="options">
+      <tr *ngFor="let option of options; let row = index">
+        <td *ngFor="let str of option; let col = index">
+          <div class="option">{{str}}</div>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
 </div>

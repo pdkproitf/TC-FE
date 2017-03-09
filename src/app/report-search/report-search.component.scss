@@ -1,6 +1,7 @@
 @import '../general-style/color-style.scss';
 @import '../general-style/font-style.scss';
- 
+.container{
+    position: relative;
 h1{
     margin: 0;
     padding: 0;
@@ -81,6 +82,9 @@ h4{
                         bottom: 6px;
                         color: $fontWhiteBorder;
                         font-size: 24px;
+                        &:hover{
+                            cursor: pointer;
+                        }
                     }
                     input.text-field{
                         margin-left: 24px;
@@ -125,3 +129,108 @@ h4{
     }
 }
 // -------------------------------------------------------- End Report Search --------------------------------------------------------
+// -------------------------------------------------------- Choose time --------------------------------------------------------------
+.choose-time{
+    &.hide{
+        display: none;
+    }
+    position: absolute;
+    z-index: 1;
+    top: 71px;;
+    width: 604px;
+    height: 400px;
+    background-color: #FFFFFF;
+    box-shadow: inset 0 0 0 1px #DDE1E5, 0 5px 12px 0 rgba(0,0,0,0.12);
+    .options{
+        position: absolute;
+        bottom: 0px;
+        width: 100%;
+        height: 106px;
+        box-shadow: inset 0 1px 0 0 #EEEEEE;
+        table.options{
+            table-layout:fixed;
+            width: 100%;
+            height: 100%;
+            border-collapse: collapse;
+            border-spacing: none;
+            tr{
+                td{
+                    text-align: center;
+                    padding-left: 28px;
+                    .option{
+                        font-size: 14px;
+                        line-height: 18px;
+                        color: #363636;
+                        font-weight: normal;
+
+                        padding-top: 8px;
+                        width: 90px;
+                        height: 24px;
+                        background-color: #EEEEEE;
+                        border-radius: 100px;
+                        &:hover{
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    /deep/.ui-calendar{
+        margin-top: 21px;
+        margin-left: 20px;
+        float: left;
+        .ui-datepicker{
+            border: none !important;
+            .ui-datepicker-header{
+                background: transparent;
+                border: none !important;
+                font-size: 16px;
+                line-height: 24px;
+                color: rgba(54,54,54,0.7);
+                .ui-datepicker-month{
+                    color: #363636;
+                }
+                .ui-datepicker-year{
+                    font-weight: normal;
+                }
+                .ui-datepicker-prev,.ui-datepicker-next{
+                    border-radius: 50%;
+                    border: 1px solid rgba(54,54,54,0.3);
+                    width: 24px;
+                    height: 24px;
+                }
+            }
+            .ui-datepicker-calendar{
+                thead{
+                    th {
+                        background: transparent;
+                        font-size: 12px;
+                        text-align: center;
+                        line-height: 15px;
+                        color: rgba(54,54,54,0.7);
+                        font-weight: normal;
+                    }
+                }
+                tbody{
+                    td{
+                        font-size: 12px;
+                        a {
+                            font-weight: bold !important;
+                        }
+                        border: 1px solid rgba(54,54,54,0.1);
+                    }
+                }
+                .ui-state-highlight{
+                    background: transparent !important;
+                    color: $blueColor;
+                }
+                .ui-state-active{
+                    background: $blueColor !important;
+                    color: white;
+                }
+            }
+        }
+    }
+}
+}
