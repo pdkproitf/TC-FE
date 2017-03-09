@@ -62,6 +62,7 @@ import {OverlayPanelModule}     from 'primeng/primeng';
 import { ReportComponent } from './report/report.component';
 import { ReportSearchComponent } from './report-search/report-search.component';
 import { TimeoffPassRequestsComponent } from './timeoff-pass-requests/timeoff-pass-requests.component';
+import { TimeoffCalendarComponent } from './timeoff-calendar/timeoff-calendar.component';
 
 @NgModule({
   declarations: [
@@ -104,7 +105,8 @@ import { TimeoffPassRequestsComponent } from './timeoff-pass-requests/timeoff-pa
     TimeoffPassRequestsComponent,
     MembersConfirmComponent,
     ReportComponent,
-    ReportSearchComponent
+    ReportSearchComponent,
+    TimeoffCalendarComponent,
   ],
   imports: [
     BrowserModule,

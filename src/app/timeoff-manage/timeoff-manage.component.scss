@@ -32,13 +32,19 @@
             }
         }
     }
+    .timeoff-calendar{
+            margin-top: 30px;
+    }
 
-    .timeoff-pass-requests > a{
-        font-family: Lato;
-        font-size: 16px;
-        line-height: 24px;
-        color: #0066CC;
-        padding-bottom: 50px;
+    .timeoff-pass-requests {
+        margin-top: 30px;
+        a{
+            font-family: Lato;
+            font-size: 16px;
+            line-height: 24px;
+            color: #0066CC;
+            padding-bottom: 50px;
+        }
     }
 
     /deep/.ui-tabview  {
