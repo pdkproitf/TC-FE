@@ -233,4 +233,66 @@ h4{
         }
     }
 }
+//----------------------------------------------End choose Time ------------------------------------------------
+//-------------------------------------------------Choose Projects - Members----------------------------------------------
+.choose-project,.choose-member{
+    &.hide{
+        display: none;
+    }
+    position: absolute;
+    z-index: 1;
+    top: 71px;;
+    width: 285px;
+    overflow: auto;
+    overflow-x: hidden;
+    max-height: 300px;
+    background-color: #FFFFFF;
+    box-shadow: inset 0 0 0 1px #DDE1E5, 0 5px 12px 0 rgba(0,0,0,0.12);
+    margin-left: 33%;
+    ul.projects{
+        list-style-type: none;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        padding-top: 16px;
+        font-size: 16px;
+        line-height: 24px;
+        color: #363636;
+        font-weight: normal;
+        li{
+            padding-bottom: 15px;
+            padding-top: 15px;
+            padding-left: 32px;
+            &:hover{
+                cursor: pointer;
+                background: #F6F8FD;
+            }
+        }
+    }
+}
+.choose-member{
+    margin-left: 61%;
+    width: 260px;
+    max-height: 340px;
+    ul.members{
+        list-style-type: none;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        padding-top: 16px;
+        font-size: 16px;
+        line-height: 24px;
+        color: #363636;
+        font-weight: normal;
+        li{
+            padding-bottom: 15px;
+            padding-top: 15px;
+            padding-left: 32px;
+            &:hover{
+                cursor: pointer;
+                background: #F6F8FD;
+            }
+        }
+    }
+}
 }
