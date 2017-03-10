@@ -8,13 +8,16 @@ import { Component, OnInit } from '@angular/core';
 export class ReportDetailComponent implements OnInit {
   data: any;
   options: any;
-
+  items: any;
   upDeco = 1.0;
+  navClass = ['choosing', '', ''];
+  choosing: number = 0;
   constructor() {
   }
   ngOnInit() {
     this.data = {
-      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      labels: [['Mon', 'Feb 6'], ['Tue', 'Feb 7'], ['Wed', 'Feb 8'], ['Thu', 'Feb 9'],
+      ['Fri', 'Feb 10'], ['Sat', 'Feb 11'], ['Sun', 'Feb 12']],
       datasets: [
       {
         label: 'Hours',
@@ -32,26 +35,81 @@ export class ReportDetailComponent implements OnInit {
     this.options = {
         title: {
             display: false,
-            text: 'My Title',
-            fontSize: 16
         },
         legend: {
-            position: 'bottom',
-            display: false,
+            display: false
         },
         scales: {
           xAxes: [{
-            stacked: true
+            stacked: true,
+            ticks: {
+              fontColor: 'rgba(54,54,54,0.7);',
+              fontSize: 14,
+              fontStyle: 'normal',
+              fontFamily: 'Lato',
+            }
           }],
           yAxes: [{
             stacked: true,
             ticks: {
-                    max: 10,
+                    max: 12,
                     min: 0,
                     stepSize: 2
                 }
           }]
-        }
+        },
+        hover: {
+            mode: 'index'
+        },
+        events: {
+
+        },
+        animation: {
+        duration: 1,
+        onComplete: function () {
+            let chartInstance = this.chart,
+            ctx = chartInstance.ctx;
+            ctx.fillStyle = '#000000';
+            /*ctx.font = UIChart.helpers.fontString(Chart.defaults.global.defaultFontSize,
+             Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);*/
+            ctx.font = 'bold 14px Lato';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'bottom';
+
+            this.data.datasets.forEach(function (dataset, i) {
+              if (i === 0) {
+                let meta = chartInstance.controller.getDatasetMeta(i);
+                meta.data.forEach(function (bar, index) {
+                    let data = dataset.data[index];
+                    ctx.fillText(data, bar._model.x, bar._model.y - 20);
+                    ctx.fillStyle = '#FFFFFF';
+                    console.log(bar._model.y);
+                    let toFull = 208 - bar._model.y;
+                    if  (data > 0)  {
+                      ctx.fillText('$', bar._model.x, bar._model.y + (toFull / 2) + 2);
+                    }
+                    ctx.fillStyle = '#000000';
+                });
+              }
+            });
+        },
+    }
     };
+    this.items = [
+      {label: 'PDF', icon: 'fa-file-pdf-o'},
+      {label: 'DOC', icon: 'fa-file-text-o'},
+      {label: 'XSL', icon: 'fa-file-excel-o', command: (event) => {
+        console.log('XSL');
+        }
+      }
+    ];
+  }
+  chooseNavClass(a) {
+    let len = this.navClass.length;
+    for (let i = 0; i < len; i++ ) {
+      this.navClass[i] = '';
+    }
+    this.navClass[a] = 'choosing';
+    this.choosing = a;
   }
 }

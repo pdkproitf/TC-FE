@@ -19,9 +19,21 @@
       </tr>
     </table>
   </div>
-  
+
   <div class="chart">
     <p-chart #chart type="bar" [data]="data" [options]="options" height="75"></p-chart>
+  </div>
+
+  <div class="report">
+    <ul class="nav-bar">
+      <li (click)="chooseNavClass(0)" [class]="navClass[0]"><p>By Projects</p></li>
+      <li (click)="chooseNavClass(1)" [class]="navClass[1]"><p>By Tasks</p></li>
+      <li (click)="chooseNavClass(2)" [class]="navClass[2]"><p>Overtime</p><div class="dot-ot"></div></li>
+      <li class="export">
+        <p-menu #menu popup="popup" [model]="items"></p-menu>
+        <button pButton type="button" label="Export" icon="fa-caret-down" (click)="menu.toggle($event)" iconPos="right"></button>
+      </li>
+    </ul>
   </div>
 
 </div>
