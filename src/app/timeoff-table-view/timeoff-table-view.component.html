@@ -1,0 +1,85 @@
+<div class="content">
+    <table>
+        <tr>
+            <th class="search-icon">
+                <span class="fa fa-search imgspan"></span>
+            </th>
+            <th class="member">
+                <input class="search-text" type="text" [(ngModel)]="searchPattern" (keyup)="search()" placeholder="Search people..."/>
+            </th>
+            <th *ngFor="let day of days">
+                <div class="day-column">
+                    <label class="day-string" for="">{{day | date: 'EEE' }}</label>
+                    <label for="">{{day | date: 'dd'}}</label>
+                </div>
+            </th>
+        </tr>
+
+        <tbody >
+            <tr *ngFor="let member of list_members">
+                <td class="member">
+                    <div><p-checkbox name="groupname" value="{{member.id}}" [(ngModel)]="selectedValues" (click)="checked()"></p-checkbox></div>
+                </td>
+                <td class="member">
+                    <div class="avatar" *ngIf="!member.user || !member.user.image"></div>
+                    <div class="avatar" *ngIf="member.user && member.user.image" [ngStyle]="{'background-image': 'url('+member.user.image+')'}" ></div>
+                    <div class="inform">
+                        <div class="name-status">
+                            <div class="name"><span *ngIf="member.user">{{(member.user.first_name + ' '+ member.user.last_name) | capitalize}}</span></div>
+                            <div class="status pending">
+                                Pending
+                            </div>
+                        </div>
+                        <div class="member-type"><span *ngIf="member.user">{{member.role.name}}</span></div>
+                    </div>
+                </td>
+                <td *ngFor="let day of days">
+                    <div *ngIf=" (day.getDay()%6 !=0) && hash_created.get(member.id) && hash_created.get(member.id).get(day.getTime()) &&
+                    (hash_created.get(member.id).get(day.getTime()).status == 'pending' || hash_created.get(member.id).get(day.getTime()).status == 'approved')"
+                    class="cel-{{hash_created.get(member.id).get(day.getTime()).status}}">
+                        <button (click)="pppp.toggle($event); answerTimeoff(hash_created.get(member.id).get(day.getTime()))" class="cel-{{hash_created.get(member.id).get(day.getTime()).status}}">
+                        </button>
+                        <p-overlayPanel #pppp>
+                            <div class="form-container">
+                                <form (ngSubmit)="update(); pppp.hide($event, actualTarget)">
+                                    <div class="status">
+                                        <div class=""></div>
+                                        <label for=""></label>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <textarea  name="answer" placeholder="Say something ..." required ></textarea>
+                                    </div>
+                                    <button class="approve" type="submit"> & Send</button>
+                                    <button  class="cancle" type="button" (click)="pppp.hide($event, actualTarget)">Cancel</button>
+                                </form>
+                            </div>
+                        </p-overlayPanel>
+                    </div>
+
+                    <div *ngIf="(day.getDay()%6 == 0)" class="cel-weekend"></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="calendar-note">
+        <div class="cel-approved thumble inline"></div>
+        <label for="Time Off">Time Off</label>
+
+        <div class="cel-pending thumble inline"></div>
+        <label for="Pending">Pending</label>
+
+        <div class="cel-holiday thumble inline"></div>
+        <label for="Holiday">Holiday</label>
+    </div>
+
+    <div class="messages">
+        <label for="">{{selectedValues.length}} people were selected</label>
+        <div class="action">
+            <button class="show-selected" type="button" (click)="showSelected()">Show selected</button>
+            <button class="cancel" type="button" (click)="hidenMessage()"  >Cancel</button>
+        </div>
+        .<button class="clear" type="button" name="button" (click)="hidenMessage()">Clear</button>
+    </div>
+</div>

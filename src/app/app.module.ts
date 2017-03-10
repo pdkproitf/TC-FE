@@ -62,6 +62,9 @@ import {OverlayPanelModule}     from 'primeng/primeng';
 import { ReportComponent } from './report/report.component';
 import { ReportSearchComponent } from './report-search/report-search.component';
 import { TimeoffPassRequestsComponent } from './timeoff-pass-requests/timeoff-pass-requests.component';
+import { TimeoffCalendarComponent } from './timeoff-calendar/timeoff-calendar.component';
+import { TimeoffTableViewComponent } from './timeoff-table-view/timeoff-table-view.component';
+import { CheckboxModule } from 'primeng/primeng';
 
 @NgModule({
   declarations: [
@@ -104,7 +107,9 @@ import { TimeoffPassRequestsComponent } from './timeoff-pass-requests/timeoff-pa
     TimeoffPassRequestsComponent,
     MembersConfirmComponent,
     ReportComponent,
-    ReportSearchComponent
+    ReportSearchComponent,
+    TimeoffCalendarComponent,
+    TimeoffTableViewComponent,
   ],
   imports: [
     BrowserModule,
@@ -125,7 +130,8 @@ import { TimeoffPassRequestsComponent } from './timeoff-pass-requests/timeoff-pa
     ReactiveFormsModule,
     RadioButtonModule,
     MomentModule,
-    OverlayPanelModule
+    OverlayPanelModule,
+    CheckboxModule
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
   AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService,

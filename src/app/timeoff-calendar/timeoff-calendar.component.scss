@@ -1,0 +1,127 @@
+.title{
+    font-family: Montserrat;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 29px;
+    color: #363636;
+}
+.show-control{
+    .inline{
+        display: inline-block;
+    }
+    .calendar-details{
+        display: inline-block;
+        height: 32px;
+        position: static;
+        .show-week{
+            .oval{
+                width: 32px;
+                height: 32px;
+                margin-right: 10px;
+                border-radius: 50%;
+                opacity: 0.7;
+                box-shadow: 0 2px 2px 0 rgba(0,0,0,0.24);
+                cursor: pointer;
+                .text{
+                    height: 17px;
+                    text-align: center;
+                    padding-top: 8px;
+                    color: #898989;
+                }
+            }
+            .oval:hover{background-color:#ddd}
+        }
+        & label{
+            display: inline-block;
+            height: 24px;
+            font-family: Lato;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 24px;
+            color: #363636;
+            margin-right: 10px;
+        }
+        & .today{
+            color: rgba(54,54,54,0.7);
+            font-weight: normal;
+            cursor: pointer;
+        }
+        .show-date{
+            .calendar{
+                display: inline-block;
+            }
+            /deep/ .ui-calendar{
+                input{
+                    cursor: pointer;
+                    width: 150px;
+                    margin-right: 5px;
+                }
+                .ui-button.ui-state-default{
+                    color: #898989;
+                    background: white;
+                    border: 0px;
+                    border-radius: 50%;
+                    opacity: 0.7;
+                    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24);
+                }
+                .ui-button.ui-state-default:hover{ background: #ddd;}
+            }
+        }
+    }
+
+    .show-type{
+        display: inline-block;
+        float: right;
+        label{
+            font-family: Lato;
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 17px;
+            color: #363636;
+            display: inline-block;
+            margin-right: 5px;
+        }
+        .dropdown{
+            width: 128px;
+            height: 40px;
+            background-color: #EEEEEE;
+            border-radius: 100px;
+            vertical-align: middle;
+            text-align: center;
+            position: relative;
+            label{
+                padding-top: 8px;
+                font-family: Lato;
+                font-size: 16px;
+                line-height: 24px;
+                color: rgba(54,54,54,0.7);
+            }
+            .dropdown-content{
+                display: none;
+                z-index: 1;
+                background-color: #f9f9f9;
+                margin-top: 10px;
+                box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);display: none;
+                z-index: 1;
+                label{
+                    display: block;
+                    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);display: none;
+                }
+            }
+        }
+        .roles{
+            width: 106px;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .and{
+            margin: 0 5px 0 5px;
+            color: rgba(54,54,54,0.7);
+            font-weight: normal;
+        }
+    }
+}
+.table-view{
+    margin-top: 30px;
+}
