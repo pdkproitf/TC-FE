@@ -27,7 +27,7 @@
                                     <textarea [(ngModel)]="timeOffPut.answer_timeoff_request.approver_messages" name="answer" placeholder="Say something ..." required ></textarea>
                                 </div>
                                 <button class="approve" type="submit">{{timeOffPut.answer_timeoff_request.status | capitalize}} & Send</button>
-                                <button  class="cancle" (click)="answer.hide($event, actualTarget)">Cancel</button>
+                                <button  class="cancle" type="button" (click)="answer.hide($event, actualTarget)">Cancel</button>
                             </form>
                         </div>
                     </p-overlayPanel>

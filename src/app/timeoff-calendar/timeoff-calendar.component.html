@@ -1,19 +1,19 @@
 <p class="title">
-  Time offcalendar
+    Time offcalendar
 </p>
 
 <div class="show-control">
     <div class="calendar-details">
         <div class="show-week inline" >
-            <div class="inline oval" (click)="previousWeek()"><div class="text"><i class="fa fa-angle-left" aria-hidden="true"></i></div></div>
+            <div class="inline oval" (click)="addWeeks(false)"><div class="text"><i class="fa fa-angle-left" aria-hidden="true"></i></div></div>
             <label for="">{{start_date | date: 'MMM dd'}} - {{end_date | date: 'MMM dd'}}</label>
-            <div class="inline oval" (click)="nextWeek()"><div class="text"><i class="fa fa-angle-right" aria-hidden="true"></i></div></div>
+            <div class="inline oval" (click)="addWeeks(true)"><div class="text"><i class="fa fa-angle-right" aria-hidden="true"></i></div></div>
         </div>
         <div class="show-date inline">
             <label class="today" for="">Today</label>
             <div class="calendar">
-        </div>
-            <p-calendar [(ngModel)]="start_date" [minDate]="today" [showIcon]="true" readonlyInput="readonlyInput" dateFormat="M dd" placeholder="Pick a date..." (onSelect)="setWeeks($event)"></p-calendar>
+                <p-calendar [(ngModel)]="start_date" [minDate]="today" [showIcon]="true" readonlyInput="readonlyInput" dateFormat="M dd" placeholder="Pick a date..." (onSelect)="setWeeks($event)"></p-calendar>
+            </div>
         </div>
     </div>
 
@@ -38,5 +38,5 @@
 </div>
 
 <div class="table-view">
-    <app-timeoff-table-view></app-timeoff-table-view>
+    <app-timeoff-table-view [startDay]="start_date"  [endDay]="end_date"></app-timeoff-table-view>
 </div>

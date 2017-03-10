@@ -1,133 +1,165 @@
-table{
-    th, td{
-        border-left: 1px solid rgba(54,54,54,0.1);;
-    }
-    .search-text{
-        font-size: 24px;
-        font-family: Lato;
-        background: transparent;
-        // border: none;
-        &:hover{
-            cursor: pointer;
-            background: #F3F5F8;
+.content{
+    table{
+        th, td{
+            border-left: 1px solid rgba(54,54,54,0.1);;
         }
-    }
-    tr{
-        width: 1043px;
-        height: 56px;
-        box-shadow: inset 0 -1px 0 0 rgba(54,54,54,0.1);
-        .day-column{
-            width: 5%;
-            // border: 0px;
-            // border-right: 1px solid #ddd;
-            // border-bottom: 1px solid #ddd;
-            min-width: 55px;
+        .search-text{
+            font-size: 24px;
             font-family: Lato;
-            font-size: 14px;
-            text-align: center;
-            line-height: 17px;
-            color: #363636;
-            & label{
-                display: block;;
-            }
-            & .day-string{
-                color: rgba(54,54,54,0.7);
-                font-weight: normal;
-            }
-        }
-        .search-icon{
-            border-left: 0px;
-            color: #898989;
-        }
-        .member{
-            border: 0px;
-            max-width: 190px;
-            input{
-                font-family: Lato;
-                font-size: 16px;
-                line-height: 24px;
-                color: #363636;
-                border: 0px;
-                max-width: 190px;
-                height: 100%;
+            background: transparent;
+            // border: none;
+            &:hover{
                 cursor: pointer;
-            }
-            input:hover{
-                background: white;
+                background: #F3F5F8;
             }
         }
-
-        .search{
-            border: 0px;
-        }
-        td{
-            .avatar{
-                display: inline-block;
-                width: 32px;
-                min-width: 32px;
-                height: 32px;
-                border-radius: 50%;
-                background-image: url('/assets/image-profile/default-avatar.png');
-                background-size: contain;
-                background-color: #ddd;
-            }
-            .inform{
-                display: inline-block;
-                .name-status{
-                    .name{
-                        font-family: Lato;
-                        font-size: 14px;
-                        font-weight: bold;
-                        line-height: 17px;
-                        color: #363636;
-                        display: inline-block;
-                    }
-                    .status{
-                        width: 54px;
-                        height: 17px;
-                        border-radius: 25px;
-                        display: inline-block;
-                        text-align: center;
-                        vertical-align: middle;
-                        font-family: Lato;
-                        font-size: 10px;
-                        line-height: 12px;
-                        padding-top: 3px;
-                    }
-                    .pending{
-                        color: #E98E3D;
-                        background-color: #F7D8BC;
-                    }
-                    .approved{
-                        color: #1FBDA0;
-                        background-color: #BAEAE1;
-                    }
-                    .rejected{
-                        color: #E25151;
-                        background-color: #F5C6C6;
-                    }
+        tr{
+            max-width: 1043px;
+            height: 56px;
+            box-shadow: inset 0 -1px 0 0 rgba(54,54,54,0.1);
+            .day-column{
+                width: 55px;
+                font-family: Lato;
+                font-size: 14px;
+                text-align: center;
+                line-height: 17px;
+                color: #363636;
+                & label{
+                    display: block;;
                 }
-                .member-type{
-                    display: inline-block;
-                    margin-bottom: 5px;
-                    width: 56px;
-                    height: 15px;
-                    font-family: Lato;
-                    font-size: 12px;
-                    line-height: 15px;
+                & .day-string{
                     color: rgba(54,54,54,0.7);
+                    font-weight: normal;
                 }
             }
-        }
-        .class-0-5{
-            background-image: url('/assets/image-table/pending.png');
-        }
-        .class-1-6{
-            width: 100%;
-            background: rgba(0,102,204,0.8);
-        }
-        .class-2-7{
-            background: rgba(155,89,182,0.8)
+            .search-icon{
+                border-left: 0px;
+                color: #898989;
+            }
+            .member{
+                border: 0px;
+                max-width: 180px;
+                input{
+                    font-family: Lato;
+                    font-size: 16px;
+                    line-height: 24px;
+                    color: #363636;
+                    border: 0px;
+                    max-width: 180px;
+                    height: 100%;
+                    cursor: pointer;
+                }
+                input:hover{
+                    background: white;
+                }
+            }
+
+            .search{
+                border: 0px;
+            }
+            td{
+                .avatar{
+                    display: inline-block;
+                    width: 32px;
+                    min-width: 32px;
+                    height: 32px;
+                    border-radius: 50%;
+                    background-image: url('/assets/image-profile/default-avatar.png');
+                    background-size: contain;
+                    background-color: #ddd;
+                }
+                .inform{
+                    display: inline-block;
+                    .name-status{
+                        .name{
+                            font-family: Lato;
+                            font-size: 14px;
+                            font-weight: bold;
+                            line-height: 17px;
+                            color: #363636;
+                            display: inline-block;
+                        }
+                        .status{
+                            width: 54px;
+                            height: 17px;
+                            border-radius: 25px;
+                            display: inline-block;
+                            text-align: center;
+                            vertical-align: middle;
+                            font-family: Lato;
+                            font-size: 10px;
+                            line-height: 12px;
+                            padding-top: 3px;
+                        }
+                        .pending{
+                            color: #E98E3D;
+                            background-color: #F7D8BC;
+                        }
+                        .approved{
+                            color: #1FBDA0;
+                            background-color: #BAEAE1;
+                        }
+                        .rejected{
+                            color: #E25151;
+                            background-color: #F5C6C6;
+                        }
+                    }
+                    .member-type{
+                        display: inline-block;
+                        margin-bottom: 5px;
+                        width: 56px;
+                        height: 15px;
+                        font-family: Lato;
+                        font-size: 12px;
+                        line-height: 15px;
+                        color: rgba(54,54,54,0.7);
+                    }
+                }
+            }
         }
     }
+    .calendar-note{
+        text-align: right;
+        .thumble{
+            max-width: 24px;
+            max-height: 24px;
+            margin-top: 20px;
+        }
+        label{
+            vertical-align: super;
+            font-family: Lato;
+            font-size: 12px;
+            line-height: 15px;
+            color: rgba(54,54,54,0.7);
+            margin-right: 5px;
+        }
+    }
+    .cel-pending{
+        width: 55px;
+        height: 55px;
+        cursor: pointer;
+        background-image: url('/assets/image-table/pending.png');
+    }
+    .cel-approved{
+        width: 55px;
+        height: 55px;
+        cursor: pointer;
+        background: rgba(0,102,204,0.8);
+    }
+    .cel-rejected{
+        width: 55px;
+        height: 55px;
+        cursor: pointer;
+        background-color: #f44336;
+    }
+    .cel-holiday{
+        width: 55px;
+        height: 55px;
+        cursor: pointer;
+        background: rgba(155,89,182,0.8)
+    }
+    .inline{
+        display: inline-block;
+    }
+
 }

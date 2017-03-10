@@ -1,38 +1,58 @@
-<table>
-    <tr>
-        <th class="search-icon">
-            <span class="fa fa-search imgspan"></span>
-        </th>
-        <th class="member">
-            <input class="search-text" type="text" [(ngModel)]="searchPattern" placeholder="Search people..."/>
-        </th>
-        <th *ngFor="let i of days">
-            <div class="day-column">
-                <label class="day-string" for="">Tue</label>
-                <label for="">8</label>
-            </div>
-        </th>
-    </tr>
-
-    <tbody *ngFor="let i of days; let in = index;">
+<div class="content">
+    <table>
         <tr>
-            <td class="member">
-                    <div><p-checkbox name="groupname" value="{{i}}" [(ngModel)]="selectedValues" (click)="showCheck()"></p-checkbox></div>
-            </td>
-            <td class="member">
-                <div class="avatar"></div>
-                <div class="inform" (click)="showDetails(timeoff.id)">
-                    <div class="name-status">
-                        <div class="name">Jose W.</div>
-                        <div class="status pending">
-                            Pending
-                        </div>
-                    </div>
-                    <div class="member-type">Developper</div>
+            <th class="search-icon">
+                <span class="fa fa-search imgspan"></span>
+            </th>
+            <th class="member">
+                <input class="search-text" type="text" [(ngModel)]="searchPattern" (keyup)="search()" placeholder="Search people..."/>
+            </th>
+            <th *ngFor="let day of days">
+                <div class="day-column">
+                    <label class="day-string" for="">{{day | date: 'EEE' }}</label>
+                    <label for="">{{day | date: 'dd'}}</label>
                 </div>
-            </td>
-            <td *ngFor="let i of days" class="class-{{i%7}}-{{in}}">
-            </td>
+            </th>
         </tr>
-    </tbody>
-</table>
+
+        <tbody >
+            <tr *ngFor="let member of list_members">
+                <td class="member">
+                        <div><p-checkbox name="groupname" value="{{member.id}}" [(ngModel)]="selectedValues" (click)="showCheck()"></p-checkbox></div>
+                </td>
+                <td class="member">
+                    <div class="avatar" *ngIf="member.user && !member.user.image"></div>
+                    <div class="avatar" *ngIf="member.user && member.user.image" [ngStyle]="{'background-image': 'url('+member.user.image+')'}" ></div>
+                    <div class="inform" (click)="showDetails(timeoff.id)">
+                        <div class="name-status">
+                            <div class="name"><span *ngIf="member.user">{{(member.user.first_name + ' '+ member.user.last_name) | capitalize}}</span></div>
+                            <div class="status pending">
+                                Pending
+                            </div>
+                        </div>
+                        <div class="member-type"><span *ngIf="member.user">{{member.role.name}}</span></div>
+                    </div>
+                </td>
+                <td *ngFor="let day of days">
+                    <div    *ngIf="hash_created.get(member.id) && hash_created.get(member.id).get(day.getTime())"
+                            class="cel-{{hash_created.get(member.id).get(day.getTime()).status}}"></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="calendar-note">
+        <div class="cel-approved thumble inline"></div>
+        <label for="Time Off">Time Off</label>
+
+        <div class="cel-pending thumble inline"></div>
+        <label for="Pending">Pending</label>
+
+        <div class="cel-rejected thumble inline"></div>
+        <label for="Rejected">Rejected</label>
+
+        <div class="cel-holiday thumble inline"></div>
+        <label for="Holiday">Holiday</label>
+    </div>
+
+</div>

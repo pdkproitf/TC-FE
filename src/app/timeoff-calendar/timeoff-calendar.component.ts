@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit }    from '@angular/core';
 
 @Component({
     selector: 'app-timeoff-calendar',
@@ -12,7 +12,7 @@ export class TimeoffCalendarComponent implements OnInit {
     start_date: Date = new Date();
     end_date: Date;
 
-    constructor() { }
+    constructor() {}
 
     ngOnInit() {
         this.end_date =  new Date();
@@ -20,24 +20,13 @@ export class TimeoffCalendarComponent implements OnInit {
     }
 
     setWeeks($event){
-        console.log('event',$event);
         this.start_date = $event;
-        this.updateEndDay();
+        this.addWeeks(true);
     }
 
-    previousWeek(){
+    addWeeks(add: boolean){
         this.start_date =  new Date(this.start_date.toString());
-        this.start_date.setDate(this.start_date.getDate() - 14);
-        this.updateEndDay();
-    }
-
-    nextWeek(){
-        this.start_date =  new Date(this.start_date.toString());
-        this.start_date.setDate(this.start_date.getDate() + 14);
-        this.updateEndDay();
-    }
-
-    updateEndDay(){
+        add? this.start_date.setDate(this.start_date.getDate() + 14) : this.start_date.setDate(this.start_date.getDate() - 14);
         this.end_date =  new Date(this.start_date.toString());
         this.end_date.setDate(this.start_date.getDate() + 14);
     }

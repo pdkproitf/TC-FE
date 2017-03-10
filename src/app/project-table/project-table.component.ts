@@ -21,7 +21,9 @@ export class ProjecTableComponent implements OnInit, OnChanges {
     _projects: ProjectGetAll[] = [];
 
     @Input() projects: ProjectGetAll[];
+
     constructor(private router: Router) { }
+    
     ngOnInit() {
         if(this.projects.length > 1){
             this.projects.sort(function(a, b){
