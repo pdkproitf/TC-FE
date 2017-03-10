@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { ProjectService } from './../services/project-service';
 import { ProjectGetAll } from './../models/project';
 import { Member } from './../models/member';
@@ -12,7 +13,8 @@ import { Component, OnInit } from '@angular/core';
 export class ReportComponent implements OnInit {
   members: Member[] = [];
   projectLists: ProjectGetAll[]= [];
-  constructor(private membershipService: MembershipService, private projectService: ProjectService) { }
+  constructor(private membershipService: MembershipService, private projectService: ProjectService,
+  private router: Router) { }
 
   ngOnInit() {
     this.membershipService.getAllMembership()
@@ -30,6 +32,10 @@ export class ReportComponent implements OnInit {
     .catch(err => {
       console.log(err);
     });
+  }
+
+  detailReport() {
+    this.router.navigate(['report-detail']);
   }
 
 }

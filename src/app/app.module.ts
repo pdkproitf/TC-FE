@@ -13,7 +13,7 @@ import { UserService } from './services/user-service';
 import { LocationStrategy, HashLocationStrategy }from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { ToolbarModule, ButtonModule, InputTextModule, MenuModule, AutoCompleteModule, CarouselModule,
-  CalendarModule, DropdownModule, DialogModule } from 'primeng/primeng';
+  CalendarModule, DropdownModule, DialogModule, ChartModule } from 'primeng/primeng';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -62,6 +62,7 @@ import {OverlayPanelModule}     from 'primeng/primeng';
 import { ReportComponent } from './report/report.component';
 import { ReportSearchComponent } from './report-search/report-search.component';
 import { TimeoffPassRequestsComponent } from './timeoff-pass-requests/timeoff-pass-requests.component';
+import { ReportDetailComponent } from './report-detail/report-detail.component';
 
 @NgModule({
   declarations: [
@@ -104,7 +105,8 @@ import { TimeoffPassRequestsComponent } from './timeoff-pass-requests/timeoff-pa
     TimeoffPassRequestsComponent,
     MembersConfirmComponent,
     ReportComponent,
-    ReportSearchComponent
+    ReportSearchComponent,
+    ReportDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -125,7 +127,8 @@ import { TimeoffPassRequestsComponent } from './timeoff-pass-requests/timeoff-pa
     ReactiveFormsModule,
     RadioButtonModule,
     MomentModule,
-    OverlayPanelModule
+    OverlayPanelModule,
+    ChartModule,
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
   AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService,

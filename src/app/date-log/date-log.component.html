@@ -2,6 +2,6 @@
   <li><button class="previous" (click)="prevWeek()"></button></li>
   <li>{{firstWeekMonth}} {{firstWeekDate}} - {{lastWeekMonth}} {{lastWeekDate}}</li>
   <li><button class="next" (click)="nextWeek()"></button></li>
-  <li>Current Date:<p-calendar [(ngModel)]="chosenDate" [showIcon]="true" (onSelect)="emitChosenDate($event)"
+  <li>Today:<p-calendar [(ngModel)]="chosenDate" [showIcon]="true" (onSelect)="emitChosenDate($event)"
   (onBlur)="emitChosenDate0($event.target.value)"></p-calendar></li>
 </ul>
