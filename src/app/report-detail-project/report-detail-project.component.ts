@@ -1,21 +1,23 @@
 import { UIChart } from 'primeng/primeng';
 import { Component, OnInit } from '@angular/core';
+
 @Component({
-  selector: 'app-report-detail',
-  templateUrl: './report-detail.component.html',
-  styleUrls: ['./report-detail.component.scss']
+  selector: 'app-report-detail-project',
+  templateUrl: './report-detail-project.component.html',
+  styleUrls: ['./report-detail-project.component.scss']
 })
-export class ReportDetailComponent implements OnInit {
+export class ReportDetailProjectComponent implements OnInit {
   data: any;
   options: any;
   items: any;
   upDeco = 1.0;
-  navClass = ['choosing', '', ''];
+  navClass = ['choosing', ''];
   choosing: number = 0;
-  constructor() {
-  }
+  background= '#FFC259';
+  constructor() { }
+
   ngOnInit() {
-    this.data = {
+  this.data = {
       labels: [['Mon', 'Feb 6'], ['Tue', 'Feb 7'], ['Wed', 'Feb 8'], ['Thu', 'Feb 9'],
       ['Fri', 'Feb 10'], ['Sat', 'Feb 11'], ['Sun', 'Feb 12']],
       datasets: [
@@ -109,4 +111,5 @@ export class ReportDetailComponent implements OnInit {
     this.navClass[a] = 'choosing';
     this.choosing = a;
   }
+
 }

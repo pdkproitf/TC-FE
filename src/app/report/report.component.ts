@@ -38,4 +38,8 @@ export class ReportComponent implements OnInit {
     this.router.navigate(['report-detail']);
   }
 
+  detailReportProject() {
+    this.router.navigate(['report-detail-project']);
+  }
+
 }

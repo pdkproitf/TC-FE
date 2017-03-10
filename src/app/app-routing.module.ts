@@ -1,3 +1,4 @@
+import { ReportDetailProjectComponent } from './report-detail-project/report-detail-project.component';
 import { ReportDetailComponent } from './report-detail/report-detail.component';
 import { ReportComponent } from './report/report.component';
 import { MembersConfirmComponent } from './members-confirm/members-confirm.component';
@@ -39,6 +40,7 @@ const routes: Routes = [
     { path: 'edit-timeoff/:id', component: CreateTimeoffComponent, canActivate: [AuthenLoggedIn] },
     { path: 'pass-timeoffs', component: TimeoffPassRequestsComponent, canActivate: [AuthenLoggedIn] },
     { path: 'report-detail', component: ReportDetailComponent, canActivate: [AuthenLoggedIn] },
+    { path: 'report-detail-project', component: ReportDetailProjectComponent, canActivate: [AuthenLoggedIn] },
     // { path: '', component: AppComponent }
     // { path: '', redirectTo: '/home', pathMatch: 'full'}
 ];

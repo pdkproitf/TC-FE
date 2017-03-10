@@ -63,6 +63,7 @@ import { ReportComponent } from './report/report.component';
 import { ReportSearchComponent } from './report-search/report-search.component';
 import { TimeoffPassRequestsComponent } from './timeoff-pass-requests/timeoff-pass-requests.component';
 import { ReportDetailComponent } from './report-detail/report-detail.component';
+import { ReportDetailProjectComponent } from './report-detail-project/report-detail-project.component';
 
 @NgModule({
   declarations: [
@@ -106,7 +107,8 @@ import { ReportDetailComponent } from './report-detail/report-detail.component';
     MembersConfirmComponent,
     ReportComponent,
     ReportSearchComponent,
-    ReportDetailComponent
+    ReportDetailComponent,
+    ReportDetailProjectComponent
   ],
   imports: [
     BrowserModule,

@@ -54,7 +54,7 @@
           </div>
         </th>
       </tr>
-      <tr class="data" *ngFor="let project of projectLists">
+      <tr (click)="detailReportProject()" class="data" *ngFor="let project of projectLists">
         <td class="name">
           <div class="name">
             <div class="project-color" [style.background]="project.background"></div>
