@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnChanges, SimpleChange } from '@angular/core';
 import { TimeoffService }       from '../services/timeoff-service';
-import { TimeOff, TimeOffGetAll }   from '../models/timeoff';
-import { Member }   from '../models/member';
+import { TimeOff }              from '../models/timeoff';
+import { Member }               from '../models/member';
 declare var $ :any;
 
 @Component({
@@ -36,10 +36,10 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
 
     ngOnInit() {
         this.days = [];
-        var current_day = new Date();
-        current_day.setDate(this.start_date.getDate());
+        var current_day ;
         for(var i = 0; i < 15; i++){
             current_day = new Date();
+            current_day.setTime(this.start_date.getTime());
             current_day.setDate(this.start_date.getDate() + i);
             current_day = new Date(current_day.getFullYear(), current_day.getMonth(), current_day.getDate());
             this.days.push(current_day);
@@ -54,12 +54,10 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: {[propKey: string]: SimpleChange}){
-        console.log('changes', changes);
         if(changes['startDay'] || changes['endDay']) this.ngOnInit();
     }
 
     checked(){
-        console.log('checked', this.selectedValues);
         (this.selectedValues.length > 0)? $('.messages').css({'display': 'block'}) : $('.messages').css({'display': 'none'});
     }
 
@@ -72,7 +70,7 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
                     var hash_created_timeoff = new Map<Number, TimeOff>();
                     this.hash_timeoff[member.id].forEach(timeoff =>{
                         var temp = new Date(timeoff.created_at);
-                        temp = new Date(temp.getFullYear(), temp.getMonth(), temp.getDay());
+                        temp = new Date(temp.getFullYear(), temp.getMonth(), temp.getDate());
                         hash_created_timeoff.set(temp.getTime(), timeoff);
                         this.hash_created.set(member.id, hash_created_timeoff);
                     })
@@ -86,7 +84,6 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     }
 
     search(){
-        console.log('vo day')
         this.list_members = [];
         this.initializeSearchValues();
     }
@@ -94,9 +91,6 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     print(){
         this.days.forEach(day => console.log(day));
         this.distionary_member.forEach(member => {
-            console.log('***************************');
-            console.log('member', member.id);
-            console.log('hash member', this.hash_created.get(member.id));
         })
     }
 
@@ -138,5 +132,9 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
                 this.list_members.push(member);
             }
         })
+    }
+
+    answerTimeoff(timeoff: TimeOff){
+        console.log('timeoff ', timeoff);
     }
 }

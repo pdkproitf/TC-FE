@@ -22,7 +22,7 @@ export class TimeoffService {
     createTimeOff(timeoffPost: TimeOffPost): Promise<any> {
         let requestUrl = this.timeoffUrl +'';
         let headers = new Headers;
-        console.log('data create ', JSON.stringify(timeoffPost));
+        // console.log('data create ', JSON.stringify(timeoffPost));
         this.headersService.createAuthHeaders(headers);
         return this.http
         .post(requestUrl, JSON.stringify(timeoffPost), {headers: headers})
@@ -42,7 +42,7 @@ export class TimeoffService {
         .then(res => {
             var timeoff: TimeOff = new TimeOff();
             if(res.json().data){
-                console.log('get timeoff', res.json());
+                // console.log('get timeoff', res.json());
                 timeoff = res.json().data as TimeOff;
             }
             return timeoff;
@@ -62,7 +62,7 @@ export class TimeoffService {
         .then(res => {
             var timeoffs: TimeOffGetAll = new TimeOffGetAll();
             if(res.json().data){
-                console.log('get phase timeoffs', res.json());
+                // console.log('get phase timeoffs', res.json());
                 timeoffs = res.json().data as TimeOffGetAll;
             }
             return timeoffs;
@@ -81,12 +81,7 @@ export class TimeoffService {
         .toPromise()
         .then(res => {
             var hash_timeoff= new  Map<Member, Array<TimeOff>>();
-            // if(res.json().data){
-            //     for (var key in hash_timeoff){
-            //         hash_timeoff.set(key.json() as Member, hash_timeoff[key]);
-            //     }
-            // }
-            console.log('000000000000', res.json().data);
+            // console.log('000000000000', res.json().data);
             return res.json().data;
         })
         .catch(this.handleError);
@@ -103,7 +98,7 @@ export class TimeoffService {
         .then(res => {
             var timeoffs: TimeOff[] = [];
             if(res.json().data){
-                console.log('get all timeoffs', res.json());
+                // console.log('get all timeoffs', res.json());
                 timeoffs = res.json().data as TimeOff[];
             }
             return timeoffs;
@@ -121,7 +116,7 @@ export class TimeoffService {
         .then(res => {
             var timeoff: TimeOff = new TimeOff();
             if(res.json().data){
-                console.log('update timeoff '+id, res.json());
+                // console.log('update timeoff '+id, res.json());
                 timeoff = res.json().data as TimeOff;
             }
             return timeoff;
@@ -139,7 +134,7 @@ export class TimeoffService {
         .then(res => {
             var timeoff: TimeOff = new TimeOff();
             if(res.json().data){
-                console.log('delete timeoff '+id, res.json());
+                // console.log('delete timeoff '+id, res.json());
                 timeoff = res.json().data as TimeOff;
             }
             return timeoff;

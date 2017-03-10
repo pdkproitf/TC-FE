@@ -1,7 +1,12 @@
 .content{
     table{
+        border-collapse: collapse !important;
+        border-spacing: 0px !important;
         th, td{
-            border-left: 1px solid rgba(54,54,54,0.1);;
+            padding: 0px;
+            border-left: 1px solid rgba(54,54,54,0.1);
+            box-shadow: inset 0 -1px 0 0 rgba(54,54,54,0.1);
+            max-height: 56px;
         }
         .search-text{
             font-size: 24px;
@@ -15,8 +20,7 @@
         }
         tr{
             max-width: 1043px;
-            height: 56px;
-            box-shadow: inset 0 -1px 0 0 rgba(54,54,54,0.1);
+            max-height: 56px;
             .day-column{
                 width: 55px;
                 font-family: Lato;
@@ -46,8 +50,9 @@
                     color: #363636;
                     border: 0px;
                     max-width: 180px;
-                    height: 100%;
                     cursor: pointer;
+                    height: 48px;
+                    padding-left: 10px;
                 }
                 input:hover{
                     background: white;
@@ -106,14 +111,14 @@
                     }
                     .member-type{
                         display: inline-block;
-                        margin-bottom: 5px;
-                        width: 56px;
-                        height: 15px;
                         font-family: Lato;
                         font-size: 12px;
                         line-height: 15px;
                         color: rgba(54,54,54,0.7);
                     }
+                }
+                button{
+                    background: none;
                 }
             }
         }
@@ -139,8 +144,10 @@
         height: 55px;
         cursor: pointer;
         background-image: url('/assets/image-table/pending.png');
+        border: 0px;
     }
     .cel-approved{
+        border: 0px;
         width: 55px;
         height: 55px;
         cursor: pointer;
@@ -149,8 +156,7 @@
     .cel-weekend{
         width: 55px;
         height: 55px;
-        cursor: pointer;
-        background: rgba(155,89,182,0.6);
+        background: #F1F1F1;
     }
     .cel-holiday{
         width: 55px;
