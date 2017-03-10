@@ -10,9 +10,9 @@
             <div class="inline oval" (click)="addWeeks(true)"><div class="text"><i class="fa fa-angle-right" aria-hidden="true"></i></div></div>
         </div>
         <div class="show-date inline">
-            <label class="today" for="">Today</label>
+            <label class="today" (click)="setToDay()">Today</label>
             <div class="calendar">
-                <p-calendar [(ngModel)]="start_date" [minDate]="today" [showIcon]="true" readonlyInput="readonlyInput" dateFormat="M dd" placeholder="Pick a date..." (onSelect)="setWeeks($event)"></p-calendar>
+                <p-calendar [(ngModel)]="start_date" [showIcon]="true" readonlyInput="readonlyInput" dateFormat="M dd" placeholder="Pick a date..." (onSelect)="setWeeks($event)"></p-calendar>
             </div>
         </div>
     </div>

@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChange } from '@angular/core
 import { TimeoffService }       from '../services/timeoff-service';
 import { TimeOff, TimeOffGetAll }   from '../models/timeoff';
 import { Member }   from '../models/member';
+declare var $ :any;
 
 @Component({
     selector: 'app-timeoff-table-view',
@@ -10,7 +11,7 @@ import { Member }   from '../models/member';
 })
 export class TimeoffTableViewComponent implements OnInit, OnChanges {
     days :Date[] = [];
-    selectedValues: string[] = [];
+    selectedValues: Number[] = [];
     searchPattern = '';
     start_date: Date;
     end_date: Date;
@@ -40,7 +41,7 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
         for(var i = 0; i < 15; i++){
             current_day = new Date();
             current_day.setDate(this.start_date.getDate() + i);
-            current_day = new Date(current_day.getFullYear(), current_day.getMonth(), current_day.getDay());
+            current_day = new Date(current_day.getFullYear(), current_day.getMonth(), current_day.getDate());
             this.days.push(current_day);
         }
 
@@ -48,6 +49,7 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
         this.hash_created = new Map<Number, Map<Number, TimeOff>>();
         this.distionary_member  = [];
         this.list_members  = [];
+
         this.getTimeOff();
     }
 
@@ -56,8 +58,9 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
         if(changes['startDay'] || changes['endDay']) this.ngOnInit();
     }
 
-    showCheck(){
+    checked(){
         console.log('checked', this.selectedValues);
+        (this.selectedValues.length > 0)? $('.messages').css({'display': 'block'}) : $('.messages').css({'display': 'none'});
     }
 
     getTimeOff(){
@@ -73,9 +76,8 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
                         hash_created_timeoff.set(temp.getTime(), timeoff);
                         this.hash_created.set(member.id, hash_created_timeoff);
                     })
-                })
-                this.print();
-                this.list_members = this.distionary_member;
+                });
+                (this.selectedValues.length > 0)? this.initializeSelectedValues(): (this.searchPattern.length > 0)? this.initializeSearchValues():this.initializeAllValues();
             },
             (error) => {
                 console.log('error');
@@ -86,12 +88,7 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     search(){
         console.log('vo day')
         this.list_members = [];
-        this.distionary_member.forEach((member) =>{
-            var name = member.user.first_name + ' '+ member.user.last_name;
-            if ((name.toUpperCase().indexOf(this.searchPattern.toUpperCase()) > -1) || (name.toLowerCase().indexOf(this.searchPattern.toLowerCase()) > -1)) {
-                this.list_members.push(member);
-            }
-        })
+        this.initializeSearchValues();
     }
 
     print(){
@@ -100,7 +97,46 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
             console.log('***************************');
             console.log('member', member.id);
             console.log('hash member', this.hash_created.get(member.id));
-            // console.log('hash member', this.hash_created.get(member.id).get);
+        })
+    }
+
+    hidenMessage(){
+        $('.messages').find('.action').css({'display': 'block'});
+        $('.messages').find('.clear').css({'display': 'none'});
+        $('.messages').css({'display': 'none'});
+        this.searchPattern = '';
+        this.selectedValues = [];
+        this.list_members = this.distionary_member;
+    }
+
+    showSelected(){
+        $('.messages').find('.action').css({'display': 'none'});
+        $('.messages').find('.clear').css({'display': 'block'});
+        this.initializeSelectedValues();
+    }
+
+    initializeAllValues(){
+        this.list_members = this.distionary_member;
+    }
+
+    initializeSelectedValues(){
+        this.list_members = [];
+        for(var i = 0; i < this.selectedValues.length; i ++){
+            for(var j = 0; j < this.distionary_member.length; j++){
+                if(this.distionary_member[j].id == this.selectedValues[i]){
+                    this.list_members.push(this.distionary_member[j]);
+                    break;
+                }
+            }
+        }
+    }
+
+    initializeSearchValues(){
+        this.distionary_member.forEach((member) =>{
+            var name = member.user.first_name + ' '+ member.user.last_name;
+            if ((name.toUpperCase().indexOf(this.searchPattern.toUpperCase()) > -1) || (name.toLowerCase().indexOf(this.searchPattern.toLowerCase()) > -1)) {
+                this.list_members.push(member);
+            }
         })
     }
 }

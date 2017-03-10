@@ -146,11 +146,11 @@
         cursor: pointer;
         background: rgba(0,102,204,0.8);
     }
-    .cel-rejected{
+    .cel-weekend{
         width: 55px;
         height: 55px;
         cursor: pointer;
-        background-color: #f44336;
+        background: rgba(155,89,182,0.6);
     }
     .cel-holiday{
         width: 55px;
@@ -161,5 +161,68 @@
     .inline{
         display: inline-block;
     }
-
+    .messages{
+        width: 1280px;
+        height: 64px;
+        background-color: #FFFFFF;
+        box-shadow: 0 -1px 0 0 rgba(54,54,54,0.24);
+        display: none;
+        vertical-align: bottom;
+        width: 100%;
+        label{
+            font-family: Lato;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 24px;
+            color: rgba(54, 54, 54, 0.7);
+            float: left;
+            padding-top: 20px;
+        }
+        .action{
+            float: right;
+            padding-top: 10px;
+            .show-selected{
+                width: 145px;
+                height: 40px;
+                background-color: #0066CC;
+                border-radius: 3px;
+                font-family: Lato;
+                font-size: 16px;
+                text-align: center;
+                line-height: 24px;
+                color: #FFFFFF;
+                display: inline;
+                cursor: pointer;
+            }
+            .cancel{
+                cursor: pointer;
+                display: inline;
+                width: 90px;
+                height: 40px;
+                background-color: #FFFFFF;
+                border: 1px solid rgba(54,54,54,0.3);
+                border-radius: 3px;
+                font-family: Lato;
+                font-size: 16px;
+                text-align: center;
+                line-height: 24px;
+                color: rgba(54,54,54,0.7);
+            }
+        }
+        .clear{
+            cursor: pointer;
+            float: right;
+            margin-top: 15px;
+            display: none;
+            width: 84px;
+            height: 40px;
+            background-color: #0066CC;
+            border-radius: 3px;
+            font-family: Lato;
+            font-size: 16px;
+            text-align: center;
+            line-height: 24px;
+            color: #FFFFFF;
+        }
+    }
 }
