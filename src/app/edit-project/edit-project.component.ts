@@ -312,6 +312,7 @@ export class EditProjectComponent implements OnInit {
   }
 
   updateNewCategories() {
+    this.filterMemberInProject();
     let len = this.newCategories.length;
     for (let i = 0; i < len; i++) {
       this.newCategories[i].is_billable = this.newBillable[i];
@@ -363,6 +364,29 @@ export class EditProjectComponent implements OnInit {
 
   printEvent(arg) {
     console.log(arg);
+  }
+
+  filterMemberInProject() {
+    let len = this.member_ids_array.length;
+    for (let i = 0; i < len; i++) {
+      let len0 = this.member_ids_array[i].length;
+      for (let j = 0; j < len0; j++){
+        if(this.isInMemberProject(this.member_ids_array[i][j]) < 0 ){
+          this.member_ids_array[i].splice(j, 1);
+        }
+      }
+    }
+  }
+
+  isInMemberProject(arg) {
+    let len = this.membersToAdd.length;
+    let res = -1;
+    for (let i = 0; i < len; i++){
+      if (arg === this.membersToAdd[i].id){
+        res = i;
+      }
+    }
+    return res;
   }
 
 }
