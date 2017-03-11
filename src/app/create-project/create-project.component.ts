@@ -296,8 +296,16 @@ export class CreateProjectComponent implements OnInit {
     console.log(mem);
   }
 
-  newDeleteMember(key, i) {
-    this.newMemberLists[i].memberCats.splice(key, i);
+  newDeleteMember(arg, i) {
+    console.log(arg);
+    let len = this.newMemberLists[i].memberCats.length;
+    for (let j = 0; j < len; j++) {
+      if (this.newMemberLists[i].memberCats[j].member_id === arg.id) {
+        this.newMemberLists[i].memberCats.splice(j, 1);
+        len--;
+      }
+    }
+    //this.newMemberLists[i].memberCats.splice(key, 1);
   }
 
   printEvent(arg) {

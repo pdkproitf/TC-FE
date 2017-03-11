@@ -121,12 +121,18 @@ export class EditProjectComponent implements OnInit {
       let category = this.currentProject.categories[i];
       let len0 = category.members.length;
       for (let j = 0; j < len0; j++) {
-        this.member_ids_array[i].push(category.members[j].id);
-
-        this.newMemberLists[i].memberCats = [];
+        let id = category.members[j].id;
+        if (this.member_ids_array[i].indexOf(id) < 0) {
+          this.member_ids_array[i].push(id);
+        }
+        if (i === 0) {
+          console.log(category);
+          console.log(this.member_ids_array[i]);
+        }
+        /*this.newMemberLists[i].memberCats = [];
         let mC = new MemberCat();
         mC.member_id = category.members[j].id;
-        this.newMemberLists[i].memberCats.push(mC);
+        this.newMemberLists[i].memberCats.push(mC);*/
       }
     }
   }
@@ -309,7 +315,7 @@ export class EditProjectComponent implements OnInit {
     let len = this.newCategories.length;
     for (let i = 0; i < len; i++) {
       this.newCategories[i].is_billable = this.newBillable[i];
-      this.newCategories[i].members = this.newMemberLists[i].memberCats;
+      // this.newCategories[i].members = this.newMemberLists[i].memberCats;
       this.newCategories[i].member_ids = this.member_ids_array[i];
 
     }
@@ -332,16 +338,31 @@ export class EditProjectComponent implements OnInit {
   }
 
   newAddMember(mem: MemberCat, i: number) {
-    this.newMemberLists[i].memberCats.push(mem);
-    this.member_ids_array[i].push(mem.member_id);
+    // this.newMemberLists[i].memberCats.push(mem);
+    let id = mem.member_id;
+    if (this.member_ids_array[i].indexOf(id) < 0) {
+      this.member_ids_array[i].push(mem.member_id);
+    }
   }
 
-  newDeleteMember(key, i) {
-    this.newMemberLists[i].memberCats.splice(key, i);
-    this.member_ids_array[i].splice(key, i);
+  newDeleteMember(arg, i) {
+    console.log(arg);
+    let len = this.member_ids_array[i].length;
+    console.log(len);
+    for (let j = 0; j < len; j++) {
+      if (this.member_ids_array[i][j] === arg.id) {
+        console.log(this.member_ids_array[i][j] + '===' + arg.id);
+        this.member_ids_array[i].splice(j, 1);
+        this.currentProject.categories[i].members.splice(j, 1);
+        len--;
+      }
+    }
+    // this.newMemberLists[i].memberCats.splice(key, 1);
+    // this.member_ids_array[i].splice(key, 1);
   }
 
   printEvent(arg) {
     console.log(arg);
   }
+
 }

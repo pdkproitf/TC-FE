@@ -12,8 +12,24 @@ export class AddingMemberComponent implements OnInit {
   classDiv: string = 'hidden';
   searchName: string = 'Add more people...';
   all: boolean = false;
+  _existingMembers: Member[] = [];
+  _existingSize: number;
   @Input()
-  existingMembers: Member[] = [];
+  set existingMembers(para){
+    this._existingMembers = para;
+    this.fetchExistingMembers();
+  }
+  get existingMembers() {
+    return this._existingMembers;
+  }
+  @Input()
+  set existingSize(para){
+    this._existingSize = para;
+    this.fetchExistingMembers();
+  }
+  get existingSize() {
+    return this._existingSize;
+  }
   @Input()
   set employeePosts(para){
     this._employeePosts = para;
@@ -32,7 +48,8 @@ export class AddingMemberComponent implements OnInit {
       if (i < 0) {
         let j = this.employees.indexOf(emp);
         if (j > -1) {
-          this.employees.splice(j, 1);
+          //this.employees.splice(j, 1);
+          this.removeEmployee(emp);
         }
       }
     }
@@ -41,6 +58,7 @@ export class AddingMemberComponent implements OnInit {
         this.addEmployee(em);
       }
     }
+    this.fetchExistingMembers();
   }
   get size() {
     return this._size;
@@ -61,14 +79,12 @@ export class AddingMemberComponent implements OnInit {
   }
 
   fetchExistingMembers() {
+    this.employees = [];
     if (this.existingMembers.length > 0) {
-      for (let mem of this.employeePosts){
-        for (let mem0 of this.existingMembers) {
+      for (let mem0 of this.existingMembers){
+        for (let mem of this.employeePosts) {
           if (mem.id === mem0.id) {
-            if (this.employees.indexOf(mem) < 0) {
-              this.employees.push(mem);
-              let member = new MemberCat;
-            }
+            this.addEmployee(mem);
           }
         }
       }
@@ -89,6 +105,7 @@ export class AddingMemberComponent implements OnInit {
       let i = this.employees.indexOf(emp);
       if (i > -1) {
         this.employees.splice(i, 1);
+        this.onDelete.emit(emp);
       }
     }
   }
