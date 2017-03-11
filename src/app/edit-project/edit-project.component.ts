@@ -82,8 +82,8 @@ export class EditProjectComponent implements OnInit {
 
     })
     .catch(err => {
-      //let content = JSON.parse(err['_body']).error;
-      //alert(content);
+      // let content = JSON.parse(err['_body']).error;
+      // alert(content);
       console.log(err);
     });
   }
@@ -370,8 +370,8 @@ export class EditProjectComponent implements OnInit {
     let len = this.member_ids_array.length;
     for (let i = 0; i < len; i++) {
       let len0 = this.member_ids_array[i].length;
-      for (let j = 0; j < len0; j++){
-        if(this.isInMemberProject(this.member_ids_array[i][j]) < 0 ){
+      for (let j = 0; j < len0; j++) {
+        if (this.isInMemberProject(this.member_ids_array[i][j]) < 0 ) {
           this.member_ids_array[i].splice(j, 1);
         }
       }
@@ -381,8 +381,8 @@ export class EditProjectComponent implements OnInit {
   isInMemberProject(arg) {
     let len = this.membersToAdd.length;
     let res = -1;
-    for (let i = 0; i < len; i++){
-      if (arg === this.membersToAdd[i].id){
+    for (let i = 0; i < len; i++) {
+      if (arg === this.membersToAdd[i].id) {
         res = i;
       }
     }

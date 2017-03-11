@@ -265,7 +265,8 @@ export class CreateProjectComponent implements OnInit {
     }
   }*/
 
-  updateNewCategories(){
+  updateNewCategories() {
+    this.filterMemberInProject();
     let len = this.newCategories.length;
     for (let i = 0; i < len; i++) {
       this.newCategories[i].is_billable = this.newBillable[i];
@@ -305,10 +306,33 @@ export class CreateProjectComponent implements OnInit {
         len--;
       }
     }
-    //this.newMemberLists[i].memberCats.splice(key, 1);
+    // this.newMemberLists[i].memberCats.splice(key, 1);
   }
 
   printEvent(arg) {
     console.log(arg);
+  }
+
+  filterMemberInProject() {
+    let len = this.newMemberLists.length;
+    for (let i = 0; i < len; i++) {
+      let len0 = this.newMemberLists[i].memberCats.length;
+      for (let j = 0; j < len0; j++) {
+        if (this.isInMemberProject(this.newMemberLists[i].memberCats[j].member_id) < 0 ) {
+          this.newMemberLists[i].memberCats.splice(j, 1);
+        }
+      }
+    }
+  }
+
+  isInMemberProject(arg) {
+    let len = this.membersToAdd.length;
+    let res = -1;
+    for (let i = 0; i < len; i++) {
+      if (arg === this.membersToAdd[i].id) {
+        res = i;
+      }
+    }
+    return res;
   }
 }

@@ -17,7 +17,6 @@ export class AddingMemberComponent implements OnInit {
   @Input()
   set existingMembers(para){
     this._existingMembers = para;
-    this.fetchExistingMembers();
   }
   get existingMembers() {
     return this._existingMembers;
@@ -25,7 +24,6 @@ export class AddingMemberComponent implements OnInit {
   @Input()
   set existingSize(para){
     this._existingSize = para;
-    this.fetchExistingMembers();
   }
   get existingSize() {
     return this._existingSize;
@@ -44,21 +42,19 @@ export class AddingMemberComponent implements OnInit {
   set size(para) {
     this._size = para;
     for (let emp of this.employees) {
-      let i = this.employeePostsSearch.indexOf(emp);
+      let i = this.employeePosts.indexOf(emp);
       if (i < 0) {
         let j = this.employees.indexOf(emp);
         if (j > -1) {
-          //this.employees.splice(j, 1);
-          this.removeEmployee(emp);
+          this.employees.splice(j, 1);
         }
       }
     }
     if (this.all) {
-      for (let em of this.employeePostsSearch) {
+      for (let em of this.employeePosts) {
         this.addEmployee(em);
       }
     }
-    this.fetchExistingMembers();
   }
   get size() {
     return this._size;
