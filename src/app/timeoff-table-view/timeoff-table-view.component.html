@@ -26,7 +26,7 @@
                     <div class="inform">
                         <div class="name-status">
                             <div class="name"><span *ngIf="member.user">{{(member.user.first_name + ' '+ member.user.last_name) | capitalize}}</span></div>
-                            <div class="status pending">
+                            <div class="status pending" *ngIf="hash_created.get(member.id)">
                                 Pending
                             </div>
                         </div>
@@ -34,8 +34,7 @@
                     </div>
                 </td>
                 <td *ngFor="let day of days">
-                    <div *ngIf=" (day.getDay()%6 !=0) && hash_created.get(member.id) && hash_created.get(member.id).get(day.getTime()) &&
-                    (hash_created.get(member.id).get(day.getTime()).status == 'pending' || hash_created.get(member.id).get(day.getTime()).status == 'approved')"
+                    <div *ngIf=" (day.getDay()%6 !=0) && hash_created.get(member.id) && hash_created.get(member.id).get(day.getTime()) && (hash_created.get(member.id).get(day.getTime()).status == 'pending' || hash_created.get(member.id).get(day.getTime()).status == 'approved')"
                     class="cel-{{hash_created.get(member.id).get(day.getTime()).status}}">
                         <button (click)="pppp.toggle($event); answerTimeoff(hash_created.get(member.id).get(day.getTime()))" class="cel-{{hash_created.get(member.id).get(day.getTime()).status}}">
                         </button>

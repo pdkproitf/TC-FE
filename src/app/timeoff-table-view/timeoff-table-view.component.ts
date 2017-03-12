@@ -15,8 +15,9 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     searchPattern = '';
     start_date: Date;
     end_date: Date;
-
+    // constraint list timeoffs of each member
     hash_timeoff: Map<Number, Array<TimeOff>>;
+    // constraint map<member_id, l>
     hash_created: Map<Number, Map<Number, TimeOff>>;
 
     distionary_member: Array<Member>;

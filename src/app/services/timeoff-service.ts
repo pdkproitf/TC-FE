@@ -1,4 +1,4 @@
-import { TimeOff, TimeOffPost, TimeOffGetAll } from './../models/timeoff';
+import { TimeOff, TimeOffPost, TimeOffGetAll, PersonNumTimeOff } from './../models/timeoff';
 import { HeadersService }       from './headers-service';
 import { Headers, Http }        from '@angular/http';
 import { ServerDomain }         from '../models/server-domain';
@@ -102,6 +102,25 @@ export class TimeoffService {
                 timeoffs = res.json().data as TimeOff[];
             }
             return timeoffs;
+        })
+        .catch(this.handleError);
+    }
+
+    // load totaltimeoff and rmain timeoff of current person
+    getPersonNumTimeOff(){
+        let requestUrl = this.timeoffUrl + '/num-of-timeoff';
+        let headers = new Headers;
+        this.headersService.createAuthHeaders(headers);
+        return this.http
+        .get(requestUrl, {headers: headers})
+        .toPromise()
+        .then(res => {
+            var timeoff = new  PersonNumTimeOff();
+            if(res.json().data){
+                // console.log('get all timeoffs', res.json());
+                timeoff = res.json().data as PersonNumTimeOff;
+            }
+            return timeoff;
         })
         .catch(this.handleError);
     }

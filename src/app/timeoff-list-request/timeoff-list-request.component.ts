@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges, SimpleChange, EventEmitter, Output }    from '@angular/core';
-import { TimeOff, TimeOffPost } from './../models/timeoff';
+import { TimeOff, TimeOffPost, PersonNumTimeOff } from './../models/timeoff';
 import { TimeoffService }       from '../services/timeoff-service';
 import { Router }               from '@angular/router'
 declare var $:any;
@@ -16,11 +16,18 @@ export class TimeoffListRequestComponent implements OnInit {
     show_timeoff_details: Map<Number, boolean> = new Map<Number, boolean>();
 
     _timeoffs :TimeOff[] = [];
+    _personNumTimeOff: PersonNumTimeOff = new PersonNumTimeOff();
+
     @Input()
     set timeoffs(timeoffs: TimeOff[]){
         this._timeoffs = timeoffs || [];
         console.log("timeOffs", timeoffs);
         this.sortNewest();
+    }
+
+    @Input()
+    set personNumTimeOff(personNumTimeOff: PersonNumTimeOff){
+        this._personNumTimeOff = personNumTimeOff;
     }
 
     @Output() reload = new EventEmitter();
@@ -57,7 +64,7 @@ export class TimeoffListRequestComponent implements OnInit {
     }
 
     showTimeoffControl(is_show: boolean,id: number){
-        is_show? $('#timeoff-control-'+id).css({'display': 'inline-block'}) : $('#timeoff-control-'+id).css({'display': 'none'});
+        is_show? $('#your-timeoff-control-'+id).css({'display': 'inline-block'}) : $('#your-timeoff-control-'+id).css({'display': 'none'});
     }
 
     edit(id: number){
