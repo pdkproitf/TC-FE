@@ -10,8 +10,6 @@ declare var $:any;
     styleUrls: ['./timeoff-list-request.component.scss']
 })
 export class TimeoffListRequestComponent implements OnInit {
-    constructor(private router: Router, private timeoffService: TimeoffService) { }
-
     show_description_details: Map<Number, Number> = new Map<Number, Number>();
     show_timeoff_details: Map<Number, boolean> = new Map<Number, boolean>();
 
@@ -31,6 +29,8 @@ export class TimeoffListRequestComponent implements OnInit {
     }
 
     @Output() reload = new EventEmitter();
+
+    constructor(private router: Router, private timeoffService: TimeoffService) { }
 
     ngOnInit() {
     }

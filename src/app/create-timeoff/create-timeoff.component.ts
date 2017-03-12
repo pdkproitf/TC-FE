@@ -1,5 +1,5 @@
 import { Validators, FormBuilder, FormControl }     from '@angular/forms';
-import { TimeOff, TimeOffPost } from './../models/timeoff';
+import { TimeOff, TimeOffPost, PersonNumTimeOff }   from './../models/timeoff';
 import { Component, OnInit }    from '@angular/core';
 import { CalendarModule }       from 'primeng/primeng';
 import { TimeoffService }       from '../services/timeoff-service';
@@ -17,6 +17,7 @@ export class CreateTimeoffComponent implements OnInit {
     minDateValue = new Date();
     today = new Date();
     id = 0;
+    personNumTimeOff: PersonNumTimeOff = new PersonNumTimeOff();
 
     constructor(private route: ActivatedRoute, private router: Router, public fb: FormBuilder, private timeoffService: TimeoffService) {}
 
@@ -35,6 +36,18 @@ export class CreateTimeoffComponent implements OnInit {
             this.getTimeOff(para_id);
             this.id = para_id;
         }
+        this.getPersonNumTimeOff();
+    }
+
+    getPersonNumTimeOff(){
+        this.timeoffService.getPersonNumTimeOff().then(
+            (result) => {
+                this.personNumTimeOff = result;
+            },
+            (error) => {
+                console.log('error create timeoff personNumTimeOff');
+            }
+        )
     }
 
     setAutoEndDay(){
