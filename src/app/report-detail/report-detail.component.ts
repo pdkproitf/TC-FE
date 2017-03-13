@@ -1,3 +1,4 @@
+import { byProjects } from './mock-projects';
 import { UIChart } from 'primeng/primeng';
 import { Component, OnInit } from '@angular/core';
 @Component({
@@ -12,9 +13,11 @@ export class ReportDetailComponent implements OnInit {
   upDeco = 1.0;
   navClass = ['choosing', '', ''];
   choosing: number = 0;
+  projects: any[] = [];
   constructor() {
   }
   ngOnInit() {
+    this.projects = byProjects;
     this.data = {
       labels: [['Mon', 'Feb 6'], ['Tue', 'Feb 7'], ['Wed', 'Feb 8'], ['Thu', 'Feb 9'],
       ['Fri', 'Feb 10'], ['Sat', 'Feb 11'], ['Sun', 'Feb 12']],
@@ -69,6 +72,7 @@ export class ReportDetailComponent implements OnInit {
         onComplete: function () {
             let chartInstance = this.chart,
             ctx = chartInstance.ctx;
+            let height = chartInstance.canvas.height;
             ctx.fillStyle = '#000000';
             ctx.font = 'bold 14px Lato';
             ctx.textAlign = 'center';
@@ -81,7 +85,7 @@ export class ReportDetailComponent implements OnInit {
                     let data = dataset.data[index] + sum[index];
                     ctx.fillText(data, bar._model.x, bar._model.y - 20);
                     ctx.fillStyle = '#FFFFFF';
-                    let toFull = 208 - bar._model.y;
+                    let toFull = height - 50 - bar._model.y;
                     if  (dataset.data[index] > 0)  {
                       ctx.fillText('$', bar._model.x, bar._model.y + (toFull / 2) + 8);
                     }

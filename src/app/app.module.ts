@@ -1,3 +1,4 @@
+import { ReportService } from './services/report-service';
 import { TaskService } from './services/task-service';
 import { TimerFetchService } from './services/timer-fetch-service';
 import { ProjectJoinService } from './services/project-join-service';
@@ -134,7 +135,7 @@ import { ReportDetailProjectComponent } from './report-detail-project/report-det
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
   AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService,
-  TimerService, ProjectJoinService, TimerFetchService, TaskService, TimeoffService],
+  TimerService, ProjectJoinService, TimerFetchService, TaskService, TimeoffService, ReportService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
