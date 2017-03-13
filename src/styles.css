@@ -4,6 +4,7 @@
 @import "../node_modules/primeng/resources/primeng.min.css";
 html{
     min-height:100%;
+    
 }
 body{
     margin: 0px;
@@ -13,4 +14,13 @@ input{
 }
 button{
     outline: none;
+}
+@media only screen and (min-width: 1400px) {
+    body {
+
+    }
+    html{
+        padding-left: 200px;
+        padding-right: 200px;
+    }
 }

@@ -73,16 +73,16 @@ export class ReportDetailComponent implements OnInit {
             ctx.font = 'bold 14px Lato';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'bottom';
-
+            let sum = this.data.datasets[1].data;
             this.data.datasets.forEach(function (dataset, i) {
               if (i === 0) {
                 let meta = chartInstance.controller.getDatasetMeta(i);
                 meta.data.forEach(function (bar, index) {
-                    let data = dataset.data[index];
+                    let data = dataset.data[index] + sum[index];
                     ctx.fillText(data, bar._model.x, bar._model.y - 20);
                     ctx.fillStyle = '#FFFFFF';
                     let toFull = 208 - bar._model.y;
-                    if  (data > 0)  {
+                    if  (dataset.data[index] > 0)  {
                       ctx.fillText('$', bar._model.x, bar._model.y + (toFull / 2) + 8);
                     }
                     ctx.fillStyle = '#000000';
