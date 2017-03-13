@@ -4,7 +4,7 @@
         <p>Time Off</p>
         <button class="button-create" (click)="createTimeOff()" type="button">Request time off</button>
     </div>
-    <div *ngIf="userObj && (userObj.role.name == ('Admin' || 'PM'))">
+    <div *ngIf="userObj && (userObj.role.name == 'Admin' || userObj.role.name =='PM')">
         <p-tabView>
             <p-tabPanel header="Pending">
                 <div class="timeoff-manage-content">
@@ -30,7 +30,7 @@
 
     </div>
 
-    <div *ngIf="userObj && !(userObj.role.name == ('Admin' || 'PM'))" class="timeoff-manage-content">
+    <div *ngIf="userObj && !(userObj.role.name == 'Admin' || userObj.role.name =='PM')" class="timeoff-manage-content">
         <app-timeoff-list-request [timeoffs]="list_timeoff.off_requests" [personNumTimeOff]="personNumTimeOff" (reload)="getTimeOffsPending()"></app-timeoff-list-request>
     </div>
 </div>
