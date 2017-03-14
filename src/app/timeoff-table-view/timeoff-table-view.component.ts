@@ -147,6 +147,7 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
             if(status == 'cel-pending' || status == 'cel-approved')
                 return status.slice(4, status.length);
         }
+        return '';
     }
 
     checked(arg, id) {
