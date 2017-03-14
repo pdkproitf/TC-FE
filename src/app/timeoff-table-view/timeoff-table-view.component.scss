@@ -5,6 +5,7 @@
     table{
         border-collapse: collapse !important;
         border-spacing: 0px !important;
+        width: 100%;
         th, td{
             padding: 0px;
             border-left: 1px solid rgba(54,54,54,0.1);
@@ -151,6 +152,10 @@
                 }
                 button{
                     background: none;
+                    border: 0px;
+                    width: 100%;
+                    height: 100%;
+                    cursor: pointer;
                 }
             }
         }
@@ -162,8 +167,8 @@
     .calendar-note{
         text-align: right;
         .thumble{
-            max-width: 24px;
-            max-height: 24px;
+            width: 24px;
+            height: 24px;
             margin-top: 20px;
         }
         label{
@@ -176,26 +181,23 @@
         }
     }
     .cel-pending{
-        width: 55px;
         height: 55px;
         cursor: pointer;
         background-image: url('/assets/image-table/pending.png');
+        background-repeat: round;
         border: 0px;
     }
     .cel-approved{
         border: 0px;
-        width: 55px;
         height: 55px;
         cursor: pointer;
         background: rgba(0,102,204,0.8);
     }
     .cel-weekend{
-        width: 55px;
         height: 55px;
         background: #F1F1F1;
     }
     .cel-holiday{
-        width: 55px;
         height: 55px;
         cursor: pointer;
         background: rgba(155,89,182,0.8)
