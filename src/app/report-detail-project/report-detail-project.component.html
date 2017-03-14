@@ -1,7 +1,7 @@
 <app-member-menu-bar [currentState]="3"></app-member-menu-bar>
 <div class="container">
   <h1>Reports</h1>
-  <app-report-search></app-report-search>
+  <app-report-search (emitRange)="newRange($event)"></app-report-search>
 
   <div class="project-info">
     <table class="project-info">
@@ -32,6 +32,19 @@
         <button pButton type="button" label="Export" icon="fa-caret-down" (click)="menu.toggle($event)" iconPos="right"></button>
       </li>
     </ul>
+  </div>
+
+  <div class="by-people">
+    <div class="person" *ngFor="let member of members">
+      <div class="summary">
+        {{member.user.first_name}}{{member.tracked_time}}
+      </div>
+      <ul>
+        <li *ngFor="let category of member.categories">
+          {{category.name}}{{category.tracked_time}}
+        </li>
+      </ul>
+    </div>
   </div>
 
 </div>

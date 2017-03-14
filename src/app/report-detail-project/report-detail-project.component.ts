@@ -1,5 +1,5 @@
 import { ReportService } from './../services/report-service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UIChart } from 'primeng/primeng';
 import { Component, OnInit } from '@angular/core';
 
@@ -24,28 +24,13 @@ export class ReportDetailProjectComponent implements OnInit {
   labels = [];
   billables = [];
   unbillables = [];
+  sum = [];
+  categories: any = [];
+  members: any = [];
   isLoaded = false;
-  constructor(private route: ActivatedRoute, private reportService: ReportService) { }
+  constructor(private route: ActivatedRoute, private reportService: ReportService, private router: Router) { }
 
   ngOnInit() {
-    let para = this.route.params['_value'];
-    let id = para.id;
-    let begin = para.begin;
-    let end = para.end;
-    this.reportService.getReportDetailProject(begin, end, id)
-    .then(res => {
-      console.log(res);
-      this.project = res;
-      this.charts = res.chart;
-      this.client_name = res.client.name;
-      this.generateLabels();
-      this.generateValues();
-      this.isLoaded = true;
-    })
-    .catch(error => {
-      console.log(error);
-    });
-
     this.data = {
       labels: this.labels,
       datasets: [
@@ -82,18 +67,13 @@ export class ReportDetailProjectComponent implements OnInit {
           yAxes: [{
             stacked: true,
             ticks: {
-                    max: 12,
-                    min: 0,
-                    stepSize: 2
-                }
+              max: 10,
+              min: 0,
+              stepSize: 2
+              }
           }]
         },
-        hover: {
-            mode: 'index'
-        },
-        events: {
-
-        },
+        events: {},
         animation: {
         duration: 1,
         onComplete: function () {
@@ -116,7 +96,6 @@ export class ReportDetailProjectComponent implements OnInit {
                 meta.data.forEach(function (bar, index) {
                     let data = dataset.data[index];
                     let display = sum[index];
-                    ctx.fillText(display, bar._model.x, bar._model.y - 20);
                     ctx.fillStyle = '#FFFFFF';
                     let toFull = height - 50  - bar._model.y;
                     if  (data > 0)  {
@@ -124,11 +103,50 @@ export class ReportDetailProjectComponent implements OnInit {
                     }
                     ctx.fillStyle = '#000000';
                 });
+              } else if (i === 1) {
+                let meta = chartInstance.controller.getDatasetMeta(i);
+                meta.data.forEach(function (bar, index) {
+                    let data = dataset.data[index];
+                    let display = sum[index];
+                    ctx.fillText(display, bar._model.x, bar._model.y - 10);
+                    ctx.fillStyle = '#FFFFFF';
+                    let toFull = height - 50  - bar._model.y;
+                    ctx.fillStyle = '#000000';
+                });
               }
             });
         },
     }
     };
+    let para = this.route.params['_value'];
+    this.project.id = para.id;
+    let begin = para.begin;
+    let end = para.end;
+    this.newRange([begin, end]);
+    /*this.reportService.getReportDetailProject(begin, end, this.project.id)
+    .then(res => {
+      console.log(res);
+      this.project = res;
+      this.charts = res.chart;
+      this.client_name = res.client.name;
+      this.generateLabels();
+      this.generateValues();
+      let len = this.data.labels.length;
+      for (let i = 0; i < len; i++) {
+        let d = this.data.datasets[0].data[i] + this.data.datasets[1].data[i];
+        this.sum.push(d);
+      }
+      let maxSum = Math.max(...this.sum);
+      let maxY = this.options.scales.yAxes[0].ticks.max;
+      while (maxSum > maxY) {
+        maxY += 2;
+      }
+      this.options.scales.yAxes[0].ticks.max = maxY;
+      this.isLoaded = true;
+    })
+    .catch(error => {
+      console.log(error);
+    });*/
     this.items = [
       {label: 'PDF', icon: 'fa-file-pdf-o'},
       {label: 'DOC', icon: 'fa-file-text-o'},
@@ -163,13 +181,110 @@ export class ReportDetailProjectComponent implements OnInit {
     let len = this.charts.length;
     for (let i = 0; i < len; i++) {
       let key = Object.keys(this.charts[i])[0];
-      let bill = this.charts[i][key].billable;
-      let unbill = this.charts[i][key].unbillable;
+      let bill = this.secondsToHours(this.charts[i][key].billable) || 0;
+      let unbill = this.secondsToHours(this.charts[i][key].unbillable) || 0;
       this.billables.push(bill);
       this.unbillables.push(unbill);
     }
-    console.log(this.billables);
-    console.log(this.unbillables);
+  }
+
+  secondsToHours(sec): any {
+    let hours = sec / 3600;
+    hours = Math.round(hours * 100) / 100;
+    return hours;
+  }
+
+  newRange(arg) {
+    this.labels = [];
+    this.billables = [];
+    this.unbillables = [];
+    this.data.labels = this.labels;
+    this.data.datasets[0].data = this.billables;
+    this.data.datasets[1].data = this.unbillables;
+    let id = this.project.id;
+    let begin = arg[0];
+    let end = arg[1];
+    this.isLoaded = false;
+    this.router.navigate(['report-detail-project', id, begin, end]);
+    this.reportService.getReportDetailProject(begin, end, id)
+    .then(res => {
+      console.log(res);
+      this.project = res;
+      this.charts = res.chart;
+      this.categories = res.categories;
+      this.client_name = res.client.name;
+      this.generateLabels();
+      this.generateValues();
+      this.generateMembers();
+
+      let len = this.data.labels.length;
+      for (let i = 0; i < len; i++) {
+        let d = this.data.datasets[0].data[i] + this.data.datasets[1].data[i];
+        this.sum.push(d);
+      }
+      let maxSum = Math.max(...this.sum);
+      let maxY = this.options.scales.yAxes[0].ticks.max;
+      while (maxSum > maxY) {
+        maxY += 2;
+      }
+      this.options.scales.yAxes[0].ticks.max = maxY;
+      this.isLoaded = true;
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
+
+  generateMembers() {
+    for (let category of this.categories) {
+      let len = category.members.length;
+      for (let i = 0; i < len; i++) {
+        let j = this.isInMemberList(category.members[i]);
+        if (j < 0) {
+          this.members.push(category.members[i]);
+        } else {
+          this.members[j].tracked_time += category.members[i].tracked_time;
+        }
+      }
+    }
+    for (let mem of this.members) {
+      mem.categories = [];
+    }
+    this.categoriesOfMember();
+    console.log(this.members);
+  }
+
+  categoriesOfMember() {
+    for (let category of this.categories) {
+      let len = category.members.length;
+      for (let i = 0; i < len; i++) {
+        let j = this.isInMemberList(category.members[i]);
+        if (j < 0) {
+          console.log('error!!!');
+        } else {
+          let cate = {name: category.name, tracked_time: category.members[i].tracked_time };
+          // console.log(cate);
+          this.members[j].categories.push(cate);
+        }
+      }
+    }
+  }
+
+  isInMemberList(member) {
+    let len = this.members.length;
+    let res = -1;
+    for (let i = 0; i < len; i++) {
+      if (member.id === this.members[i].id) {
+        res = i;
+        break;
+      }
+    }
+    return res;
+  }
+
+  getMemberTrackedTimeInCategory(category, member_id) {
+    let len = category.members.length;
+    let res = -1;
   }
 
 }
