@@ -1,3 +1,6 @@
+@import '../general-style/color-style.scss';
+@import '../general-style/font-style.scss';
+
 .content{
     table{
         border-collapse: collapse !important;
@@ -19,7 +22,6 @@
             }
         }
         tr{
-            max-width: 1043px;
             max-height: 56px;
             .day-column{
                 width: 55px;
@@ -57,10 +59,39 @@
                 input:hover{
                     background: white;
                 }
-            }
 
+                .check-box{
+                    // display: none;
+                }
+                input[type='checkbox']{
+                    width: 16px;
+                    height: 16px;
+                    border-radius: 3px;
+                    &:after{
+                        content: "  ";
+                        background-color: white;
+                        display: inline-block;
+                        visibility: visible;
+                        width: 16px;
+                        height: 16px;
+                        border-radius: 3px;
+                        text-align: center;
+                        font-size: 14px;
+                        border: solid 0.5px $blueColor;
+                    }
+                    &:checked:after{
+                        content: "\2714";
+                        color: white;
+                        background-color: $blueColor
+                    }
+                }
+            }
             .search{
                 border: 0px;
+            }
+            .checkeds{
+                width: 22px;
+                padding-right: 5px;
             }
             td{
                 .avatar{
@@ -72,6 +103,7 @@
                     background-image: url('/assets/image-profile/default-avatar.png');
                     background-size: contain;
                     background-color: #ddd;
+                    margin-right: 10px;
                 }
                 .inform{
                     display: inline-block;
@@ -121,6 +153,10 @@
                     background: none;
                 }
             }
+        }
+        tr:hover{
+            background-color: #F6F8FD;
+            .member >.check-box{ display: block;}
         }
     }
     .calendar-note{

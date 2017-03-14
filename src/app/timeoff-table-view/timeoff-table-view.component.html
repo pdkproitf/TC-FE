@@ -17,8 +17,10 @@
 
         <tbody >
             <tr *ngFor="let member of list_members">
-                <td class="member">
-                    <div><p-checkbox name="groupname" value="{{member.id}}" [(ngModel)]="selectedValues" (click)="checked()"></p-checkbox></div>
+                <td class="member checkeds" >
+                    <div class="check-box">
+                        <label><input type="checkbox" (change)="checked($event.target.checked, member.id)"></label>
+                    </div>
                 </td>
                 <td class="member">
                     <div class="avatar" *ngIf="!member.user || !member.user.image"></div>
@@ -26,17 +28,17 @@
                     <div class="inform">
                         <div class="name-status">
                             <div class="name"><span *ngIf="member.user">{{(member.user.first_name + ' '+ member.user.last_name) | capitalize}}</span></div>
-                            <div class="status pending" *ngIf="hash_created.get(member.id)">
+                            <div class="status pending" *ngIf="hash_start_date.get(member.id)">
                                 Pending
                             </div>
                         </div>
                         <div class="member-type"><span *ngIf="member.user">{{member.role.name}}</span></div>
                     </div>
                 </td>
-                <td *ngFor="let day of days">
-                    <div *ngIf=" (day.getDay()%6 !=0) && hash_created.get(member.id) && hash_created.get(member.id).get(day.getTime()) && (hash_created.get(member.id).get(day.getTime()).status == 'pending' || hash_created.get(member.id).get(day.getTime()).status == 'approved')"
-                    class="cel-{{hash_created.get(member.id).get(day.getTime()).status}}">
-                        <button (click)="pppp.toggle($event); answerTimeoff(hash_created.get(member.id).get(day.getTime()))" class="cel-{{hash_created.get(member.id).get(day.getTime()).status}}">
+                <td *ngFor="let day of days" [class]="getClass(day, member.id)">
+                    <!-- <div *ngIf=" (day.getDay()%6 !=0) && hash_start_date.get(member.id) && hash_start_date.get(member.id).get(day.getTime()) && (hash_start_date.get(member.id).get(day.getTime()).status == 'pending' || hash_start_date.get(member.id).get(day.getTime()).status == 'approved')"
+                    class="cel-{{hash_start_date.get(member.id).get(day.getTime()).status}}">
+                        <button (click)="pppp.toggle($event); answerTimeoff(hash_start_date.get(member.id).get(day.getTime()))" class="cel-{{hash_start_date.get(member.id).get(day.getTime()).status}}">
                         </button>
                         <p-overlayPanel #pppp>
                             <div class="form-container">
@@ -56,7 +58,7 @@
                         </p-overlayPanel>
                     </div>
 
-                    <div *ngIf="(day.getDay()%6 == 0)" class="cel-weekend"></div>
+                    <div *ngIf="(day.getDay()%6 == 0)" class="cel-weekend"></div> -->
                 </td>
             </tr>
         </tbody>

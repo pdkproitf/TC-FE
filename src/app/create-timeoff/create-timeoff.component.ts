@@ -109,6 +109,7 @@ export class CreateTimeoffComponent implements OnInit {
         timeoff.is_start_half_day = this.timeoffForm.value['is_start_half_day']
         timeoff.is_end_half_day = this.timeoffForm.value['is_end_half_day']
         timeoff.description = this.timeoffForm.value['description']
+        
         return new TimeOffPost(timeoff);
     }
 
