@@ -32,6 +32,12 @@
 }
 table {
     border-collapse: collapse;
+    .column-text{
+        font-family: Lato;
+        font-size: 16px;
+        line-height: 24px;
+        color: #363636;
+    }
     th, td {
         padding: 8px;
         text-align: left;

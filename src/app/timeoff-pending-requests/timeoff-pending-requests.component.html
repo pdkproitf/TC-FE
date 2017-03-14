@@ -13,7 +13,7 @@
                 <span class="days-off">Vacation on {{timeoff.start_date | date: 'MMM dd'}} - {{timeoff.end_date | date: 'MMM dd'}} </span> <span class="total-days-off">({{ (timeoff.end_date | amDifference: timeoff.start_date :'days' : true) + 1 - (timeoff.is_start_half_day? 0.5:0) - (timeoff.is_end_half_day? 0.5:0) }} days)</span> <br>
             </div>
 
-            <div class="control" *ngIf="timeoff.status=='pending' && ((timeoff.created_at | amDateFormat: 'YYYY-MM-DD') > (this_year | amDateFormat: 'YYYY-MM-DD'))">
+            <div class="control" *ngIf="timeoff.status=='pending' && ((timeoff.created_at | amDateFormat: 'YYYY-MM-DD') >= (this_year | amDateFormat: 'YYYY-MM-DD'))">
                 <div class="control-request">
                     <div  *ngIf="(user.role.name == 'Admin' && (user.id != timeoff.sender.id)) || (user.role.name == 'PM' && (user.id != timeoff.sender.id) && ('Admin' != timeoff.sender.role.name)) ">
                         <button class="approver" (click)="answer.toggle($event); showForm('approved')">Approve</button>

@@ -21,18 +21,22 @@ export class TimeoffCalendarComponent implements OnInit {
 
     setWeeks($event){
         this.start_date = $event;
-        this.addWeeks(true);
+        this.updateEndDate();
     }
 
     addWeeks(add: boolean){
         this.start_date =  new Date(this.start_date.toString());
         add? this.start_date.setDate(this.start_date.getDate() + 14) : this.start_date.setDate(this.start_date.getDate() - 14);
-        this.end_date =  new Date(this.start_date.toString());
-        this.end_date.setDate(this.start_date.getDate() + 14);
+        this.updateEndDate();
     }
 
     setToDay(){
         this.start_date = new Date();
-        this.addWeeks(true);
+        this.updateEndDate();
+    }
+    
+    updateEndDate(){
+        this.end_date =  new Date(this.start_date.toString());
+        this.end_date.setDate(this.start_date.getDate() + 14);
     }
 }

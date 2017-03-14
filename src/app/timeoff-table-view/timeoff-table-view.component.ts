@@ -16,8 +16,10 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     start_date: Date;
     end_date: Date;
 
+    // constraint list timeoffs of each member
     hash_timeoff: Map<Number, Array<TimeOff>>;
-    hash_created: Map<Number, Map<Number, TimeOff>>;
+    // constraint map<member_id, l>
+    hash_start_date: Map<Number, Map<Number, TimeOff>>;
 
     distionary_member: Array<Member>;
     list_members: Array<Member>;
@@ -46,7 +48,7 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
         }
 
         this.hash_timeoff = new Map<Number, Array<TimeOff>>();
-        this.hash_created = new Map<Number, Map<Number, TimeOff>>();
+        this.hash_start_date = new Map<Number, Map<Number, TimeOff>>();
         this.distionary_member  = [];
         this.list_members  = [];
 
@@ -57,24 +59,20 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
         if(changes['startDay'] || changes['endDay']) this.ngOnInit();
     }
 
-    checked(){
+    checked(arg, id) {
+        arg? this.selectedValues.push(id) : this.selectedValues.splice(this.selectedValues.indexOf(id), 1);
         (this.selectedValues.length > 0)? $('.messages').css({'display': 'block'}) : $('.messages').css({'display': 'none'});
     }
 
     getTimeOff(){
         this.timeoffService.getPhaseTimeOffsMemberOrdinal(this.start_date, this.end_date).then(
             (result) => {
-                this.hash_timeoff = result.hash_timeoff;
                 this.distionary_member = result.members;
-                this.distionary_member.forEach(member =>{
-                    var hash_created_timeoff = new Map<Number, TimeOff>();
-                    this.hash_timeoff[member.id].forEach(timeoff =>{
-                        var temp = new Date(timeoff.created_at);
-                        temp = new Date(temp.getFullYear(), temp.getMonth(), temp.getDate());
-                        hash_created_timeoff.set(temp.getTime(), timeoff);
-                        this.hash_created.set(member.id, hash_created_timeoff);
-                    })
-                });
+
+                for(var i = 0; i < result.timeoffs.length; i++){
+                    this.hash_timeoff.set(result.members[i].id, result.timeoffs[i])
+                }
+
                 (this.selectedValues.length > 0)? this.initializeSelectedValues(): (this.searchPattern.length > 0)? this.initializeSearchValues():this.initializeAllValues();
             },
             (error) => {
@@ -88,10 +86,31 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
         this.initializeSearchValues();
     }
 
-    print(){
-        this.days.forEach(day => console.log(day));
-        this.distionary_member.forEach(member => {
-        })
+    getClass(_day: Date, id: number){
+        var status = "cel-";
+        if(this.isWeekend(_day))
+        return 'cel-weekend';
+
+        console.log('day', _day);
+        var day = _day.getTime();
+        for (let timeoff of this.hash_timeoff.get(id)) {
+            var start_date = new Date(timeoff.start_date.toString());
+            var end_date = new Date(timeoff.end_date.toString());
+            // console.log('id', id, 'day', _day, 'start_date', timeoff.start_date, 'end_date', timeoff.end_date, 'status ** ** ', timeoff.status, 'compare', (start_date <= day && day <= end_date))
+            // console.log('id', id, 'day', day, 'start_date', start_date, 'end_date', end_date, 'status ** ** ', timeoff.status, 'compare', (start_date <= day && day <= end_date))
+
+            if(start_date <= _day && _day <= end_date && timeoff.status != 'rejected'){
+                console.log('status', timeoff.status)
+                status += timeoff.status;
+                return status;
+            }
+        }
+
+        return status;
+    }
+
+    isWeekend(day: Date){
+        return (day.getDay()%6 == 0)
     }
 
     hidenMessage(){

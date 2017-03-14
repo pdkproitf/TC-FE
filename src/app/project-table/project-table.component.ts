@@ -23,7 +23,7 @@ export class ProjecTableComponent implements OnInit, OnChanges {
     @Input() projects: ProjectGetAll[];
 
     constructor(private router: Router) { }
-    
+
     ngOnInit() {
         if(this.projects.length > 1){
             this.projects.sort(function(a, b){
@@ -96,7 +96,8 @@ export class ProjecTableComponent implements OnInit, OnChanges {
     }
     // go to in here after click to EDIT button
     edit(project: ProjectGetAll){
-
+        console.log('edit project', project);
+        this.router.navigate(['/edit-project/'+project.id])
     }
 
     // update current_page each time click page_button
