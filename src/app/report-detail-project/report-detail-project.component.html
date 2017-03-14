@@ -35,15 +35,27 @@
   </div>
 
   <div class="by-people">
-    <div class="person" *ngFor="let member of members">
+    <div class="person" *ngFor="let member of members; let id = index;">
       <div class="summary">
-        {{member.user.first_name}}{{member.tracked_time}}
+        <span class="fa fa-minus icon left"></span>
+        <img class="left" *ngIf="member.user.image != null" src="{{member.user.image}}">
+        <img class="left" *ngIf="member.user.image == null" src="assets/image-profile/default-avatar.png">
+        <p class="left">{{member.user.first_name}} {{member.user.last_name}}</p>
+        <p class="right">{{member.tracked_time | timeFromSeconds}}</p>
       </div>
-      <ul>
-        <li *ngFor="let category of member.categories">
-          {{category.name}}{{category.tracked_time}}
-        </li>
-      </ul>
+      <table>
+      <tr>
+        <th class="left"></th>
+        <th class="deco"></th>
+        <th class="right"></th>
+      </tr>
+      <tr *ngFor="let category of member.categories">
+        <td class="left"><p>{{category.name}}</p></td>
+        <td class="deco"><div></div></td>
+        <td class="right"><p>{{category.tracked_time | timeFromSeconds}}</p></td>
+      </tr>
+      </table>
+      <br/>
     </div>
   </div>
 
