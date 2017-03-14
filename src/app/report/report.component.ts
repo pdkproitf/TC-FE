@@ -37,8 +37,9 @@ export class ReportComponent implements OnInit {
     this.router.navigate(['report-detail']);
   }
 
-  detailReportProject() {
-    this.router.navigate(['report-detail-project']);
+  detailReportProject(id) {
+    console.log(id);
+    this.router.navigate(['report-detail-project', id, this.firstString, this.lastString]);
   }
 
   dateToShortString(date: Date): string {

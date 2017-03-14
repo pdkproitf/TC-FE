@@ -40,7 +40,8 @@ const routes: Routes = [
     { path: 'edit-timeoff/:id', component: CreateTimeoffComponent, canActivate: [AuthenLoggedIn] },
     { path: 'pass-timeoffs', component: TimeoffPassRequestsComponent, canActivate: [AuthenLoggedIn] },
     { path: 'report-detail', component: ReportDetailComponent, canActivate: [AuthenLoggedIn] },
-    { path: 'report-detail-project', component: ReportDetailProjectComponent, canActivate: [AuthenLoggedIn] },
+    // { path: 'report-detail-project', component: ReportDetailProjectComponent, canActivate: [AuthenLoggedIn] },
+    { path: 'report-detail-project/:id/:begin/:end', component: ReportDetailProjectComponent, canActivate: [AuthenLoggedIn] },
     // { path: '', component: AppComponent }
     // { path: '', redirectTo: '/home', pathMatch: 'full'}
 ];
