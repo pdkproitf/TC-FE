@@ -5,6 +5,7 @@
     table{
         border-collapse: collapse !important;
         border-spacing: 0px !important;
+        width: 100%;
         th, td{
             padding: 0px;
             border-left: 1px solid rgba(54,54,54,0.1);
@@ -62,28 +63,6 @@
 
                 .check-box{
                     // display: none;
-                }
-                input[type='checkbox']{
-                    width: 16px;
-                    height: 16px;
-                    border-radius: 3px;
-                    &:after{
-                        content: "  ";
-                        background-color: white;
-                        display: inline-block;
-                        visibility: visible;
-                        width: 16px;
-                        height: 16px;
-                        border-radius: 3px;
-                        text-align: center;
-                        font-size: 14px;
-                        border: solid 0.5px $blueColor;
-                    }
-                    &:checked:after{
-                        content: "\2714";
-                        color: white;
-                        background-color: $blueColor
-                    }
                 }
             }
             .search{
@@ -151,6 +130,10 @@
                 }
                 button{
                     background: none;
+                    border: 0px;
+                    width: 100%;
+                    height: 100%;
+                    cursor: pointer;
                 }
             }
         }
@@ -162,8 +145,8 @@
     .calendar-note{
         text-align: right;
         .thumble{
-            max-width: 24px;
-            max-height: 24px;
+            width: 24px;
+            height: 24px;
             margin-top: 20px;
         }
         label{
@@ -176,26 +159,23 @@
         }
     }
     .cel-pending{
-        width: 55px;
         height: 55px;
         cursor: pointer;
         background-image: url('/assets/image-table/pending.png');
+        background-repeat: round;
         border: 0px;
     }
     .cel-approved{
         border: 0px;
-        width: 55px;
         height: 55px;
         cursor: pointer;
         background: rgba(0,102,204,0.8);
     }
     .cel-weekend{
-        width: 55px;
         height: 55px;
         background: #F1F1F1;
     }
     .cel-holiday{
-        width: 55px;
         height: 55px;
         cursor: pointer;
         background: rgba(155,89,182,0.8)
@@ -204,27 +184,64 @@
         display: inline-block;
     }
     .messages{
-        width: 1280px;
         height: 64px;
         background-color: #FFFFFF;
         box-shadow: 0 -1px 0 0 rgba(54,54,54,0.24);
         display: none;
         vertical-align: bottom;
         width: 100%;
-        label{
-            font-family: Lato;
-            font-size: 16px;
-            font-weight: bold;
-            line-height: 24px;
-            color: rgba(54, 54, 54, 0.7);
-            float: left;
-            padding-top: 20px;
-        }
-        .action{
-            float: right;
-            padding-top: 10px;
-            .show-selected{
-                width: 145px;
+        bottom: 0;
+        left: 0;
+        position: fixed;
+        .content{
+            width: 80%;
+            margin: auto;
+            label{
+                font-family: Lato;
+                font-size: 16px;
+                font-weight: bold;
+                line-height: 24px;
+                color: rgba(54, 54, 54, 0.7);
+                float: left;
+                padding-top: 20px;
+            }
+            .action{
+                float: right;
+                padding-top: 10px;
+                .show-selected{
+                    width: 145px;
+                    height: 40px;
+                    background-color: #0066CC;
+                    border-radius: 3px;
+                    font-family: Lato;
+                    font-size: 16px;
+                    text-align: center;
+                    line-height: 24px;
+                    color: #FFFFFF;
+                    display: inline;
+                    cursor: pointer;
+                }
+                .cancel{
+                    cursor: pointer;
+                    display: inline;
+                    width: 90px;
+                    height: 40px;
+                    background-color: #FFFFFF;
+                    border: 1px solid rgba(54,54,54,0.3);
+                    border-radius: 3px;
+                    font-family: Lato;
+                    font-size: 16px;
+                    text-align: center;
+                    line-height: 24px;
+                    color: rgba(54,54,54,0.7);
+                }
+            }
+            .clear{
+                cursor: pointer;
+                float: right;
+                margin-top: 15px;
+                display: none;
+                width: 84px;
                 height: 40px;
                 background-color: #0066CC;
                 border-radius: 3px;
@@ -233,38 +250,13 @@
                 text-align: center;
                 line-height: 24px;
                 color: #FFFFFF;
-                display: inline;
-                cursor: pointer;
-            }
-            .cancel{
-                cursor: pointer;
-                display: inline;
-                width: 90px;
-                height: 40px;
-                background-color: #FFFFFF;
-                border: 1px solid rgba(54,54,54,0.3);
-                border-radius: 3px;
-                font-family: Lato;
-                font-size: 16px;
-                text-align: center;
-                line-height: 24px;
-                color: rgba(54,54,54,0.7);
             }
         }
-        .clear{
-            cursor: pointer;
-            float: right;
-            margin-top: 15px;
-            display: none;
-            width: 84px;
-            height: 40px;
-            background-color: #0066CC;
-            border-radius: 3px;
-            font-family: Lato;
-            font-size: 16px;
-            text-align: center;
-            line-height: 24px;
-            color: #FFFFFF;
+    }
+    /deep/.ui-chkbox-box.ui-state-active{
+        background: #0066CC;
+        .fa-check:before{
+            content: "\2714";
         }
     }
 }
