@@ -1,7 +1,7 @@
 <ul class="date-chooser">
-  <li><button class="previous" (click)="prevWeek()"></button></li>
+  <li><button class="previous" (click)="prevWeek()"><i class="fa fa-angle-left" aria-hidden="true"></i></button></li>
   <li>{{firstWeekMonth}} {{firstWeekDate}} - {{lastWeekMonth}} {{lastWeekDate}}</li>
-  <li><button class="next" (click)="nextWeek()"></button></li>
-  <li>Today:<p-calendar [(ngModel)]="chosenDate" [showIcon]="true" (onSelect)="emitChosenDate($event)"
+  <li><button class="next" (click)="nextWeek()"><i class="fa fa-angle-right" aria-hidden="true"></i></button></li>
+  <li style="color: rgba(54,54,54,0.7);">Today:<p-calendar [(ngModel)]="chosenDate" [showIcon]="true" (onSelect)="emitChosenDate($event)"
   (onBlur)="emitChosenDate0($event.target.value)"></p-calendar></li>
 </ul>
