@@ -1,0 +1,42 @@
+<p class="title">
+    Time offcalendar
+</p>
+
+<div class="show-control">
+    <div class="calendar-details">
+        <div class="show-week inline" >
+            <div class="inline oval" (click)="addWeeks(false)"><div class="text"><i class="fa fa-angle-left" aria-hidden="true"></i></div></div>
+            <label for="">{{start_date | date: 'MMM dd'}} - {{end_date | date: 'MMM dd'}}</label>
+            <div class="inline oval" (click)="addWeeks(true)"><div class="text"><i class="fa fa-angle-right" aria-hidden="true"></i></div></div>
+        </div>
+        <div class="show-date inline">
+            <label class="today" (click)="setToDay()">Today</label>
+            <div class="calendar">
+                <p-calendar [(ngModel)]="start_date" [showIcon]="true" readonlyInput="readonlyInput" dateFormat="M dd" placeholder="Pick a date..." (onSelect)="setWeeks($event)"></p-calendar>
+            </div>
+        </div>
+    </div>
+
+    <div class="show-type">
+        <label for="">Show people</label>
+        <div class="dropdown inline">
+            <label for="">All projects <i class="fa fa-sort-desc" aria-hidden="true"></i></label>
+            <div class="dropdown-content">
+                <label for="">a</label>
+                <label for="">b</label>
+            </div>
+        </div>
+        <label class="and" for="">and</label>
+        <div class="dropdown roles inline">
+            <label for="">All roles <i class="fa fa-sort-desc" aria-hidden="true"></i></label>
+            <div class="dropdown-content">
+                <label for="">a</label>
+                <label for="">b</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="table-view">
+    <app-timeoff-table-view [startDay]="start_date"  [endDay]="end_date"></app-timeoff-table-view>
+</div>

@@ -26,7 +26,8 @@ export class TimeoffManageComponent implements OnInit {
     }
 
     getTimeOffsPending(){
-        this.timeoffService.getTimeOffs().then(
+        var this_year = new Date(new Date().getFullYear(), 0, 1);
+        this.timeoffService.getPhaseTimeOffs(this_year,new Date()).then(
             (result) => {
                 this.list_timeoff = result;
                 console.log('list_timeoff',result);

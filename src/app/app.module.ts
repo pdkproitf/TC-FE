@@ -65,6 +65,9 @@ import { ReportSearchComponent } from './report-search/report-search.component';
 import { TimeoffPassRequestsComponent } from './timeoff-pass-requests/timeoff-pass-requests.component';
 import { ReportDetailComponent } from './report-detail/report-detail.component';
 import { ReportDetailProjectComponent } from './report-detail-project/report-detail-project.component';
+import { TimeoffCalendarComponent } from './timeoff-calendar/timeoff-calendar.component';
+import { TimeoffTableViewComponent } from './timeoff-table-view/timeoff-table-view.component';
+import { CheckboxModule } from 'primeng/primeng';
 
 @NgModule({
   declarations: [
@@ -109,7 +112,9 @@ import { ReportDetailProjectComponent } from './report-detail-project/report-det
     ReportComponent,
     ReportSearchComponent,
     ReportDetailComponent,
-    ReportDetailProjectComponent
+    ReportDetailProjectComponent,
+    TimeoffCalendarComponent,
+    TimeoffTableViewComponent,
   ],
   imports: [
     BrowserModule,
@@ -132,6 +137,7 @@ import { ReportDetailProjectComponent } from './report-detail-project/report-det
     MomentModule,
     OverlayPanelModule,
     ChartModule,
+    CheckboxModule
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
   AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService,
