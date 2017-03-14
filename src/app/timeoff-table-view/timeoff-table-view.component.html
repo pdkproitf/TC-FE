@@ -29,8 +29,8 @@
                     <div class="inform">
                         <div class="name-status">
                             <div class="name"><span *ngIf="member.user">{{(member.user.first_name + ' '+ member.user.last_name) | capitalize}}</span></div>
-                            <div class="status pending">
-                                Pending
+                            <div [ngClass]="['status', getmemberStatus(member.id)]" class="status">
+                                {{getmemberStatus(member.id)}}
                             </div>
                         </div>
                         <div class="member-type"><span *ngIf="member.user">{{member.role.name}}</span></div>

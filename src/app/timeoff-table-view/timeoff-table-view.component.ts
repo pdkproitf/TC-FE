@@ -130,11 +130,23 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
         return status;
     }
 
+    isWeekend(day: Date){
+        return (day.getDay()%6 == 0)
+    }
+
     ableToModify(string: string){
         var status = this.hash_member_day_status.get(string);
         if(status == 'cel-pending' || status == 'cel-approved')
             return true;
         return false;
+    }
+
+    getmemberStatus(id: number){
+        for (var day of this.days){
+            var status = this.hash_member_day_status.get(id+'-'+day.getDate());
+            if(status == 'cel-pending' || status == 'cel-approved')
+                return status.slice(4, status.length);
+        }
     }
 
     checked(arg, id) {
@@ -145,10 +157,6 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     search(){
         this.list_members = [];
         this.initializeSearchValues();
-    }
-
-    isWeekend(day: Date){
-        return (day.getDay()%6 == 0)
     }
 
     hidenMessage(){
