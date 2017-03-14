@@ -19,7 +19,8 @@
             <tr *ngFor="let member of list_members">
                 <td class="member checkeds" >
                     <div class="check-box">
-                        <label><input type="checkbox" (change)="checked($event.target.checked, member.id)"></label>
+                        <p-checkbox name="groupname" value="{{member.id}}" [(ngModel)]="selectedValues" (click)="checked($event.target.checked, member.id)"></p-checkbox>
+                        <!-- <label><input type="checkbox" (change)="checked($event.target.checked, member.id)"></label> -->
                     </div>
                 </td>
                 <td class="member">
@@ -54,12 +55,14 @@
     </div>
 
     <div class="messages">
-        <label for="">{{selectedValues.length}} people were selected</label>
-        <div class="action">
-            <button class="show-selected" type="button" (click)="showSelected()">Show selected</button>
-            <button class="cancel" type="button" (click)="hidenMessage()"  >Cancel</button>
+        <div class="content">
+            <label for="">{{selectedValues.length}} people were selected</label>
+            <div class="action">
+                <button class="show-selected" type="button" (click)="showSelected()">Show selected</button>
+                <button class="cancel" type="button" (click)="hidenMessage()"  >Cancel</button>
+            </div>
+            <button class="clear" type="button" name="button" (click)="hidenMessage()">Clear</button>
         </div>
-        .<button class="clear" type="button" name="button" (click)="hidenMessage()">Clear</button>
     </div>
 </div>
 

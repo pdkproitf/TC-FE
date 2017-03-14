@@ -138,7 +138,7 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     }
 
     checked(arg, id) {
-        arg? this.selectedValues.push(id) : this.selectedValues.splice(this.selectedValues.indexOf(id), 1);
+        console.log(this.selectedValues);
         (this.selectedValues.length > 0)? $('.messages').css({'display': 'block'}) : $('.messages').css({'display': 'none'});
     }
 
