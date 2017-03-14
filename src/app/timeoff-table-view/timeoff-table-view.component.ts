@@ -16,8 +16,10 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     start_date: Date;
     end_date: Date;
 
+    // constraint list timeoffs of each member
     hash_timeoff: Map<Number, Array<TimeOff>>;
-    hash_created: Map<Number, Map<Number, TimeOff>>;
+    // hash constraint member_id and day to get class for table cel
+    hash_member_day_status: Map<string, string>;
 
     distionary_member: Array<Member>;
     list_members: Array<Member>;
@@ -25,7 +27,6 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     @Input()
     set startDay(date: Date){
         this.start_date = date;
-        console.log('startDay', date);
     }
     @Input()
     set endDay(date: Date){
@@ -46,7 +47,7 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
         }
 
         this.hash_timeoff = new Map<Number, Array<TimeOff>>();
-        this.hash_created = new Map<Number, Map<Number, TimeOff>>();
+        this.hash_member_day_status  = new Map<string, string>();
         this.distionary_member  = [];
         this.list_members  = [];
 
@@ -57,56 +58,22 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
         if(changes['startDay'] || changes['endDay']) this.ngOnInit();
     }
 
-    checked(){
-        (this.selectedValues.length > 0)? $('.messages').css({'display': 'block'}) : $('.messages').css({'display': 'none'});
-    }
-
     getTimeOff(){
         this.timeoffService.getPhaseTimeOffsMemberOrdinal(this.start_date, this.end_date).then(
             (result) => {
-                this.hash_timeoff = result.hash_timeoff;
                 this.distionary_member = result.members;
-                this.distionary_member.forEach(member =>{
-                    var hash_created_timeoff = new Map<Number, TimeOff>();
-                    this.hash_timeoff[member.id].forEach(timeoff =>{
-                        var temp = new Date(timeoff.created_at);
-                        temp = new Date(temp.getFullYear(), temp.getMonth(), temp.getDate());
-                        hash_created_timeoff.set(temp.getTime(), timeoff);
-                        this.hash_created.set(member.id, hash_created_timeoff);
-                    })
-                });
+
+                for(var i = 0; i < result.timeoffs.length; i++){
+                    this.hash_timeoff.set(result.members[i].id, result.timeoffs[i])
+                }
+
                 (this.selectedValues.length > 0)? this.initializeSelectedValues(): (this.searchPattern.length > 0)? this.initializeSearchValues():this.initializeAllValues();
+                this.initializeHashMemberDayStatus();
             },
             (error) => {
                 console.log('error');
             }
         )
-    }
-
-    search(){
-        this.list_members = [];
-        this.initializeSearchValues();
-    }
-
-    print(){
-        this.days.forEach(day => console.log(day));
-        this.distionary_member.forEach(member => {
-        })
-    }
-
-    hidenMessage(){
-        $('.messages').find('.action').css({'display': 'block'});
-        $('.messages').find('.clear').css({'display': 'none'});
-        $('.messages').css({'display': 'none'});
-        this.searchPattern = '';
-        this.selectedValues = [];
-        this.list_members = this.distionary_member;
-    }
-
-    showSelected(){
-        $('.messages').find('.action').css({'display': 'none'});
-        $('.messages').find('.clear').css({'display': 'block'});
-        this.initializeSelectedValues();
     }
 
     initializeAllValues(){
@@ -134,7 +101,80 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
         })
     }
 
-    answerTimeoff(timeoff: TimeOff){
-        console.log('timeoff ', timeoff);
+    initializeHashMemberDayStatus(){
+        this.hash_member_day_status = new Map<string, string>();
+        for (let member of this.distionary_member){
+            for(let day of this.days){
+                this.hash_member_day_status.set(member.id+'-'+day.getDate(), this.computeClassDayCel(day, member.id));
+            }
+        }
+    }
+
+    computeClassDayCel(_day: Date, id: number){
+        var status = "cel-";
+        if(this.isWeekend(_day))
+        return 'cel-weekend'
+        var day = _day.getTime();
+        for (let timeoff of this.hash_timeoff.get(id)) {
+            var start_date = new Date(timeoff.start_date.toString());
+            var end_date = new Date(timeoff.end_date.toString());
+            // console.log('id', id, 'day', _day, 'start_date', timeoff.start_date, 'end_date', timeoff.end_date, 'status ** ** ', timeoff.status, 'compare', (start_date <= day && day <= end_date))
+            // console.log('id', id, 'day', day, 'start_date', start_date, 'end_date', end_date, 'status ** ** ', timeoff.status, 'compare', (start_date <= day && day <= end_date))
+
+            if(start_date <= _day && _day <= end_date && timeoff.status != 'rejected'){
+                // console.log('status', timeoff.status)
+                status += timeoff.status;
+                return status;
+            }
+        }
+        return status;
+    }
+
+    isWeekend(day: Date){
+        return (day.getDay()%6 == 0)
+    }
+
+    ableToModify(string: string){
+        var status = this.hash_member_day_status.get(string);
+        if(status == 'cel-pending' || status == 'cel-approved')
+            return true;
+        return false;
+    }
+
+    getmemberStatus(id: number){
+        for (var day of this.days){
+            var status = this.hash_member_day_status.get(id+'-'+day.getDate());
+            if(status == 'cel-pending' || status == 'cel-approved')
+                return status.slice(4, status.length);
+        }
+    }
+
+    checked(arg, id) {
+        console.log(this.selectedValues);
+        (this.selectedValues.length > 0)? $('.messages').css({'display': 'block'}) : $('.messages').css({'display': 'none'});
+    }
+
+    search(){
+        this.list_members = [];
+        this.initializeSearchValues();
+    }
+
+    hidenMessage(){
+        $('.messages').find('.action').css({'display': 'block'});
+        $('.messages').find('.clear').css({'display': 'none'});
+        $('.messages').css({'display': 'none'});
+        this.searchPattern = '';
+        this.selectedValues = [];
+        this.list_members = this.distionary_member;
+    }
+
+    showSelected(){
+        $('.messages').find('.action').css({'display': 'none'});
+        $('.messages').find('.clear').css({'display': 'block'});
+        this.initializeSelectedValues();
+    }
+
+    answerTimeoff(id: number, day: Date){
+        console.log('answer id ', id, 'day', day);
     }
 }

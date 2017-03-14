@@ -44,6 +44,14 @@ export class TimeOffAnswer{
     }
 }
 
+export class PersonNumTimeOff{
+    total: number;
+    offed: number;
+    constructor(){
+        this.total = 0;
+        this.offed = 0;
+    }
+}
 export class TimeOffArray{
     timeoffs: TimeOff[] = [
         // {

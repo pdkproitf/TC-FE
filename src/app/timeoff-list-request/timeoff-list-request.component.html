@@ -1,5 +1,5 @@
 <div class="header">
-    <p><strong>5</strong> days used / <strong>7</strong> remaining</p>
+    <p><strong>{{_personNumTimeOff.offed}}</strong> days used / <strong>{{_personNumTimeOff.total - _personNumTimeOff.offed}}</strong> remaining</p>
     <div class="sort">
         <p>All types</p>
         <p (click)="all_types()"><i class="fa fa-sort-desc" aria-hidden="true"></i></p>
@@ -27,8 +27,8 @@
             </div>
 
             <div class="show-details">
-                <div class="control">
-                    <div id="timeoff-control-{{timeoff.id}}" class="control-inform" *ngIf="timeoff.status == 'pending'">
+                <div class="control" *ngIf="timeoff.status == 'pending'">
+                    <div class="control-inform" id="your-timeoff-control-{{timeoff.id}}">
                         <div class="oval" (click)="delete(timeoff.id)">
                             <div class="text">
                                 <i class="fa fa-trash" aria-hidden="true"></i>

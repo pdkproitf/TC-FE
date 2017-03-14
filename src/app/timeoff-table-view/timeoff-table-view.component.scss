@@ -1,7 +1,11 @@
+@import '../general-style/color-style.scss';
+@import '../general-style/font-style.scss';
+
 .content{
     table{
         border-collapse: collapse !important;
         border-spacing: 0px !important;
+        width: 100%;
         th, td{
             padding: 0px;
             border-left: 1px solid rgba(54,54,54,0.1);
@@ -19,7 +23,6 @@
             }
         }
         tr{
-            max-width: 1043px;
             max-height: 56px;
             .day-column{
                 width: 55px;
@@ -57,10 +60,17 @@
                 input:hover{
                     background: white;
                 }
-            }
 
+                .check-box{
+                    // display: none;
+                }
+            }
             .search{
                 border: 0px;
+            }
+            .checkeds{
+                width: 22px;
+                padding-right: 5px;
             }
             td{
                 .avatar{
@@ -72,6 +82,7 @@
                     background-image: url('/assets/image-profile/default-avatar.png');
                     background-size: contain;
                     background-color: #ddd;
+                    margin-right: 10px;
                 }
                 .inform{
                     display: inline-block;
@@ -119,15 +130,23 @@
                 }
                 button{
                     background: none;
+                    border: 0px;
+                    width: 100%;
+                    height: 100%;
+                    cursor: pointer;
                 }
             }
+        }
+        tr:hover{
+            background-color: #F6F8FD;
+            .member >.check-box{ display: block;}
         }
     }
     .calendar-note{
         text-align: right;
         .thumble{
-            max-width: 24px;
-            max-height: 24px;
+            width: 24px;
+            height: 24px;
             margin-top: 20px;
         }
         label{
@@ -140,26 +159,23 @@
         }
     }
     .cel-pending{
-        width: 55px;
         height: 55px;
         cursor: pointer;
         background-image: url('/assets/image-table/pending.png');
+        background-repeat: round;
         border: 0px;
     }
     .cel-approved{
         border: 0px;
-        width: 55px;
         height: 55px;
         cursor: pointer;
         background: rgba(0,102,204,0.8);
     }
     .cel-weekend{
-        width: 55px;
         height: 55px;
         background: #F1F1F1;
     }
     .cel-holiday{
-        width: 55px;
         height: 55px;
         cursor: pointer;
         background: rgba(155,89,182,0.8)
@@ -168,27 +184,64 @@
         display: inline-block;
     }
     .messages{
-        width: 1280px;
         height: 64px;
         background-color: #FFFFFF;
         box-shadow: 0 -1px 0 0 rgba(54,54,54,0.24);
         display: none;
         vertical-align: bottom;
         width: 100%;
-        label{
-            font-family: Lato;
-            font-size: 16px;
-            font-weight: bold;
-            line-height: 24px;
-            color: rgba(54, 54, 54, 0.7);
-            float: left;
-            padding-top: 20px;
-        }
-        .action{
-            float: right;
-            padding-top: 10px;
-            .show-selected{
-                width: 145px;
+        bottom: 0;
+        left: 0;
+        position: fixed;
+        .content{
+            width: 80%;
+            margin: auto;
+            label{
+                font-family: Lato;
+                font-size: 16px;
+                font-weight: bold;
+                line-height: 24px;
+                color: rgba(54, 54, 54, 0.7);
+                float: left;
+                padding-top: 20px;
+            }
+            .action{
+                float: right;
+                padding-top: 10px;
+                .show-selected{
+                    width: 145px;
+                    height: 40px;
+                    background-color: #0066CC;
+                    border-radius: 3px;
+                    font-family: Lato;
+                    font-size: 16px;
+                    text-align: center;
+                    line-height: 24px;
+                    color: #FFFFFF;
+                    display: inline;
+                    cursor: pointer;
+                }
+                .cancel{
+                    cursor: pointer;
+                    display: inline;
+                    width: 90px;
+                    height: 40px;
+                    background-color: #FFFFFF;
+                    border: 1px solid rgba(54,54,54,0.3);
+                    border-radius: 3px;
+                    font-family: Lato;
+                    font-size: 16px;
+                    text-align: center;
+                    line-height: 24px;
+                    color: rgba(54,54,54,0.7);
+                }
+            }
+            .clear{
+                cursor: pointer;
+                float: right;
+                margin-top: 15px;
+                display: none;
+                width: 84px;
                 height: 40px;
                 background-color: #0066CC;
                 border-radius: 3px;
@@ -197,38 +250,13 @@
                 text-align: center;
                 line-height: 24px;
                 color: #FFFFFF;
-                display: inline;
-                cursor: pointer;
-            }
-            .cancel{
-                cursor: pointer;
-                display: inline;
-                width: 90px;
-                height: 40px;
-                background-color: #FFFFFF;
-                border: 1px solid rgba(54,54,54,0.3);
-                border-radius: 3px;
-                font-family: Lato;
-                font-size: 16px;
-                text-align: center;
-                line-height: 24px;
-                color: rgba(54,54,54,0.7);
             }
         }
-        .clear{
-            cursor: pointer;
-            float: right;
-            margin-top: 15px;
-            display: none;
-            width: 84px;
-            height: 40px;
-            background-color: #0066CC;
-            border-radius: 3px;
-            font-family: Lato;
-            font-size: 16px;
-            text-align: center;
-            line-height: 24px;
-            color: #FFFFFF;
+    }
+    /deep/.ui-chkbox-box.ui-state-active{
+        background: #0066CC;
+        .fa-check:before{
+            content: "\2714";
         }
     }
 }

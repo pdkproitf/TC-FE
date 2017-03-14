@@ -1,4 +1,4 @@
-import { TimeOff, TimeOffGetAll }   from '../models/timeoff';
+import { TimeOff, TimeOffGetAll, PersonNumTimeOff }   from '../models/timeoff';
 import { Component, OnInit }        from '@angular/core';
 import { TimeoffService }           from '../services/timeoff-service';
 import { Router }                   from '@angular/router'
@@ -11,6 +11,7 @@ import { Router }                   from '@angular/router'
 export class TimeoffManageComponent implements OnInit {
 
     list_timeoff: TimeOffGetAll = new TimeOffGetAll();
+    personNumTimeOff: PersonNumTimeOff = new PersonNumTimeOff();
     userObj: Object;
 
     constructor(private router: Router, private timeoffService: TimeoffService) { }
@@ -31,6 +32,21 @@ export class TimeoffManageComponent implements OnInit {
             (result) => {
                 this.list_timeoff = result;
                 console.log('list_timeoff',result);
+            },
+            (error) => {
+                // alert(error);
+                console.log('error',error);
+            }
+        );
+        this.getPersonNumTimeOff();
+    }
+
+    getPersonNumTimeOff(){
+        var this_year = new Date(new Date().getFullYear(), 0, 1);
+        this.timeoffService.getPersonNumTimeOff().then(
+            (result) => {
+                this.personNumTimeOff = result;
+                console.log('personNumTimeOff',result);
             },
             (error) => {
                 // alert(error);

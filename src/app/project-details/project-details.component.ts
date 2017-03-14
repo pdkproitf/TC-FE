@@ -12,7 +12,7 @@ import { ProjectService }   from '../services/project-service';
 export class ProjectDetailsComponent implements OnInit {
 
     project: ProjectGetOne;
-    constructor(private route: ActivatedRoute, private projectService: ProjectService) {
+    constructor(private route: ActivatedRoute, private projectService: ProjectService, private router :Router) {
         projectService.getProject(route.snapshot.params['id']).then(
             (result) =>{
                 console.log('project base', result);
@@ -36,7 +36,7 @@ export class ProjectDetailsComponent implements OnInit {
             console.log('delete');
         }
         // go to in here after click to EDIT button
-        edit(project: ProjectGetOne){
-            console.log('edit');
+        edit(){
+            this.router.navigate(['/edit-project/'+this.project.id]);
         }
     }
