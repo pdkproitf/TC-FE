@@ -74,7 +74,7 @@
                     <p></p>
                 </div>
                 <div class="approver">
-                    <strong>Approvers</strong> Join, Christophe
+                    <strong>Approvers</strong> <span *ngFor="let member of personNumTimeOff.approver"> {{ member | capitalize }},</span>
                 </div>
             </div>
 
