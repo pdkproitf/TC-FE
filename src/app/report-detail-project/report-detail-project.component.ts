@@ -2,11 +2,23 @@ import { ReportService } from './../services/report-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UIChart } from 'primeng/primeng';
 import { Component, OnInit } from '@angular/core';
+import {style, state, animate, transition, trigger} from '@angular/core';
 
 @Component({
   selector: 'app-report-detail-project',
   templateUrl: './report-detail-project.component.html',
-  styleUrls: ['./report-detail-project.component.scss']
+  styleUrls: ['./report-detail-project.component.scss'],
+  animations: [
+  trigger('fadeInOut', [
+    transition(':enter', [   // :enter is alias to 'void => *'
+      style({opacity: 0}),
+      animate(500, style({opacity: 1}))
+    ]),
+    transition(':leave', [   // :leave is alias to '* => void'
+      animate(500, style({opacity: 0}))
+    ])
+  ]),
+  ]
 })
 export class ReportDetailProjectComponent implements OnInit {
   monthStrings = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -26,7 +38,9 @@ export class ReportDetailProjectComponent implements OnInit {
   unbillables = [];
   sum = [];
   categories: any = [];
-  members: any = [];
+  members = [];
+  spanMemberClass = [];
+  spanCategoryClass = [];
   isLoaded = false;
   constructor(private route: ActivatedRoute, private reportService: ReportService, private router: Router) { }
 
@@ -213,6 +227,7 @@ export class ReportDetailProjectComponent implements OnInit {
       this.charts = res.chart;
       this.categories = res.categories;
       this.client_name = res.client.name;
+      this.members = [];
       this.generateLabels();
       this.generateValues();
       this.generateMembers();
@@ -236,12 +251,17 @@ export class ReportDetailProjectComponent implements OnInit {
   }
 
   generateMembers() {
+    this.spanMemberClass = [];
+    this.spanCategoryClass = [];
     for (let category of this.categories) {
+      this.spanCategoryClass.push('fa fa-plus icon left');
       let len = category.members.length;
       for (let i = 0; i < len; i++) {
         let j = this.isInMemberList(category.members[i]);
         if (j < 0) {
-          this.members.push(category.members[i]);
+          let mem = Object.create(category.members[i]);
+          this.members.push(mem);
+          this.spanMemberClass.push('fa fa-plus icon left');
         } else {
           this.members[j].tracked_time += category.members[i].tracked_time;
         }
@@ -251,7 +271,7 @@ export class ReportDetailProjectComponent implements OnInit {
       mem.categories = [];
     }
     this.categoriesOfMember();
-    console.log(this.members);
+    // console.log(this.members);
   }
 
   categoriesOfMember() {
@@ -260,10 +280,9 @@ export class ReportDetailProjectComponent implements OnInit {
       for (let i = 0; i < len; i++) {
         let j = this.isInMemberList(category.members[i]);
         if (j < 0) {
-          console.log('error!!!');
+          // console.log('error!!!');
         } else {
-          let cate = {name: category.name, tracked_time: category.members[i].tracked_time };
-          // console.log(cate);
+          let cate = Object.create({name: category.name, tracked_time: category.members[i].tracked_time });
           this.members[j].categories.push(cate);
         }
       }
@@ -285,6 +304,15 @@ export class ReportDetailProjectComponent implements OnInit {
   getMemberTrackedTimeInCategory(category, member_id) {
     let len = category.members.length;
     let res = -1;
+  }
+
+  changeSpan(id) {
+    this.spanMemberClass[id] = (this.spanMemberClass[id].includes('plus')) ? this.spanMemberClass[id].replace('plus', 'minus')
+    : this.spanMemberClass[id].replace('minus', 'plus');
+  }
+  changeCategorySpan(id) {
+    this.spanCategoryClass[id] = (this.spanCategoryClass[id].includes('plus')) ? this.spanCategoryClass[id].replace('plus', 'minus')
+    : this.spanCategoryClass[id].replace('minus', 'plus');
   }
 
 }
