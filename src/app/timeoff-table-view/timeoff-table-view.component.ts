@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, OnChanges, SimpleChange } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChange, EventEmitter, Output } from '@angular/core';
 import { TimeoffService }       from '../services/timeoff-service';
 import { TimeOff }              from '../models/timeoff';
+import { Holiday }              from '../models/holiday';
 import { Member }               from '../models/member';
 declare var $ :any;
 
@@ -24,14 +25,20 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     distionary_member: Array<Member>;
     list_members: Array<Member>;
 
+    holidays: Array<Holiday>;
+
     @Input()
     set startDay(date: Date){
+        date.setHours(0,0,0,0);
         this.start_date = date;
     }
     @Input()
     set endDay(date: Date){
+        date.setHours(0,0,0,0);
         this.end_date = date;
     }
+
+    @Output() setWeeks = new EventEmitter<Date>();
 
     constructor(private timeoffService :TimeoffService) {}
 
@@ -50,6 +57,7 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
         this.hash_member_day_status  = new Map<string, string>();
         this.distionary_member  = [];
         this.list_members  = [];
+        this.holidays  = [];
 
         this.getTimeOff();
     }
@@ -62,11 +70,11 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
         this.timeoffService.getPhaseTimeOffsMemberOrdinal(this.start_date, this.end_date).then(
             (result) => {
                 this.distionary_member = result.members;
-
+                this.holidays = result.holidays;
                 for(var i = 0; i < result.timeoffs.length; i++){
                     this.hash_timeoff.set(result.members[i].id, result.timeoffs[i])
                 }
-
+                console.log('result', result);
                 (this.selectedValues.length > 0)? this.initializeSelectedValues(): (this.searchPattern.length > 0)? this.initializeSearchValues():this.initializeAllValues();
                 this.initializeHashMemberDayStatus();
             },
@@ -112,13 +120,17 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
 
     computeClassDayCel(_day: Date, id: number){
         var status = "cel-";
-        if(this.isWeekend(_day))
-        return 'cel-weekend'
+        if(this.isHoliday(_day)) return 'cel-holiday';
+        if(this.isWeekend(_day)) return 'cel-weekend';
+
         var day = _day.getTime();
         for (let timeoff of this.hash_timeoff.get(id)) {
             var start_date = new Date(timeoff.start_date.toString());
             var end_date = new Date(timeoff.end_date.toString());
-            // console.log('id', id, 'day', _day, 'start_date', timeoff.start_date, 'end_date', timeoff.end_date, 'status ** ** ', timeoff.status, 'compare', (start_date <= day && day <= end_date))
+
+            start_date.setHours(0,0,0,0);
+            end_date.setHours(0,0,0,0);
+            // console.log('id', id, 'day', _day, 'start_date', timeoff.start_date, 'end_date', timeoff.end_date, 'status ** ** ', timeoff.status);
             // console.log('id', id, 'day', day, 'start_date', start_date, 'end_date', end_date, 'status ** ** ', timeoff.status, 'compare', (start_date <= day && day <= end_date))
 
             if(start_date <= _day && _day <= end_date && timeoff.status != 'rejected'){
@@ -130,6 +142,18 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
         return status;
     }
 
+    isHoliday(day: Date){
+        for (var holiday of this.holidays){
+            var start_date = new Date(holiday.begin_date.toString());
+            var end_date = new Date(holiday.end_date.toString());
+            start_date.setHours(0,0,0,0);
+            end_date.setHours(0,0,0,0);
+            if(day >= start_date && day <= end_date)
+                return true;
+        }
+        return false;
+    }
+
     isWeekend(day: Date){
         return (day.getDay()%6 == 0)
     }
@@ -137,7 +161,7 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     ableToModify(string: string){
         var status = this.hash_member_day_status.get(string);
         if(status == 'cel-pending' || status == 'cel-approved')
-            return true;
+        return true;
         return false;
     }
 
@@ -145,14 +169,18 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
         for (var day of this.days){
             var status = this.hash_member_day_status.get(id+'-'+day.getDate());
             if(status == 'cel-pending' || status == 'cel-approved')
-                return status.slice(4, status.length);
+            return status.slice(4, status.length);
         }
         return '';
     }
 
     checked(arg, id) {
-        console.log(this.selectedValues);
-        (this.selectedValues.length > 0)? $('.messages').css({'display': 'block'}) : $('.messages').css({'display': 'none'});
+        if(this.selectedValues.length > 0){
+            $('.messages').css({'display': 'block'});
+        }else{
+            $('.messages').css({'display': 'none'});
+            this.hidenMessage();
+        }
     }
 
     search(){
@@ -177,5 +205,11 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
 
     answerTimeoff(id: number, day: Date){
         console.log('answer id ', id, 'day', day);
+    }
+
+    goToFutureDayOff(date: Date){
+        // console.log('date emit', date);
+        // console.log('date emit', new Date(date));
+        this.setWeeks.emit(new Date(date));
     }
 }

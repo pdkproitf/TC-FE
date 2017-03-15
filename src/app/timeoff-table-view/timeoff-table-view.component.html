@@ -40,8 +40,10 @@
                     <button *ngIf="ableToModify(member.id + '-' + day.getDate())" (click)="pppp.toggle($event); answerTimeoff(member.id, day)"></button>
                 </td>
                 <td>
-                    <div class="triangle"></div>
-                    <div class="triangle-text">3</div>
+                    <div *ngIf="member.future_dayoff > 0" class="last-cel">
+                        <div class="triangle"></div>
+                        <div class="triangle-text" (click)="goToFutureDayOff(member.nearest_future_dateoff)">{{member.future_dayoff}}</div>
+                    </div>
                 </td>
             </tr>
         </tbody>

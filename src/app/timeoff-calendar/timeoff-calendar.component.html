@@ -38,5 +38,5 @@
 </div>
 
 <div class="table-view">
-    <app-timeoff-table-view [startDay]="start_date"  [endDay]="end_date"></app-timeoff-table-view>
+    <app-timeoff-table-view [startDay]="start_date"  [endDay]="end_date" (setWeeks)="setWeeks($event)"></app-timeoff-table-view>
 </div>
