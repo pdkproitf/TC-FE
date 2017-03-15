@@ -9,18 +9,20 @@ declare var $:any;
     templateUrl: './timeoff-list-request.component.html',
     styleUrls: ['./timeoff-list-request.component.scss']
 })
-export class TimeoffListRequestComponent implements OnInit {
+export class TimeoffListRequestComponent implements OnInit, OnChanges {
     show_description_details: Map<Number, Number> = new Map<Number, Number>();
     show_timeoff_details: Map<Number, boolean> = new Map<Number, boolean>();
 
-    _timeoffs :TimeOff[] = [];
+    _timeoffs :TimeOff[] = []; //list timeoffs using for view
     _personNumTimeOff: PersonNumTimeOff = new PersonNumTimeOff();
+    list_timeoff :TimeOff[] = []; //list timeoffs get from parent
+
+    types = ['All types', 'pending', 'approved', 'rejected']
+    type = 'All types'
 
     @Input()
     set timeoffs(timeoffs: TimeOff[]){
-        this._timeoffs = timeoffs || [];
-        console.log("timeOffs", timeoffs);
-        this.sortNewest();
+        this.list_timeoff = timeoffs || [];
     }
 
     @Input()
@@ -33,6 +35,12 @@ export class TimeoffListRequestComponent implements OnInit {
     constructor(private router: Router, private timeoffService: TimeoffService) { }
 
     ngOnInit() {
+        this._timeoffs = this.list_timeoff;
+        this.sortNewest();
+    }
+
+    ngOnChanges(changes: {[propKey: string]: SimpleChange}){
+        if(changes['timeoffs']) this.ngOnInit();
     }
 
     sortNewest(){
@@ -54,8 +62,39 @@ export class TimeoffListRequestComponent implements OnInit {
         })
     }
 
-    all_types(){
-        console.log('all types');
+    sort(){
+        switch(this.type){
+            case 'pending': {
+                this._timeoffs = [];
+                this.list_timeoff.forEach((timeoff) => {
+                    if(timeoff.status == 'pending')
+                        this._timeoffs.push(timeoff);
+                })
+                this.sortNewest();
+                break;
+            }
+            case 'approved':{
+                this._timeoffs = [];
+                this.list_timeoff.forEach((timeoff) => {
+                    if(timeoff.status == 'approved')
+                        this._timeoffs.push(timeoff);
+                })
+                this.sortNewest();
+                break;
+            }
+            case 'rejected':{
+                this._timeoffs = [];
+                this.list_timeoff.forEach((timeoff) => {
+                    if(timeoff.status == 'rejected')
+                        this._timeoffs.push(timeoff);
+                })
+                this.sortNewest();
+                break;
+            }
+            default: {
+                this.ngOnInit();
+            }
+        }
     }
 
     showDetails(id: Number){

@@ -74,7 +74,7 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
                 for(var i = 0; i < result.timeoffs.length; i++){
                     this.hash_timeoff.set(result.members[i].id, result.timeoffs[i])
                 }
-                console.log('result', result);
+                // console.log('result', result);
                 (this.selectedValues.length > 0)? this.initializeSelectedValues(): (this.searchPattern.length > 0)? this.initializeSearchValues():this.initializeAllValues();
                 this.initializeHashMemberDayStatus();
             },
