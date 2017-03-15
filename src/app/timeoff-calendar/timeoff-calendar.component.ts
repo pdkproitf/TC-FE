@@ -34,7 +34,7 @@ export class TimeoffCalendarComponent implements OnInit {
         this.start_date = new Date();
         this.updateEndDate();
     }
-    
+
     updateEndDate(){
         this.end_date =  new Date(this.start_date.toString());
         this.end_date.setDate(this.start_date.getDate() + 14);

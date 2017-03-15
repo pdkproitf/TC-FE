@@ -31,7 +31,7 @@ export class TimeoffManageComponent implements OnInit {
         this.timeoffService.getPhaseTimeOffs(this_year,new Date()).then(
             (result) => {
                 this.list_timeoff = result;
-                console.log('list_timeoff',result);
+                // console.log('list_timeoff',result);
             },
             (error) => {
                 // alert(error);
@@ -46,7 +46,7 @@ export class TimeoffManageComponent implements OnInit {
         this.timeoffService.getPersonNumTimeOff().then(
             (result) => {
                 this.personNumTimeOff = result;
-                console.log('personNumTimeOff',result);
+                // console.log('personNumTimeOff',result);
             },
             (error) => {
                 // alert(error);

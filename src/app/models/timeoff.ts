@@ -13,6 +13,9 @@ export class TimeOff{
     sender_id: number
     approver_messages: string;
     status: string;
+    future_dayoff: number;
+    nearest_future_dateoff: Date;
+    furlough_total: number;
 }
 
 export class TimeOffPost{
@@ -47,6 +50,7 @@ export class TimeOffAnswer{
 export class PersonNumTimeOff{
     total: number;
     offed: number;
+    approver: string[];
     constructor(){
         this.total = 0;
         this.offed = 0;

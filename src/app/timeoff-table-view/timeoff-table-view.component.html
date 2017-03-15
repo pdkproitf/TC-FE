@@ -36,8 +36,14 @@
                         <div class="member-type"><span *ngIf="member.user">{{member.role.name}}</span></div>
                     </div>
                 </td>
-                <td *ngFor="let day of days" [class]="hash_member_day_status.get(member.id + '-' + day.getDate())">
+                <td *ngFor="let day of days.slice(0, days.length -1)" [class]="hash_member_day_status.get(member.id + '-' + day.getDate())">
                     <button *ngIf="ableToModify(member.id + '-' + day.getDate())" (click)="pppp.toggle($event); answerTimeoff(member.id, day)"></button>
+                </td>
+                <td>
+                    <div *ngIf="member.future_dayoff > 0" class="last-cel">
+                        <div class="triangle"></div>
+                        <div class="triangle-text" (click)="goToFutureDayOff(member.nearest_future_dateoff)">{{member.future_dayoff}}</div>
+                    </div>
                 </td>
             </tr>
         </tbody>
