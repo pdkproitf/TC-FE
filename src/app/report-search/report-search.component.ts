@@ -15,6 +15,8 @@ export class ReportSearchComponent implements OnInit {
   lastWeekDay;
   firstString;
   lastString;
+  fromChoosed: boolean = false;
+  toChoosed: boolean = false;
   @Input()
   members: Member[] = [];
   @Input()
@@ -44,6 +46,26 @@ export class ReportSearchComponent implements OnInit {
 
   hideClassDiv(i) {
     this.classDiv[i] = this.classDiv[i] + ' hide';
+  }
+
+  selectDate(i, event) {
+    console.log(new Date(event));
+    if (i === 0) {
+      this.firstWeekDay = new Date(event);
+      this.fromChoosed = true;
+    } else if (i === 1) {
+      this.lastWeekDay = new Date(event);
+      this.toChoosed = true;
+    }
+    if (this.fromChoosed && this.toChoosed) {
+      this.firstString = this.dateToShortString(this.firstWeekDay);
+      this.lastString = this.dateToShortString(this.lastWeekDay);
+      this.timeRange = this.firstString + '-->' + this.lastString;
+      this.toChoosed = false;
+      this.fromChoosed = false;
+      this.changeClassDiv(0);
+      this.emitRange.emit([this.firstString, this.lastString]);
+    }
   }
 
   chooseRange(row, col) {

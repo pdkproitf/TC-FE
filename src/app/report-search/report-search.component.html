@@ -29,8 +29,8 @@
 </div>
 
 <div [class]="classDiv[0]">
-  <p-calendar  [inline]="true"></p-calendar>
-  <p-calendar  [inline]="true"></p-calendar>
+  <p-calendar (onSelect)="selectDate(0,$event)"  [inline]="true"></p-calendar>
+  <p-calendar (onSelect)="selectDate(1,$event)"  [inline]="true"></p-calendar>
   <div class="options">
     <table class="options">
       <tr *ngFor="let option of options; let row = index">
