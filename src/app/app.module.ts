@@ -1,3 +1,4 @@
+import { ReportService } from './services/report-service';
 import { TaskService } from './services/task-service';
 import { TimerFetchService } from './services/timer-fetch-service';
 import { ProjectJoinService } from './services/project-join-service';
@@ -13,7 +14,7 @@ import { UserService } from './services/user-service';
 import { LocationStrategy, HashLocationStrategy }from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { ToolbarModule, ButtonModule, InputTextModule, MenuModule, AutoCompleteModule, CarouselModule,
-  CalendarModule, DropdownModule, DialogModule } from 'primeng/primeng';
+  CalendarModule, DropdownModule, DialogModule, ChartModule } from 'primeng/primeng';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -62,6 +63,8 @@ import {OverlayPanelModule}     from 'primeng/primeng';
 import { ReportComponent } from './report/report.component';
 import { ReportSearchComponent } from './report-search/report-search.component';
 import { TimeoffPassRequestsComponent } from './timeoff-pass-requests/timeoff-pass-requests.component';
+import { ReportDetailComponent } from './report-detail/report-detail.component';
+import { ReportDetailProjectComponent } from './report-detail-project/report-detail-project.component';
 import { TimeoffCalendarComponent } from './timeoff-calendar/timeoff-calendar.component';
 import { TimeoffTableViewComponent } from './timeoff-table-view/timeoff-table-view.component';
 import { CheckboxModule } from 'primeng/primeng';
@@ -108,6 +111,8 @@ import { CheckboxModule } from 'primeng/primeng';
     MembersConfirmComponent,
     ReportComponent,
     ReportSearchComponent,
+    ReportDetailComponent,
+    ReportDetailProjectComponent,
     TimeoffCalendarComponent,
     TimeoffTableViewComponent,
   ],
@@ -131,11 +136,12 @@ import { CheckboxModule } from 'primeng/primeng';
     RadioButtonModule,
     MomentModule,
     OverlayPanelModule,
+    ChartModule,
     CheckboxModule
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
   AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService,
-  TimerService, ProjectJoinService, TimerFetchService, TaskService, TimeoffService],
+  TimerService, ProjectJoinService, TimerFetchService, TaskService, TimeoffService, ReportService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,7 @@
+import { ReportService } from './../services/report-service';
+import { Router } from '@angular/router';
 import { ProjectService } from './../services/project-service';
-import { ProjectGetAll } from './../models/project';
+import { ProjectGetOne } from './../models/project';
 import { Member } from './../models/member';
 import { MembershipService } from './../services/membership-service';
 import { Component, OnInit } from '@angular/core';
@@ -11,25 +13,56 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReportComponent implements OnInit {
   members: Member[] = [];
-  projectLists: ProjectGetAll[]= [];
-  constructor(private membershipService: MembershipService, private projectService: ProjectService) { }
+  projectLists: ProjectGetOne[]= [];
+  firstWeekDay: Date;
+  lastWeekDay: Date;
+  firstString: string;
+  lastString: string;
+  constructor(private router: Router, private reportService: ReportService) { }
 
   ngOnInit() {
-    this.membershipService.getAllMembership()
+    this.generateLastWeek();
+    this.reportService.getReportAll(this.firstString, this.lastString)
     .then(res => {
-      this.members = res;
+      console.log(res);
+      this.members = res.people;
+      this.projectLists = res.projects;
     })
-    .catch(err => {
-      console.log(err);
+    .catch(error => {
+      console.log(error);
     });
+  }
 
-    this.projectService.getProjects()
-    .then(res => {
-      this.projectLists = res;
-    })
-    .catch(err => {
-      console.log(err);
-    });
+  detailReport() {
+    this.router.navigate(['report-detail']);
+  }
+
+  detailReportProject(id) {
+    console.log(id);
+    this.router.navigate(['report-detail-project', id, this.firstString, this.lastString]);
+  }
+
+  dateToShortString(date: Date): string {
+    let yearString = date.getFullYear().toString();
+    let monthString = ((date.getMonth() + 1) < 10) ? '0' + (date.getMonth() + 1).toString() : (date.getMonth() + 1).toString();
+    let dateString = (date.getDate() < 10) ? '0' + date.getDate().toString() : date.getDate().toString();
+    let res = yearString + '-' + monthString + '-' + dateString;
+    return res;
+  }
+
+  generateLastWeek() {
+    let curr = new Date();
+    let currDate = curr.getDate();
+    currDate -= 7;
+    curr.setDate(currDate);
+    let curr1 = new Date(curr);
+    let curr2 = new Date(curr);
+    let first = curr1.getDate() - curr1.getDay();
+    this.firstWeekDay = new Date(curr1.setDate(first));
+    this.lastWeekDay = new Date(curr2.setDate(first + 6));
+    this.firstString = this.dateToShortString(this.firstWeekDay);
+    this.lastString = this.dateToShortString(this.lastWeekDay);
+    console.log(this.firstString + '-' + this.lastString);
   }
 
 }

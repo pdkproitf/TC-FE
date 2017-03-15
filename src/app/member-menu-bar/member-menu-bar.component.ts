@@ -25,7 +25,7 @@ export class MemberMenuBarComponent implements OnInit {
     this.classActive[this.currentState] = 'active';
     let userInfo = localStorage.getItem('UserInfo');
     let userObj = JSON.parse(userInfo);
-    console.log(userObj);
+    // console.log(userObj);
     this.user.name = userObj.user.first_name;
     this.imageUrl = userObj.user.image;
     this.items = [

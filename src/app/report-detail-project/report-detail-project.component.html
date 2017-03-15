@@ -1,0 +1,89 @@
+<app-member-menu-bar [currentState]="3"></app-member-menu-bar>
+<div class="container">
+  <h1>Reports</h1>
+  <app-report-search (emitRange)="newRange($event)"></app-report-search>
+
+  <div class="project-info">
+    <table class="project-info">
+      <tr>
+        <td class="info">
+          <div class="background" [style.background]="project.background"></div>
+          <p class="client">{{client_name}}</p><br/>
+          <p class="project">{{project.name}}</p>
+        </td>
+        <td class="hours">
+          <p class="hours">{{project.tracked_time | timeFromSeconds}}h</p><br/>
+          <p class="explain">hours tracked</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div *ngIf="isLoaded" class="chart">
+    <p-chart #chart type="bar" [data]="data" [options]="options" height="75"></p-chart>
+  </div>
+
+  <div class="report">
+    <ul class="nav-bar">
+      <li (click)="chooseNavClass(0)" [class]="navClass[0]"><p>By People</p></li>
+      <li (click)="chooseNavClass(1)" [class]="navClass[1]"><p>By Categories</p></li>
+      <li class="export">
+        <p-menu #menu popup="popup" [model]="items"></p-menu>
+        <button pButton type="button" label="Export" icon="fa-caret-down" (click)="menu.toggle($event)" iconPos="right"></button>
+      </li>
+    </ul>
+  </div>
+
+  <div class="by-people" *ngIf = "navClass[0] === 'choosing'">
+    <div class="person" *ngFor="let member of members; let id = index;">
+      <div class="summary">
+        <span (click)="changeSpan(id)" [class]="spanMemberClass[id]"></span>
+        <img class="left" *ngIf="member.user.image != null" src="{{member.user.image}}">
+        <img class="left" *ngIf="member.user.image == null" src="assets/image-profile/default-avatar.png">
+        <p class="left">{{member.user.first_name}} {{member.user.last_name}}</p>
+        <p class="right">{{member.tracked_time | timeFromSeconds}}</p>
+      </div>
+      <table *ngIf="spanMemberClass[id]==='fa fa-minus icon left'" [@fadeInOut]>
+      <tr>
+        <th class="left"></th>
+        <th class="deco"></th>
+        <th class="right"></th>
+      </tr>
+      <tr *ngFor="let category of member.categories">
+        <td class="left"><p>{{category.name}}</p></td>
+        <td class="deco"><div></div></td>
+        <td class="right"><p>{{category.tracked_time | timeFromSeconds}}</p></td>
+      </tr>
+      </table>
+      <br/>
+    </div>
+  </div>
+
+  <div class="by-categories" *ngIf = "navClass[1] === 'choosing'">
+    <div class="category" *ngFor="let category of categories; let id = index;">
+      <div class="summary">
+        <span (click)="changeCategorySpan(id)" [class]="spanCategoryClass[id]"></span>
+        <p class="left">{{category.name}}</p>
+        <p class="right">{{category.tracked_time | timeFromSeconds}}</p>
+      </div>
+      <table *ngIf="spanCategoryClass[id]==='fa fa-minus icon left'" [@fadeInOut]>
+      <tr>
+        <th class="left"></th>
+        <th class="deco"></th>
+        <th class="right"></th>
+      </tr>
+      <tr *ngFor="let member of category.members">
+        <td class="left">
+          <img class="left" *ngIf="member.user.image != null" src="{{member.user.image}}">
+          <img class="left" *ngIf="member.user.image == null" src="assets/image-profile/default-avatar.png">
+          <p class="left">{{member.user.first_name}} {{member.user.last_name}}</p>
+        </td>
+        <td class="deco"><div></div></td>
+        <td class="right"><p>{{member.tracked_time | timeFromSeconds}}</p></td>
+      </tr>
+      </table>
+      <br/>
+    </div>
+  </div>
+
+</div>

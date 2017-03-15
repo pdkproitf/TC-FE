@@ -40,9 +40,9 @@ export class ProjectFieldComponent implements OnInit {
       this.classBtns.push('play-btn');
     }
     let rgb = this.hexToRgb(this.myProject.background);
-    rgb.r -= 5;
-    rgb.g -= 15;
-    rgb.b -= 40;
+    rgb.r -= 20; if (rgb.r<0) rgb.r=0;
+    rgb.g -= 40; if (rgb.g<0) rgb.g=0;
+    rgb.b -= 60; if (rgb.b<0) rgb.b=0;
     let newColor = this.rgbToHex(rgb);
     let linear = 'linear-gradient(180deg, #ffc259 0%, #ffb332 100%)';
     let linear0 = 'linear-gradient(180deg, ' + this.myProject.background + ' 0%, ' + newColor + ' 100%)';

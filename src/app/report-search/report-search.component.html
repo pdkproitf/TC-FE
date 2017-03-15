@@ -5,7 +5,7 @@
       <th class="when">
         <div class="in-th when">
           <p class="title-field">When</p><br/>
-          <p class="value-field">Last week</p>
+          <p class="value-field">{{timeRange}}</p>
           <span class="fa fa-angle-down down-img" (click)="changeClassDiv(0)"></span>
         </div>
       </th>
@@ -34,7 +34,7 @@
   <div class="options">
     <table class="options">
       <tr *ngFor="let option of options; let row = index">
-        <td *ngFor="let str of option; let col = index">
+        <td (click)="chooseRange(row, col)" *ngFor="let str of option; let col = index">
           <div class="option">{{str}}</div>
         </td>
       </tr>

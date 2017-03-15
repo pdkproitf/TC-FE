@@ -11,40 +11,56 @@ ul{
 
     button{
         position: relative;
-        top: 7px;
         border-radius:  50%;
         width: 30px;
         height: 30px;
         background-color: white;
-        border: solid 1px black;
-        background-position-x: -1px;
-        background-position-y: -1px;
-        box-shadow: 1px 1px 2px 2px $shadowColor;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24);
+        border: 0px;
+        color: #898989;
         &.previous{
-            background-image: url(assets/images-buttons/prev-btn.png);
         }
         &.next{
-            background-image: url(assets/images-buttons/next-btn.png);
         }
     }
     /deep/ .ui-inputtext{
         border-radius: 0 0 0 0;
-        border: solid 1px black;
+        border: none;
+        box-shadow: none;
+        background: transparent;
+        color: rgba(54,54,54,0.7);
     }
-    /deep/ .ui-button{
-        border-radius: 0 0 0 0;
+/*    /deep/ .ui-button{
         margin-left: 10px;
-        border: solid 3px black;
-        box-shadow: 1px 1px 2px 2px $shadowColor;
+        border: none;
+        font-weight: normal;
         border-radius: 50%;
         background-color: white;
         text-align: center;
         .ui-button-icon-left{
-            color:black;
+            color: #898989;
             position: relative;
+            opacity: 0.7;
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24);
             left: 5px;
             top: 2px;
         }
+    }*/
+    /deep/ .ui-calendar{
+        input{
+            cursor: pointer;
+            max-width: 100px;
+            margin-right: 0px;
+        }
+        .ui-button.ui-state-default{
+            color: #898989;
+            background: white;
+            border: 0px;
+            border-radius: 50%;
+            opacity: 0.7;
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24);
+            }
+        .ui-button.ui-state-default:hover{ background: #ddd;}
     }
 }
 .week{
