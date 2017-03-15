@@ -223,10 +223,11 @@ export class ReportDetailProjectComponent implements OnInit {
     this.reportService.getReportDetailProject(begin, end, id)
     .then(res => {
       console.log(res);
-      this.project = res;
-      this.charts = res.chart;
-      this.categories = res.categories;
-      this.client_name = res.client.name;
+      this.project = this.findProject(id, res);
+      this.charts = this.project.chart;
+      this.categories = this.project.categories;
+      this.client_name = this.project.client.name;
+      this.background = this.project.background;
       this.members = [];
       this.generateLabels();
       this.generateValues();
@@ -248,6 +249,15 @@ export class ReportDetailProjectComponent implements OnInit {
     .catch(error => {
       console.log(error);
     });
+  }
+  findProject(id, projects) {
+    for (let project of projects) {
+      if (parseInt(project.id, 10) === parseInt(id, 10)) {
+        console.log(project);
+        return project;
+      }
+    }
+    return null;
   }
 
   generateMembers() {

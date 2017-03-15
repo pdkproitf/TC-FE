@@ -3,11 +3,11 @@
   <h1>Reports</h1>
   <app-report-search (emitRange)="newRange($event)"></app-report-search>
 
-  <div class="project-info">
+  <div class="project-info" *ngIf="isLoaded">
     <table class="project-info">
       <tr>
         <td class="info">
-          <div class="background" [style.background]="project.background"></div>
+          <div class="background" [style.background]="background"></div>
           <p class="client">{{client_name}}</p><br/>
           <p class="project">{{project.name}}</p>
         </td>

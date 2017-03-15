@@ -38,4 +38,5 @@ export class ReportService {
         .then(res => res.json().data)
         .catch(error => this.handleError(error));
     }
+    
 }
