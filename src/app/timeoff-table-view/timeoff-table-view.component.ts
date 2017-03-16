@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, OnChanges, SimpleChange, EventEmitter, Output } from '@angular/core';
 import { TimeoffService }       from '../services/timeoff-service';
+import { ProjectDefault }       from '../models/project';
 import { TimeOff }              from '../models/timeoff';
 import { Holiday }              from '../models/holiday';
 import { Member }               from '../models/member';
@@ -13,6 +14,7 @@ declare var $ :any;
 export class TimeoffTableViewComponent implements OnInit, OnChanges {
     days :Date[] = [];
     selectedValues: Number[] = [];
+    selectedProject: number = 0;
     searchPattern = '';
     start_date: Date;
     end_date: Date;
@@ -21,6 +23,8 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     hash_timeoff: Map<Number, Array<TimeOff>>;
     // hash constraint member_id and day to get class for table cel
     hash_member_day_status: Map<string, string>;
+    // using for dropdown projects type
+    projects_types: Array<ProjectDefault>;
 
     distionary_member: Array<Member>;
     list_members: Array<Member>;
@@ -38,7 +42,14 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
         this.end_date = date;
     }
 
+    @Input()
+    set projectId(id: number){
+        this.selectedProject = id;
+        this.initializeValuesFollowTypes();
+    }
+
     @Output() setWeeks = new EventEmitter<Date>();
+    @Output() initProjecttypes = new EventEmitter<Array<ProjectDefault>>();
 
     constructor(private timeoffService :TimeoffService) {}
 
@@ -58,6 +69,7 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
         this.distionary_member  = [];
         this.list_members  = [];
         this.holidays  = [];
+        this.projects_types = [];
 
         this.getTimeOff();
     }
@@ -71,10 +83,9 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
             (result) => {
                 this.distionary_member = result.members;
                 this.holidays = result.holidays;
-                for(var i = 0; i < result.timeoffs.length; i++){
-                    this.hash_timeoff.set(result.members[i].id, result.timeoffs[i])
-                }
-                // console.log('result', result);
+                for(var i = 0; i < result.timeoffs.length; i++)
+                    this.hash_timeoff.set(result.members[i].id, result.timeoffs[i]);
+
                 (this.selectedValues.length > 0)? this.initializeSelectedValues(): (this.searchPattern.length > 0)? this.initializeSearchValues():this.initializeAllValues();
                 this.initializeHashMemberDayStatus();
             },
@@ -90,13 +101,23 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
 
     initializeSelectedValues(){
         this.list_members = [];
-        for(var i = 0; i < this.selectedValues.length; i ++){
-            for(var j = 0; j < this.distionary_member.length; j++){
+        for(var i = 0; i < this.selectedValues.length; i ++)
+            for(var j = 0; j < this.distionary_member.length; j++)
                 if(this.distionary_member[j].id == this.selectedValues[i]){
                     this.list_members.push(this.distionary_member[j]);
                     break;
                 }
-            }
+    }
+
+    initializeValuesFollowTypes(){
+        this.list_members = [];
+        if(this.selectedProject == 0) return this.list_members = this.distionary_member;
+        for (var member of this.distionary_member){
+            // console.log('member project join', member['projects_joined']);
+            // console.log('find '+this.selectedProject, member['projects_joined'].findIndex(x => x.id == this.selectedProject));
+            // member['projects_joined'].findIndex(x => console.log('x ', x.id, 'selec', this.selectedProject, 'compare', x.id == this.selectedProject));
+            if(member['projects_joined'].findIndex(x => x.id == this.selectedProject) != -1)
+                this.list_members.push(member);
         }
     }
 
@@ -112,10 +133,19 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     initializeHashMemberDayStatus(){
         this.hash_member_day_status = new Map<string, string>();
         for (let member of this.distionary_member){
-            for(let day of this.days){
+            this.push_to_list_projects(member);
+            for(let day of this.days)
                 this.hash_member_day_status.set(member.id+'-'+day.getDate(), this.computeClassDayCel(day, member.id));
-            }
         }
+        this.initProjecttypes.emit(this.projects_types);
+    }
+
+    push_to_list_projects(member: Member){
+        if(member['projects_joined'])
+            for (var project of member['projects_joined']){
+                if(this.projects_types.findIndex(x => x.id === project.id) == -1)
+                    this.projects_types.push(project);
+            }
     }
 
     computeClassDayCel(_day: Date, id: number){
@@ -130,11 +160,8 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
 
             start_date.setHours(0,0,0,0);
             end_date.setHours(0,0,0,0);
-            // console.log('id', id, 'day', _day, 'start_date', timeoff.start_date, 'end_date', timeoff.end_date, 'status ** ** ', timeoff.status);
-            // console.log('id', id, 'day', day, 'start_date', start_date, 'end_date', end_date, 'status ** ** ', timeoff.status, 'compare', (start_date <= day && day <= end_date))
 
             if(start_date <= _day && _day <= end_date && timeoff.status != 'rejected'){
-                // console.log('status', timeoff.status)
                 status += timeoff.status;
                 return status;
             }
@@ -146,6 +173,7 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
         for (var holiday of this.holidays){
             var start_date = new Date(holiday.begin_date.toString());
             var end_date = new Date(holiday.end_date.toString());
+
             start_date.setHours(0,0,0,0);
             end_date.setHours(0,0,0,0);
             if(day >= start_date && day <= end_date)
@@ -161,7 +189,7 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     ableToModify(string: string){
         var status = this.hash_member_day_status.get(string);
         if(status == 'cel-pending' || status == 'cel-approved')
-        return true;
+            return true;
         return false;
     }
 
@@ -169,7 +197,7 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
         for (var day of this.days){
             var status = this.hash_member_day_status.get(id+'-'+day.getDate());
             if(status == 'cel-pending' || status == 'cel-approved')
-            return status.slice(4, status.length);
+                return status.slice(4, status.length);
         }
         return '';
     }
@@ -208,8 +236,6 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     }
 
     goToFutureDayOff(date: Date){
-        // console.log('date emit', date);
-        // console.log('date emit', new Date(date));
         this.setWeeks.emit(new Date(date));
     }
 }

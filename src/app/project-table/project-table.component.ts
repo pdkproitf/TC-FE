@@ -56,7 +56,6 @@ export class ProjecTableComponent implements OnInit, OnChanges {
     }
 
     search(event) {
-        console.log('letter', this.searchPattern.toUpperCase());
         this._projects = [];
         for (let project of this.projects) {
             if ((project.name.toUpperCase().indexOf(this.searchPattern.toUpperCase()) > -1) || (project.name.toLowerCase() .indexOf(this.searchPattern.toLowerCase()) > -1)) {
@@ -96,7 +95,6 @@ export class ProjecTableComponent implements OnInit, OnChanges {
     }
     // go to in here after click to EDIT button
     edit(project: ProjectGetAll){
-        console.log('edit project', project);
         this.router.navigate(['/edit-project/'+project.id])
     }
 

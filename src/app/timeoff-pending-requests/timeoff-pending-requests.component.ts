@@ -80,7 +80,6 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
         this.timeoffService.delete(id,)
         .then(
             (result) => {
-                // console.log('timeoff delete', result);
                 this.reload.emit();
             },
             (errors) => {
@@ -97,7 +96,6 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
     update(id: number, $event){
         this.timeoffService.update(id, this.timeOffPut).then(
             (result) => {
-                // console.log('TimeOff' + id +'update Sucess');
                 this.reload.emit();
             },
             (error) => {

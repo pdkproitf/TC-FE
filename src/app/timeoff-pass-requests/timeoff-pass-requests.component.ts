@@ -22,7 +22,6 @@ export class TimeoffPassRequestsComponent implements OnInit {
         this.timeoffService.getAllTimeOffs().then(
             (result) => {
                 this._timeoffs = result;
-                console.log('list_timeoff',result);
             },
             (error) => {
                 // alert(error);

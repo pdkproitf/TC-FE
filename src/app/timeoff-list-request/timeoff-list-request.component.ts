@@ -114,7 +114,6 @@ export class TimeoffListRequestComponent implements OnInit, OnChanges {
         this.timeoffService.delete(id,)
         .then(
             (result) => {
-                console.log('timeoff delete', result);
                 this.reload.emit();
             },
             (errors) => {

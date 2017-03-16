@@ -1,4 +1,5 @@
-import { Component, OnInit }    from '@angular/core';
+import { Project, ProjectDefault }  from '../models/project';
+import { Component, OnInit }        from '@angular/core';
 
 @Component({
     selector: 'app-timeoff-calendar',
@@ -6,8 +7,8 @@ import { Component, OnInit }    from '@angular/core';
     styleUrls: ['./timeoff-calendar.component.scss']
 })
 export class TimeoffCalendarComponent implements OnInit {
-    projects = ['project 1', 'project 2', 'project 3'];
-    select_project = '';
+    projects: Array<ProjectDefault>;
+    select_project = '0';
 
     start_date: Date = new Date();
     end_date: Date;
@@ -17,6 +18,7 @@ export class TimeoffCalendarComponent implements OnInit {
     ngOnInit() {
         this.end_date =  new Date();
         this.end_date.setDate(this.start_date.getDate() + 14);
+        this.projects = new Array<ProjectDefault>();
     }
 
     setWeeks($event){
@@ -38,5 +40,10 @@ export class TimeoffCalendarComponent implements OnInit {
     updateEndDate(){
         this.end_date =  new Date(this.start_date.toString());
         this.end_date.setDate(this.start_date.getDate() + 14);
+    }
+
+    setProjectsValues(list: ProjectDefault[]){
+        console.log('set project values', list);
+        this.projects = list;
     }
 }
