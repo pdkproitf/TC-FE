@@ -217,4 +217,41 @@
 
         }
     }
+    .by-tasks{
+        width: 100%;
+        table{
+            width: 100%;
+            tr{
+                box-shadow: inset 0 -1px 0 0 #EEEEEE;
+                th{
+                    padding-top: 10px;
+                    padding-bottom: 10px;
+                    font-weight: normal;
+                    color: rgba(54,54,54,0.7);
+                    font-size: 14px;
+                    line-height: 17px;
+                    text-align: left;
+                    .fa{
+                        margin-left: 5px;
+                    }
+                }
+                td{
+                    padding-top: 10px;
+                    padding-bottom: 10px;
+                    .fa{
+                        font-weight: normal;
+                        color: rgba(54,54,54,0.3);
+                        margin-right: 10px;
+                    }
+                    &.ca-pro{
+                        font-weight: normal;
+                    }
+                    &.tracked-time{
+                        color: #0066CC;
+                        float: right;
+                    }
+                }
+            }
+        }
+    }
 }

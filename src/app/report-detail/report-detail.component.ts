@@ -30,6 +30,7 @@ export class ReportDetailComponent implements OnInit {
   choosing: number = 0;
   member: any = {};
   projects: any[] = [];
+  tasks: any[] = [];
   labels: any;
   billables: any;
   unbillables: any;
@@ -218,6 +219,7 @@ export class ReportDetailComponent implements OnInit {
     .then(res => {
       console.log(res);
       this.member = res;
+      this.tasks = res.tasks;
       this.generateProjects(res.projects);
       this.generateLabels();
       this.generateValues();

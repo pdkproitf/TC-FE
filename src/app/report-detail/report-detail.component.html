@@ -35,7 +35,7 @@
       </li>
     </ul>
 
-    <div class="by-projects">
+    <div class="by-projects" *ngIf = "navClass[0] === 'choosing'">
       <div class="project" *ngFor="let project of projects; let id = index;">
         <div class="summary">
           <span (click)="changeSpanProject(id)" [class]="spanClassProject[id]"></span>
@@ -58,6 +58,21 @@
         </table>
         <br/>
       </div>
+    </div>
+
+    <div class="by-tasks" *ngIf = "navClass[1] === 'choosing'">
+      <table>
+        <tr>
+          <th class="time-entry">Time entry<span class="fa fa-angle-down"></span></th>
+          <th class="ca-pro">Categories - Project</th>
+          <th></th>
+        </tr>
+        <tr *ngFor="let task of tasks; let id = index;">
+          <td><span class="fa fa-plus"></span>{{task.name}}</td>
+          <td class="ca-pro">{{task.category_name}} - {{task.project_name}} ({{task.client.name}})</td>
+          <td class="tracked-time">{{task.tracked_time | timeFromSeconds}}</td>
+        </tr>
+      </table>
     </div>
   </div>
 
