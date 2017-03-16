@@ -9,15 +9,15 @@ import {style, state, animate, transition, trigger} from '@angular/core';
   templateUrl: './report-detail-project.component.html',
   styleUrls: ['./report-detail-project.component.scss'],
   animations: [
-  trigger('fadeInOut', [
-    transition(':enter', [   // :enter is alias to 'void => *'
-      style({opacity: 0}),
-      animate(500, style({opacity: 1}))
+    trigger('fadeInOut', [
+      transition(':enter', [   // :enter is alias to 'void => *'
+        style({opacity: 0}),
+        animate(500, style({opacity: 1}))
+      ]),
+      transition(':leave', [   // :leave is alias to '* => void'
+        animate(500, style({opacity: 0}))
+      ])
     ]),
-    transition(':leave', [   // :leave is alias to '* => void'
-      animate(500, style({opacity: 0}))
-    ])
-  ]),
   ]
 })
 export class ReportDetailProjectComponent implements OnInit {
@@ -100,7 +100,7 @@ export class ReportDetailProjectComponent implements OnInit {
             ctx.textBaseline = 'bottom';
             let len = this.data.labels.length;
             let sum = [];
-            for (let i = 0; i < len; i++){
+            for (let i = 0; i < len; i++) {
               let d = this.data.datasets[0].data[i] + this.data.datasets[1].data[i];
               sum.push(d);
             }

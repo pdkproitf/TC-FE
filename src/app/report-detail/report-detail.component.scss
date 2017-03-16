@@ -135,4 +135,86 @@
             }
         }
     }
+    .by-projects{
+        .project{
+            padding-top: 10px;
+            box-shadow: inset 0 -1px 0 0 #EEEEEE;
+            min-height: 50px;
+            p{
+                padding: 0;
+                margin: 0;
+                font-weight: normal;
+            }
+            .summary{
+                p{
+                    margin-top: 10px;
+                }
+                .left{
+                    float: left;
+                    margin-right: 10px;
+                    &.icon{
+                        margin-top: 10px;
+                        clear: left;
+                        color: #C2C2C2;
+                        &:hover{
+                            cursor: pointer;
+                        }
+                    }
+                    &.client{
+                        color: rgba(54,54,54,0.7);
+                    }
+                    &.name{
+                        color: #363636;
+                        font-weight: bold;
+                    }
+                }
+                img{
+                    border-radius: 50%;
+                    width: 32px;
+                    height: 32px;
+                    margin-right: 10px;
+                }
+                .right{
+                    float: right;
+                    color: #0066CC;
+                    font-weight: bold;
+                }
+                .background{
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 5px 35px 35px 5px;
+                    margin-top: 5px;
+                }
+            }
+            table{
+                clear: left;
+                margin-left: 5%;
+                margin-right: 2%;
+                tr{
+                    td{
+                        &.left{
+                            width: 5%;
+                        }
+                        &.deco{
+                            max-width: 99%;
+                            border-bottom: dotted 1px rgba(54,54,54,0.3);
+                            div{
+                                width: 100%;
+                                height: 1px;
+                                
+                            }
+                        }
+                        &.right{
+                            width: 5%;
+                            p{
+                                float: right;
+                                color: #0066CC;
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+    }
 }

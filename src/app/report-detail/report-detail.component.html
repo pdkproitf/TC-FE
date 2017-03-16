@@ -1,26 +1,26 @@
 <app-member-menu-bar [currentState]="3"></app-member-menu-bar>
 <div class="container">
   <h1>Reports</h1>
-  <app-report-search></app-report-search>
+  <app-report-search (emitRange)="newRange($event)"></app-report-search>
 
-  <div class="user-info">
+  <div *ngIf="isLoaded" class="user-info">
     <table class="user-info">
       <tr>
         <td class="info">
-          <!--<img *ngIf="mem.user.image != null" src="{{em.user.image}}">-->
+          <img *ngIf="member.user.image != null" src="{{member.user.image}}">
           <img src="assets/image-profile/default-avatar.png">
-          <p class="name">Neville Sinclair</p><br/>
-          <p class="email">neville@throwawaymail.uu.gl</p>
+          <p class="name">{{member.user.first_name}} {{member.user.last_name}}</p><br/>
+          <p class="email">{{member.user.email}}</p>
         </td>
         <td class="hours">
-          <p class="hours">49h</p><br/>
+          <p class="hours">{{member.tracked_time | timeFromSeconds}}</p><br/>
           <p class="explain">hours tracked</p>
         </td>
       </tr>
     </table>
   </div>
 
-  <div class="chart">
+  <div *ngIf="isLoaded" class="chart">
     <p-chart #chart type="bar" [data]="data" [options]="options" height="75"></p-chart>
   </div>
 
@@ -36,12 +36,28 @@
     </ul>
 
     <div class="by-projects">
-      <table>
-        <tr>
-          <th></th>
-          <th></th>
-        </tr>
-      </table>
+      <div class="project" *ngFor="let project of projects; let id = index;">
+        <div class="summary">
+          <span (click)="changeSpanProject(id)" [class]="spanClassProject[id]"></span>
+          <div class="left background" [style.background]="project.background"></div>
+          <p class="left name">{{project.name}}</p>
+          <p class="left client">({{project.client.name}})</p>
+          <p class="right">{{project.tracked_time | timeFromSeconds}}</p>
+        </div>
+        <table *ngIf="spanClassProject[id]==='fa fa-minus icon left'" [@fadeInOut]>
+          <tr>
+            <th class="left"></th>
+            <th class="deco"></th>
+            <th class="right"></th>
+          </tr>
+          <tr *ngFor="let category of project.category">
+            <td class="left"><p>{{category.name}}</p></td>
+            <td class="deco"><div></div></td>
+            <td class="right"><p>{{category.tracked_time | timeFromSeconds}}</p></td>
+          </tr>
+        </table>
+        <br/>
+      </div>
     </div>
   </div>
 
