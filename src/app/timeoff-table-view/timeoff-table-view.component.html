@@ -23,7 +23,7 @@
                         <!-- <label><input type="checkbox" (change)="checked($event.target.checked, member.id)"></label> -->
                     </div>
                 </td>
-                <td class="member">
+                <td class="member multi-line">
                     <div class="avatar" *ngIf="!member.user || !member.user.image"></div>
                     <div class="avatar" *ngIf="member.user && member.user.image" [ngStyle]="{'background-image': 'url('+member.user.image+')'}" ></div>
                     <div class="inform">
