@@ -1,4 +1,5 @@
-import { byProjects } from './mock-projects';
+import { ReportService } from './../services/report-service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UIChart } from 'primeng/primeng';
 import { Component, OnInit } from '@angular/core';
 @Component({
@@ -7,31 +8,35 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./report-detail.component.scss']
 })
 export class ReportDetailComponent implements OnInit {
+  monthStrings = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  dayStrings = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   data: any;
   options: any;
   items: any;
-  upDeco = 1.0;
   navClass = ['choosing', '', ''];
   choosing: number = 0;
+  member: any = {};
   projects: any[] = [];
-  constructor() {
+  labels: any;
+  billables: any;
+  unbillables: any;
+  isLoaded = false;
+  constructor(private route: ActivatedRoute, private reportService: ReportService, private router: Router) {
   }
   ngOnInit() {
-    this.projects = byProjects;
     this.data = {
-      labels: [['Mon', 'Feb 6'], ['Tue', 'Feb 7'], ['Wed', 'Feb 8'], ['Thu', 'Feb 9'],
-      ['Fri', 'Feb 10'], ['Sat', 'Feb 11'], ['Sun', 'Feb 12']],
+      labels: this.labels,
       datasets: [
       {
         label: 'Hours',
         backgroundColor: '#E88B37',
         borderColor: '#E88B37',
-        data: [8.0, 8.7, 9.0, 7.8, 1.5, 3.0, 0.0]
+        data: this.billables
       },
       {
         backgroundColor: '#F2BE90',
         borderColor: '#E88B37',
-        data: [this.upDeco, this.upDeco, this.upDeco, this.upDeco, this.upDeco, this.upDeco, this.upDeco]
+        data: this.unbillables
       }
       ]
     };
@@ -55,7 +60,7 @@ export class ReportDetailComponent implements OnInit {
           yAxes: [{
             stacked: true,
             ticks: {
-                    max: 12,
+                    max: 10,
                     min: 0,
                     stepSize: 2
                 }
@@ -96,6 +101,12 @@ export class ReportDetailComponent implements OnInit {
         },
     }
     };
+    let para = this.route.params['_value'];
+    console.log(para);
+    this.member.id = para.id;
+    let begin = para.begin;
+    let end = para.end;
+    this.newRange([begin, end]);
     this.items = [
       {label: 'PDF', icon: 'fa-file-pdf-o'},
       {label: 'DOC', icon: 'fa-file-text-o'},
@@ -105,6 +116,28 @@ export class ReportDetailComponent implements OnInit {
       }
     ];
   }
+
+  newRange(arg) {
+    this.labels = [];
+    this.billables = [];
+    this.unbillables = [];
+    this.data.labels = this.labels;
+    this.data.datasets[0].data = this.billables;
+    this.data.datasets[1].data = this.unbillables;
+    let id = this.member.id;
+    let begin = arg[0];
+    let end = arg[1];
+    this.isLoaded = false;
+    this.router.navigate(['report-detail', id, begin, end]);
+    this.reportService.getReportDetailPerson(begin, end, id)
+    .then(res => {
+      console.log(res);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
+
   chooseNavClass(a) {
     let len = this.navClass.length;
     for (let i = 0; i < len; i++ ) {

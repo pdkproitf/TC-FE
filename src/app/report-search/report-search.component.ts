@@ -1,3 +1,5 @@
+import { MembershipService } from './../services/membership-service';
+import { ProjectService } from './../services/project-service';
 import { ProjectGetAll } from './../models/project';
 import { Member } from './../models/member';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
@@ -24,9 +26,25 @@ export class ReportSearchComponent implements OnInit {
   @Output()
   emitRange = new EventEmitter<any>();
   classDiv = ['choose-time hide', 'choose-project hide', 'choose-member hide'];
-  constructor() { }
+  constructor(private projectService: ProjectService, private membershipService: MembershipService) { }
 
   ngOnInit() {
+    this.projectService.getProjects()
+    .then(res => {
+      this.projectLists = res;
+      console.log(res);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+    this.membershipService.getAllMembership()
+    .then(res => {
+      this.members = res;
+      console.log(res);
+    })
+    .catch(err => {
+      console.log(err);
+    });
   }
 
   changeClassDiv(i) {
