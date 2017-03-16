@@ -130,6 +130,10 @@
                         font-size: 12px;
                         line-height: 15px;
                         color: rgba(54,54,54,0.7);
+                        word-break: break-all;
+                        span{
+                            padding-right: 5px;
+                        }
                     }
                 }
                 button{

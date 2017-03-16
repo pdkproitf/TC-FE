@@ -1,5 +1,6 @@
 import { Project, ProjectDefault }  from '../models/project';
 import { Component, OnInit }        from '@angular/core';
+import { Job }                      from '../models/job';
 
 @Component({
     selector: 'app-timeoff-calendar',
@@ -9,6 +10,9 @@ import { Component, OnInit }        from '@angular/core';
 export class TimeoffCalendarComponent implements OnInit {
     projects: Array<ProjectDefault>;
     select_project = '0';
+
+    jobs: Array<Job>;
+    select_job = '0';
 
     start_date: Date = new Date();
     end_date: Date;
@@ -43,7 +47,10 @@ export class TimeoffCalendarComponent implements OnInit {
     }
 
     setProjectsValues(list: ProjectDefault[]){
-        console.log('set project values', list);
         this.projects = list;
+    }
+
+    setJobsValues(list: Job[]){
+        this.jobs = list;
     }
 }

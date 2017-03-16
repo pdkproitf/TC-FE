@@ -33,7 +33,7 @@
                                 {{getmemberStatus(member.id)}}
                             </div>
                         </div>
-                        <div class="member-type"><span *ngIf="member.user">{{member.role.name}}</span></div>
+                        <div class="member-type"><span *ngFor="let job of member.jobs">{{job.name | capitalize}}</span></div>
                     </div>
                 </td>
                 <td *ngFor="let day of days.slice(0, days.length -1)" [class]="hash_member_day_status.get(member.id + '-' + day.getDate())">

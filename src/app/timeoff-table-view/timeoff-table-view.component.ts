@@ -4,6 +4,7 @@ import { ProjectDefault }       from '../models/project';
 import { TimeOff }              from '../models/timeoff';
 import { Holiday }              from '../models/holiday';
 import { Member }               from '../models/member';
+import { Job }                  from '../models/job';
 declare var $ :any;
 
 @Component({
@@ -15,6 +16,7 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     days :Date[] = [];
     selectedValues: Number[] = [];
     selectedProject: number = 0;
+    selectedJob: number = 0;
     searchPattern = '';
     start_date: Date;
     end_date: Date;
@@ -25,6 +27,8 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     hash_member_day_status: Map<string, string>;
     // using for dropdown projects type
     projects_types: Array<ProjectDefault>;
+    // using for dropdown roles type
+    jobs_types: Array<Job>;
 
     distionary_member: Array<Member>;
     list_members: Array<Member>;
@@ -48,8 +52,15 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
         this.initializeValuesFollowTypes();
     }
 
+    @Input()
+    set jobId(id: number){
+        this.selectedJob = id;
+        this.initializeValuesFollowTypes();
+    }
+
     @Output() setWeeks = new EventEmitter<Date>();
     @Output() initProjecttypes = new EventEmitter<Array<ProjectDefault>>();
+    @Output() initJobtypes = new EventEmitter<Array<Job>>();
 
     constructor(private timeoffService :TimeoffService) {}
 
@@ -70,6 +81,7 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
         this.list_members  = [];
         this.holidays  = [];
         this.projects_types = [];
+        this.jobs_types = [];
 
         this.getTimeOff();
     }
@@ -111,13 +123,21 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
 
     initializeValuesFollowTypes(){
         this.list_members = [];
-        if(this.selectedProject == 0) return this.list_members = this.distionary_member;
+        if((this.selectedProject == 0) && (this.selectedJob == 0)) return this.list_members = this.distionary_member;
+        console.log('select ', this.selectedProject, 'job  ', this.selectedJob);
         for (var member of this.distionary_member){
-            // console.log('member project join', member['projects_joined']);
-            // console.log('find '+this.selectedProject, member['projects_joined'].findIndex(x => x.id == this.selectedProject));
-            // member['projects_joined'].findIndex(x => console.log('x ', x.id, 'selec', this.selectedProject, 'compare', x.id == this.selectedProject));
-            if(member['projects_joined'].findIndex(x => x.id == this.selectedProject) != -1)
-                this.list_members.push(member);
+            if(this.selectedProject == 0){
+                if(member.jobs.findIndex(x => x.id == this.selectedJob) != -1)
+                    this.list_members.push(member);
+            }
+            else if( this.selectedJob == 0 ){
+                    if((member['projects_joined'].findIndex(x => x.id == this.selectedProject) != -1))
+                        this.list_members.push(member);
+            }
+            else{
+                if((member.jobs.findIndex(x => x.id == this.selectedJob) != -1)&& (member['projects_joined'].findIndex(x => x.id == this.selectedProject) != -1))
+                    this.list_members.push(member);
+            }
         }
     }
 
@@ -134,18 +154,25 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
         this.hash_member_day_status = new Map<string, string>();
         for (let member of this.distionary_member){
             this.push_to_list_projects(member);
+            this.push_to_list_jobs(member);
             for(let day of this.days)
                 this.hash_member_day_status.set(member.id+'-'+day.getDate(), this.computeClassDayCel(day, member.id));
         }
         this.initProjecttypes.emit(this.projects_types);
+        this.initJobtypes.emit(this.jobs_types);
     }
 
     push_to_list_projects(member: Member){
         if(member['projects_joined'])
-            for (var project of member['projects_joined']){
+            for (var project of member['projects_joined'])
                 if(this.projects_types.findIndex(x => x.id === project.id) == -1)
                     this.projects_types.push(project);
-            }
+    }
+
+    push_to_list_jobs(member: Member){
+        for (var job of member.jobs)
+            if(this.jobs_types.findIndex(x => x.id === job.id) == -1)
+                this.jobs_types.push(job);
     }
 
     computeClassDayCel(_day: Date, id: number){
