@@ -16,7 +16,7 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
     _timeoffs: TimeOff[] = [];
     timeOffPut: TimeOffAnswer;
     user: Member ;
-    is_show_all :Boolean = false;
+    is_show_all :Boolean = false; //using for show  status thumble
     this_year = new Date(new Date().getFullYear(), 0, 1);
 
     @Input()
@@ -24,6 +24,7 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
         this._timeoffs = timeoffs || [];
         this.sortNewest();
     }
+
     @Input()
     set showAll(show: Boolean){
         this.is_show_all = show;
