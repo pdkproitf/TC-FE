@@ -19,7 +19,7 @@
             <tbody *ngFor="let project of _projects.slice((current_page -1)*rowOfPage, current_page*rowOfPage); let i = index;">
                 <tr class="project-line" (click)="projectDetails(project)" (mouseover)='showProjectControl(true, i)' (mouseleave)='showProjectControl(false, i)' >
                     <td>
-                        <div class="project-bacground" [style.background]="project.background"></div>
+                        <div class="project-bacground" [style.background]="project.background | gradient"></div>
                     </td>
                     <td><div class="column-text"> {{project.name}} </div></td>
                     <td class="column-text">{{project.client.name}}</td>

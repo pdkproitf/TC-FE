@@ -1,8 +1,7 @@
 import { Component, OnInit, Input, OnChanges, SimpleChange } from '@angular/core';
-import { ProjectGetAll }   from '../models/project';
-import { Router }           from '@angular/router';
-
-import {AutoCompleteModule} from 'primeng/primeng';
+import { AutoCompleteModule }   from 'primeng/primeng';
+import { ProjectGetAll }        from '../models/project';
+import { Router }               from '@angular/router';
 declare var $:any;
 
 @Component({
