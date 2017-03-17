@@ -23,6 +23,7 @@ import {style, state, animate, transition, trigger} from '@angular/core';
 export class ReportDetailComponent implements OnInit {
   monthStrings = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   dayStrings = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  oTTypes = ['weekend', 'holiday', 'weekend', ''];
   data: any;
   options: any;
   items: any;

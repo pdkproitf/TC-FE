@@ -76,4 +76,45 @@
     </div>
   </div>
 
+  <div class="overtime" *ngIf = "navClass[2] === 'choosing'">
+    <div class="summary">
+      <div class="left regular">
+        <p class="hour">1h</p>
+        <p class="description">Regular</p>
+      </div>
+      <div class="left weekend">
+        <p class="hour">3h</p>
+        <p class="description">Weekend</p>
+      </div>
+      <div class="left holiday">
+        <p class="hour">1.5h</p>
+        <p class="description">Holiday</p>
+      </div>
+    </div>
+
+    <table>
+      <tr>
+        <th class="date">Date</th>
+        <th class="description">Description <span class="fa fa-angle-down"></span></th>
+        <th class="project">Project</th>
+        <th class="time">Time</th>
+        <th class="hour"></th>
+      </tr>
+      <tr class="time-range">
+        <td>Last week: Jan 15 - Jan 22</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>5.5h</td>
+      </tr>
+      <tr class="info" *ngFor="let type of oTTypes">
+        <td class="date"><p>Sat 21/01/2017</p><div [class]="type">{{type}}</div></td>
+        <td class="description">Homepage</td>
+        <td class="project">Timer (Picture Plus)</td>
+        <td class="time">1:30PM -> 3:05PM</td>
+        <td class="hour">2.5h</td>
+      </tr>
+    </table>
+  </div>
+  <br/><br/>
 </div>
