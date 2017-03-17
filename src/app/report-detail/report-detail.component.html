@@ -38,7 +38,7 @@
     <div class="by-projects" *ngIf = "navClass[0] === 'choosing'">
       <div class="project" *ngFor="let project of projects; let id = index;">
         <div class="summary">
-          <span (click)="changeSpanProject(id)" [class]="spanClassProject[id]"></span>
+          <span style="-webkit-text-stroke: 2px white;" (click)="changeSpanProject(id)" [class]="spanClassProject[id]"></span>
           <div class="left background" [style.background]="project.background"></div>
           <p class="left name">{{project.name}}</p>
           <p class="left client">({{project.client.name}})</p>
@@ -68,7 +68,7 @@
           <th></th>
         </tr>
         <tr *ngFor="let task of tasks; let id = index;">
-          <td><span class="fa fa-plus"></span>{{task.name}}</td>
+          <td><span style="-webkit-text-stroke: 2px white;" class="fa fa-plus"></span>{{task.name}}</td>
           <td class="ca-pro">{{task.category_name}} - {{task.project_name}} ({{task.client.name}})</td>
           <td class="tracked-time">{{task.tracked_time | timeFromSeconds}}</td>
         </tr>
