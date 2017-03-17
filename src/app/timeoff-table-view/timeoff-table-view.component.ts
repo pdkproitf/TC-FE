@@ -43,6 +43,7 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     is_ableToModify :boolean = false;
     is_ableToAnswer :boolean = false;
     timeOffPut :TimeOffAnswer = new TimeOffAnswer();
+    dropdown_selected = 0;
 
     @Input()
     set startDay(date: Date){
@@ -342,11 +343,20 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     }
 
     resetDialogContent(){
-        $('.form-group').parent().find('.answer').find('.approve').removeClass('approve-send').text('Approve').prop('type', 'button').prop('disabled', !this.is_ableToAnswer);
-        $('.form-group').css({'display': 'none'});
-        $('.form-group').parent().find('.answer').find('.reject').show().prop('disabled', !this.is_ableToAnswer);
+        if(this.dialog_timeoff.status == 'approved'){
+            $('.form-group').parent().find('.answer > .buttons').hide();
+            $('.form-group').parent().find('.answer > .drop-down').show();
+            this.timeOffPut.answer_timeoff_request.approver_messages = this.dialog_timeoff.approver_messages;
+            this.timeOffPut.answer_timeoff_request.status = this.dialog_timeoff.status;
+        }else{
+            $('.form-group').parent().find('.answer > .buttons').show();
+            $('.form-group').parent().find('.answer > .drop-down').hide();
+            $('.form-group').parent().find('.answer').find('.approve').removeClass('approve-send').text('Approve').prop('type', 'button').prop('disabled', !this.is_ableToAnswer);
+            $('.form-group').parent().find('.answer').find('.reject').show().prop('disabled', !this.is_ableToAnswer);
+            $('.form-group').parent().find('.modify').show();
+        }
         $('.form-group').parent().find('.answer').find('.cancel').hide();
-        $('.form-group').parent().find('.modify').show();
+        $('.form-group').css({'display': 'none'});
     }
 
     showDialogContent(button_name :string){
@@ -367,8 +377,7 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
         this.timeoffService.delete(this.dialog_timeoff.id,)
         .then(
             (result) => {
-                this.ngOnInit();
-                this.reloadCalendar.emit();
+                this.reload();
             },
             (errors) => {
                 alert(errors.json().error);
@@ -377,16 +386,20 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
         )
     }
 
-
     answerTimeoff(){
+        if(this.dialog_timeoff.status == 'approved') this.timeOffPut.answer_timeoff_request.status = (this.dropdown_selected == 0) ?  'approved' : 'rejected';
         this.timeoffService.update(this.dialog_timeoff.id, this.timeOffPut).then(
             (result) => {
-                this.reloadCalendar.emit();
-                this.ngOnInit();
+                this.reload();
             },
             (error) => {
                 console.log(error.data);
             }
         )
+    }
+
+    reload(){
+        this.ngOnInit();
+        this.reloadCalendar.emit();
     }
 }

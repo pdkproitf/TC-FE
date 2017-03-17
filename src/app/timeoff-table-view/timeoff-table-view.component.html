@@ -105,9 +105,18 @@
                 </div>
                 <div class="control">
                     <div class="answer">
-                        <button class="approve" type="button" (click)="showDialogContent('Approve')"> Approve </button>
-                        <button class="reject" type="button" (click)="showDialogContent('Reject')"> Reject </button>
-                        <button class="cancel" type="button" (click)="pppp.hide($event, actualTarget)"> Cancel </button>
+                        <div class="buttons">
+                            <button class="approve" type="button" (click)="showDialogContent('Approve')"> Approve </button>
+                            <button class="reject" type="button" (click)="showDialogContent('Reject')"> Reject </button>
+                            <button class="cancel" type="button" (click)="pppp.hide($event, actualTarget)"> Cancel </button>
+                        </div>
+
+                        <div class="drop-down">
+                            <select class="form-control" [(ngModel)]="dropdown_selected" name="answer_timeoff_dropdown" (change)="answerTimeoff(); pppp.hide($event, actualTarget);">
+                                <option [value]="0" selected="selected">Approve</option>
+                                <option [value]="1" *ngIf='is_ableToAnswer'>Reject</option>
+                            </select>
+                        </div>
                     </div>
 
                     <div *ngIf="is_ableToModify" class="modify">
