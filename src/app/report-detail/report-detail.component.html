@@ -39,7 +39,7 @@
       <div class="project" *ngFor="let project of projects; let id = index;">
         <div class="summary">
           <span style="-webkit-text-stroke: 2px white;" (click)="changeSpanProject(id)" [class]="spanClassProject[id]"></span>
-          <div class="left background" [style.background]="project.background"></div>
+          <div class="left background" [style.background]="project.background | gradient"></div>
           <p class="left name">{{project.name}}</p>
           <p class="left client">({{project.client.name}})</p>
           <p class="right">{{project.tracked_time | timeFromSeconds}}</p>

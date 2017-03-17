@@ -57,7 +57,7 @@
       <tr (click)="detailReportProject(project.id)" class="data" *ngFor="let project of projectLists">
         <td class="name">
           <div class="name">
-            <div class="project-color" [style.background]="project.background"></div>
+            <div class="project-color" [style.background]="project.background | gradient"></div>
             <p class="project-name">{{project.name}}</p>
             <p class="project-client">({{project.client.name}})</p>
           </div>
