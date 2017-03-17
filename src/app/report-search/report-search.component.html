@@ -5,7 +5,7 @@
       <th class="when">
         <div class="in-th when">
           <p class="title-field">When</p><br/>
-          <p class="value-field">{{timeRange}}</p>
+          <p (click)="changeClassDiv(0)" class="value-field">{{timeRange}}</p>
           <span class="fa fa-angle-down down-img" (click)="changeClassDiv(0)"></span>
         </div>
       </th>
@@ -29,8 +29,8 @@
 </div>
 
 <div [class]="classDiv[0]">
-  <p-calendar  [inline]="true"></p-calendar>
-  <p-calendar  [inline]="true"></p-calendar>
+  <p-calendar (onSelect)="selectDate(0,$event)"  [inline]="true"></p-calendar>
+  <p-calendar (onSelect)="selectDate(1,$event)"  [inline]="true"></p-calendar>
   <div class="options">
     <table class="options">
       <tr *ngFor="let option of options; let row = index">

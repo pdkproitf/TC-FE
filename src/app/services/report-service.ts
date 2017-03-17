@@ -38,4 +38,16 @@ export class ReportService {
         .then(res => res.json().data)
         .catch(error => this.handleError(error));
     }
+
+    getReportDetailPerson(begin: string, end: string, id: number): Promise<any> {
+        let serverDomain = new ServerDomain();
+        let requestUrl = serverDomain.domain + '/reports/member?begin_date=' + begin + '&end_date=' + end + '&member_id=' + id.toString();
+        let headers = new Headers();
+        this.headersService.createAuthHeaders(headers);
+        return this.http
+        .get(requestUrl, {headers: headers})
+        .toPromise()
+        .then(res => res.json().data)
+        .catch(error => this.handleError(error));
+    }
 }

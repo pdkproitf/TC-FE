@@ -33,8 +33,9 @@ export class ReportComponent implements OnInit {
     });
   }
 
-  detailReport() {
-    this.router.navigate(['report-detail']);
+  detailReport(arg) {
+    console.log(arg);
+    this.router.navigate(['report-detail', arg, this.firstString, this.lastString]);
   }
 
   detailReportProject(id) {
@@ -63,6 +64,20 @@ export class ReportComponent implements OnInit {
     this.firstString = this.dateToShortString(this.firstWeekDay);
     this.lastString = this.dateToShortString(this.lastWeekDay);
     console.log(this.firstString + '-' + this.lastString);
+  }
+
+  newRange(arg) {
+    this.firstString = arg[0];
+    this.lastString = arg[1];
+    this.reportService.getReportAll(this.firstString, this.lastString)
+    .then(res => {
+      console.log(res);
+      this.members = res.people;
+      this.projectLists = res.projects;
+    })
+    .catch(error => {
+      console.log(error);
+    });
   }
 
 }

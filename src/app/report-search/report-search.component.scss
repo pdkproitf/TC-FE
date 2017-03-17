@@ -74,6 +74,9 @@ h4{
                             margin-top: 10px;
                             font-size: 18px;
                             line-height: 22px;
+                            &:hover{
+                                cursor: pointer;
+                            }
                         }
                     }
                     .down-img{

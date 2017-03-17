@@ -3,11 +3,11 @@
   <h1>Reports</h1>
   <app-report-search (emitRange)="newRange($event)"></app-report-search>
 
-  <div class="project-info">
+  <div class="project-info" *ngIf="isLoaded">
     <table class="project-info">
       <tr>
         <td class="info">
-          <div class="background" [style.background]="project.background"></div>
+          <div class="background" [style.background]="background | gradient"></div>
           <p class="client">{{client_name}}</p><br/>
           <p class="project">{{project.name}}</p>
         </td>
@@ -37,7 +37,7 @@
   <div class="by-people" *ngIf = "navClass[0] === 'choosing'">
     <div class="person" *ngFor="let member of members; let id = index;">
       <div class="summary">
-        <span (click)="changeSpan(id)" [class]="spanMemberClass[id]"></span>
+        <span style="-webkit-text-stroke: 2px white;" (click)="changeSpan(id)" [class]="spanMemberClass[id]"></span>
         <img class="left" *ngIf="member.user.image != null" src="{{member.user.image}}">
         <img class="left" *ngIf="member.user.image == null" src="assets/image-profile/default-avatar.png">
         <p class="left">{{member.user.first_name}} {{member.user.last_name}}</p>
@@ -62,7 +62,7 @@
   <div class="by-categories" *ngIf = "navClass[1] === 'choosing'">
     <div class="category" *ngFor="let category of categories; let id = index;">
       <div class="summary">
-        <span (click)="changeCategorySpan(id)" [class]="spanCategoryClass[id]"></span>
+        <span style="-webkit-text-stroke: 2px white;" (click)="changeCategorySpan(id)" [class]="spanCategoryClass[id]"></span>
         <p class="left">{{category.name}}</p>
         <p class="right">{{category.tracked_time | timeFromSeconds}}</p>
       </div>
