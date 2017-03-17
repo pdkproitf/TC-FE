@@ -1,5 +1,5 @@
+import { Component, OnInit, EventEmitter, Output }        from '@angular/core';
 import { Project, ProjectDefault }  from '../models/project';
-import { Component, OnInit }        from '@angular/core';
 import { Job }                      from '../models/job';
 
 @Component({
@@ -16,6 +16,8 @@ export class TimeoffCalendarComponent implements OnInit {
 
     start_date: Date = new Date();
     end_date: Date;
+
+    @Output() reload = new EventEmitter();
 
     constructor() {}
 
@@ -52,5 +54,9 @@ export class TimeoffCalendarComponent implements OnInit {
 
     setJobsValues(list: Job[]){
         this.jobs = list;
+    }
+
+    reloadEmit(){
+        this.reload.emit();
     }
 }

@@ -18,6 +18,7 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
     user: Member ;
     is_show_all :Boolean = false; //using for show  status thumble
     this_year = new Date(new Date().getFullYear(), 0, 1);
+    today = new Date();
 
     @Input()
     set timeoffs(timeoffs: TimeOff[]){
@@ -39,6 +40,7 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
         let userInfo = localStorage.getItem('UserInfo');
         this.user = JSON.parse(userInfo);
         var date = new Date();
+        this.today.setHours(0, 0, 0, 0);
     }
 
     ngOnChanges(changes: {[propKey: string]: SimpleChange}){

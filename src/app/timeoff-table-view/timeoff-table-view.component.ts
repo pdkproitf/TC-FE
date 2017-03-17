@@ -1,10 +1,11 @@
 import { Component, OnInit, Input, OnChanges, SimpleChange, EventEmitter, Output } from '@angular/core';
-import { TimeoffService }       from '../services/timeoff-service';
-import { ProjectDefault }       from '../models/project';
-import { TimeOff }              from '../models/timeoff';
-import { Holiday }              from '../models/holiday';
-import { Member }               from '../models/member';
-import { Job }                  from '../models/job';
+import { TimeOff, PersonNumTimeOff, TimeOffAnswer }    from '../models/timeoff';
+import { TimeoffService }               from '../services/timeoff-service';
+import { ProjectDefault }               from '../models/project';
+import { Holiday }                      from '../models/holiday';
+import { Member }                       from '../models/member';
+import { Router }                       from '@angular/router'
+import { Job }                          from '../models/job';
 declare var $ :any;
 
 @Component({
@@ -35,6 +36,14 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
 
     holidays: Array<Holiday>;
 
+    // using for init dialog's data
+    dialog_timeoff :TimeOff = new TimeOff();
+    dialog_personNumTimeOff :PersonNumTimeOff = new PersonNumTimeOff();
+    user: Member ;
+    is_ableToModify :boolean = false;
+    is_ableToAnswer :boolean = false;
+    timeOffPut :TimeOffAnswer = new TimeOffAnswer();
+
     @Input()
     set startDay(date: Date){
         date.setHours(0,0,0,0);
@@ -61,8 +70,9 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     @Output() setWeeks = new EventEmitter<Date>();
     @Output() initProjecttypes = new EventEmitter<Array<ProjectDefault>>();
     @Output() initJobtypes = new EventEmitter<Array<Job>>();
+    @Output() reloadCalendar = new EventEmitter();
 
-    constructor(private timeoffService :TimeoffService) {}
+    constructor(private timeoffService :TimeoffService, private route :Router) {}
 
     ngOnInit() {
         this.days = [];
@@ -84,6 +94,9 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
         this.jobs_types = [];
 
         this.getTimeOff();
+
+        let userInfo = localStorage.getItem('UserInfo');
+        this.user = JSON.parse(userInfo);
     }
 
     ngOnChanges(changes: {[propKey: string]: SimpleChange}){
@@ -124,7 +137,6 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     initializeValuesFollowTypes(){
         this.list_members = [];
         if((this.selectedProject == 0) && (this.selectedJob == 0)) return this.list_members = this.distionary_member;
-        console.log('select ', this.selectedProject, 'job  ', this.selectedJob);
         for (var member of this.distionary_member){
             if(this.selectedProject == 0){
                 if(member.jobs.findIndex(x => x.id == this.selectedJob) != -1)
@@ -178,7 +190,6 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     computeClassDayCel(_day: Date, id: number){
         var status = "cel-";
         if(this.isHoliday(_day)) return 'cel-holiday';
-        if(this.isWeekend(_day)) return 'cel-weekend';
 
         var day = _day.getTime();
         for (let timeoff of this.hash_timeoff.get(id)) {
@@ -193,6 +204,7 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
                 return status;
             }
         }
+        if(this.isWeekend(_day)) return 'cel-weekend';
         return status;
     }
 
@@ -213,7 +225,7 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
         return (day.getDay()%6 == 0)
     }
 
-    ableToModify(string: string){
+    ableToShowModify(string: string){
         var status = this.hash_member_day_status.get(string);
         if(status == 'cel-pending' || status == 'cel-approved')
             return true;
@@ -258,11 +270,123 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
         this.initializeSelectedValues();
     }
 
-    answerTimeoff(id: number, day: Date){
-        console.log('answer id ', id, 'day', day);
-    }
-
     goToFutureDayOff(date: Date){
         this.setWeeks.emit(new Date(date));
+    }
+
+    // init data when show dialog
+    initDialog(member_id :number, _day :Date){
+        this.hash_timeoff.get(member_id)
+        for (let timeoff of this.hash_timeoff.get(member_id)) {
+            var start_date = new Date(timeoff.start_date.toString());
+            var end_date = new Date(timeoff.end_date.toString());
+
+            start_date.setHours(0,0,0,0);
+            end_date.setHours(0,0,0,0);
+
+            if(start_date <= _day && _day <= end_date){
+                this.dialog_timeoff = timeoff;
+                this.timeOffPut.answer_timeoff_request.status = 'approved';
+                this.is_ableToModify =  this.ableToModify(member_id);
+                this.is_ableToAnswer =  this.ableToAnswer(member_id);
+                this.getNumOfPersonTimeOff(member_id, timeoff.id)
+            }
+        }
+        this.resetDialogContent();
+    }
+
+    getNumOfPersonTimeOff(member_id :number, id: number){
+        this.timeoffService.getPersonNumTimeOff(member_id, id).then(
+            (result) => {
+                this.dialog_personNumTimeOff = result;
+            },
+            (error) => {
+                console.log('result', error);
+            }
+        )
+    }
+
+    ableToModify(member_id: number){
+        if(!this.checkOverDayToModify()) return false;
+        //check role
+        if(this.user.role.name == 'Member') return false;
+        if(this.user.id == member_id) return true;
+
+        var timeoff_member = this.distionary_member.find(x => x.id === member_id);
+        if(this.user.role.name == 'Admin' || (this.user.role.name == 'PM' && timeoff_member.role.name == 'Member')) return true;
+        return false;
+    }
+
+    ableToAnswer(member_id: number){
+        if(!this.checkOverDayToModify()) return false;
+        //check role
+        if(this.user.role.name == 'Member') return false;
+        if(this.user.id == member_id) return false;
+
+        var timeoff_member = this.distionary_member.find(x => x.id === member_id);
+        if(this.user.role.name == 'PM' && (timeoff_member.role.name == 'PM' || timeoff_member.role.name == 'Admin')) return false;
+        return true;
+    }
+
+    checkOverDayToModify(){
+        //check day
+        var create = new Date(this.dialog_timeoff.created_at); create.setHours(0, 0, 0, 0)
+
+        var start_date = new Date(this.dialog_timeoff.start_date); start_date.setHours(0, 0, 0, 0)
+
+        var this_year = new Date(new Date().getFullYear(), 0, 1);
+        var today = new Date(); today.setHours(0, 0, 0, 0);
+
+        if((create < this_year) || (start_date < today)) return false;
+        return true;
+    }
+
+    resetDialogContent(){
+        $('.form-group').parent().find('.answer').find('.approve').removeClass('approve-send').text('Approve').prop('type', 'button').prop('disabled', !this.is_ableToAnswer);
+        $('.form-group').css({'display': 'none'});
+        $('.form-group').parent().find('.answer').find('.reject').show().prop('disabled', !this.is_ableToAnswer);
+        $('.form-group').parent().find('.answer').find('.cancel').hide();
+        $('.form-group').parent().find('.modify').show();
+    }
+
+    showDialogContent(button_name :string){
+        if(button_name == 'Reject') this.timeOffPut.answer_timeoff_request.status = 'rejected';
+
+        $('.form-group').css({'display': 'flex'});
+        $('.form-group').parent().find('.answer').find('.approve').addClass('approve-send').text(button_name+' & Send').prop('type', 'submit');
+        $('.form-group').parent().find('.answer').find('.reject').hide();
+        $('.form-group').parent().find('.answer').find('.cancel').show();
+        $('.form-group').parent().find('.modify').hide();
+    }
+
+    edit(){
+        this.route.navigate(['/edit-timeoff', this.dialog_timeoff.id]);
+    }
+
+    delete(){
+        this.timeoffService.delete(this.dialog_timeoff.id,)
+        .then(
+            (result) => {
+                this.ngOnInit();
+                this.reloadCalendar.emit();
+            },
+            (errors) => {
+                alert(errors.json().error);
+                console.log('timeoff error', errors.json().error);
+            }
+        )
+    }
+
+
+    answerTimeoff(){
+        this.timeoffService.update(this.dialog_timeoff.id, this.timeOffPut).then(
+            (result) => {
+                this.reloadCalendar.emit();
+                this.ngOnInit();
+            },
+            (error) => {
+                console.log(error.data);
+            }
+        )
     }
 }

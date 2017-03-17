@@ -20,7 +20,6 @@
                 <td class="member checkeds" >
                     <div class="check-box">
                         <p-checkbox name="groupname" value="{{member.id}}" [(ngModel)]="selectedValues" (click)="checked($event.target.checked, member.id)"></p-checkbox>
-                        <!-- <label><input type="checkbox" (change)="checked($event.target.checked, member.id)"></label> -->
                     </div>
                 </td>
                 <td class="member multi-line">
@@ -37,7 +36,7 @@
                     </div>
                 </td>
                 <td *ngFor="let day of days.slice(0, days.length -1)" [class]="hash_member_day_status.get(member.id + '-' + day.getDate())">
-                    <button *ngIf="ableToModify(member.id + '-' + day.getDate())" (click)="pppp.toggle($event); answerTimeoff(member.id, day)"></button>
+                    <button *ngIf="ableToShowModify(member.id + '-' + day.getDate())" (click)="pppp.toggle($event); initDialog(member.id, day)"></button>
                 </td>
                 <td>
                     <div *ngIf="member.future_dayoff > 0" class="last-cel">
@@ -70,21 +69,61 @@
             <button class="clear" type="button" name="button" (click)="hidenMessage()">Clear</button>
         </div>
     </div>
+
+    <p-overlayPanel #pppp>
+        <div class="form-container">
+            <div class="header-status">
+                <div class="cel-{{dialog_timeoff.status}} thumble inline"></div>
+                <p>Vacation: {{dialog_timeoff.status}}</p>
+            </div>
+
+            <div class="days">
+                <i class="fa fa-clock-o fa-lg thumble" aria-hidden="true"></i>
+                <div class="content">
+                    <div class="details">
+                        <div class="details-day">{{ (dialog_timeoff.start_date | date: 'MMM  dd') + '     '+ (dialog_timeoff.is_start_half_day? '(Half day)':'(All day)') }}</div>
+                        <i class="fa fa-long-arrow-right details-arrow" aria-hidden="true"></i>
+                        <div class="details-day">{{ (dialog_timeoff.end_date | date: 'MMM  dd') + '     '+ (dialog_timeoff.is_end_half_day? '(Half day)':'(All day)') }}</div>
+                    </div>
+                    <div class="day-left">
+                        Day left {{ dialog_timeoff.status == 'pending'? 'before':'after' }} request: <strong>{{dialog_personNumTimeOff.total - dialog_personNumTimeOff.offed}}</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="description">
+                <i class="fa fa-align-left fa-lg thumble" aria-hidden="true"></i>
+                <div class="content">
+                    <label for="">{{dialog_timeoff.description? dialog_timeoff.description.slice(0, 170) +'…' : ''}}</label>
+                    <div class="request-from">Requested {{dialog_timeoff.created_at | amTimeAgo}}</div>
+                </div>
+            </div>
+
+            <form (ngSubmit)="answerTimeoff(); pppp.hide($event, actualTarget)">
+                <div class="form-group">
+                    <textarea  name="answer" placeholder="Your response…" [(ngModel)]="timeOffPut.answer_timeoff_request.approver_messages" required ></textarea>
+                </div>
+                <div class="control">
+                    <div class="answer">
+                        <button class="approve" type="button" (click)="showDialogContent('Approve')"> Approve </button>
+                        <button class="reject" type="button" (click)="showDialogContent('Reject')"> Reject </button>
+                        <button class="cancel" type="button" (click)="pppp.hide($event, actualTarget)"> Cancel </button>
+                    </div>
+
+                    <div *ngIf="is_ableToModify" class="modify">
+                        <div class="oval" (click)="delete(); pppp.hide($event, actualTarget);">
+                            <div class="text">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="oval" (click)="edit(); pppp.hide($event, actualTarget);">
+                            <div class="text">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </p-overlayPanel>
 </div>
-
-<p-overlayPanel #pppp>
-    <div class="form-container">
-        <form (ngSubmit)="update(); pppp.hide($event, actualTarget)">
-            <div class="status">
-                <div class=""></div>
-                <label for=""></label>
-            </div>
-
-            <div class="form-group">
-                <textarea  name="answer" placeholder="Say something ..." required ></textarea>
-            </div>
-            <button class="approve" type="submit"> & Send</button>
-            <button  class="cancle" type="button" (click)="pppp.hide($event, actualTarget)">Cancel</button>
-        </form>
-    </div>
-</p-overlayPanel>
