@@ -1,3 +1,4 @@
+import { Job } from './job';
 class Company {
     domain: string;
     id: number;
@@ -20,6 +21,7 @@ export class Member {
     role: RoleMember;
     user: UserMember;
     is_pm: boolean;
+    jobs :Job[];
 }
 
 export class MemberTrackTime {

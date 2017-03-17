@@ -59,7 +59,7 @@ export class ProjectService {
         .then(res => {
             var projects: ProjectGetAll[] = [];
             if(res.json().data){
-                console.log('get projects ', res.json());
+                // console.log('get projects ', res.json());
                 res.json().data.forEach(json => {
                     projects.push(json as ProjectGetAll);
                 });

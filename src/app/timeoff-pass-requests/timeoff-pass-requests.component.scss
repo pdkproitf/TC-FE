@@ -1,4 +1,7 @@
 .pass-timeoffs{
+    button{
+        border: 0px;
+    }
     width: 80%;
     margin: auto;
     i{
@@ -12,39 +15,45 @@
         padding-bottom: 50px;
     }
     .header{
+        margin-top: 30px;
         p{
-            width: 195px;
-            height: 38px;
-            font-family: Montserrat;
-            font-size: 32px;
-            font-weight: bold;
-            line-height: 38px;
-            color: #363636;
             display: inline-block;
-            margin-top: 20px;
         }
-        button{
-            width: 125px;
+        .dropdown{
+            float: right;
             height: 40px;
-            border: 0px;
             background-color: #EEEEEE;
             border-radius: 100px;
-            float: right;
-            cursor: pointer;;
-            margin-top: 20px;
-            &.button-create {
-                & p{
-                    font-family: Lato;
-                    font-size: 16px;
-                    text-align: center;
-                    line-height: 24px;
-                    display: inline;
-                    color: rgba(54,54,54,0.7);
-                }
-                & i{
-                    color: rgba(54,54,54,0.7);
+            vertical-align: middle;
+            text-align: center;
+            position: relative;
+            select{
+                margin-top: 10px;
+                border: 0;
+                background: none;
+                cursor: pointer;
+                height: 24px;
+                font-family: Lato;
+                font-size: 16px;
+                line-height: 24px;
+                color: rgba(54,54,54,0.7);
+                max-width: 140;
+                padding-left: 5px;
+                &:focus{
+                    outline: none;
+                    box-shadow: none;
                 }
             }
         }
+    }
+    .title{
+        font-family: Montserrat;
+        font-size: 32px;
+        font-weight: bold;
+        line-height: 38px;
+        color: #363636;
+    }
+    .content{
+        margin-top: 20px;
     }
 }

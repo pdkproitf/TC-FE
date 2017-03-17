@@ -16,14 +16,16 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
     _timeoffs: TimeOff[] = [];
     timeOffPut: TimeOffAnswer;
     user: Member ;
-    is_show_all :Boolean = false;
+    is_show_all :Boolean = false; //using for show  status thumble
     this_year = new Date(new Date().getFullYear(), 0, 1);
+    today = new Date();
 
     @Input()
     set timeoffs(timeoffs: TimeOff[]){
         this._timeoffs = timeoffs || [];
         this.sortNewest();
     }
+
     @Input()
     set showAll(show: Boolean){
         this.is_show_all = show;
@@ -38,6 +40,7 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
         let userInfo = localStorage.getItem('UserInfo');
         this.user = JSON.parse(userInfo);
         var date = new Date();
+        this.today.setHours(0, 0, 0, 0);
     }
 
     ngOnChanges(changes: {[propKey: string]: SimpleChange}){
@@ -80,7 +83,6 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
         this.timeoffService.delete(id,)
         .then(
             (result) => {
-                // console.log('timeoff delete', result);
                 this.reload.emit();
             },
             (errors) => {
@@ -97,7 +99,6 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
     update(id: number, $event){
         this.timeoffService.update(id, this.timeOffPut).then(
             (result) => {
-                // console.log('TimeOff' + id +'update Sucess');
                 this.reload.emit();
             },
             (error) => {

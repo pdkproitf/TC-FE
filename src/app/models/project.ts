@@ -56,6 +56,16 @@ export class Project {
 
 }
 
+export class ProjectDefault {
+    name: string;
+    client_id: number;
+    background: string;
+    is_member_report: boolean;
+    members_id: number;
+    id: number;
+    is_archived: boolean;
+}
+
 // using for load all project from api
 export class ProjectGetAll {
     id: number;
