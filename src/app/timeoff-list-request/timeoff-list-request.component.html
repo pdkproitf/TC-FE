@@ -1,8 +1,9 @@
 <div class="header">
     <p><strong>{{_personNumTimeOff.offed}}</strong> days used / <strong>{{_personNumTimeOff.total - _personNumTimeOff.offed}}</strong> remaining</p>
     <div class="sort">
-        <p>All types</p>
-        <p (click)="all_types()"><i class="fa fa-sort-desc" aria-hidden="true"></i></p>
+        <select class="form-control"  id="client" [(ngModel)]="type" name="select_client_id" (change)="sort()">
+            <option *ngFor="let type of types" [value]="type">{{type | capitalize}}</option>
+        </select>
     </div>
 </div>
 <div class="content">

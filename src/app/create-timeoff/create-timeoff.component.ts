@@ -1,5 +1,5 @@
-import { Validators, FormBuilder, FormControl }     from '@angular/forms';
 import { TimeOff, TimeOffPost, PersonNumTimeOff }   from './../models/timeoff';
+import { Validators, FormBuilder, FormControl }     from '@angular/forms';
 import { Component, OnInit }    from '@angular/core';
 import { CalendarModule }       from 'primeng/primeng';
 import { TimeoffService }       from '../services/timeoff-service';
@@ -88,7 +88,6 @@ export class CreateTimeoffComponent implements OnInit {
         this.timeoffService.update(this.id, this.convertToTimeOffPost())
         .then(
             (result) => {
-                console.log('timeoff update', result);
                 this.cancel();
             },
             (errors) => {
@@ -109,7 +108,7 @@ export class CreateTimeoffComponent implements OnInit {
         timeoff.is_start_half_day = this.timeoffForm.value['is_start_half_day']
         timeoff.is_end_half_day = this.timeoffForm.value['is_end_half_day']
         timeoff.description = this.timeoffForm.value['description']
-        
+
         return new TimeOffPost(timeoff);
     }
 
@@ -117,7 +116,6 @@ export class CreateTimeoffComponent implements OnInit {
     getTimeOff(id: number){
         this.timeoffService.getTimeOff(id).then(
             (result) => {
-                console.log('result timeoff ', result);
                 this.initValueEdit(result);
             },
             (error) =>  {

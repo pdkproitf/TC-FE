@@ -1,8 +1,10 @@
 .header{
+    button{ border: 0px;}
     font-family: Lato;
     font-size: 16px;
     line-height: 24px;
     color: rgba(54,54,54,0.7);
+    margin-top: 20px;
     & p{
         display: inline-block;
         & strong{
@@ -13,9 +15,22 @@
     }
     & .sort{
         float: right;
-        & .fa{
+        select{
             cursor: pointer;
-            padding-left: 50%
+            height: 24px;
+            font-family: Lato;
+            font-size: 16px;
+            line-height: 24px;
+            color: rgba(54,54,54,0.7);
+            border: 0px;
+            background: white;
+            & option{
+                cursor: pointer;
+            }
+            &:focus{
+                outline: none;
+                box-shadow: none;
+            }
         }
     }
 }

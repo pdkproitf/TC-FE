@@ -15,9 +15,7 @@ export class ProjectDetailsComponent implements OnInit {
     constructor(private route: ActivatedRoute, private projectService: ProjectService, private router :Router) {
         projectService.getProject(route.snapshot.params['id']).then(
             (result) =>{
-                console.log('project base', result);
                 this.project = result;
-                console.log('this.project', this.project);
             },
             (error) => {
                 alert(error);

@@ -1,4 +1,6 @@
-import { Member }   from './member'
+import { ProjectDefault }   from './project'
+import { Member }           from './member'
+
 export class TimeOff{
     id: number;
     sender: Member;
@@ -16,6 +18,7 @@ export class TimeOff{
     future_dayoff: number;
     nearest_future_dateoff: Date;
     furlough_total: number;
+    projects_joined: ProjectDefault[]
 }
 
 export class TimeOffPost{
