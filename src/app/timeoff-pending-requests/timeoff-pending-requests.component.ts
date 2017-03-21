@@ -47,6 +47,12 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
         if(changes['timeoffs']) this.ngOnInit();
     }
 
+    ////
+    //@function sort newest
+    //@desc sort list _timeoffs DESC day updated/created
+    //@param
+    //@result void
+    ////
     sortNewest(){
         if(this._timeoffs.length > 1){
             this._timeoffs.sort(function(a, b){
@@ -58,6 +64,12 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
         }
     }
 
+    ////
+    //@function setShowPenddingDetails
+    //@desc each timeoff show description when hander click action, so it initialized show is false
+    //@param
+    //@result void
+    ////
     setShowPenddingDetails(){
         this.is_show_pending_details = new Map<Number, boolean>();
         this._timeoffs.forEach(timeoff => {
@@ -65,20 +77,44 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
         })
     }
 
+    ////
+    //@function showDetails
+    //@desc show description for timeoff
+    //@param timeoff_id
+    //@result void
+    ////
     showDetails(timeoff_id: number){
         var cf = this.is_show_pending_details.get(timeoff_id);
         cf? $('#description-'+timeoff_id).css({'display': 'none'}) : $('#description-'+timeoff_id).css({'display': 'block'})
         this.is_show_pending_details.set(timeoff_id, !cf);
     }
 
+    ////
+    //@function show button edit and delete
+    //@desc show button edit and control when mouseover
+    //@param is_show = true ->  show , id -> using for get timeoff in list is_show_pending_details
+    //@result void
+    ////
     showTimeoffControl(is_show: boolean, id: number){
         is_show? $('#timeoff-control-'+id).css({'display': 'inline-block'}) : $('#timeoff-control-'+id).css({'display': 'none'});
     }
 
+    ////
+    //@function edit a timeoff
+    //@desc navigate to edit timeoff page
+    //@param using to pass to edit-timeoff pages
+    //@result void
+    ////
     edit(id: number){
         this.router.navigate(['/edit-timeoff/'+id]);
     }
 
+    ////
+    //@function delete
+    //@desc delete a timeoff
+    //@param id using to pass to serve
+    //@result void
+    ////
     delete(id: number){
         this.timeoffService.delete(id,)
         .then(
@@ -92,11 +128,13 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
         )
     }
 
-    showForm(status: string){
-        this.timeOffPut.answer_timeoff_request.status = status;
-    }
-
-    update(id: number, $event){
+    ////
+    //@function update
+    //@desc answer a timoe off
+    //@param id using to pass to serve
+    //@result void
+    ////
+    update(id: number){
         this.timeoffService.update(id, this.timeOffPut).then(
             (result) => {
                 this.reload.emit();
@@ -105,5 +143,15 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
                 console.log(error.data);
             }
         )
+    }
+
+    ////
+    //@function showForm
+    //@desc update button content when show Form answer
+    //@param status
+    //@result void
+    ////
+    showForm(status: string){
+        this.timeOffPut.answer_timeoff_request.status = status;
     }
 }

@@ -104,6 +104,12 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
         if(changes['startDay'] || changes['endDay']) this.ngOnInit();
     }
 
+    ////
+    //@function get timeoff
+    //@desc get timeoff from API and init values for variable
+    //@param
+    //@result void
+    ////
     getTimeOff(){
         this.timeoffService.getPhaseTimeOffsMemberOrdinal(this.start_date, this.end_date).then(
             (result) => {
@@ -112,7 +118,8 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
                 for(var i = 0; i < result.timeoffs.length; i++)
                     this.hash_timeoff.set(result.members[i].id, result.timeoffs[i]);
 
-                (this.selectedValues.length > 0)? this.initializeSelectedValues(): (this.searchPattern.length > 0)? this.initializeSearchValues():this.initializeAllValues();
+                (this.selectedValues.length > 0)? this.initializeSelectedValues():
+                    (this.searchPattern.length > 0)? this.initializeSearchValues():this.initializeAllValues();
                 this.initializeHashMemberDayStatus();
             },
             (error) => {
@@ -121,10 +128,22 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
         )
     }
 
+    ////
+    //@function init list_member values
+    //@desc set list_member all values get from API
+    //@param
+    //@result void
+    ////
     initializeAllValues(){
         this.list_members = this.distionary_member;
     }
 
+    ////
+    //@function init list_member values
+    //@desc set list_member values selected
+    //@param
+    //@result void
+    ////
     initializeSelectedValues(){
         this.list_members = [];
         for(var i = 0; i < this.selectedValues.length; i ++)
@@ -135,6 +154,12 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
                 }
     }
 
+    ////
+    //@function init list_member values
+    //@desc set list_member values follow types
+    //@param
+    //@result void
+    ////
     initializeValuesFollowTypes(){
         this.list_members = [];
         if((this.selectedProject == 0) && (this.selectedJob == 0)) return this.list_members = this.distionary_member;
@@ -148,12 +173,18 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
                         this.list_members.push(member);
             }
             else{
-                if((member.jobs.findIndex(x => x.id == this.selectedJob) != -1)&& (member['projects_joined'].findIndex(x => x.id == this.selectedProject) != -1))
+                if((member.jobs.findIndex(x => x.id == this.selectedJob) != -1) && (member['projects_joined'].findIndex(x => x.id == this.selectedProject) != -1))
                     this.list_members.push(member);
             }
         }
     }
 
+    ////
+    //@function init list_member values
+    //@desc set list_member values searched
+    //@param
+    //@result void
+    ////
     initializeSearchValues(){
         this.distionary_member.forEach((member) =>{
             var name = member.user.first_name + ' '+ member.user.last_name;
@@ -163,6 +194,12 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
         })
     }
 
+    ////
+    //@function init initializeHashMemberDayStatus
+    //@desc set values initializeHashMemberDayStatus
+    //@param
+    //@result void
+    ///
     initializeHashMemberDayStatus(){
         this.hash_member_day_status = new Map<string, string>();
         for (let member of this.distionary_member){
@@ -188,6 +225,12 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
                 this.jobs_types.push(job);
     }
 
+    ////
+    //@function computeClassDayCel
+    //@desc set status for each day in table
+    //@param _day -> day set, id -> member_id to get list member's timeoff
+    //@result void
+    ///
     computeClassDayCel(_day: Date, id: number){
         var status = "cel-";
         if(this.isHoliday(_day)) return 'cel-holiday';
@@ -226,12 +269,19 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
         return (day.getDay()%6 == 0)
     }
 
+    ////
+    //@function ableToShowModify
+    //@desc check a cel in table, to show dialog modify
+    //@param string -> status of cel
+    //@result true/false
+    ///
     ableToShowModify(string: string){
         var status = this.hash_member_day_status.get(string);
         if(status == 'cel-pending' || status == 'cel-approved')
             return true;
         return false;
     }
+
 
     getmemberStatus(id: number){
         for (var day of this.days){
@@ -242,18 +292,19 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
         return '';
     }
 
-    checked(arg, id) {
+    ////
+    //@function checked
+    //@desc if member was checked then hide/show dialog "selected"
+    //@param
+    //@result void
+    ///
+    checked() {
         if(this.selectedValues.length > 0){
             $('.messages').css({'display': 'block'});
         }else{
             $('.messages').css({'display': 'none'});
             this.hidenMessage();
         }
-    }
-
-    search(){
-        this.list_members = [];
-        this.initializeSearchValues();
     }
 
     hidenMessage(){
@@ -271,11 +322,33 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
         this.initializeSelectedValues();
     }
 
+    ////
+    //@function search
+    //@desc hander typing to search text area and init values for list_member
+    //@param
+    //@result void
+    ///
+    search(){
+        this.list_members = [];
+        this.initializeSearchValues();
+    }
+
+    ////
+    //@function goToFutureDayOff
+    //@desc show nearest futuerday off in table
+    //@param date -> the day nearest
+    //@result void
+    ///
     goToFutureDayOff(date: Date){
         this.setWeeks.emit(new Date(date));
     }
 
-    // init data when show dialog
+    ////
+    //@function initDialog
+    //@desc init data when show dialog
+    //@param date -> the day nearest
+    //@result void
+    ///
     initDialog(member_id :number, _day :Date){
         this.hash_timeoff.get(member_id)
         for (let timeoff of this.hash_timeoff.get(member_id)) {
@@ -325,7 +398,8 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
         if(this.user.id == member_id) return false;
 
         var timeoff_member = this.distionary_member.find(x => x.id === member_id);
-        if(this.user.role.name == 'PM' && (timeoff_member.role.name == 'PM' || timeoff_member.role.name == 'Admin')) return false;
+        if(this.user.role.name == 'PM' && (timeoff_member.role.name == 'PM' || timeoff_member.role.name == 'Admin'))
+            return false;
         return true;
     }
 
@@ -337,7 +411,6 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
 
         var this_year = new Date(new Date().getFullYear(), 0, 1);
         var today = new Date(); today.setHours(0, 0, 0, 0);
-
         if((create < this_year) || (start_date < today)) return false;
         return true;
     }
@@ -351,7 +424,8 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
         }else{
             $('.form-group').parent().find('.answer > .buttons').show();
             $('.form-group').parent().find('.answer > .drop-down').hide();
-            $('.form-group').parent().find('.answer').find('.approve').removeClass('approve-send').text('Approve').prop('type', 'button').prop('disabled', !this.is_ableToAnswer);
+            $('.form-group').parent().find('.answer').find('.approve').removeClass('approve-send')
+                .text('Approve').prop('type', 'button').prop('disabled', !this.is_ableToAnswer);
             $('.form-group').parent().find('.answer').find('.reject').show().prop('disabled', !this.is_ableToAnswer);
             $('.form-group').parent().find('.modify').show();
         }
@@ -363,7 +437,8 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
         if(button_name == 'Reject') this.timeOffPut.answer_timeoff_request.status = 'rejected';
 
         $('.form-group').css({'display': 'flex'});
-        $('.form-group').parent().find('.answer').find('.approve').addClass('approve-send').text(button_name+' & Send').prop('type', 'submit');
+        $('.form-group').parent().find('.answer').find('.approve').addClass('approve-send')
+            .text(button_name+' & Send').prop('type', 'submit');
         $('.form-group').parent().find('.answer').find('.reject').hide();
         $('.form-group').parent().find('.answer').find('.cancel').show();
         $('.form-group').parent().find('.modify').hide();
@@ -387,7 +462,8 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     }
 
     answerTimeoff(){
-        if(this.dialog_timeoff.status == 'approved') this.timeOffPut.answer_timeoff_request.status = (this.dropdown_selected == 0) ?  'approved' : 'rejected';
+        if(this.dialog_timeoff.status == 'approved')
+            this.timeOffPut.answer_timeoff_request.status = (this.dropdown_selected == 0) ?  'approved' : 'rejected';
         this.timeoffService.update(this.dialog_timeoff.id, this.timeOffPut).then(
             (result) => {
                 this.reload();
@@ -398,6 +474,12 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
         )
     }
 
+    ////
+    //@function reload
+    //@desc reload component and emit parent reload
+    //@param date -> the day nearest
+    //@result void
+    ///
     reload(){
         this.ngOnInit();
         this.reloadCalendar.emit();

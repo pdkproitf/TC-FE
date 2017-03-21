@@ -26,6 +26,12 @@ export class TimeoffManageComponent implements OnInit {
         this.router.navigate(['/new-timeoff']);
     }
 
+    ////
+    //@function get timeoffs
+    //@desc get list timeoffs with current_member role when start_date later than today
+    //@param void
+    //@result void
+    ////
     getTimeOffsPending(){
         var this_year = new Date(new Date().getFullYear(), 0, 1);
         this.timeoffService.getPhaseTimeOffs(this_year,new Date()).then(
@@ -40,6 +46,12 @@ export class TimeoffManageComponent implements OnInit {
         this.getPersonNumTimeOff();
     }
 
+    ////
+    //@function get number timeoff
+    //@desc get number timeoff of current_member
+    //@param void
+    //@result void
+    ////
     getPersonNumTimeOff(){
         var this_year = new Date(new Date().getFullYear(), 0, 1);
         this.timeoffService.getPersonNumTimeOff().then(
