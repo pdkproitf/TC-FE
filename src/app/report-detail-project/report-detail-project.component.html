@@ -1,7 +1,8 @@
 <app-member-menu-bar [currentState]="3"></app-member-menu-bar>
 <div class="container">
   <h1>Reports</h1>
-  <app-report-search (emitRange)="newRange($event)"></app-report-search>
+  <app-report-search *ngIf="isLoaded" (emitProject)="changeProject($event)" (emitMember)="detailMember($event)"
+  (emitRange)="newRange($event)" [project]="project.name"></app-report-search>
 
   <div class="project-info" *ngIf="isLoaded">
     <table class="project-info">

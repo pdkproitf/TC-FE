@@ -1,7 +1,7 @@
 import { ReportService } from './../services/report-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UIChart } from 'primeng/primeng';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {style, state, animate, transition, trigger} from '@angular/core';
 
 @Component({
@@ -18,9 +18,10 @@ import {style, state, animate, transition, trigger} from '@angular/core';
         animate(500, style({opacity: 0}))
       ])
     ]),
-  ]
+  ],
 })
 export class ReportDetailProjectComponent implements OnInit {
+  @ViewChild('chart') chart: UIChart;
   monthStrings = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   dayStrings = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   data: any;
@@ -30,6 +31,7 @@ export class ReportDetailProjectComponent implements OnInit {
   navClass = ['choosing', ''];
   choosing: number = 0;
   background= '#FFC259';
+  sources: any;
   project: any = new Object();
   client_name = '';
   charts: any;
@@ -137,30 +139,6 @@ export class ReportDetailProjectComponent implements OnInit {
     let begin = para.begin;
     let end = para.end;
     this.newRange([begin, end]);
-    /*this.reportService.getReportDetailProject(begin, end, this.project.id)
-    .then(res => {
-      console.log(res);
-      this.project = res;
-      this.charts = res.chart;
-      this.client_name = res.client.name;
-      this.generateLabels();
-      this.generateValues();
-      let len = this.data.labels.length;
-      for (let i = 0; i < len; i++) {
-        let d = this.data.datasets[0].data[i] + this.data.datasets[1].data[i];
-        this.sum.push(d);
-      }
-      let maxSum = Math.max(...this.sum);
-      let maxY = this.options.scales.yAxes[0].ticks.max;
-      while (maxSum > maxY) {
-        maxY += 2;
-      }
-      this.options.scales.yAxes[0].ticks.max = maxY;
-      this.isLoaded = true;
-    })
-    .catch(error => {
-      console.log(error);
-    });*/
     this.items = [
       {label: 'PDF', icon: 'fa-file-pdf-o'},
       {label: 'DOC', icon: 'fa-file-text-o'},
@@ -223,7 +201,8 @@ export class ReportDetailProjectComponent implements OnInit {
     this.reportService.getReportDetailProject(begin, end, id)
     .then(res => {
       console.log(res);
-      this.project = this.findProject(id, res);
+      this.sources = res;
+      this.project = this.findProject(id, this.sources);
       this.charts = this.project.chart;
       this.categories = this.project.categories;
       this.client_name = this.project.client.name;
@@ -260,6 +239,59 @@ export class ReportDetailProjectComponent implements OnInit {
     return null;
   }
 
+  changeProject(idEvent) {
+    /*let para = this.route.params['_value'];
+    this.project.id = idEvent;
+    let begin = para.begin;
+    let end = para.end;
+    this.newRange([begin, end]);*/
+    let para = this.route.params['_value'];
+    let begin = para.begin;
+    let end = para.end;
+
+    this.labels = [];
+    this.billables = [];
+    this.unbillables = [];
+    this.data.labels = this.labels;
+    this.data.datasets[0].data = this.billables;
+    this.data.datasets[1].data = this.unbillables;
+
+    this.isLoaded = false;
+    this.router.navigate(['report-detail-project', idEvent, begin, end]);
+    this.project = this.findProject(idEvent, this.sources);
+    this.charts = this.project.chart;
+    this.categories = this.project.categories;
+    this.client_name = this.project.client.name;
+    this.background = this.project.background;
+    this.members = [];
+    this.generateLabels();
+    this.generateValues();
+    this.generateMembers();
+
+
+    let len = this.data.labels.length;
+    for (let i = 0; i < len; i++) {
+      let d = this.data.datasets[0].data[i] + this.data.datasets[1].data[i];
+      this.sum.push(d);
+    }
+    let maxSum = Math.max(...this.sum);
+    let maxY = this.options.scales.yAxes[0].ticks.max;
+    while (maxSum > maxY) {
+      maxY += 2;
+    }
+    this.options.scales.yAxes[0].ticks.max = maxY;
+    this.isLoaded = true;
+    this.chart.refresh();
+  }
+
+  detailMember(idMember) {
+    let para = this.route.params['_value'];
+    this.project.id = para.id;
+    let begin = para.begin;
+    let end = para.end;
+    this.router.navigate(['report-detail', idMember, begin, end]);
+  }
+
   generateMembers() {
     this.spanMemberClass = [];
     this.spanCategoryClass = [];
@@ -281,7 +313,6 @@ export class ReportDetailProjectComponent implements OnInit {
       mem.categories = [];
     }
     this.categoriesOfMember();
-    // console.log(this.members);
   }
 
   categoriesOfMember() {
@@ -290,7 +321,6 @@ export class ReportDetailProjectComponent implements OnInit {
       for (let i = 0; i < len; i++) {
         let j = this.isInMemberList(category.members[i]);
         if (j < 0) {
-          // console.log('error!!!');
         } else {
           let cate = Object.create({name: category.name, tracked_time: category.members[i].tracked_time });
           this.members[j].categories.push(cate);
