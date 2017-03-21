@@ -1,7 +1,7 @@
 <app-member-menu-bar [currentState]="3"></app-member-menu-bar>
 <div class="container">
   <h1>Reports</h1>
-  <app-report-search (emitRange)="newRange($event)"></app-report-search>
+  <app-report-search *ngIf="isLoaded" (emitRange)="newRange($event)" [member]="member.user.first_name + ' ' + member.user.last_name"></app-report-search>
 
   <div *ngIf="isLoaded" class="user-info">
     <table class="user-info">

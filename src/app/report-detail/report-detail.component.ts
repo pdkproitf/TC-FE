@@ -35,6 +35,7 @@ export class ReportDetailComponent implements OnInit {
   labels: any;
   billables: any;
   unbillables: any;
+  idProject = null;
   isLoaded = false;
   spanClassProject = [];
   constructor(private route: ActivatedRoute, private reportService: ReportService, private router: Router) {
@@ -137,6 +138,9 @@ export class ReportDetailComponent implements OnInit {
     this.member.id = para.id;
     let begin = para.begin;
     let end = para.end;
+    if (para.idProject != null) {
+      this.idProject = para.idProject;
+    }
     this.newRange([begin, end]);
     this.items = [
       {label: 'PDF', icon: 'fa-file-pdf-o'},
@@ -184,8 +188,6 @@ export class ReportDetailComponent implements OnInit {
         this.unbillables[j] += unbill;
       }
     }
-    console.log(this.billables);
-    console.log(this.unbillables);
   }
 
   generateProjects(sources: any[]) {
@@ -218,10 +220,16 @@ export class ReportDetailComponent implements OnInit {
     this.router.navigate(['report-detail', id, begin, end]);
     this.reportService.getReportDetailPerson(begin, end, id)
     .then(res => {
-      console.log(res);
       this.member = res;
       this.tasks = res.tasks;
-      this.generateProjects(res.projects);
+      let sources = res.projects;
+      if (this.idProject != null) {
+        let pos = this.findProjectById(this.idProject, sources);
+        if (pos > -1) {
+          sources = [res.projects[pos]];
+        }
+      }
+      this.generateProjects(sources);
       this.generateLabels();
       this.generateValues();
       this.isLoaded = true;
@@ -243,5 +251,18 @@ export class ReportDetailComponent implements OnInit {
   changeSpanProject(id) {
     this.spanClassProject[id] = (this.spanClassProject[id].includes('plus')) ? this.spanClassProject[id].replace('plus', 'minus')
     : this.spanClassProject[id].replace('minus', 'plus');
+  }
+
+  findProjectById(id: number, projects): number {
+    let res = -1;
+    let len = projects.length;
+    for (let i = 0; i < len; i++) {
+      if (projects[i].id === id) {
+        res = i;
+        break;
+      }
+    }
+    return res;
+
   }
 }

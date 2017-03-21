@@ -2,7 +2,8 @@
 <div class="container">
   <h1>Reports</h1>
 
-  <app-report-search (emitRange)="newRange($event)"></app-report-search>
+  <app-report-search (emitRange)="newRange($event)" (emitProject)="detailReportProject($event)"
+  (emitMember)="detailReport($event)"></app-report-search>
 
   <div class="people">
     <h4>People</h4>

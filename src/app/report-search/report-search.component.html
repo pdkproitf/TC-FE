@@ -12,15 +12,15 @@
       <th class="what">
         <div class="in-th what">
           <p class="title-field">What</p><br/>
-          <input type=text class="text-field" (focus)="showClassDiv(1)" (blur)="hideClassDiv(1)" placeholder="Project...">
+          <input type=text class="text-field" (focus)="showClassDiv(1)" (blur)="hideClassDiv(1)" name="project" [(ngModel)]="project" placeholder="Project...">
           <span class="fa fa-angle-down down-img"></span>
         </div>
       </th>
       <th class="who">
         <div class="in-th who">
           <p class="title-field">Who</p>            
-          <button class="run-btn" type="button"><p>Run report</p></button><br/>
-          <input type=text class="text-field" (focus)="showClassDiv(2)" (blur)="hideClassDiv(2)" placeholder="Team member...">
+          <button (click)="runReport()" class="run-btn" type="button"><p>Run report</p></button><br/>
+          <input type=text class="text-field" (focus)="showClassDiv(2)" (blur)="hideClassDiv(2)" name="member" [(ngModel)]="member" placeholder="Team member...">
           <span class="fa fa-angle-down down-img"></span>
         </div>
       </th>
@@ -44,13 +44,13 @@
 
 <div [class]="classDiv[1]">
   <ul class="projects">
-    <li *ngFor="let project of projectLists">{{project.name}} ({{project.client.name}})</li>
+    <li (mousedown)="setProject(project.id, project.name, project.client.name)" *ngFor="let project of projectLists">{{project.name}} ({{project.client.name}})</li>
   </ul>
 </div>
 
 <div [class]="classDiv[2]">
   <ul class="members">
-    <li *ngFor="let member of members">{{member.user.first_name}} {{member.user.last_name}}</li>
+    <li (mousedown)="setMember(member.id, member.user.first_name, member.user.last_name)" *ngFor="let member of members">{{member.user.first_name}} {{member.user.last_name}}</li>
   </ul>
 </div>
 </div>

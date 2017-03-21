@@ -19,12 +19,24 @@ export class ReportSearchComponent implements OnInit {
   lastString;
   fromChoosed: boolean = false;
   toChoosed: boolean = false;
+  idMember: number = null;
+  @Input()
+  member: string = '';
+  idProject: number = null;
+  @Input()
+  project: string = '';
   @Input()
   members: Member[] = [];
   @Input()
   projectLists: ProjectGetAll[]= [];
   @Output()
   emitRange = new EventEmitter<any>();
+  @Output()
+  emitRunReport = new EventEmitter<any>();
+  @Output()
+  emitProject = new EventEmitter<any>();
+  @Output()
+  emitMember = new EventEmitter<any>();
   classDiv = ['choose-time hide', 'choose-project hide', 'choose-member hide'];
   constructor(private projectService: ProjectService, private membershipService: MembershipService) { }
 
@@ -249,4 +261,29 @@ export class ReportSearchComponent implements OnInit {
     console.log(this.firstString + '-' + this.lastString);
   }
 
+  setProject(id, name, client) {
+    this.idProject = id;
+    this.project = name + ' (' + client + ') ';
+    this.emitProject.emit(id);
+  }
+
+  setMember(id, first, last) {
+    this.idMember = id;
+    this.member = first + ' ' + last;
+    this.emitMember.emit(id);
+  }
+
+  runReport() {
+    if (this.firstString === undefined || this.lastString === undefined) {
+      this.generateThisWeek(-1);
+    }
+    if (this.member === '') {
+      this.idMember = null;
+    }
+    if (this.project === '') {
+      this.idProject = null;
+    }
+    let res = [this.firstString, this.lastString, this.idProject, this.idMember];
+    console.log(res);
+  }
 }

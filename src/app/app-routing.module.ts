@@ -41,6 +41,7 @@ const routes: Routes = [
     { path: 'pass-timeoffs', component: TimeoffPassRequestsComponent, canActivate: [AuthenLoggedIn] },
     // { path: 'report-detail', component: ReportDetailComponent, canActivate: [AuthenLoggedIn] },
     { path: 'report-detail/:id/:begin/:end', component: ReportDetailComponent, canActivate: [AuthenLoggedIn] },
+    { path: 'report-detail/:id/:idProject/:begin/:end', component: ReportDetailComponent, canActivate: [AuthenLoggedIn] },
     // { path: 'report-detail-project', component: ReportDetailProjectComponent, canActivate: [AuthenLoggedIn] },
     { path: 'report-detail-project/:id/:begin/:end', component: ReportDetailProjectComponent, canActivate: [AuthenLoggedIn] },
     // { path: '', component: AppComponent }
