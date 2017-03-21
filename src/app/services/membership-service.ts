@@ -28,7 +28,7 @@ export class MembershipService {
     }
 
     addNewMembership(memberShipPost): Promise<any> {
-        let requestUrl = this.serverdomain.domain + '/members';
+        let requestUrl = this.serverdomain.domain + '/invites';
         let headers = new Headers();
         this.headersService.createAuthHeaders(headers);
         return this.http
@@ -39,7 +39,7 @@ export class MembershipService {
     }
 
     confirmMemberShip(memberShipConfirm: MembershipConfirm): Promise<any> {
-        let requestUrl = 'https://timecloudbackend.herokuapp.com/api/members';
+        let requestUrl = this.serverdomain.domain + '/invites';
         let headers = new Headers();
         this.headersService.createAuthHeaders(headers);
         return this.http

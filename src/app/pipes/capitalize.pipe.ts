@@ -1,5 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+//input string -> output Lower the first Character of string
+//usage: display-user name="abc" -> {{name | capitalize}}
+
 @Pipe({
     name: 'capitalize'
 })

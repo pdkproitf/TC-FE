@@ -21,7 +21,7 @@
                     </div>
                     <p-overlayPanel #answer>
                         <div class="form-container">
-                            <form (ngSubmit)="update(timeoff.id, $event); answer.hide($event, actualTarget)">
+                            <form (ngSubmit)="update(timeoff.id); answer.hide($event, actualTarget)">
                                 <label for="">Your response</label>
                                 <div class="form-group">
                                     <textarea [(ngModel)]="timeOffPut.answer_timeoff_request.approver_messages" name="answer" placeholder="Say something ..." required ></textarea>

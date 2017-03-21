@@ -69,6 +69,7 @@ import { TimeoffCalendarComponent } from './timeoff-calendar/timeoff-calendar.co
 import { TimeoffTableViewComponent } from './timeoff-table-view/timeoff-table-view.component';
 import { CheckboxModule }   from 'primeng/primeng';
 import { GradientPipe }     from './pipes/gradient.pipe';
+import { ReportDetailsAdvancesComponent } from './report-details-advances/report-details-advances.component';
 
 @NgModule({
   declarations: [
@@ -117,6 +118,7 @@ import { GradientPipe }     from './pipes/gradient.pipe';
     TimeoffCalendarComponent,
     TimeoffTableViewComponent,
     GradientPipe,
+    ReportDetailsAdvancesComponent,
   ],
   imports: [
     BrowserModule,
