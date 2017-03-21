@@ -411,7 +411,6 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
 
         var this_year = new Date(new Date().getFullYear(), 0, 1);
         var today = new Date(); today.setHours(0, 0, 0, 0);
-
         if((create < this_year) || (start_date < today)) return false;
         return true;
     }
