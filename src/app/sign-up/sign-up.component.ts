@@ -1,4 +1,4 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from './../services/user-service';
 import { User, UserPost } from './../models/user';
 import { Component, OnInit } from '@angular/core';
@@ -13,7 +13,7 @@ export class SignUpComponent implements OnInit {
   submitted: boolean = false;
   isInvited: boolean = false;
   companyName: string = '';
-  constructor( private userService: UserService, private route: ActivatedRoute) { }
+  constructor( private userService: UserService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     let para = this.route.params['_value'];
@@ -43,6 +43,10 @@ export class SignUpComponent implements OnInit {
 
   log() {
     console.log(this.user);
+  }
+
+  signIn() {
+    this.router.navigate(['sign-in']);
   }
 
 }

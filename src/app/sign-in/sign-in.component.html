@@ -1,24 +1,32 @@
 <app-marketing-menu-bar typePage=1></app-marketing-menu-bar>
+<div class="image">
+  <img src="assets/image-screen/element_logo_icon-white@2x.png">
+</div>
 <div class="container form-container">
-  <h2>Sign In</h2>
-  <hr/>
+  <div class="ask">
+    <button (click)="signUp()">Get Started</button>
+    <p>Don't have an account ?</p>
+  </div>
+  <br/><br/><br/><br/><br/><br/>
+  <h2>Sign in to TimeCloud</h2>
+  <h3>Enter your details below</h3>
+  <br/><br/>
   <form (ngSubmit)="signIn()">
     <div class="form-group">
       <label for="email">Email: </label><br/>
-      <input pInputText type="text" class="form-control" id="email" [(ngModel)]="user.email" name="email" required>
+      <input pInputText type="text" class="form-control" id="email" [(ngModel)]="user.email" name="email" placeholder="julie@example.com" required>
     </div>
     <br/>
     <div class="form-group">
       <label for="password">Password: </label><br/>
-      <input pInputText type="password" class="form-control" id="password" [(ngModel)]="user.password" name="password" required>
+      <input pInputText type="password" class="form-control" id="password" [(ngModel)]="user.password" name="password" placeholder="6+ characters" required>
     </div>
     <br/>
     <div class="form-group">
       <label for="company">Company Domain: </label><br/>
-      <input pInputText type="text" class="form-control" id="company" [(ngModel)]="user.company_domain" name="company" required>
+      <input pInputText type="text" class="form-control" id="company" [(ngModel)]="user.company_domain" name="company" placeholder="Company-Example" required>
     </div>
     <br/>
-    <button pButton type="button" label="Cancel" (click)="log()" icon="fa-ban"></button>
-    <button pButton type="submit" label="Submit" icon="fa-check"></button>
+    <button pButton class="sign-in-btn" type="submit" label="Sign in"></button>
   </form>
 </div>

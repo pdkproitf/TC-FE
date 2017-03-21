@@ -3,6 +3,21 @@
 $bckColor: #DDEEDD;
 $mainColor: #212345;
 
+.image{
+    float: left;
+    width: 55%;
+    height: 100vh;
+    background-image: url(/assets/image-screen/img-signup.png);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    img{
+        width: 48px;
+        height: 26px;
+        margin-top: 40px;
+        margin-left: 40px;
+    }
+}
+
 .form-container {
     float: right;
     width: 40%;
@@ -51,6 +66,9 @@ $mainColor: #212345;
     margin-right: 5%;
     }
     button{
+        &:hover{
+            cursor: pointer;
+        }
         background-color: rgba(0,102,204,0);
         border: 1px solid rgba(54,54,54,0.3);
         border-radius: 3px;
