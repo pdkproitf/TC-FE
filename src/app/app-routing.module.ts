@@ -20,7 +20,7 @@ import { ProjectDetailsComponent } from './project-details/project-details.compo
 import { TimeoffManageComponent } from './timeoff-manage/timeoff-manage.component';
 import { CreateTimeoffComponent } from './create-timeoff/create-timeoff.component';
 import { TimeoffPassRequestsComponent } from './timeoff-pass-requests/timeoff-pass-requests.component';
-
+import { ReportDetailsAdvancesComponent } from './report-details-advances/report-details-advances.component'
 const routes: Routes = [
     { path: 'sign-up', component: SignUpComponent, canActivate: [NotLoggedIn] },
     { path: 'sign-up/:token/:companyName/:companyDomain', component: SignUpComponent, canActivate: [NotLoggedIn] },
@@ -41,6 +41,7 @@ const routes: Routes = [
     { path: 'pass-timeoffs', component: TimeoffPassRequestsComponent, canActivate: [AuthenLoggedIn] },
     { path: 'report-detail/:id/:begin/:end', component: ReportDetailComponent, canActivate: [AuthenLoggedIn] },
     { path: 'report-detail-project/:id/:begin/:end', component: ReportDetailProjectComponent, canActivate: [AuthenLoggedIn] },
+    { path: 'report-advance', component: ReportDetailsAdvancesComponent, canActivate: [AuthenLoggedIn] },
     // { path: '', component: AppComponent }
     // { path: '', redirectTo: '/home', pathMatch: 'full'}
 ];

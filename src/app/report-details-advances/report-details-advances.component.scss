@@ -1,0 +1,98 @@
+@import '../general-style/color-style.scss';
+@import '../general-style/font-style.scss';
+
+.body{
+    background: #F3F5F8;
+    .container{
+        button{ border: 0px;}
+        background-color: #F3F5F8;
+        width: 80%;
+        margin: auto;
+        .header{
+            h2{
+                width: 265px;
+                height: 38px;
+                font-family: Montserrat;
+                font-size: 32px;
+                font-weight: bold;
+                line-height: 38px;
+                color: #363636;
+                display: inline-block;
+            }
+            > button{
+                width: 129px;
+                height: 32px;
+                background-color: rgba(0, 102, 204, 0);
+                border: 1px solid rgba(54, 54, 54, 0.3);
+                border-radius: 3px;
+                float: right;
+                margin-top: 30px;
+                font-family: Lato;
+                font-size: 16px;
+                text-align: center;
+                line-height: 24px;
+                color: rgba(54,54,54,0.7);
+                cursor: pointer;
+            }
+        }
+        .search-header{
+            width: 100%;
+            height: 152px;
+            background-color: #EEEEEE;
+            border-radius: 5px;
+            text-align: center;
+            margin: auto;
+            display: flex;
+            -webkit-box-align: center;
+            align-items: center;
+            .search-result{
+                width: 100%;
+                .times{
+                    display: inline-block;
+                    text-align: left;
+                    font-weight: normal;
+                    font-family: $headerFont;
+                    font-size: 16px;
+                    line-height: 24px;
+                    height: 75px;
+                    label{
+                        color: rgba(54, 54, 54, 0.7);
+                        height: 24px;
+                        margin-right: 2em;;
+                        display: inline-flex;
+                        min-width: 80px;
+                        > strong{
+                            color: #363636
+                        }
+                    }
+                    .time-frame{
+                        > label{
+                            float: left;
+                        }
+                        .time-number{
+                            display: inline-block;
+                            .biliable{
+                                font-family: $headerFont;
+                                font-size: 14px;
+                                line-height: 17px;
+                                color: rgba(54,54,54,0.7);
+                            }
+                        }
+                    }
+                    .total{
+                        margin-top: 2em;
+                    }
+                }
+                .types{
+                    margin-left: 8%;;               }
+                }
+            }
+        }
+        .search-filters{
+            display: none;
+            height: 376px;
+            background-color: #FFFFFF;
+            border: 1px solid rgba(54,54,54,0.3);
+            border-radius: 5px;
+        }
+    }
