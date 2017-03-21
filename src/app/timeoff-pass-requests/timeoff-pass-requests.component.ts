@@ -1,6 +1,6 @@
+import { TimeOff, TimeOffGetAll, TimeOffAnswer } from './../models/timeoff';
 import { Component, OnInit }        from '@angular/core';
 import { TimeoffService }           from '../services/timeoff-service';
-import { TimeOff, TimeOffGetAll, TimeOffAnswer } from './../models/timeoff';
 import { Member }                   from '../models/member';
 
 @Component({
@@ -22,6 +22,12 @@ export class TimeoffPassRequestsComponent implements OnInit {
         this._timeoffs = this.list_timeoff;
     }
 
+    ////
+    //@function get timeoffs
+    //@desc get list timeoffs with current_member role when start_date is begining of year
+    //@param void
+    //@result void
+    ////
     getTimeOffsPending(){
         this.timeoffService.getAllTimeOffs().then(
             (result) => {
@@ -35,8 +41,13 @@ export class TimeoffPassRequestsComponent implements OnInit {
         );
     }
 
+    ////
+    //@function sort
+    //@desc sort list_timeoff follow status
+    //@param void
+    //@result void
+    ////
     sort(){
-        console.log('type', this.type_select);
         switch(this.type_select){
             case 'pending': {
                 this._timeoffs = [];

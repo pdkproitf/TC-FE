@@ -1,10 +1,13 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer }         from '@angular/platform-browser';
 
+// create by pdk follow hong step
+//input color -> output gradient color
+//display-project-background: [style.background]="project.background | gradient"
+
 @Pipe({
     name: 'gradient'
 })
-// create by pdk follow hong step
 export class GradientPipe implements PipeTransform {
 
     constructor(private sanitizer: DomSanitizer) { }
@@ -22,17 +25,17 @@ export class GradientPipe implements PipeTransform {
     }
 
     hexToRgb(hex) {
-      let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-      return result ? {
-          r: parseInt(result[1], 16),
-          g: parseInt(result[2], 16),
-          b: parseInt(result[3], 16)
-      } : null;
+        let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : null;
     }
     rgbToHex(rgb) {
-      return '#' +
-      ('0' + rgb.r.toString(16)).slice(-2) +
-      ('0' + rgb.g.toString(16)).slice(-2) +
-      ('0' + rgb.b.toString(16)).slice(-2);
+        return '#' +
+        ('0' + rgb.r.toString(16)).slice(-2) +
+        ('0' + rgb.g.toString(16)).slice(-2) +
+        ('0' + rgb.b.toString(16)).slice(-2);
     }
 }

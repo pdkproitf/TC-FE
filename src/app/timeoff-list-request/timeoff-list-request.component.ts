@@ -43,6 +43,12 @@ export class TimeoffListRequestComponent implements OnInit, OnChanges {
         if(changes['timeoffs']) this.ngOnInit();
     }
 
+    ////
+    //@function sort newest
+    //@desc sort list _timeoffs DESC day updated
+    //@param
+    //@result void
+    ////
     sortNewest(){
         if(this._timeoffs.length > 1){
             this._timeoffs.sort(function(a, b){
@@ -54,6 +60,12 @@ export class TimeoffListRequestComponent implements OnInit, OnChanges {
         }
     }
 
+    ////
+    //@function initialize description status each timeoff
+    //@desc each timeoff show descriptio when hander click action, so it initialized show is false
+    //@param
+    //@result void
+    ////
     initialize_description_status(){
         this.show_timeoff_details = new Map<Number, boolean>();
         this.show_description_details = new Map<Number, Number>();
@@ -62,13 +74,19 @@ export class TimeoffListRequestComponent implements OnInit, OnChanges {
         })
     }
 
+    ////
+    //@function sort
+    //@desc sort list_timeoff follow status
+    //@param
+    //@result void
+    ////
     sort(){
         switch(this.type){
             case 'pending': {
                 this._timeoffs = [];
                 this.list_timeoff.forEach((timeoff) => {
                     if(timeoff.status == 'pending')
-                        this._timeoffs.push(timeoff);
+                    this._timeoffs.push(timeoff);
                 })
                 this.sortNewest();
                 break;
@@ -77,7 +95,7 @@ export class TimeoffListRequestComponent implements OnInit, OnChanges {
                 this._timeoffs = [];
                 this.list_timeoff.forEach((timeoff) => {
                     if(timeoff.status == 'approved')
-                        this._timeoffs.push(timeoff);
+                    this._timeoffs.push(timeoff);
                 })
                 this.sortNewest();
                 break;
@@ -86,7 +104,7 @@ export class TimeoffListRequestComponent implements OnInit, OnChanges {
                 this._timeoffs = [];
                 this.list_timeoff.forEach((timeoff) => {
                     if(timeoff.status == 'rejected')
-                        this._timeoffs.push(timeoff);
+                    this._timeoffs.push(timeoff);
                 })
                 this.sortNewest();
                 break;
@@ -97,19 +115,43 @@ export class TimeoffListRequestComponent implements OnInit, OnChanges {
         }
     }
 
+    ////
+    //@function show timeoff details
+    //@desc handler click action -> show details timeoff status
+    //@param timeoff_id to get timeoff's show description status and update
+    //@result void
+    ////
     showDetails(id: Number){
         this.show_timeoff_details.get(id)? $('#description-details-'+id).css({'display': 'none'}):$('#description-details-'+id).css({'display': 'block'})
         this.show_timeoff_details.set(id, !this.show_timeoff_details.get(id))
     }
 
+    ////
+    //@function show timeoff control
+    //@desc handler mouseover/mouseleave action -> show timeoff control
+    //@param is_show and timeoff_id
+    //@result void
+    ////
     showTimeoffControl(is_show: boolean,id: number){
         is_show? $('#your-timeoff-control-'+id).css({'display': 'inline-block'}) : $('#your-timeoff-control-'+id).css({'display': 'none'});
     }
 
+    ////
+    //@function show timeoff controledit timeoff
+    //@desc navigate to edit timeoff pages
+    //@param timeoff_id
+    //@result void
+    ////
     edit(id: number){
         this.router.navigate(['/edit-timeoff/'+id]);
     }
 
+    ////
+    //@function delete timeoff controledit timeoff
+    //@desc delete timeoff
+    //@param timeoff_id
+    //@result void
+    ////
     delete(id: number){
         this.timeoffService.delete(id,)
         .then(

@@ -19,7 +19,7 @@
             <tr *ngFor="let member of list_members">
                 <td class="member checkeds" >
                     <div class="check-box">
-                        <p-checkbox name="groupname" value="{{member.id}}" [(ngModel)]="selectedValues" (click)="checked($event.target.checked, member.id)"></p-checkbox>
+                        <p-checkbox name="groupname" value="{{member.id}}" [(ngModel)]="selectedValues" (click)="checked()"></p-checkbox>
                     </div>
                 </td>
                 <td class="member multi-line">
@@ -104,7 +104,7 @@
                     <textarea  name="answer" placeholder="Your response…" [(ngModel)]="timeOffPut.answer_timeoff_request.approver_messages" required ></textarea>
                 </div>
                 <div class="control">
-                    <div class="answer">
+                    <div *ngIf="is_ableToAnswer"  class="answer">
                         <div class="buttons">
                             <button class="approve" type="button" (click)="showDialogContent('Approve')"> Approve </button>
                             <button class="reject" type="button" (click)="showDialogContent('Reject')"> Reject </button>
