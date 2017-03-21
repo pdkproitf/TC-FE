@@ -1,7 +1,7 @@
 import { ReportService } from './../services/report-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UIChart } from 'primeng/primeng';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {style, state, animate, transition, trigger} from '@angular/core';
 
 @Component({
@@ -18,9 +18,10 @@ import {style, state, animate, transition, trigger} from '@angular/core';
         animate(500, style({opacity: 0}))
       ])
     ]),
-  ]
+  ],
 })
 export class ReportDetailProjectComponent implements OnInit {
+  @ViewChild('chart') chart: UIChart;
   monthStrings = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   dayStrings = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   data: any;
@@ -239,11 +240,56 @@ export class ReportDetailProjectComponent implements OnInit {
   }
 
   changeProject(idEvent) {
-    let para = this.route.params['_value'];
+    /*let para = this.route.params['_value'];
     this.project.id = idEvent;
     let begin = para.begin;
     let end = para.end;
-    this.newRange([begin, end]);
+    this.newRange([begin, end]);*/
+    let para = this.route.params['_value'];
+    let begin = para.begin;
+    let end = para.end;
+
+    this.labels = [];
+    this.billables = [];
+    this.unbillables = [];
+    this.data.labels = this.labels;
+    this.data.datasets[0].data = this.billables;
+    this.data.datasets[1].data = this.unbillables;
+
+    this.isLoaded = false;
+    this.router.navigate(['report-detail-project', idEvent, begin, end]);
+    this.project = this.findProject(idEvent, this.sources);
+    this.charts = this.project.chart;
+    this.categories = this.project.categories;
+    this.client_name = this.project.client.name;
+    this.background = this.project.background;
+    this.members = [];
+    this.generateLabels();
+    this.generateValues();
+    this.generateMembers();
+
+
+    let len = this.data.labels.length;
+    for (let i = 0; i < len; i++) {
+      let d = this.data.datasets[0].data[i] + this.data.datasets[1].data[i];
+      this.sum.push(d);
+    }
+    let maxSum = Math.max(...this.sum);
+    let maxY = this.options.scales.yAxes[0].ticks.max;
+    while (maxSum > maxY) {
+      maxY += 2;
+    }
+    this.options.scales.yAxes[0].ticks.max = maxY;
+    this.isLoaded = true;
+    this.chart.refresh();
+  }
+
+  detailMember(idMember) {
+    let para = this.route.params['_value'];
+    this.project.id = para.id;
+    let begin = para.begin;
+    let end = para.end;
+    this.router.navigate(['report-detail', idMember, begin, end]);
   }
 
   generateMembers() {

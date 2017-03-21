@@ -30,6 +30,7 @@ export class ReportDetailComponent implements OnInit {
   navClass = ['choosing', '', ''];
   choosing: number = 0;
   member: any = {};
+  sources: any;
   projects: any[] = [];
   tasks: any[] = [];
   labels: any;
@@ -222,14 +223,14 @@ export class ReportDetailComponent implements OnInit {
     .then(res => {
       this.member = res;
       this.tasks = res.tasks;
-      let sources = res.projects;
+      this.sources = res.projects;
       if (this.idProject != null) {
-        let pos = this.findProjectById(this.idProject, sources);
+        let pos = this.findProjectById(this.idProject, this.sources);
         if (pos > -1) {
-          sources = [res.projects[pos]];
+          this.sources = [res.projects[pos]];
         }
       }
-      this.generateProjects(sources);
+      this.generateProjects(this.sources);
       this.generateLabels();
       this.generateValues();
       this.isLoaded = true;
