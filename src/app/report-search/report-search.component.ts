@@ -27,8 +27,12 @@ export class ReportSearchComponent implements OnInit {
   project: string = '';
   @Input()
   members: Member[] = [];
+  membersSearch: Member[] = [];
+  memberSearchTimeOut: any;
   @Input()
   projectLists: ProjectGetAll[]= [];
+  projectListsSearch: ProjectGetAll[] = [];
+  projectSearchTimeOut: any;
   @Output()
   emitRange = new EventEmitter<any>();
   @Output()
@@ -44,6 +48,7 @@ export class ReportSearchComponent implements OnInit {
     this.projectService.getProjects()
     .then(res => {
       this.projectLists = res;
+      this.filterProjectsSearch('');
       console.log(res);
     })
     .catch(err => {
@@ -52,6 +57,7 @@ export class ReportSearchComponent implements OnInit {
     this.membershipService.getAllMembership()
     .then(res => {
       this.members = res;
+      this.filterMembersSearch('');
       console.log(res);
     })
     .catch(err => {
@@ -285,5 +291,33 @@ export class ReportSearchComponent implements OnInit {
     }
     let res = [this.firstString, this.lastString, this.idProject, this.idMember];
     console.log(res);
+  }
+
+  keyUpMemberSearch() {
+    clearTimeout(this.memberSearchTimeOut);
+    setTimeout(() => this.filterMembersSearch(this.member), 500);
+  }
+
+  filterMembersSearch(str: string) {
+    this.membersSearch = [];
+    for (let member of this.members) {
+      if (member.user.first_name.indexOf(str) > -1 || member.user.last_name.indexOf(str) > -1) {
+        this.membersSearch.push(member);
+      }
+    }
+  }
+
+  keyUpProjectSearch() {
+    clearTimeout(this.projectSearchTimeOut);
+    setTimeout(() => this.filterProjectsSearch(this.project), 500);
+  }
+
+  filterProjectsSearch(str: string) {
+    this.projectListsSearch = [];
+    for (let project of this.projectLists) {
+      if (project.name.indexOf(str) > -1 || project.client.name.indexOf(str) > -1) {
+        this.projectListsSearch.push(project);
+      }
+    }
   }
 }
