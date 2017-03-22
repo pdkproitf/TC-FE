@@ -1,3 +1,4 @@
+import { Message } from 'primeng/primeng';
 import { Category } from './../models/category';
 import { Member } from './../models/member';
 import { EmployeePost, Employee } from './../models/employee';
@@ -16,6 +17,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./create-project.component.scss']
 })
 export class CreateProjectComponent implements OnInit {
+  msgs: Message[] = [];
   isLoaded: boolean = false;
   reportType: number = 1;
   classBtn: string[] = ['active', ''];
@@ -67,7 +69,13 @@ export class CreateProjectComponent implements OnInit {
         }
       }
     })
-    .catch(error => console.log(error));
+    .catch(error => {
+      console.log(error);
+      let content = JSON.parse(error['_body']).error;
+      this.msgs = [];
+      this.msgs.push({severity: 'error', summary: 'Error', detail: content});
+    }
+    );
 
     this.membershipService.getAllMembership()
     .then(res => {
@@ -75,7 +83,12 @@ export class CreateProjectComponent implements OnInit {
       this.membersSearch = this.members;
       console.log(res);
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      let content = JSON.parse(err['_body']).error;
+      this.msgs = [];
+      this.msgs.push({severity: 'error', summary: 'Error', detail: content});
+      console.log(err);
+    });
 
     for (let str of this.defaultCategories) {
       let newCat = new NewCategory();
@@ -117,10 +130,16 @@ export class CreateProjectComponent implements OnInit {
     this.projectService.addProject(this.projectPost)
     .then(res => {
       console.log(res);
+      let content = 'New Project Created';
+      this.msgs = [];
+      this.msgs.push({severity: 'success', summary: 'Success', detail: content});
       this.router.navigate(['projects']);
     })
     .catch(error => {
       console.log(error);
+      let content = JSON.parse(error['_body']).error;
+      this.msgs = [];
+      this.msgs.push({severity: 'error', summary: 'Error', detail: content});
     });
   }
 // ---------------------Adding members to projects---------->

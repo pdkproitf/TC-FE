@@ -14,7 +14,7 @@ import { UserService } from './services/user-service';
 import { LocationStrategy, HashLocationStrategy }from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { ToolbarModule, ButtonModule, InputTextModule, MenuModule, AutoCompleteModule, CarouselModule,
-  CalendarModule, DropdownModule, DialogModule, ChartModule } from 'primeng/primeng';
+  CalendarModule, DropdownModule, DialogModule, ChartModule, GrowlModule } from 'primeng/primeng';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -143,7 +143,8 @@ import { ReportDetailsAdvancesListComponent } from './report-details-advances-li
     MomentModule,
     OverlayPanelModule,
     ChartModule,
-    CheckboxModule
+    CheckboxModule,
+    GrowlModule
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
   AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService,

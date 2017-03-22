@@ -116,7 +116,7 @@
     <br/><br/><hr><br/>
     <div class="form-btns">
         <button class="active" type="submit">Create New</button>
-        <button type="button" (click)="log()">Cancel</button>
+        <button type="button" (click)="cancel()">Cancel</button>
     </div>
 </form>
 </div>
@@ -149,3 +149,4 @@
     </div>
 </p-dialog>
 
+<p-growl [value]="msgs"></p-growl>

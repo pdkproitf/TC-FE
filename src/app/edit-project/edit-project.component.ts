@@ -1,3 +1,4 @@
+import { Message } from 'primeng/primeng';
 import { MembershipService } from './../services/membership-service';
 import { ClientService } from './../services/client-service';
 import { Location } from '@angular/common';
@@ -15,6 +16,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./edit-project.component.scss']
 })
 export class EditProjectComponent implements OnInit {
+  msgs: Message[] = [];
   currentProject: ProjectGetOne;
 
   isLoaded: boolean = false;
@@ -169,7 +171,9 @@ export class EditProjectComponent implements OnInit {
       this.router.navigate(['projects']);
     })
     .catch(error => {
-      console.log(error);
+      let content = JSON.parse(error['_body']).error;
+      this.msgs = [];
+      this.msgs.push({severity: 'error', summary: 'Error', detail: content});
     });
   }
 

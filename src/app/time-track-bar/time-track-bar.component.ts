@@ -6,6 +6,7 @@ import { Timer, TimerPost } from './../models/timer';
 import { TimerService } from './../services/timer-service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Observable, Subscription } from 'rxjs/Rx';
+import { Message } from 'primeng/primeng';
 
 @Component({
   selector: 'app-time-track-bar',
@@ -13,6 +14,7 @@ import { Observable, Subscription } from 'rxjs/Rx';
   styleUrls: ['./time-track-bar.component.scss']
 })
 export class TimeTrackBarComponent implements OnInit {
+  msgs: Message[] = [];
   classBtn: String = 'play-btn';
   startTime: String = '00:00';
   timeCount: String = '00:00:00';
@@ -174,9 +176,14 @@ export class TimeTrackBarComponent implements OnInit {
       console.log(res);
       this.addedTimer.emit(res);
       this._currentCategory = this.emptyCategory;
+      let content = 'New Time Tracked';
+      this.msgs = [];
+      this.msgs.push({severity: 'success', summary: 'Success', detail: content});
     })
     .catch(err => {
-      console.log(err);
+      let content = JSON.parse(err['_body']).error;
+      this.msgs = [];
+      this.msgs.push({severity: 'error', summary: 'Error', detail: content});
     });
   }
 
