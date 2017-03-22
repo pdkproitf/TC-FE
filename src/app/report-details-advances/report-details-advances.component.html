@@ -3,7 +3,7 @@
     <div class="container">
         <div class="header">
             <h2>Detailed reposts</h2>
-            <button type="button" name="button" (click)="changeFilters()">Change Filters</button>
+            <button  class="button-filter" type="button" name="button" (click)="changeFilters(true)">Change Filters</button>
         </div>
 
         <div class="search-header">
@@ -17,12 +17,8 @@
                     <div class="time-frame total">
                         <label>Total</label>
                         <div class="time-number">
-                            <div class="">
-                                <strong>230.50 hours</strong>
-                            </div>
-                            <div class="biliable">
-                                200 billable hours
-                            </div>
+                            <div><strong>230.50 hours</strong></div>
+                            <div class="biliable">200 billable hours</div>
                         </div>
                     </div>
                 </div>
@@ -47,7 +43,57 @@
         </div>
 
         <div class="search-filters">
+            <div class="content">
+                <table>
+                    <tr>
+                        <td class="lable">Time Frame:</td>
+                        <td>
+                            <div class="time-block">
+                                <div class="">
+                                    <label (click)="showCalendar(true)"><strong>{{time_selected}}</strong></label>
+                                    <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                                </div>
+                                <div class="choose-time hide"  (mouseleave)="showCalendar(false)">
+                                    <p-calendar (onSelect)="selectDate(0,$event)" [inline]="true"></p-calendar>
+                                    <div class="options">
+                                      <table class="options">
+                                        <tr *ngFor="let option of options; let row = index">
+                                          <td *ngFor="let str of option; let col = index">
+                                            <div class="option">{{str}}</div>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
 
+                    <tr *ngFor="let row of labels; let i = index;">
+                        <td class="lable">{{row | capitalize}}:</td>
+                        <td>
+                            <div class="block">
+                                <div>
+                                    <span>last Week</span>
+                                    <i class="fa fa-fw fa-times"></i>
+                                </div>
+                            </div>
+
+                            <div class="dropdown">
+                                <button (click)="showDropDown(i ,true)" (blur)="showDropDown(i, false)" class="block">Choose {{row.slice(0, row.length - 1)}}…</button>
+                                <div id="dropdown-{{i}}" class="dropdown-content">
+                                    <li (mousedown)="selected()" *ngFor="let item of getListDropdown(row)">{{item}}</li>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <div class="button-action">
+                    <button class="run-report" (click)="runReport()" type="button" name="button">Run report</button>
+                    <button class="cancel" (click)="cancel()" type="button" name="button">Cancel</button>
+                </div>
+            </div>
         </div>
+        <app-report-details-advances-list></app-report-details-advances-list>
     </div>
 </div>
