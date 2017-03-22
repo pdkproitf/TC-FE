@@ -211,6 +211,7 @@ export class DetailDateLogComponent implements OnInit {
   }
 
   refreshAfterEdit(event) {
+    console.log(event);
     if (event) {
       let curr = new Date();
       let day = curr.getDay();

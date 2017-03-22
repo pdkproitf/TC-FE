@@ -174,9 +174,8 @@ export class DetailDateLogLiComponent implements OnInit {
 
   setCategory(arg) {
     console.log(arg);
-    // this._timerFetch.category_name = arg.category;
-    this.timer.category_member_id = arg.category_member_id;
     this.timer.task_name = this.timerFetch.task.name;
+    this.timer.category_member_id = arg.category_member_id;
     this.submitEdit();
     this.hideDiv(1);
   }
@@ -341,11 +340,22 @@ export class DetailDateLogLiComponent implements OnInit {
 // ------------------------- Submit Edit ---------------------------
   submitEdit() {
     let id = this.timerFetch.id;
+    if (this.timer.task_name !== undefined) {
+      if (this.timer.task_name === this.timerFetch.task.name &&
+      this.timer.category_member_id === this.timerFetch.category_member_id) {
+        delete this.timer['task_name'];
+      } else if (this.timer.task_name !== this.timerFetch.task.name ||
+      this.timer.category_member_id !== this.timerFetch.category_member_id ) {
+        delete this.timer['task_id'];
+      }
+    }
     this.timer.start_time = this.startDateEdit.toString();
     this.timer.stop_time = this.endDateEdit.toString();
     this.timerPut.timer_update = this.timer;
+    console.log(this.timer);
     this.timerService.editTimer(id, this.timerPut)
     .then(res => {
+      this.isTimeEdited = true;
       this.timeEditedEmit.emit(this.isTimeEdited);
       this.isTimeEdited = false;
       console.log(res);
