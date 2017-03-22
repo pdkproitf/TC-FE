@@ -23,5 +23,42 @@
         <input class="search-text" type="text" [(ngModel)]="searchPattern" (keyup)="search()" placeholder="Search people..."/>
         <span class="fa fa-search"></span>
     </div>
+</div>
 
+<div class="table-view">
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Project(Clients)</th>
+            <th>Person</th>
+            <th>Time</th>
+            <th></th>
+        </tr>
+    </table>
+
+    <div class="details" *ngFor="let category of categories">
+            <div class="theme">
+                <span>{{category}}</span>
+                <span class="right">15.15h</span>
+            </div>
+
+            <table>
+                <tr *ngFor="let hour of hours">
+                    <td class="date">Web 06/15/2017</td>
+                    <td class="description">Homepage</td>
+                    <td class="project-client">Timer (Picture Plus)</td>
+                    <td class="person">
+                        <span>$</span>
+                        Bradley White
+                    </td>
+                    <td class="timer">
+                        <div class="inline">1:30 PM</div>
+                        <i class="fa fa-long-arrow-right inline" aria-hidden="true"></i>
+                        <div class="inline">3:30 PM</div>
+                    </td>
+                    <td class="hour">2.5h</td>
+                </tr>
+            </table>
+    </div>
 </div>

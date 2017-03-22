@@ -61,3 +61,89 @@
 .inline{
     display: inline-block;
 }
+.table-view{
+    min-width: 650px;
+    padding: 1em 0 1em 0;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.06);
+    border-radius: 3px;
+    margin-top: 2em;
+    table{
+        width: 100%;
+        text-align: left;
+        padding-left: 2em;
+        th,td {
+            font-weight: normal;
+            font-family: Lato;
+            font-size: 14px;
+            line-height: 17px;
+            color: rgba(54,54,54,0.7);
+        }
+        th{
+            width: 18%;
+        }
+    }
+    .details{
+        margin: .5em 0.5em.5em .5em;
+        .theme{
+            height: 40px;
+            background-color: #EEEEEE;
+            font-family: Lato;
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 40px;
+            color: #363636;
+            padding-left: 2em;
+            .right{
+                float: right;
+                padding-right: 2em;
+            }
+        }
+        > table{
+            padding-left: 1.5em;
+            font-family: Lato;
+            tr{
+                height: 48px;
+                box-shadow: inset 0 -1px 0 0 #EEEEEE;
+                td{
+                    width: 18%;
+                }
+            }
+            & .date{
+                font-size: 12px;
+                line-height: 15px;
+                color: rgba(54,54,54,0.7);
+            }
+            & .description{
+                font-size: 14px;
+                line-height: 17px;
+                color: #363636;
+            }
+            & .project-client{
+                font-size: 14px;
+                line-height: 17px;
+                color: #363636;
+            }
+            & .person{
+                font-size: 14px;
+                line-height: 17px;
+                color: #363636;
+                & span{ color: rgba(54,54,54,0.7) }
+            }
+            & .timer{
+                width: 130px;
+                font-size: 12px;
+                line-height: 15px;
+                color: rgba(54,54,54,0.7);
+            }
+            & .hour{
+                font-size: 14px;
+                font-weight: bold;
+                text-align: right;
+                line-height: 17px;
+                color: #0066CC;
+                padding-right: 2em;
+            }
+        }
+    }
+}
