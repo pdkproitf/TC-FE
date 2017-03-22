@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
-  styleUrls: ['../sign-up/sign-up.component.scss']
+  styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent implements OnInit {
   user: User = new User();
@@ -35,5 +35,9 @@ export class SignInComponent implements OnInit {
         alert(content);
       }
     );
+  }
+
+  signUp() {
+    this.router.navigate(['sign-up']);
   }
 }
