@@ -1,0 +1,27 @@
+<div class="show-types">
+    <div class="show-type">
+        <label for="show">Show</label>
+        <div class="dropdown inline">
+            <select class="form-control" name="select_project_id">
+                <option selected [value]="0">All Hours</option>
+                <option *ngFor="let category of categories" [value]="category">{{category | capitalize}}</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="show-type">
+        <label for="show">Group by</label>
+        <div class="dropdown inline">
+            <select class="form-control" name="select_project_id">
+                <option selected [value]="0">Categories</option>
+                <option *ngFor="let category of categories" [value]="category">{{category | capitalize}}</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="search-view">
+        <input class="search-text" type="text" [(ngModel)]="searchPattern" (keyup)="search()" placeholder="Search people..."/>
+        <span class="fa fa-search"></span>
+    </div>
+
+</div>
