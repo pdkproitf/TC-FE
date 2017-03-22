@@ -1,3 +1,4 @@
+import { Message } from 'primeng/primeng';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from './../services/user-service';
 import { User, UserPost } from './../models/user';
@@ -8,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent implements OnInit {
+  msgs: Message[] = [];
   user: User = new User();
   userPost: UserPost = new UserPost();
   submitted: boolean = false;
@@ -37,7 +39,8 @@ export class SignUpComponent implements OnInit {
       this.submitted = true;
     }).catch(err => {
       let content = JSON.parse(err['_body']).error;
-      alert(content);
+      this.msgs = [];
+      this.msgs.push({severity: 'error', summary: 'Error', detail: content});
     });
   }
 

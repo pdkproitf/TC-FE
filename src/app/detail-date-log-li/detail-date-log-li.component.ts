@@ -4,6 +4,7 @@ import { TimerService } from './../services/timer-service';
 import { TimerFetch } from './../models/timer-fetch';
 import { Timer, TimerPut } from './../models/timer';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Message } from 'primeng/primeng';
 
 @Component({
   selector: 'app-detail-date-log-li',
@@ -11,6 +12,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./detail-date-log-li.component.scss']
 })
 export class DetailDateLogLiComponent implements OnInit {
+  msgs: Message[] = [];
   spanClass = 'hidden';
   _timerFetch: TimerFetch = new TimerFetch();
   timer: Timer = new Timer();
@@ -102,9 +104,14 @@ export class DetailDateLogLiComponent implements OnInit {
     this.timerService.deleteTimer(this.timerFetch.id)
     .then(res => {
       this.emitDelete.emit(res);
+      let content = 'Deleted';
+      this.msgs = [];
+      this.msgs.push({severity: 'success', summary: 'Success', detail: content});
     })
     .catch(err => {
-      console.log(err);
+      let content = JSON.parse(err['_body']).error;
+      this.msgs = [];
+      this.msgs.push({severity: 'error', summary: 'Error', detail: content});
     });
   }
 
@@ -360,9 +367,15 @@ export class DetailDateLogLiComponent implements OnInit {
       this.isTimeEdited = false;
       console.log(res);
       this._timerFetch = res;
+      let content = 'Saved';
+      this.msgs = [];
+      this.msgs.push({severity: 'success', summary: 'Success', detail: content});
     })
     .catch(err => {
       console.log(err);
+      let content = JSON.parse(err['_body']).error;
+      this.msgs = [];
+      this.msgs.push({severity: 'error', summary: 'Error', detail: content});
     });
     this.editDes = '';
   }

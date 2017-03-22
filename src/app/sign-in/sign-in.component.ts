@@ -1,3 +1,4 @@
+import { Message } from 'primeng/primeng';
 import { UserService } from './../services/user-service';
 import { User, UserPost } from './../models/user';
 import { Router } from '@angular/router';
@@ -11,7 +12,7 @@ import { Component, OnInit } from '@angular/core';
 export class SignInComponent implements OnInit {
   user: User = new User();
   userPost: UserPost = new UserPost();
-
+  msgs: Message[] = [];
   constructor(private router: Router, private userService: UserService) { }
 
   ngOnInit() {
@@ -32,7 +33,8 @@ export class SignInComponent implements OnInit {
       this.router.navigate(['/dashboard']);
       }, (error) => {
         let content = JSON.parse(error['_body']).error;
-        alert(content);
+        this.msgs = [];
+        this.msgs.push({severity: 'error', summary: 'Error', detail: content});
       }
     );
   }

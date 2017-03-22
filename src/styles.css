@@ -15,10 +15,10 @@ input{
 button{
     outline: none;
 }
+.ui-growl-image {
+    margin-left: 0;
+}
 @media only screen and (min-width: 1700px) {
-    body {
-
-    }
     html{
         padding-left: 200px;
         padding-right: 200px;
