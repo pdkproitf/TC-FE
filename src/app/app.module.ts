@@ -1,3 +1,5 @@
+import { DateToStringWeekDayPipe } from './pipes/date-to-string-weekday.pipe';
+import { SecondsToHoursPipe } from './pipes/seconds-to-hours.pipe';
 import { ReportService } from './services/report-service';
 import { TaskService } from './services/task-service';
 import { TimerFetchService } from './services/timer-fetch-service';
@@ -121,6 +123,8 @@ import { ReportDetailsAdvancesListComponent } from './report-details-advances-li
     GradientPipe,
     ReportDetailsAdvancesComponent,
     ReportDetailsAdvancesListComponent,
+    SecondsToHoursPipe,
+    DateToStringWeekDayPipe
   ],
   imports: [
     BrowserModule,

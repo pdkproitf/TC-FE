@@ -24,7 +24,10 @@ export class ReportDetailComponent implements OnInit {
   @ViewChild('chart') chart: UIChart;
   monthStrings = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   dayStrings = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  oTTypes = ['weekend', 'holiday', 'weekend', ''];
+  oTTypes = [/*'weekend', 'holiday', 'weekend', ''*/];
+  overtimes = [];
+  otWeekend = 0;
+  otRegular = 0;
   data: any;
   options: any;
   items: any;
@@ -137,7 +140,7 @@ export class ReportDetailComponent implements OnInit {
     }
     };
     let para = this.route.params['_value'];
-    console.log(para);
+    // console.log(para);
     this.member.id = para.id;
     let begin = para.begin;
     let end = para.end;
@@ -223,10 +226,14 @@ export class ReportDetailComponent implements OnInit {
     this.router.navigate(['report-detail', id, begin, end]);
     this.reportService.getReportDetailPerson(begin, end, id)
     .then(res => {
-      console.log(res);
+      // console.log(res);
       this.member = res;
       this.tasks = res.tasks;
       this.sources = res.projects;
+
+      this.overtimes = res.overtime;
+      this.calOvertime();
+      console.log(this.overtimes);
       this.generateProjects(this.sources);
       this.generateLabels();
       this.generateValues();
@@ -316,6 +323,17 @@ export class ReportDetailComponent implements OnInit {
     this.options.scales.yAxes[0].ticks.max = maxY;
     this.isLoaded = true;
     this.chart.refresh();
+  }
+
+  calOvertime() {
+    for (let overtime of this.overtimes) {
+      if (overtime.overtime_type === 'Normal') {
+        this.otRegular += overtime.overtime;
+      } else if (overtime.overtime_type === 'Weekend') {
+        this.otWeekend += overtime.overtime;
+      }
+      this.oTTypes.push(overtime.overtime_type);
+    }
   }
 
 }

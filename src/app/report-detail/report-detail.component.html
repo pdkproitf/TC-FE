@@ -80,11 +80,11 @@
   <div class="overtime" *ngIf = "navClass[2] === 'choosing'">
     <div class="summary">
       <div class="left regular">
-        <p class="hour">1h</p>
+        <p class="hour">{{otRegular | secondsToHours}}h</p>
         <p class="description">Regular</p>
       </div>
       <div class="left weekend">
-        <p class="hour">3h</p>
+        <p class="hour">{{otWeekend | secondsToHours}}h</p>
         <p class="description">Weekend</p>
       </div>
       <div class="left holiday">
@@ -108,12 +108,12 @@
         <td></td>
         <td>5.5h</td>
       </tr>
-      <tr class="info" *ngFor="let type of oTTypes">
-        <td class="date"><p>Sat 21/01/2017</p><div [class]="type">{{type}}</div></td>
-        <td class="description">Homepage</td>
-        <td class="project">Timer (Picture Plus)</td>
-        <td class="time">1:30PM -> 3:05PM</td>
-        <td class="hour">2.5h</td>
+      <tr class="info" *ngFor="let overtime of overtimes; let i = index">
+        <td class="date"><p>{{overtime.stop_time | dateToStringWeekDay}}</p><div [class]="oTTypes[i]">{{oTTypes[i]}}</div></td>
+        <td class="description">{{overtime.task.name}}</td>
+        <td class="project">{{overtime.project_name}} (Picture Plus)</td>
+        <td class="time">{{overtime.start_time | date: 'hh:mm a'}} -> {{overtime.stop_time | date: 'hh:mm a'}}</td>
+        <td class="hour">{{overtime.overtime | secondsToHours}}h</td>
       </tr>
     </table>
   </div>

@@ -49,7 +49,7 @@ export class ReportSearchComponent implements OnInit {
     .then(res => {
       this.projectLists = res;
       this.filterProjectsSearch('');
-      console.log(res);
+      // console.log(res);
     })
     .catch(err => {
       console.log(err);
@@ -58,7 +58,7 @@ export class ReportSearchComponent implements OnInit {
     .then(res => {
       this.members = res;
       this.filterMembersSearch('');
-      console.log(res);
+      // console.log(res);
     })
     .catch(err => {
       console.log(err);

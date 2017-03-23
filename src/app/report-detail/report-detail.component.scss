@@ -348,7 +348,10 @@
                             p{
                                 float: left;
                             }
-                            .weekend,.holiday{
+                            .Normal{
+                                display: none;
+                            }
+                            .weekend,.holiday,.Weekend,.Normal{
                                 float:left;
                                 margin-top: 10px;
                                 margin-left: 10px;
@@ -358,7 +361,7 @@
                                 line-height: 15px;
                                 padding: 3px;
                             }
-                            .weekend{
+                            .weekend,.Weekend{
                                 color: #FFB332;
                                 background-color: rgba(255,179,50,0.2);
                             }
