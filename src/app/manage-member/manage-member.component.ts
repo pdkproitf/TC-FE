@@ -1,3 +1,4 @@
+import { Message } from 'primeng/primeng';
 import { Member } from './../models/member';
 import { EmployeePost } from './../models/employee';
 import { Membership, MembershipPost } from './../models/membership';
@@ -10,6 +11,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./manage-member.component.scss']
 })
 export class ManageMemberComponent implements OnInit {
+  msgs: Message[] = [];
   display: boolean = false;
   membership: Membership = new Membership();
   // membershipPost: MembershipPost = new MembershipPost();
@@ -39,7 +41,14 @@ export class ManageMemberComponent implements OnInit {
     .then(res => {
       this.undisplayDialog();
       console.log(res);
+      let content = 'Added new member';
+      this.msgs = [];
+      this.msgs.push({severity: 'success', summary: 'Success', detail: content});
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      let content = JSON.parse(err['_body']).error;
+      this.msgs = [];
+      this.msgs.push({severity: 'error', summary: 'Error', detail: content});
+    });
   }
 }
