@@ -212,14 +212,15 @@ export class ReportDetailProjectComponent implements OnInit {
       this.generateValues();
       this.generateMembers();
 
+      this.sum = [];
       let len = this.data.labels.length;
       for (let i = 0; i < len; i++) {
         let d = this.data.datasets[0].data[i] + this.data.datasets[1].data[i];
         this.sum.push(d);
       }
       let maxSum = Math.max(...this.sum);
-      let maxY = this.options.scales.yAxes[0].ticks.max;
-      while (maxSum > maxY) {
+      let maxY = 10;
+      while (maxSum + 1 >= maxY) {
         maxY += 2;
       }
       this.options.scales.yAxes[0].ticks.max = maxY;
@@ -240,11 +241,7 @@ export class ReportDetailProjectComponent implements OnInit {
   }
 
   changeProject(idEvent) {
-    /*let para = this.route.params['_value'];
-    this.project.id = idEvent;
-    let begin = para.begin;
-    let end = para.end;
-    this.newRange([begin, end]);*/
+    console.log(idEvent);
     let para = this.route.params['_value'];
     let begin = para.begin;
     let end = para.end;
@@ -268,15 +265,16 @@ export class ReportDetailProjectComponent implements OnInit {
     this.generateValues();
     this.generateMembers();
 
-
+    this.sum = [];
     let len = this.data.labels.length;
     for (let i = 0; i < len; i++) {
       let d = this.data.datasets[0].data[i] + this.data.datasets[1].data[i];
       this.sum.push(d);
     }
     let maxSum = Math.max(...this.sum);
-    let maxY = this.options.scales.yAxes[0].ticks.max;
-    while (maxSum > maxY) {
+    console.log(maxSum);
+    let maxY = 10;
+    while (maxSum + 1 > maxY) {
       maxY += 2;
     }
     this.options.scales.yAxes[0].ticks.max = maxY;

@@ -1,3 +1,4 @@
+import { Message } from 'primeng/primeng';
 import { UserService } from './../services/user-service';
 import { Auth, AuthPost } from './../models/auth';
 import { Router } from '@angular/router';
@@ -10,6 +11,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./member-menu-bar.component.scss']
 })
 export class MemberMenuBarComponent implements OnInit {
+  msgs: Message[] = [];
   items: MenuItem[];
   user: User = new User();
   auth: Auth = new Auth();
@@ -48,11 +50,17 @@ export class MemberMenuBarComponent implements OnInit {
     this.authPost.auth = this.auth;
     this.userService.logOut(this.authPost).then(
       (data) => {
-        alert('success!');
         localStorage.removeItem('UserInfo');
         this.router.navigate(['/']);
+        let content = 'Logged out';
+        this.msgs = [];
+        this.msgs.push({severity: 'success', summary: 'Success', detail: content});
       },
-      (error) => alert('failed!')
+      (error) => {
+        let content = JSON.parse(error['_body']).error;
+        this.msgs = [];
+        this.msgs.push({severity: 'error', summary: 'Error', detail: content});
+        }
     );
   }
 

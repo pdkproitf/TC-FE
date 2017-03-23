@@ -1,6 +1,11 @@
 <div class="menuContaier">
   <ul>
-    <li class="iconApp"><a routerLink="/">TimeCloud</a></li>
+    <li class="iconApp">
+      <a routerLink="/">
+        <img src="assets/image-screen/element_logo_icon-white@2x.png">
+        <p style="font-weight: bold;">Time</p><p>Cloud</p>
+      </a>
+    </li>
     <li><a [class]="classActive[0]" routerLink="/dashboard">Your Timer</a></li>
     <li><a [class]="classActive[1]" routerLink="/projects">Projects</a></li>
     <li><a [class]="classActive[2]" routerLink="/timeoffs">Time Off</a></li>
@@ -14,3 +19,5 @@
     </li>
   </ul>
 </div>
+
+<p-growl [value]="msgs"></p-growl>

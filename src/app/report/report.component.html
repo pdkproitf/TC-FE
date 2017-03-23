@@ -32,7 +32,7 @@
         <td class="hours">
           <div class="hours">
             <p>{{mem.tracked_time | timeFromSeconds}}</p>
-            <div class="over-time">Over time</div>
+            <div *ngIf="mem.overtime" class="over-time">Over time</div>
           </div>
         </td>
       </tr>
