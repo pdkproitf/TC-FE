@@ -16,7 +16,9 @@ export class ReportSearchComponent implements OnInit {
   timeRange = 'Last week';
   firstWeekDay;
   lastWeekDay;
+  @Input()
   firstString;
+  @Input()
   lastString;
   fromChoosed: boolean = false;
   toChoosed: boolean = false;

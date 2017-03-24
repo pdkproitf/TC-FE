@@ -2,7 +2,7 @@
 <div class="container">
   <h1>Reports</h1>
   <app-report-search *ngIf="isLoaded" (emitRange)="newRange($event)" [member]="member.user.first_name + ' ' + member.user.last_name"
-  (emitMember)="chooseMember($event)" (emitProject)="chooseProject($event)"></app-report-search>
+  (emitMember)="chooseMember($event)" (emitProject)="chooseProject($event)" [firstString]="from" [lastString]="to"></app-report-search>
 
   <div *ngIf="isLoaded" class="user-info">
     <table class="user-info">
@@ -102,7 +102,7 @@
         <th class="hour"></th>
       </tr>
       <tr class="time-range">
-        <td>Time span: {{from | dateToMDY}} - {{to | dateToMDY}}</td>
+        <td>Time span: {{from | dateToMDY}} <span class="fa fa-long-arrow-right"></span> {{to | dateToMDY}}</td>
         <td></td>
         <td></td>
         <td></td>
@@ -112,7 +112,7 @@
         <td class="date"><p>{{overtime.stop_time | dateToStringWeekDay}}</p><div [class]="oTTypes[i]">{{oTTypes[i]}}</div></td>
         <td class="description">{{overtime.task.name}}</td>
         <td class="project">{{overtime.category_name}} ({{overtime.project_name}})</td>
-        <td class="time">{{overtime.start_time | date: 'hh:mm a'}} -> {{overtime.stop_time | date: 'hh:mm a'}}</td>
+        <td class="time">{{overtime.start_time | date: 'hh:mm a'}} <span class="fa fa-long-arrow-right"></span> {{overtime.stop_time | date: 'hh:mm a'}}</td>
         <td class="hour">{{overtime.overtime | secondsToHours}}h</td>
       </tr>
     </table>

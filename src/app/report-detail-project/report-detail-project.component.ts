@@ -44,6 +44,8 @@ export class ReportDetailProjectComponent implements OnInit {
   spanMemberClass = [];
   spanCategoryClass = [];
   isLoaded = false;
+  from: string = '';
+  to: string = '';
   constructor(private route: ActivatedRoute, private reportService: ReportService, private router: Router) { }
 
   ngOnInit() {
@@ -138,6 +140,8 @@ export class ReportDetailProjectComponent implements OnInit {
     this.project.id = para.id;
     let begin = para.begin;
     let end = para.end;
+    this.from = begin;
+    this.to = end;
     this.newRange([begin, end]);
     this.items = [
       {label: 'PDF', icon: 'fa-file-pdf-o'},
@@ -196,6 +200,8 @@ export class ReportDetailProjectComponent implements OnInit {
     let id = this.project.id;
     let begin = arg[0];
     let end = arg[1];
+    this.from = begin;
+    this.to = end;
     this.isLoaded = false;
     this.router.navigate(['report-detail-project', id, begin, end]);
     this.reportService.getReportDetailProject(begin, end, id)

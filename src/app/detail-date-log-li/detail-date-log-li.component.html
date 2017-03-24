@@ -7,7 +7,7 @@
       <div class="dot" [style.background]="timerFetch.background"></div>
       <p>{{timerFetch.project_name}} - {{timerFetch.category_name}}</p>
     </li>
-    <li (click)="showDiv(2)" class="fro-to"><p>{{timerFetch.start_time|date:'hh:mm a'}} - {{timerFetch.stop_time|date:'hh:mm a'}}</p></li>
+    <li (click)="showDiv(2)" class="fro-to"><p>{{timerFetch.start_time|date:'hh:mm a'}} <span class="fa fa-long-arrow-right"></span> {{timerFetch.stop_time|date:'hh:mm a'}}</p></li>
     <li class="to-ti"><p>{{total}}</p></li>
   </ul>
   <span [class]="spanClass"><button (click)="startTimer()" type="button" pButton icon="fa-play-circle"></button></span>
