@@ -1,3 +1,4 @@
+import { DateToMDYPipe } from './pipes/string-date-mdy.pipe';
 import { DateToStringWeekDayPipe } from './pipes/date-to-string-weekday.pipe';
 import { SecondsToHoursPipe } from './pipes/seconds-to-hours.pipe';
 import { ReportService } from './services/report-service';
@@ -124,7 +125,8 @@ import { ReportDetailsAdvancesListComponent } from './report-details-advances-li
     ReportDetailsAdvancesComponent,
     ReportDetailsAdvancesListComponent,
     SecondsToHoursPipe,
-    DateToStringWeekDayPipe
+    DateToStringWeekDayPipe,
+    DateToMDYPipe
   ],
   imports: [
     BrowserModule,

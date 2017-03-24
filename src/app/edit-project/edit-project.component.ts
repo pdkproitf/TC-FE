@@ -199,6 +199,9 @@ export class EditProjectComponent implements OnInit {
     })
     .catch(error => {
       console.log(error);
+      let content = JSON.parse(error['_body']).error;
+      this.msgs = [];
+      this.msgs.push({severity: 'error', summary: 'Error', detail: content});
     });
   }
 

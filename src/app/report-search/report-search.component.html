@@ -5,7 +5,7 @@
       <th class="when">
         <div class="in-th when">
           <p class="title-field">When</p><br/>
-          <p (click)="changeClassDiv(0)" class="value-field">{{timeRange}}</p>
+          <p (click)="changeClassDiv(0)" class="value-field">{{firstString | dateToStringWeekDay}} <span class="fa fa-long-arrow-right"></span> {{lastString | dateToStringWeekDay}}</p>
           <span class="fa fa-angle-down down-img" (click)="changeClassDiv(0)"></span>
         </div>
       </th>

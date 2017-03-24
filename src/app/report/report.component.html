@@ -3,7 +3,7 @@
   <h1>Reports</h1>
 
   <app-report-search (emitRange)="newRange($event)" (emitProject)="detailReportProject($event)"
-  (emitMember)="detailReport($event)"></app-report-search>
+  (emitMember)="detailReport($event)" [firstString]="firstString" [lastString]="lastString"></app-report-search>
 
   <div class="people">
     <h4>People</h4>

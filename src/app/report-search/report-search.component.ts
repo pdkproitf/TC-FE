@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { MembershipService } from './../services/membership-service';
 import { ProjectService } from './../services/project-service';
 import { ProjectGetAll } from './../models/project';
@@ -15,7 +16,9 @@ export class ReportSearchComponent implements OnInit {
   timeRange = 'Last week';
   firstWeekDay;
   lastWeekDay;
+  @Input()
   firstString;
+  @Input()
   lastString;
   fromChoosed: boolean = false;
   toChoosed: boolean = false;
