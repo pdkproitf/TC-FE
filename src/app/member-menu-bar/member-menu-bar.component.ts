@@ -31,7 +31,9 @@ export class MemberMenuBarComponent implements OnInit {
     this.user.name = userObj.user.first_name;
     this.imageUrl = userObj.user.image;
     this.items = [
-                    {label: 'Profile', icon: 'fa-user-circle'},
+                    {label: 'Profile', icon: 'fa-user-circle', command: (event) => {
+                      this.router.navigate(['profile']);
+                    }},
                     {label: 'Setting', icon: 'fa-cog'},
                     {label: 'Logout', icon: 'fa-sign-out', command: (event) => {
                       this.logOut();
