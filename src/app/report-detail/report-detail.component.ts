@@ -25,9 +25,12 @@ export class ReportDetailComponent implements OnInit {
   monthStrings = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   dayStrings = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   oTTypes = [/*'weekend', 'holiday', 'weekend', ''*/];
+  totalTrackedTime = 0;
   overtimes = [];
+  filteredOvertimes = [];
   otWeekend = 0;
   otRegular = 0;
+  otHoliday = 0;
   data: any;
   options: any;
   items: any;
@@ -37,12 +40,15 @@ export class ReportDetailComponent implements OnInit {
   sources: any;
   projects: any[] = [];
   tasks: any[] = [];
+  filteredTasks = [];
   labels: any;
   billables: any;
   unbillables: any;
   sum = [];
   idProject = null;
   isLoaded = false;
+  from: string = '';
+  to: string = '';
   spanClassProject = [];
   constructor(private route: ActivatedRoute, private reportService: ReportService, private router: Router) {
   }
@@ -144,6 +150,8 @@ export class ReportDetailComponent implements OnInit {
     this.member.id = para.id;
     let begin = para.begin;
     let end = para.end;
+    this.from = begin;
+    this.to = end;
     if (para.idProject != null) {
       this.idProject = para.idProject;
     }
@@ -222,18 +230,23 @@ export class ReportDetailComponent implements OnInit {
     let id = this.member.id;
     let begin = arg[0];
     let end = arg[1];
+    this.from = begin;
+    this.to = end;
     this.isLoaded = false;
     this.router.navigate(['report-detail', id, begin, end]);
     this.reportService.getReportDetailPerson(begin, end, id)
     .then(res => {
-      // console.log(res);
       this.member = res;
+      this.totalTrackedTime = this.member.tracked_time;
       this.tasks = res.tasks;
+      this.filteredTasks = this.tasks;
+
       this.sources = res.projects;
 
       this.overtimes = res.overtime;
+      this.filteredOvertimes = this.overtimes;
+
       this.calOvertime();
-      console.log(this.overtimes);
       this.generateProjects(this.sources);
       this.generateLabels();
       this.generateValues();
@@ -292,7 +305,6 @@ export class ReportDetailComponent implements OnInit {
   }
 
   chooseProject(projectId) {
-    console.log(projectId);
     this.labels = [];
     this.billables = [];
     this.unbillables = [];
@@ -303,10 +315,15 @@ export class ReportDetailComponent implements OnInit {
     this.isLoaded = false;
     let index = this.findProjectById(projectId, this.member.projects);
     this.sources = [this.member.projects[index]];
+
     console.log(this.sources);
+    console.log(this.overtimes);
     this.generateProjects(this.sources);
     this.generateLabels();
     this.generateValues();
+    this.totalTrackedTime = this.projects[0].tracked_time;
+    this.filterTasks();
+    this.filterOvertimes();
 
     this.sum = [];
     let len = this.data.labels.length;
@@ -326,14 +343,41 @@ export class ReportDetailComponent implements OnInit {
   }
 
   calOvertime() {
-    for (let overtime of this.overtimes) {
+    this.otRegular = 0;
+    this.otWeekend = 0;
+    this.otHoliday = 0;
+    this.oTTypes = [];
+    for (let overtime of this.filteredOvertimes) {
       if (overtime.overtime_type === 'Normal') {
         this.otRegular += overtime.overtime;
       } else if (overtime.overtime_type === 'Weekend') {
         this.otWeekend += overtime.overtime;
+      } else if (overtime.overtime_type === 'Holiday') {
+        this.otHoliday += overtime.overtime;
       }
       this.oTTypes.push(overtime.overtime_type);
     }
+  }
+
+  filterTasks() {
+    this.filteredTasks = [];
+    let currentProject = this.sources[0];
+    for (let task of this.tasks) {
+      if (task.client.id === currentProject.client.id && task.project_name === currentProject.name) {
+        this.filteredTasks.push(task);
+      }
+    }
+  }
+
+  filterOvertimes() {
+    this.filteredOvertimes = [];
+    let currentProject = this.sources[0];
+    for (let ot of this.overtimes) {
+      if (ot.project_name === currentProject.name) {
+        this.filteredOvertimes.push(ot);
+      }
+    }
+    this.calOvertime();
   }
 
 }

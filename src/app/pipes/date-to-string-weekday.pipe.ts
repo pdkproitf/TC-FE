@@ -10,7 +10,7 @@ export class DateToStringWeekDayPipe implements PipeTransform {
         let res = '';
         res += this.weekdays[date.getDay()] + ' ';
         res += date.getDate().toString() + '/';
-        let month = (date.getMonth() < 10) ? '0' + date.getMonth().toString() : date.getMonth().toString();
+        let month = (date.getMonth() + 1 < 10) ? '0' + (date.getMonth() + 1).toString() : (date.getMonth() + 1).toString();
         res += month + '/';
         res += date.getFullYear();
         return res;

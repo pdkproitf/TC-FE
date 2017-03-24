@@ -14,7 +14,7 @@
           <p class="email">{{member.user.email}}</p>
         </td>
         <td class="hours">
-          <p class="hours">{{member.tracked_time | timeFromSeconds}}</p><br/>
+          <p class="hours">{{totalTrackedTime | timeFromSeconds}}</p><br/>
           <p class="explain">hours tracked</p>
         </td>
       </tr>
@@ -68,7 +68,7 @@
           <th class="ca-pro">Categories - Project</th>
           <th></th>
         </tr>
-        <tr *ngFor="let task of tasks; let id = index;">
+        <tr *ngFor="let task of filteredTasks; let id = index;">
           <td><span style="-webkit-text-stroke: 2px white;" class="fa fa-plus"></span>{{task.name}}</td>
           <td class="ca-pro">{{task.category_name}} - {{task.project_name}} ({{task.client.name}})</td>
           <td class="tracked-time">{{task.tracked_time | timeFromSeconds}}</td>
@@ -88,7 +88,7 @@
         <p class="description">Weekend</p>
       </div>
       <div class="left holiday">
-        <p class="hour">1.5h</p>
+        <p class="hour">{{otHoliday | secondsToHours}}h</p>
         <p class="description">Holiday</p>
       </div>
     </div>
@@ -102,16 +102,16 @@
         <th class="hour"></th>
       </tr>
       <tr class="time-range">
-        <td>Last week: Jan 15 - Jan 22</td>
+        <td>Time span: {{from | dateToMDY}} - {{to | dateToMDY}}</td>
         <td></td>
         <td></td>
         <td></td>
-        <td>5.5h</td>
+        <td>{{otRegular + otWeekend + otHoliday | secondsToHours}}h</td>
       </tr>
-      <tr class="info" *ngFor="let overtime of overtimes; let i = index">
+      <tr class="info" *ngFor="let overtime of filteredOvertimes; let i = index">
         <td class="date"><p>{{overtime.stop_time | dateToStringWeekDay}}</p><div [class]="oTTypes[i]">{{oTTypes[i]}}</div></td>
         <td class="description">{{overtime.task.name}}</td>
-        <td class="project">{{overtime.project_name}} (Picture Plus)</td>
+        <td class="project">{{overtime.category_name}} ({{overtime.project_name}})</td>
         <td class="time">{{overtime.start_time | date: 'hh:mm a'}} -> {{overtime.stop_time | date: 'hh:mm a'}}</td>
         <td class="hour">{{overtime.overtime | secondsToHours}}h</td>
       </tr>

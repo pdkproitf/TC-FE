@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { MembershipService } from './../services/membership-service';
 import { ProjectService } from './../services/project-service';
 import { ProjectGetAll } from './../models/project';
