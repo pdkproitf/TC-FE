@@ -109,8 +109,8 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
                 break;
             }
             case 2:{ //people type
-                // this.view_selecteds = this.peoples_selected;
-                // break;
+                this.view_selecteds = this.peoples_selected;
+                break;
             }
             case 3:{ //date type
                 // this.view_selecteds = this.days_selected;
@@ -156,7 +156,7 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
                 break;
             }
             case 2:{ //item is people type
-                // value = project.timers.findIndex(x => x.category_member.member_id == item_id) != -1;
+                value = project.timers.findIndex(x => x.category_member.member_id == item_id) != -1;
                 break;
             }
             case 3:{ //item is date type
@@ -196,11 +196,11 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
                 break;
             }
             case 2:{ //people type
-                // project.timers.forEach(timer => {
-                //     // console.log('timer', timer.category_member.tracked_time, 'tracked timer', tracked_time)
-                //     if(timer.category_member.member_id == item_id)
-                //         tracked_time += timer.tracked_time;
-                // })
+                project.timers.forEach(timer => {
+                    // console.log('timer', timer.category_member.tracked_time, 'tracked timer', tracked_time)
+                    if(timer.category_member.member_id == item_id)
+                        tracked_time += timer.tracked_time;
+                })
                 break;
             }
             case 3:{ //date type
@@ -237,11 +237,11 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
                 break;
             }
             case 2:{ //item is people type
-                // var member = project.members.find(x => x.id == item_id);
-                // project.timers.forEach(timer => {
-                //     if(timer.category_member.member_id == member.id)
-                //         timers_show.push(timer);
-                // })
+                var member = project.members.find(x => x.id == item_id);
+                project.timers.forEach(timer => {
+                    if(timer.category_member.member_id == member.id)
+                        timers_show.push(timer);
+                })
                 break;
 
             }
