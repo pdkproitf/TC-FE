@@ -11,15 +11,18 @@ import { User }                         from '../models/user';
     styleUrls: ['./report-details-advances-list.component.scss']
 })
 export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
+    /** types of group by */
     group_by_types = ["Category", "Person", "Date"]
-    show_types = ["Billables", "Unbillable"]
-
     group_by_selected: number = 0;
+    /** types of show */
+    show_types = ["Billables", "Unbillable"]
     show_selected = 0;
 
+    /** time queryed */
     start_date: Date;
     end_date: Date;
 
+    /** constraint date for dropdown selected */
     project_selected: ProjectDefault[];
     categories_selected: Category[];
     peoples_selected: Member[];
@@ -28,11 +31,12 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
         name: Date
     }[];
 
+    /** list date follow current view types */
     view_selecteds = [];
 
-    // data get from parent, list project basic
+    /** data get from parent, list project basic */
     _projects: ProjectReportAdvance[];
-    // data using for show
+    /** data using for show */
     project_view: ProjectReportAdvance[];
 
     @Input()
@@ -70,11 +74,15 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
         this.end_date = date;
     }
 
-    constructor() {}
+    constructor() {
+        this.project_selected = [];
+        this.peoples_selected = [];
+        this.categories_selected = [];
+        this.view_selecteds = this.project_selected;
+    }
 
     ngOnInit() {
-        this.initVariableValue();
-        this.view_selecteds = this.project_selected;
+        this.initDaysValue();
         this.selectGroup();
     }
 
@@ -83,19 +91,21 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
         this.ngOnInit();
     }
 
-    initVariableValue(){
-        this.project_selected = [];
-        this.peoples_selected = [];
-        this.categories_selected = [];
+    initDaysValue(){
         this.days_selected = [];
-        // var i = 1;
-        // for(var date = this.start_date; date <= this.end_date; date.setDate(date.getDate() + 1)){
-        //             this.days_selected.push({id: i++, name: date});
-        //             date = new Date(date);
-        // }
+        var i = 1;
+        for(var date = this.start_date; date <= this.end_date; date.setDate(date.getDate() + 1)){
+            this.days_selected.push({id: i++, name: date});
+            date = new Date(date);
+        }
     }
 
-    // when group by change -> update view_selecteds
+    ////
+    //@function selectGroup
+    //@desc show list timers follow group change
+    //@param
+    //@result
+    ////
     selectGroup(){
         let num = parseInt(this.group_by_selected + '', 10);
 
@@ -113,8 +123,8 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
                 break;
             }
             case 3:{ //date type
-                // this.view_selecteds = this.days_selected;
-                // break;
+                this.view_selecteds = this.days_selected;
+                break;
             }
             default: {
                 this.view_selecteds = [];
@@ -128,7 +138,7 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
 
     ////
     //@function isConstraintItem
-    //@desc check projects constraint item or not? if constraint project able to show
+    //@desc check item_ in project
     //@param project_id: number, item_id: number
     //@result true/ if project constraint item
     ////
@@ -160,24 +170,29 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
                 break;
             }
             case 3:{ //item is date type
-                // var day = this.days_selected.find(x => x.id == item_id);
-                // if(day){
-                //     // console.log('day', day)
-                //     for( let timer of project.timers){
-                //         var date = this.convertDate(timer.start_time);
-                //         // console.log('date', date)
-                //         // console.log('date', date, 'time', date.getTime(), 'day.name', day.name, 'compare', 'time', day.name.getTime(), (date.getTime() == day.name.getTime()));
-                //         if(date.getTime() == day.name.getTime())
-                //             return true;
-                //     }
-                // }
+                var day = this.days_selected.find(x => x.id == item_id);
+                if(day){
+                    // console.log('day', day)
+                    for( let timer of project.timers){
+                        var date = this.convertDate(timer.start_time);
+                        // console.log('date', date)
+                        // console.log('date', date, 'time', date.getTime(), 'day.name', day.name, 'compare', 'time', day.name.getTime(), (date.getTime() == day.name.getTime()));
+                        if(date.getTime() == day.name.getTime())
+                            return true;
+                    }
+                }
                 break;
             }
         }
         return value;
     }
 
-    //get tracked_time of item in project
+    ////
+    //@function itemTrackedTime
+    //@desc get tracked_time of item in project
+    //@param project_id -> id of project in this._projects, item_id -> condition
+    //@result tracked_time of item_type in project
+    ////
     itemTrackedTime(project_id: number, item_id: number){
         let tracked_time = 0;
         var project = this.getProject(project_id);
@@ -204,19 +219,24 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
                 break;
             }
             case 3:{ //date type
-                // var day = this.days_selected.find(x => x.id == item_id);
-                // project.timers.forEach(timer => {
-                //     var date = this.convertDate(timer.start_time);
-                //     if(date.getTime() == day.name.getTime())
-                //         tracked_time += timer.tracked_time;
-                // })
+                var day = this.days_selected.find(x => x.id == item_id);
+                project.timers.forEach(timer => {
+                    var date = this.convertDate(timer.start_time);
+                    if(date.getTime() == day.name.getTime())
+                        tracked_time += timer.tracked_time;
+                })
                 break;
             }
         }
         return tracked_time;
     }
 
-    // list timer pass condition, using for show
+    ////
+    //@function timersShow
+    //@desc get list timers to show
+    //@param project_id -> id of project in this._projects, item_id -> condition
+    //@result list times pass item_type condition
+    ////
     timersShow(project_id: number, item_id: number){
         let tracked_time = 0;
         let project = this.getProject(project_id);
@@ -246,26 +266,25 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
 
             }
             case 3:{ //item is date type
-                // var day = this.days_selected.find(x => x.id == item_id);
-                // project.timers.forEach(timer => {
-                //     // console.log('timer', timer.category_member.tracked_time, 'tracked timer', tracked_time)
-                //     var date = this.convertDate(timer.start_time);
-                //     if(date.getTime() == day.name.getTime())
-                //         timers_show.push(timer);
-                // })
+                var day = this.days_selected.find(x => x.id == item_id);
+                project.timers.forEach(timer => {
+                    // console.log('timer', timer.category_member.tracked_time, 'tracked timer', tracked_time)
+                    var date = this.convertDate(timer.start_time);
+                    if(date.getTime() == day.name.getTime())
+                        timers_show.push(timer);
+                })
                 break;
             }
         }
         return timers_show;
     }
 
-    // convertDate(date: any): Date{
-    //     date = new Date(date);
-    //     date.setHours(0, 0, 0, 0);
-    //     return date;
-    // }
+    convertDate(date: any): Date{
+        date = new Date(date);
+        date.setHours(0, 0, 0, 0);
+        return date;
+    }
 
-    // find project from this._projects
     ////
     //@function getProject
     //@desc find project from this._projects
