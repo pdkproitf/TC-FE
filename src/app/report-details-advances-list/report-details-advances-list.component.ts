@@ -105,8 +105,8 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
                 break;
             }
             case 1:{ //category type
-                // this.view_selecteds = this.categories_selected;
-                // break;
+                this.view_selecteds = this.categories_selected;
+                break;
             }
             case 2:{ //people type
                 // this.view_selecteds = this.peoples_selected;
@@ -190,9 +190,9 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
                 break;
             }
             case 1:{ //category type
-                // var pro_category = this.getCategoryInProject(project, item_id);
-                // if(pro_category)
-                //     tracked_time = pro_category.tracked_time;
+                var pro_category = this.getCategoryInProject(project, item_id);
+                if(pro_category)
+                    tracked_time = pro_category.tracked_time;
                 break;
             }
             case 2:{ //people type
@@ -229,11 +229,11 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
                 break;
             }
             case 1:{ //item is category type
-                // var category = this.getCategory(item_id);
-                // project.timers.forEach(timer => {
-                //     if(timer.category_member.category_id == item_id)
-                //         timers_show.push(timer);
-                // })
+                var category = this.getCategory(item_id);
+                project.timers.forEach(timer => {
+                    if(timer.category_member.category_id == item_id)
+                        timers_show.push(timer);
+                })
                 break;
             }
             case 2:{ //item is people type
