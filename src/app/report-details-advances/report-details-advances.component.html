@@ -49,16 +49,17 @@
                         <td class="lable">Time Frame:</td>
                         <td>
                             <div class="time-block">
-                                <div class="">
-                                    <label (click)="showCalendar(true)"><strong>{{time_selected}}</strong></label>
+                                <div (click)="showCalendar(true)">
+                                    <label><strong>{{time_selected}}</strong></label>
                                     <i class="fa fa-sort-desc" aria-hidden="true"></i>
                                 </div>
-                                <div class="choose-time hide"  (mouseleave)="showCalendar(false)">
-                                    <p-calendar (onSelect)="selectDate(0,$event)" [inline]="true"></p-calendar>
+                                <div class="choose-time hide" (mouseleave)="showCalendar(false)">
+                                    <p-calendar (onSelect)="selectDate(0,$event)" [inline]="true" [maxDate]="today"></p-calendar>
+                                    <p-calendar (onSelect)="selectDate(1,$event)" [inline]="true" [minDate]="start_date" [maxDate]="today"></p-calendar>
                                     <div class="options">
                                       <table class="options">
                                         <tr *ngFor="let option of options; let row = index">
-                                          <td *ngFor="let str of option; let col = index">
+                                          <td *ngFor="let str of option; let col = index" (click)="chooseRange(row, col)">
                                             <div class="option">{{str}}</div>
                                           </td>
                                         </tr>
@@ -69,20 +70,24 @@
                         </td>
                     </tr>
 
-                    <tr *ngFor="let row of labels; let i = index;">
-                        <td class="lable">{{row | capitalize}}:</td>
+                    <tr *ngFor="let label of labels; let i = index;">
+                        <td class="lable">{{label | capitalize}}:</td>
                         <td>
-                            <div class="block">
+                            <div *ngFor="let object of dataSelected(label)" class="block">
                                 <div>
-                                    <span>last Week</span>
-                                    <i class="fa fa-fw fa-times"></i>
+                                    <span>{{object.name || (object.user.first_name + ' '+ object.user.last_name) | capitalize}}</span>
+                                    <i (click)="unselected(label, object.id)" class="fa fa-fw fa-times"></i>
                                 </div>
                             </div>
 
                             <div class="dropdown">
-                                <button (click)="showDropDown(i ,true)" (blur)="showDropDown(i, false)" class="block">Choose {{row.slice(0, row.length - 1)}}…</button>
+                                <button (click)="showDropDown(i ,true)" (blur)="showDropDown(i, false)" class="block">
+                                    Choose {{label.slice(0, label.length - 1)}}…
+                                </button>
                                 <div id="dropdown-{{i}}" class="dropdown-content">
-                                    <li (mousedown)="selected()" *ngFor="let item of getListDropdown(row)">{{item}}</li>
+                                    <li *ngFor="let item of getListDropdown(label);" (mousedown)="selected(label, item.id)">
+                                        {{item.name || (item.user.first_name + ' '+ item.user.last_name) | capitalize}}
+                                    </li>
                                 </div>
                             </div>
                         </td>
@@ -95,7 +100,10 @@
             </div>
         </div>
         <div class="show-view">
-            <app-report-details-advances-list></app-report-details-advances-list>
+            <app-report-details-advances-list [projects]="_projects" [categoriesSelected]="categories_selected"
+                [projectsSelected]="projects_selected" [peoplesSelected]="peoples_selected"
+                [update]="wakeup_children_input" [startDay]="start_date" [endDay]="end_date">
+            </app-report-details-advances-list>
         </div>
     </div>
 </div>

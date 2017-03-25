@@ -1,4 +1,6 @@
 import { MemberTrackTime, Member } from './member';
+import { TaskAdvance } from './task';
+
 export class Category {
     id: number;
     name: string;
@@ -20,4 +22,11 @@ export class CategoryPost {
 export class CategoryTrackedTime {
     category: Category;
     tracked_time: number;
+}
+
+export class CategoryAdvance {
+    id: number;
+    name: string;
+    tracked_time: number;
+    is_billable: boolean;
 }

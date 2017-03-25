@@ -1,9 +1,10 @@
-import { Client } from './client';
-import { Employee } from './employee';
-import { Category, CategoryGetOne } from './category';
-import { Member } from './member';
-import { User } from './user';
-import { Role } from './role';
+import { Category, CategoryGetOne, CategoryAdvance } from './category';
+import { Member, MemberTrackTime }  from './member';
+import { TimerAdvance }             from './timer';
+import { Employee }     from './employee';
+import { Client }       from './client';
+import { User }         from './user';
+import { Role }         from './role';
 
 export class MemberRole {
     member_id: number;
@@ -90,4 +91,14 @@ export class ProjectGetOne {
 
 export class ProjectPost {
     project: Project;
+}
+
+export class ProjectReportAdvance {
+    timers: TimerAdvance[];
+    client: Client;
+    id: number;
+    name: string;
+    members: MemberTrackTime[]; //constraint member id
+    tracked_time: number;
+    categories: CategoryAdvance[];
 }
