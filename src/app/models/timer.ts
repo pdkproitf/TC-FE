@@ -24,5 +24,4 @@ export class TimerAdvance {
     tracked_time: number;
     task: TaskAdvance;
     category_member:CategoryMember;
-    category: CategoryAdvance;
 }

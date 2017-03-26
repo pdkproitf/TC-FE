@@ -34,9 +34,9 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
     /** list date follow current view types */
     view_selecteds = [];
 
-    /** data get from parent, list project basic */
+    // data get from parent, list project basic
     _projects: ProjectReportAdvance[];
-    /** data using for show */
+    // data using for show
     project_view: ProjectReportAdvance[];
 
     @Input()
@@ -133,7 +133,7 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
     }
 
     selectShow(){
-        console.log('select Show', this.show_selected);
+        this.selectGroup();
     }
 
     ////
@@ -146,10 +146,10 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
         // console.log('constraint item', item_id, 'in', project_id);
 
         let value = false;
-        let num = parseInt(this.group_by_selected + '', 10);
 
         var project = this.getProject(project_id);
         if(!project) return false;
+        let num = parseInt(this.group_by_selected + '', 10);
         switch(num){
             case 0:{ //item is project type
                 value = (project.id == item_id);
@@ -245,13 +245,16 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
         let num = parseInt(this.group_by_selected + '', 10);
         switch(num){
             case 0:{ //item is project type
-                timers_show = project.timers;
+                project.timers.forEach(timer => {
+                    if(this.isShow(project, timer))
+                        timers_show.push(timer);
+                });
                 break;
             }
             case 1:{ //item is category type
                 var category = this.getCategory(item_id);
                 project.timers.forEach(timer => {
-                    if(timer.category_member.category_id == item_id)
+                    if((timer.category_member.category_id == item_id) && this.isShow(project, timer))
                         timers_show.push(timer);
                 })
                 break;
@@ -259,7 +262,7 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
             case 2:{ //item is people type
                 var member = project.members.find(x => x.id == item_id);
                 project.timers.forEach(timer => {
-                    if(timer.category_member.member_id == member.id)
+                    if((timer.category_member.member_id == member.id) && this.isShow(project, timer))
                         timers_show.push(timer);
                 })
                 break;
@@ -270,7 +273,7 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
                 project.timers.forEach(timer => {
                     // console.log('timer', timer.category_member.tracked_time, 'tracked timer', tracked_time)
                     var date = this.convertDate(timer.start_time);
-                    if(date.getTime() == day.name.getTime())
+                    if((date.getTime() == day.name.getTime()) && this.isShow(project, timer))
                         timers_show.push(timer);
                 })
                 break;
@@ -283,6 +286,30 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
         date = new Date(date);
         date.setHours(0, 0, 0, 0);
         return date;
+    }
+
+    isShow(project: ProjectReportAdvance, timer: TimerAdvance){
+        let num = parseInt(this.show_selected + '', 10);
+        var value = false;
+        switch(num){
+            case 0:{
+                value = true;
+                break;
+            }
+            case 1: {
+                var pro_category = project.categories.find(x => x.id == timer.category_member.category_id)
+                if(pro_category)
+                    value = pro_category.is_billable;
+                break;
+            }
+            case 2: {
+                var pro_category = project.categories.find(x => x.id == timer.category_member.category_id)
+                if(pro_category)
+                    value = !pro_category.is_billable;
+                break;
+            }
+        }
+        return value;
     }
 
     ////
