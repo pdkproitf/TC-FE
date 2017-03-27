@@ -1,3 +1,5 @@
+import { Timer }    from './timer'
+
 export class Task {
     id: number;
     name: string;
@@ -6,4 +8,10 @@ export class Task {
     background: string;
     last_stop_time: string;
     category_member_id: number;
+}
+
+export class TaskAdvance {
+    id: number;
+    name: string;
+    tracked_time: number;
 }

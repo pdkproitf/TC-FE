@@ -2,9 +2,9 @@
     <div class="show-type">
         <label for="show">Show</label>
         <div class="dropdown inline">
-            <select class="form-control" name="select_project_id">
+            <select class="form-control" [(ngModel)]="show_selected" name="select_show" (change)="selectShow()">
                 <option selected [value]="0">All Hours</option>
-                <option *ngFor="let category of categories" [value]="category">{{category | capitalize}}</option>
+                <option *ngFor="let show of show_types; let i = index" [value]="i+1">{{show | capitalize}}</option>
             </select>
         </div>
     </div>
@@ -12,9 +12,9 @@
     <div class="show-type">
         <label for="show">Group by</label>
         <div class="dropdown inline">
-            <select class="form-control" name="select_project_id">
-                <option selected [value]="0">Categories</option>
-                <option *ngFor="let category of categories" [value]="category">{{category | capitalize}}</option>
+            <select class="form-control" [(ngModel)]="group_by_selected" name="select_group" (change)="selectGroup()">
+                <option selected [value]="0">Project</option>
+                <option *ngFor="let group of group_by_types; let i = index" [value]="i+1">{{group | capitalize}}</option>
             </select>
         </div>
     </div>
@@ -37,28 +37,33 @@
         </tr>
     </table>
 
-    <div class="details" *ngFor="let category of categories">
-            <div class="theme">
-                <span>{{category}}</span>
-                <span class="right">15.15h</span>
-            </div>
+    <div class="details" *ngFor="let item of view_selecteds">
+        <span *ngFor="let project of _projects">
+            <span *ngIf="isConstraintItem(project.id, item.id)">
+                <div class="theme">
+                    <span *ngIf="group_by_selected != 3">{{item.name || (item.user.first_name + ' '+ item.user.last_name) | capitalize}}</span>
+                    <span *ngIf="group_by_selected == 3">{{item.name | date: 'dd/MM/y' }}</span>
+                    <span class="right">{{itemTrackedTime(project.id, item.id) | timeFromSeconds }}h</span>
+                </div>
 
-            <table>
-                <tr *ngFor="let hour of hours">
-                    <td class="date">Web 06/15/2017</td>
-                    <td class="description">Homepage</td>
-                    <td class="project-client">Timer (Picture Plus)</td>
-                    <td class="person">
-                        <span>$</span>
-                        Bradley White
-                    </td>
-                    <td class="timer">
-                        <div class="inline">1:30 PM</div>
-                        <i class="fa fa-long-arrow-right inline" aria-hidden="true"></i>
-                        <div class="inline">3:30 PM</div>
-                    </td>
-                    <td class="hour">2.5h</td>
-                </tr>
-            </table>
+                <table >
+                    <tr *ngFor="let timer of timersShow(project.id, item.id)">
+                        <td class="date">{{timer.start_time | date: 'EEE dd/MM/y' }}</td>
+                        <td class="description">{{timer.task.name | capitalize}}</td>
+                        <td class="project-client">{{project.name | capitalize}} ({{ project.client.name | capitalize }})</td>
+                        <td class="person">
+                            <span>$</span>
+                            {{getMemberInProject(project , timer.category_member.member_id) | capitalize}}
+                        </td>
+                        <td class="timer">
+                            <div class="inline">{{ timer.start_time | date: 'hh:mm a' }}</div>
+                            <i class="fa fa-long-arrow-right inline" aria-hidden="true"></i>
+                            <div class="inline">{{ timer.stop_time | date: 'hh:mm a'}}</div>
+                        </td>
+                        <td class="hour">{{ timer.tracked_time | timeFromSeconds }}h</td>
+                    </tr>
+                </table>
+            </span>
+        </span>
     </div>
 </div>
