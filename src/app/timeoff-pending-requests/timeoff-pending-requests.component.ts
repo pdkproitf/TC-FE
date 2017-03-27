@@ -163,6 +163,12 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
         this.timeOffPut.answer_timeoff_request.status = status;
     }
 
+    ////
+    //@function noticeMessage
+    //@desc show notice messages
+    //@param content -> content messages, isSuccess -> show messages sucess or error
+    //@result void
+    ////
     noticeMessage(content: string, isSuccess){
         this.msgs = [];
         isSuccess?

@@ -3,6 +3,7 @@ import { TimeOff, PersonNumTimeOff, TimeOffAnswer }    from '../models/timeoff';
 import { TimeoffService }               from '../services/timeoff-service';
 import { ProjectDefault }               from '../models/project';
 import { Holiday }                      from '../models/holiday';
+import { Message }                      from 'primeng/primeng';
 import { Member }                       from '../models/member';
 import { Router }                       from '@angular/router'
 import { Job }                          from '../models/job';
@@ -44,6 +45,9 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     is_ableToAnswer :boolean = false;
     timeOffPut :TimeOffAnswer = new TimeOffAnswer();
     dropdown_selected = 0;
+
+    /** show nitification */
+    msgs: Message[] = [];
 
     @Input()
     set startDay(date: Date){
@@ -455,11 +459,11 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
         this.timeoffService.delete(this.dialog_timeoff.id,)
         .then(
             (result) => {
+                this.noticeMessage('Delete ' + result['status'] , true)
                 this.reload();
             },
-            (errors) => {
-                alert(errors.json().error);
-                console.log('timeoff error', errors.json().error);
+            (error) => {
+                this.noticeMessage(JSON.parse(error['_body']).error, false)
             }
         )
     }
@@ -469,10 +473,11 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
             this.timeOffPut.answer_timeoff_request.status = (this.dropdown_selected == 0) ?  'approved' : 'rejected';
         this.timeoffService.update(this.dialog_timeoff.id, this.timeOffPut).then(
             (result) => {
+                this.noticeMessage('Request ' + this.timeOffPut.answer_timeoff_request.status , true)
                 this.reload();
             },
             (error) => {
-                console.log(error.data);
+                this.noticeMessage(JSON.parse(error['_body']).error, false)
             }
         )
     }
@@ -486,5 +491,18 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     reload(){
         this.ngOnInit();
         this.reloadCalendar.emit();
+    }
+
+    ////
+    //@function noticeMessage
+    //@desc show notice messages
+    //@param content -> content messages, isSuccess -> show messages sucess or error
+    //@result void
+    ////
+    noticeMessage(content: string, isSuccess){
+        this.msgs = [];
+        isSuccess?
+            this.msgs.push({severity: 'success', summary: 'Success', detail: content}):
+            this.msgs.push({severity: 'error', summary: 'Error Messages', detail: content});
     }
 }

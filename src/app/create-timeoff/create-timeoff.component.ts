@@ -77,10 +77,11 @@ export class CreateTimeoffComponent implements OnInit {
     }
 
     submit(event) {
-        if(!this.timeoffForm.valid)
+        if(!this.timeoffForm.valid){
             this.noticeMessage(this.timeoffForm.status);
+            return;
+        }
 
-        if(this.timeoffForm.valid)
         (this.action == 'Send')?
         this.timeoffService.createTimeOff(this.convertToTimeOffPost())
         .then(
