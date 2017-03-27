@@ -42,24 +42,14 @@ export class ReportDetailsAdvancesComponent implements OnInit {
 
     /** using limit calendar day's choice */
     today = new Date();
-    wakeup_children_input: number = 0;
 
-    constructor(private reportService: ReportService) { }
+    constructor(private reportService: ReportService) {}
 
     ngOnInit() {
         this.initVariableValue();
-        this.reportService.getReportAdvances().then(
-            (result) => {
-                console.log("report advances", result);
-                this._projects = result['projects'];
-                this.categories = result['categories']
-                this.peoples = result['company_members']
-                this.initProjects();
-            },
-            (error) => {
-                console.log("report advances err", error);
-            }
-        )
+        this.initProjects();
+        this.initSelected();
+        this.runReport();
     }
 
     initVariableValue(){
@@ -88,6 +78,63 @@ export class ReportDetailsAdvancesComponent implements OnInit {
             this.projects.push(item);
         }
     }
+
+    initSelected(){
+        this.projects_selected = this.projects;
+        this.categories_selected = this.categories;
+        this.peoples_selected = this.peoples;
+        this.projects = [];
+        this.categories = [];
+        this.peoples = [];
+    }
+
+/** START: result after run report using to show in search result************ */
+    totalTractime(): number{
+        var tracked_time = 0;
+        this._projects.forEach(project => {
+            tracked_time += project.tracked_time;
+        })
+        return tracked_time;
+    }
+
+    totalTractimeBillable(): number{
+        var tracked_time = 0;
+        this._projects.forEach(project => {
+            project.categories.forEach(category => {
+                if(category.is_billable)
+                    tracked_time += category.tracked_time;
+            })
+        })
+        return tracked_time;
+    }
+
+    totalProjectSelect(){
+        var value = 'All  ';
+        if(this.projects_selected.length > 0 && this.projects.length > 0){
+            value = '';
+            this.projects_selected.forEach(project => value += project.name + ', ');
+        }
+        return value.slice(0, value.length - 2);
+    }
+
+    totalCategorySelect(){
+        var value = 'All  ';
+        if(this.categories_selected.length > 0 && this.categories.length > 0){
+            value = '';
+            this.categories_selected.forEach(category => value += category.name + ', ');
+        }
+        return value.slice(0, value.length - 2);
+    }
+
+    totalPeopleSelect(){
+        var value = 'Everyone  ';
+        if(this.peoples_selected.length > 0 && this.peoples.length > 0){
+            value = '';
+            this.peoples_selected.forEach(member => value += member.user.first_name + ' ' + member.user.last_name + ', ');
+        }
+        return value.slice(0, value.length - 2);
+    }
+/** END: result after run report using to show in search result ***************/
 
     ////
     //@function changeFilters
@@ -141,7 +188,7 @@ export class ReportDetailsAdvancesComponent implements OnInit {
 
     ////
     //@function selected
-    //@desc add element to list
+    //@desc add element to list-selected (projects_selected, categories_selected, people_selected) while remove it from list (projects, categories, people)
     //@param label -> working on what label, id -> get what element
     //return void
     ////
@@ -150,33 +197,59 @@ export class ReportDetailsAdvancesComponent implements OnInit {
             case this.labels[0]: {
                 var project = this.projects.find(x => x.id == id);
                 if(project){
-                    this.projects_selected.push(project);
-                    this.projects.splice(this.projects.findIndex(x => x.id == id), 1);
+                    this.selectedProect(project, id);
+                    var project_advance = this._projects.find(x => x.id == project.id);
+                    if(project_advance) this.selectedCategoryFollowProject(project_advance);
                 }
                 break;
             }
             case this.labels[1]: {
-                var category = this.categories.find(x => x.id == id);
-                if(category){
-                    this.categories_selected.push(category);
-                    this.categories.splice(this.categories.findIndex(x => x.id == id), 1);
-                }
+                this.selectedCategory(id);
                 break;
             }
             case this.labels[2]: {
-                var member = this.peoples.find(x => x.id == id);
-                if(member){
-                    this.peoples_selected.push(member);
-                    this.peoples.splice(this.peoples.findIndex(x => x.id == id), 1);
-                }
+                this.selectedPeople(id);
             }
         }
-        this.wakeup_children_input++;
     }
 
+    selectedProect(project: ProjectDefault, id: number){
+        this.projects_selected.push(project);
+        this.projects.splice(this.projects.findIndex(x => x.id == id), 1);
+    }
+
+    selectedCategory(id: number){
+        var category = this.categories.find(x => x.id == id);
+        if(category){
+            this.categories_selected.push(category);
+            this.categories.splice(this.categories.findIndex(x => x.id == id), 1);
+        }
+    }
+
+    selectedCategoryFollowProject(project_advance: ProjectReportAdvance){
+        project_advance.categories.forEach(category =>{
+            var category_main = this.categories.find(x => x.name == category.name);
+            if(category_main) this.selectedCategory(category_main.id)
+        });
+        this.selectedPeopleFollowProject(project_advance);
+    }
+
+    selectedPeople(id: number){
+        var member = this.peoples.find(x => x.id == id);
+        if(member){
+            this.peoples_selected.push(member);
+            this.peoples.splice(this.peoples.findIndex(x => x.id == id), 1);
+        }
+    }
+
+    selectedPeopleFollowProject(project_advance: ProjectReportAdvance){
+        project_advance.members.forEach(member =>{
+            this.selectedPeople(member.id);
+        });
+    }
     ////
     //@function unselected
-    //@desc remove element in list
+    //@desc remove element to list-selected (projects_selected, categories_selected, people_selected) and add element to list (projects, categories, people) and
     //@param label -> working on what label, id -> get what element
     //return void
     ////
@@ -206,7 +279,6 @@ export class ReportDetailsAdvancesComponent implements OnInit {
                 }
             }
         }
-        this.wakeup_children_input--;
     }
 
     ////
@@ -228,7 +300,6 @@ export class ReportDetailsAdvancesComponent implements OnInit {
     ////
     chooseRange(row, col) {
         let res = 4 * row + col;
-        console.log(res);
         switch (res) {
             case 0: {
                 this.yesterday();
@@ -266,6 +337,7 @@ export class ReportDetailsAdvancesComponent implements OnInit {
         if(this.end_date > this.today) this.end_date = this.today;
         this.time_selected = this.options[row][col];
         this.showCalendar(false);
+
     }
 
     ////
@@ -373,9 +445,73 @@ export class ReportDetailsAdvancesComponent implements OnInit {
         return res;
     }
 
+
+    ////
+    //@function runReport
+    //@desc convwert query data from API
+    //@param
+    //return void
+    ////
     runReport(){
-        console.log('run report');
+        this.start_date.setHours(0, 0, 0, 0);
+        this.end_date.setHours(0, 0, 0, 0);
+        // console.log('runReport', this.start_date, '->', this.end_date);
+
+        if(this.getProjectId().length == 0) this.initSelected();
+        this.reportService.getReportAdvances(this.start_date, this.end_date,
+            this.getProjectId(), this.getCategoryName(), this.getPeopleId()).then(
+                (result) => {
+                    // console.log("report advances", result);
+                    this._projects = result['projects'];
+                    if(this.projects_selected.length == 0){
+                        this.initProjects();
+                        this.projects_selected = this.projects;
+                        this.projects = [];
+                    }
+                    if(this.categories_selected.length  == 0){
+                        this.categories_selected = result['categories']
+                        this.categories = [];
+                    }
+                    if(this.peoples_selected.length  == 0){
+                        this.peoples_selected = result['company_members']
+                        this.peoples = [];
+                    }
+                },
+                (error) => {
+                    console.log("report advances err", error);
+                }
+        )
         this.changeFilters(false);
+    }
+
+    ////
+    //@function getProjectId
+    //@desc get array project id for query
+    //@param
+    //return void
+    ////
+    getProjectId(){
+        var arr = [];
+        this.projects_selected.forEach(project => {
+            arr.push(project.id);
+        })
+        return arr;
+    }
+
+    getCategoryName(){
+        var arr = [];
+        this.categories_selected.forEach(category => {
+            arr.push(category.name);
+        })
+        return arr;
+    }
+
+    getPeopleId(){
+        var arr = [];
+        this.peoples_selected.forEach(project => {
+            arr.push(project.id);
+        })
+        return arr;
     }
 
     cancel(){

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnChanges, SimpleChange }     from '@angular/core';
 import { ProjectReportAdvance, ProjectDefault }     from '../models/project';
-import { TimerAdvance }                                 from '../models/timer';
+import { TimerAdvance }                 from '../models/timer';
 import { Category }                     from '../models/category';
 import { Member }                       from '../models/member';
 import { User }                         from '../models/user';
@@ -22,14 +22,16 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
     start_date: Date;
     end_date: Date;
 
-    /** constraint date for dropdown selected */
+    /** constraint data for dropdown selected */
     project_selected: ProjectDefault[];
     categories_selected: Category[];
     peoples_selected: Member[];
-    days_selected: {
-        id: number;
-        name: Date
-    }[];
+    days_selected: { id: number; name: Date}[];
+
+    /** constraint parten in search - field */
+    searchPattern = '';
+    /** array people in search */
+    searchList: number[] = [];
 
     /** list date follow current view types */
     view_selecteds = [];
@@ -44,8 +46,6 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
         this._projects = projects;
         this.project_view = this._projects;
     }
-
-    @Input() update: number;
 
     @Input()
     set projectsSelected(projects_selected: ProjectDefault[]){
@@ -78,10 +78,10 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
         this.project_selected = [];
         this.peoples_selected = [];
         this.categories_selected = [];
-        this.view_selecteds = this.project_selected;
     }
 
     ngOnInit() {
+        this.view_selecteds = this.project_selected;
         this.initDaysValue();
         this.selectGroup();
     }
@@ -132,7 +132,30 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
         }
     }
 
+    ////
+    //@function selectShow
+    //@desc select show type -> update data show for each project with show-type change
+    //@param
+    //@result void
+    ////
     selectShow(){
+        this.selectGroup();
+    }
+
+    ////
+    //@function search
+    //@desc update data show for each project with people change
+    //@param
+    //@result void
+    ////
+    search(){
+        this.searchList = [];
+        this.peoples_selected.forEach((member) =>{
+            var name = member.user.first_name + ' '+ member.user.last_name;
+            if ((name.toUpperCase().indexOf(this.searchPattern.toUpperCase()) > -1) ||
+                (name.toLowerCase().indexOf(this.searchPattern.toLowerCase()) > -1))
+                    this.searchList.push(member.id);
+        })
         this.selectGroup();
     }
 
@@ -143,8 +166,6 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
     //@result true/ if project constraint item
     ////
     isConstraintItem(project_id: number, item_id: number){
-        // console.log('constraint item', item_id, 'in', project_id);
-
         let value = false;
 
         var project = this.getProject(project_id);
@@ -156,13 +177,7 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
                 break;
             }
             case 1:{ //item is category type
-                    var category = this.getCategory(item_id);
-                    var pro_category = project.categories.find(x => x.name == category.name);
-                    if(category){ // category in project
-                        var pro_category = project.categories.find(x => x.name == category.name);
-                        if(pro_category) // any timers in category or not. false if not
-                            value = project.timers.findIndex(x => x.category_member.category_id == pro_category.id) != -1;
-                    }
+                value = this.projectConstraintCategory(project, item_id);
                 break;
             }
             case 2:{ //item is people type
@@ -170,18 +185,46 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
                 break;
             }
             case 3:{ //item is date type
-                var day = this.days_selected.find(x => x.id == item_id);
-                if(day){
-                    // console.log('day', day)
-                    for( let timer of project.timers){
-                        var date = this.convertDate(timer.start_time);
-                        // console.log('date', date)
-                        // console.log('date', date, 'time', date.getTime(), 'day.name', day.name, 'compare', 'time', day.name.getTime(), (date.getTime() == day.name.getTime()));
-                        if(date.getTime() == day.name.getTime())
-                            return true;
-                    }
-                }
+                value = this.projectConstraintTimerDate(project, item_id);
                 break;
+            }
+        }
+        return value;
+    }
+
+    ////
+    //@function projectConstraintCategory
+    //@desc check project constraint timer with category item_id
+    //@param project, item_id -> to get category from category_selected
+    //@result true/false
+    ////
+    projectConstraintCategory(project: ProjectReportAdvance, item_id: number){
+        var value = false;
+        var category = this.getCategory(item_id);
+        var pro_category = project.categories.find(x => x.name == category.name);
+        if(category){ // category in project
+            var pro_category = project.categories.find(x => x.name == category.name);
+            if(pro_category) // any timers in category or not. false if not
+                value = project.timers.findIndex(x => x.category_member.category_id == pro_category.id) != -1;
+        }
+        return value;
+    }
+
+    ////
+    //@function projectConstraintTimerDate
+    //@desc check project constraint timer with date item_id
+    //@param project, item_id -> to get Date from date_selected
+    //@result true/false
+    ////
+    projectConstraintTimerDate(project: ProjectReportAdvance, item_id: number){
+        var value = false;
+        var day = this.days_selected.find(x => x.id == item_id);
+        if(day){
+            // console.log('day', day)
+            for( let timer of project.timers){
+                var date = this.convertDate(timer.start_time);
+                if(date.getTime() == day.name.getTime())
+                    return true;
             }
         }
         return value;
@@ -212,7 +255,6 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
             }
             case 2:{ //people type
                 project.timers.forEach(timer => {
-                    // console.log('timer', timer.category_member.tracked_time, 'tracked timer', tracked_time)
                     if(timer.category_member.member_id == item_id)
                         tracked_time += timer.tracked_time;
                 })
@@ -233,7 +275,7 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
 
     ////
     //@function timersShow
-    //@desc get list timers to show
+    //@desc get list timers able to show
     //@param project_id -> id of project in this._projects, item_id -> condition
     //@result list times pass item_type condition
     ////
@@ -266,7 +308,6 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
                         timers_show.push(timer);
                 })
                 break;
-
             }
             case 3:{ //item is date type
                 var day = this.days_selected.find(x => x.id == item_id);
@@ -288,7 +329,13 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
         return date;
     }
 
-    isShow(project: ProjectReportAdvance, timer: TimerAdvance){
+    ////
+    //@function isShow
+    //@desc check timer with show types condition
+    //@param project, timer
+    //@result true/ false
+    ////
+    isShow(project: ProjectReportAdvance, timer: TimerAdvance): boolean{
         let num = parseInt(this.show_selected + '', 10);
         var value = false;
         switch(num){
@@ -309,7 +356,20 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
                 break;
             }
         }
+        /** if have search character -> check timer in searchList */
+        if(value && this.searchPattern.length > 0)
+            return this.isPeopleInSearch(timer);
         return value;
+    }
+
+    ////
+    //@function peopleInSearch
+    //@desc check timer of people in searcList
+    //@param timer
+    //@result true/false
+    ////
+    isPeopleInSearch(timer: TimerAdvance): boolean{
+        return ((this.searchList.findIndex(x => x == timer.category_member.member_id)) != -1)
     }
 
     ////
@@ -332,7 +392,6 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
         return this.categories_selected.find(x => x.id == id);
     }
 
-    // get category in project when know category name
     ////
     //@function getCategoryInProject
     //@desc get category in a project
