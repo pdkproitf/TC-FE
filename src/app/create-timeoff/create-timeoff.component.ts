@@ -4,7 +4,9 @@ import { Component, OnInit }    from '@angular/core';
 import { CalendarModule }       from 'primeng/primeng';
 import { TimeoffService }       from '../services/timeoff-service';
 import { ActivatedRoute }       from '@angular/router';
+import { Message }              from 'primeng/primeng';
 import { Router }               from '@angular/router';
+
 declare var $:any;
 
 @Component({
@@ -16,8 +18,11 @@ export class CreateTimeoffComponent implements OnInit {
     action = 'Send';
     minDateValue = new Date();
     today = new Date();
+    /** if this component using for edit action -> id will be updated */
     id = 0;
     personNumTimeOff: PersonNumTimeOff = new PersonNumTimeOff();
+
+    msgs: Message[] = [];
 
     constructor(private route: ActivatedRoute, private router: Router, public fb: FormBuilder, private timeoffService: TimeoffService) {}
 
@@ -45,7 +50,7 @@ export class CreateTimeoffComponent implements OnInit {
                 this.personNumTimeOff = result;
             },
             (error) => {
-                console.log('error create timeoff personNumTimeOff');
+                this.noticeMessage(JSON.parse(error['_body']).error);
             }
         )
     }
@@ -72,16 +77,18 @@ export class CreateTimeoffComponent implements OnInit {
     }
 
     submit(event) {
+        if(!this.timeoffForm.valid)
+            this.noticeMessage(this.timeoffForm.status);
+
+        if(this.timeoffForm.valid)
         (this.action == 'Send')?
         this.timeoffService.createTimeOff(this.convertToTimeOffPost())
         .then(
             (result) => {
-                console.log('timeoff create', result);
                 this.cancel();
             },
-            (errors) => {
-                alert(errors.json().error);
-                console.log('timeoff error', errors.json().error);
+            (error) => {
+                this.noticeMessage(JSON.parse(error['_body']).error);
             }
         )
         :
@@ -90,9 +97,8 @@ export class CreateTimeoffComponent implements OnInit {
             (result) => {
                 this.cancel();
             },
-            (errors) => {
-                alert(errors.json().error);
-                console.log('timeoff error', errors.json().error);
+            (error) => {
+                this.noticeMessage(JSON.parse(error['_body']).error);
             }
         )
     }
@@ -119,7 +125,7 @@ export class CreateTimeoffComponent implements OnInit {
                 this.initValueEdit(result);
             },
             (error) =>  {
-                alert(error);
+                this.noticeMessage(JSON.parse(error['_body']).error);
             }
         )
     }
@@ -132,5 +138,10 @@ export class CreateTimeoffComponent implements OnInit {
         (<FormControl> this.timeoffForm.controls['description']).setValue(timeoff.description);
 
         this.setShowChoiceTypeEndDay();
+    }
+
+    noticeMessage(content: string){
+        this.msgs = [];
+        this.msgs.push({severity: 'error', summary: 'Error Messages', detail: content});
     }
 }
