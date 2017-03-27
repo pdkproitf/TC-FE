@@ -1,4 +1,3 @@
-import { ProfileModuleModule } from './profile-module/profile-module.module';
 import { DateToMDYPipe } from './pipes/string-date-mdy.pipe';
 import { DateToStringWeekDayPipe } from './pipes/date-to-string-weekday.pipe';
 import { SecondsToHoursPipe } from './pipes/seconds-to-hours.pipe';
@@ -152,7 +151,6 @@ import { ReportDetailsAdvancesListComponent } from './report-details-advances-li
     ChartModule,
     CheckboxModule,
     GrowlModule,
-    ProfileModuleModule
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
   AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService,
