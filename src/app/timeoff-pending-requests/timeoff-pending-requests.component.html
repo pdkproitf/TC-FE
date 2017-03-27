@@ -10,10 +10,12 @@
                         <span>{{timeoff.status | capitalize}}</span>
                     </div>
                 </div><br>
-                <span class="days-off">Vacation on {{timeoff.start_date | date: 'MMM dd'}} - {{timeoff.end_date | date: 'MMM dd'}} </span> <span class="total-days-off">({{ (timeoff.end_date | amDifference: timeoff.start_date :'days' : true) + 1 - (timeoff.is_start_half_day? 0.5:0) - (timeoff.is_end_half_day? 0.5:0) }} days)</span> <br>
+                <span class="days-off">Vacation on {{timeoff.start_date | date: 'MMM dd'}} - {{timeoff.end_date | date: 'MMM dd'}} </span> <span class="total-days-off">
+                    ({{ (timeoff.end_date | amDifference: timeoff.start_date :'days' : true) + 1 - (timeoff.is_start_half_day? 0.5:0) - (timeoff.is_end_half_day? 0.5:0) }} days)
+                </span> <br>
             </div>
 
-            <div class="control" *ngIf="((timeoff.created_at | amDateFormat: 'YYYY-MM-DD') >= (this_year | amDateFormat: 'YYYY-MM-DD')) &&  ((timeoff.start_date | amDateFormat: 'YYYY-MM-DD') >= (today | amDateFormat: 'YYYY-MM-DD'))">
+            <div class="control" *ngIf="((timeoff.created_at | amDateFormat: 'YYYY-MM-DD') >= (this_year | amDateFormat: 'YYYY-MM-DD'))">
                 <div class="control-request">
                     <div  *ngIf="(user.role.name == 'Admin' && (user.id != timeoff.sender.id)) || (user.role.name == 'PM' && (user.id != timeoff.sender.id) && ('Admin' != timeoff.sender.role.name)) ">
                         <button class="approver" (click)="answer.toggle($event); showForm('approved')">Approve</button>
@@ -32,7 +34,7 @@
                         </div>
                     </p-overlayPanel>
                 </div>
-                <div id="timeoff-control-{{timeoff.id}}" class="control-inform">
+                <div id="timeoff-control-{{timeoff.id}}" class="control-inform" *ngIf="((timeoff.start_date | amDateFormat: 'YYYY-MM-DD') <= (today | amDateFormat: 'YYYY-MM-DD') || timeoff.status == 'pending')">
                     <div class="oval" (click)="delete(timeoff.id)">
                         <div class="text">
                             <i class="fa fa-trash" aria-hidden="true"></i>
@@ -58,4 +60,5 @@
             <div class="request-at">Requested {{timeoff.created_at | amTimeAgo}}</div>
         </div>
     </div>
+    <p-growl [value]="msgs" [life]="3000" ></p-growl>
 </div>

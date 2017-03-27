@@ -381,7 +381,10 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     }
 
     ableToModify(member_id: number){
-        if(!this.checkOverDayToModify()) return false;
+        if(!this.checkOverDayToModify()){
+            if(this.dialog_timeoff.status == 'pending') return true;
+            return false;
+        }
         //check role
         if(this.user.role.name == 'Member') return false;
         if(this.user.id == member_id) return true;

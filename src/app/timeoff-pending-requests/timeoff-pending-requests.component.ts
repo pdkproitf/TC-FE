@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, OnChanges, SimpleChange, EventEmitter }    from '@angular/core';
 import { TimeOff, TimeOffAnswer }   from '../models/timeoff';
 import { TimeoffService }           from '../services/timeoff-service';
+import { Message }                  from 'primeng/primeng';
 import { Member }                   from '../models/member';
 import { Router }                   from '@angular/router'
 
@@ -13,12 +14,18 @@ declare var $:any;
 })
 export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
     is_show_pending_details: Map<Number, Boolean> = new Map<Number, Boolean>();
+
     _timeoffs: TimeOff[] = [];
     timeOffPut: TimeOffAnswer;
+
     user: Member ;
+
     is_show_all :Boolean = false; //using for show  status thumble
     this_year = new Date(new Date().getFullYear(), 0, 1);
     today = new Date();
+
+    /** show notification */
+    msgs: Message[] = [];
 
     @Input()
     set timeoffs(timeoffs: TimeOff[]){
@@ -119,28 +126,29 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
         this.timeoffService.delete(id,)
         .then(
             (result) => {
+                this.noticeMessage('Request deleted', true)
                 this.reload.emit();
             },
-            (errors) => {
-                alert(errors.json().error);
-                console.log('timeoff error', errors.json().error);
+            (error) => {
+                this.noticeMessage(JSON.parse(error['_body']).error, false)
             }
         )
     }
 
     ////
     //@function update
-    //@desc answer a timoe off
+    //@desc answer a timeoff request
     //@param id using to pass to serve
     //@result void
     ////
     update(id: number){
         this.timeoffService.update(id, this.timeOffPut).then(
             (result) => {
+                this.noticeMessage('Request' + this.timeOffPut.answer_timeoff_request.status , true)
                 this.reload.emit();
             },
             (error) => {
-                console.log(error.data);
+                this.noticeMessage(JSON.parse(error['_body']).error, false)
             }
         )
     }
@@ -153,5 +161,12 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
     ////
     showForm(status: string){
         this.timeOffPut.answer_timeoff_request.status = status;
+    }
+
+    noticeMessage(content: string, isSuccess){
+        this.msgs = [];
+        isSuccess?
+            this.msgs.push({severity: 'success', summary: 'Success', detail: content}):
+            this.msgs.push({severity: 'error', summary: 'Error Messages', detail: content});
     }
 }
