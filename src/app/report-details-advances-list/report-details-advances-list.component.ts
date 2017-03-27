@@ -173,7 +173,9 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
         let num = parseInt(this.group_by_selected + '', 10);
         switch(num){
             case 0:{ //item is project type
-                value = (project.id == item_id);
+                // value = (project.id == item_id);
+                if((project.id == item_id) && project.timers.length > 0)
+                    value = true;
                 break;
             }
             case 1:{ //item is category type
