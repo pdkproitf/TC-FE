@@ -2,7 +2,7 @@
 <div class = "profile">
   <div class="info">
     <img [src]="avatar">
-    <p class="name">{{fullName}}</p><br/>
+    <p class="name">{{firstName}} {{lastName}}</p><br/>
     <p class="email">{{email}}</p><br/>
     <p [class]="role">{{role}}</p> <p style="color: rgba(54,54,54,0.7)">at</p> <p style="font-weight: bold; color: #0066CC">{{company}}</p><br/>
     <!--<input type="file">-->
@@ -13,4 +13,48 @@
       <li (click)="changeClass(0)" [class]="navClass[0]"><p>Profile</p></li>
       <li (click)="changeClass(1)" [class]="navClass[1]"><p>Change Password</p><div class="dot-ot"></div></li>
   </ul>
+
+  <div class="info" *ngIf="navClass[0]==='choosing'">
+    <form>
+      <table>
+        <tr>
+          <th class="label-field"></th>
+          <th class="input-field"></th>
+        </tr>
+        <tr>
+          <td><label>First name:</label></td>
+          <td><input type="text" [placeholder]="firstName"></td>
+        </tr>
+        <tr>
+          <td><label>Last name:</label></td>
+          <td><input type="text" [placeholder]="lastName"></td>
+        </tr>
+      </table>
+      <br/>
+      <button type="button">Cancel</button>
+      <button type="submit">Save</button>
+    </form>
+  </div>
+
+  <div class="change-password" *ngIf="navClass[1]==='choosing'">
+    <form>
+      <table>
+        <tr>
+          <th class="label-field"></th>
+          <th class="input-field"></th>
+        </tr>
+        <tr>
+          <td><label>Old password:</label></td>
+          <td><input type="password" placeholder="6+ characters"></td>
+        </tr>
+        <tr>
+          <td><label>New password:</label></td>
+          <td><input type="password" placeholder="6+ characters"></td>
+        </tr>
+      </table>
+      <br/>
+      <button type="button">Cancel</button>
+      <button type="submit">Save</button>
+    </form>
+  </div>
 </div>
