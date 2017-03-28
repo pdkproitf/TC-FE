@@ -1,4 +1,16 @@
 <app-member-menu-bar></app-member-menu-bar>
 <div class = "profile">
-  
+  <div class="info">
+    <img [src]="avatar">
+    <p class="name">{{fullName}}</p><br/>
+    <p class="email">{{email}}</p><br/>
+    <p [class]="role">{{role}}</p><br/>
+    <!--<input type="file">-->
+  </div>
+</div>
+<div class = "update">
+  <ul class="nav-bar">
+      <li (click)="changeClass(0)" [class]="navClass[0]"><p>Profile</p></li>
+      <li (click)="changeClass(1)" [class]="navClass[1]"><p>Change Password</p><div class="dot-ot"></div></li>
+  </ul>
 </div>
