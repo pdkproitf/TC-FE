@@ -74,6 +74,10 @@ export class CreateTimeoffComponent implements OnInit {
         }else{
             $('#choice-type-end-day').css({'display': 'none'});
         }
+
+        if(this.isWeekend(this.timeoffForm.value['start_date'], this.timeoffForm.value['end_date']))
+            this.noticeMessage('Your dayoff constraint weekend, please make sure the inform is corect', false);
+
     }
 
     submit(event) {
@@ -141,8 +145,24 @@ export class CreateTimeoffComponent implements OnInit {
         this.setShowChoiceTypeEndDay();
     }
 
-    noticeMessage(content: string){
+    noticeMessage(content: string, is_error: boolean = true){
         this.msgs = [];
-        this.msgs.push({severity: 'error', summary: 'Error Messages', detail: content});
+        is_error?
+            this.msgs.push({severity: 'error', summary: 'Error Messages', detail: content}) :
+            this.msgs.push({severity: 'warn', summary: 'Warn Message', detail: content})
+    }
+
+    isWeekend(date1, date2) {
+        var d1 = new Date(date1),
+        d2 = new Date(date2),
+        isWeekend = false;
+
+        while (d1 <= d2) {
+            var day = d1.getDay();
+            isWeekend = (day === 6) || (day === 0);
+            if (isWeekend) { return true; } // return immediately if weekend found
+            d1.setDate(d1.getDate() + 1);
+        }
+        return false;
     }
 }
