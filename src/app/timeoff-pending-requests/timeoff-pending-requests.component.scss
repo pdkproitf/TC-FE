@@ -210,6 +210,15 @@
                         line-height: 17px;
                         color: rgba(54,54,54,0.7);
                         margin-bottom: 10px;
+                        i {
+                            color: red;
+                        }
+                        & .approved {
+                            color: #1ABC9C;
+                        }
+                        & .rejected{
+                            color: #f44336;
+                        }
                     }
                     & .details-day{
                         display: inline-block;
@@ -227,5 +236,9 @@
                 color: rgba(54,54,54,0.7);
             }
         }
+    }
+    /deep/.ui-growl-item {
+        display: flex;
+        font-family: Lato;
     }
 }
