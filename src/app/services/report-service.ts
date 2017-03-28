@@ -50,4 +50,19 @@ export class ReportService {
         .then(res => res.json().data)
         .catch(error => this.handleError(error));
     }
+
+    getReportAdvances(from_date: Date, to_date: Date, projects: number[], categories: string[], peoples: number[]): Promise<any> {
+        let requestUrl = new ServerDomain().domain + '/reportadvances?from_date=' +
+                JSON.stringify(from_date) + '&to_date=' + JSON.stringify(to_date) +
+                '&projects=' + JSON.stringify(projects) + '&categories=' +
+                JSON.stringify(categories) + '&peoples=' + JSON.stringify(peoples);
+
+        let headers = new Headers();
+        this.headersService.createAuthHeaders(headers);
+        return this.http
+        .get(requestUrl, {headers: headers})
+        .toPromise()
+        .then(res => res.json().data)
+        .catch(err => this.handleError(err));
+    }
 }

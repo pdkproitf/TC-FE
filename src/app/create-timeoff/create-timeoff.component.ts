@@ -4,7 +4,9 @@ import { Component, OnInit }    from '@angular/core';
 import { CalendarModule }       from 'primeng/primeng';
 import { TimeoffService }       from '../services/timeoff-service';
 import { ActivatedRoute }       from '@angular/router';
+import { Message }              from 'primeng/primeng';
 import { Router }               from '@angular/router';
+
 declare var $:any;
 
 @Component({
@@ -16,8 +18,11 @@ export class CreateTimeoffComponent implements OnInit {
     action = 'Send';
     minDateValue = new Date();
     today = new Date();
+    /** if this component using for edit action -> id will be updated */
     id = 0;
     personNumTimeOff: PersonNumTimeOff = new PersonNumTimeOff();
+
+    msgs: Message[] = [];
 
     constructor(private route: ActivatedRoute, private router: Router, public fb: FormBuilder, private timeoffService: TimeoffService) {}
 
@@ -45,7 +50,7 @@ export class CreateTimeoffComponent implements OnInit {
                 this.personNumTimeOff = result;
             },
             (error) => {
-                console.log('error create timeoff personNumTimeOff');
+                this.noticeMessage(JSON.parse(error['_body']).error);
             }
         )
     }
@@ -69,19 +74,26 @@ export class CreateTimeoffComponent implements OnInit {
         }else{
             $('#choice-type-end-day').css({'display': 'none'});
         }
+
+        if(this.isWeekend(this.timeoffForm.value['start_date'], this.timeoffForm.value['end_date']))
+            this.noticeMessage('Your dayoff constraint weekend, please make sure the inform is corect', false);
+
     }
 
     submit(event) {
+        if(!this.timeoffForm.valid){
+            this.noticeMessage(this.timeoffForm.status);
+            return;
+        }
+
         (this.action == 'Send')?
         this.timeoffService.createTimeOff(this.convertToTimeOffPost())
         .then(
             (result) => {
-                console.log('timeoff create', result);
                 this.cancel();
             },
-            (errors) => {
-                alert(errors.json().error);
-                console.log('timeoff error', errors.json().error);
+            (error) => {
+                this.noticeMessage(JSON.parse(error['_body']).error);
             }
         )
         :
@@ -90,9 +102,8 @@ export class CreateTimeoffComponent implements OnInit {
             (result) => {
                 this.cancel();
             },
-            (errors) => {
-                alert(errors.json().error);
-                console.log('timeoff error', errors.json().error);
+            (error) => {
+                this.noticeMessage(JSON.parse(error['_body']).error);
             }
         )
     }
@@ -119,7 +130,7 @@ export class CreateTimeoffComponent implements OnInit {
                 this.initValueEdit(result);
             },
             (error) =>  {
-                alert(error);
+                this.noticeMessage(JSON.parse(error['_body']).error);
             }
         )
     }
@@ -132,5 +143,26 @@ export class CreateTimeoffComponent implements OnInit {
         (<FormControl> this.timeoffForm.controls['description']).setValue(timeoff.description);
 
         this.setShowChoiceTypeEndDay();
+    }
+
+    noticeMessage(content: string, is_error: boolean = true){
+        this.msgs = [];
+        is_error?
+            this.msgs.push({severity: 'error', summary: 'Error Messages', detail: content}) :
+            this.msgs.push({severity: 'warn', summary: 'Warn Message', detail: content})
+    }
+
+    isWeekend(date1, date2) {
+        var d1 = new Date(date1),
+        d2 = new Date(date2),
+        isWeekend = false;
+
+        while (d1 <= d2) {
+            var day = d1.getDay();
+            isWeekend = (day === 6) || (day === 0);
+            if (isWeekend) { return true; } // return immediately if weekend found
+            d1.setDate(d1.getDate() + 1);
+        }
+        return false;
     }
 }

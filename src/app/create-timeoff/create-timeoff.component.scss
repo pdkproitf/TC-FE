@@ -179,4 +179,8 @@
         line-height: 24px;
         color: #363636;
     }
+    /deep/.ui-growl-item {
+        display: flex;
+        font-family: Lato;
+    }
 }

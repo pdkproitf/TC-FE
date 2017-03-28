@@ -57,7 +57,8 @@ export class ProjecTableComponent implements OnInit, OnChanges {
     search(event) {
         this._projects = [];
         for (let project of this.projects) {
-            if ((project.name.toUpperCase().indexOf(this.searchPattern.toUpperCase()) > -1) || (project.name.toLowerCase() .indexOf(this.searchPattern.toLowerCase()) > -1)) {
+            if ((project.name.toUpperCase().indexOf(this.searchPattern.toUpperCase()) > -1) ||
+                (project.name.toLowerCase() .indexOf(this.searchPattern.toLowerCase()) > -1)) {
                 this._projects.push(project);
             }
         }

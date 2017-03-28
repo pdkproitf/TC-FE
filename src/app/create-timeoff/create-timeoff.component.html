@@ -49,7 +49,7 @@
                     </div>
 
                     <div class="form-button">
-                        <button class="submit" type="submit" [disabled]="!timeoffForm.valid">{{action}} request</button>
+                        <button class="submit" type="submit" >{{action}} request</button>
                         <button class="cancel" type="button" (click)="cancel()">Cancel</button>
                     </div>
                 </form>
@@ -80,4 +80,5 @@
 
         </div>
     </div>
+    <p-growl [value]="msgs" [life]="5000" ></p-growl>
 </div>
