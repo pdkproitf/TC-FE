@@ -10,6 +10,7 @@ export class ProfileComponent implements OnInit {
   avatar: string = 'assets/image-profile/default-avatar.png';
   email: string;
   role: string;
+  company: string;
   navClass = ['choosing', ''];
   constructor() { }
 
@@ -19,6 +20,7 @@ export class ProfileComponent implements OnInit {
     this.fullName = userObj.user.first_name + ' ' + userObj.user.last_name;
     this.email = userObj.user.email;
     this.role = userObj.role.name;
+    this.company = userObj.company.name;
     if (userObj.user.image !== null) {
       this.avatar = userObj.user.image;
     }
