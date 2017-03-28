@@ -18,25 +18,30 @@ export class MemberMenuBarComponent implements OnInit {
   authPost: AuthPost = new AuthPost();
   imageUrl: string;
   @Input()
-  currentState: number = 0;
+  currentState: number = null;
   classActive: string[] = ['', '', '', '', ''];
 
   constructor(private router: Router, private userService: UserService) { }
 
   ngOnInit() {
-    this.classActive[this.currentState] = 'active';
+    if(this.currentState !== null) {
+      this.classActive[this.currentState] = 'active';
+    }
     let userInfo = localStorage.getItem('UserInfo');
     let userObj = JSON.parse(userInfo);
     // console.log(userObj);
     this.user.name = userObj.user.first_name;
     this.imageUrl = userObj.user.image;
     this.items = [
-                    {label: 'Profile', icon: 'fa-user-circle'},
-                    {label: 'Setting', icon: 'fa-cog'},
+                    {label: 'Profile', icon: 'fa-user-circle', command: (event) => {
+                      this.router.navigate(['profile']);
+                    }},
+                    {label: 'Setting', icon: 'fa-cog', command: (event) => {
+                      this.router.navigate(['profile']);
+                    }},
                     {label: 'Logout', icon: 'fa-sign-out', command: (event) => {
                       this.logOut();
-                      }
-                    }
+                    }}
                 ];
   }
 

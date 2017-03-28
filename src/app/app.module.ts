@@ -74,6 +74,7 @@ import { CheckboxModule }   from 'primeng/primeng';
 import { GradientPipe }     from './pipes/gradient.pipe';
 import { ReportDetailsAdvancesComponent } from './report-details-advances/report-details-advances.component';
 import { ReportDetailsAdvancesListComponent } from './report-details-advances-list/report-details-advances-list.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -126,7 +127,8 @@ import { ReportDetailsAdvancesListComponent } from './report-details-advances-li
     ReportDetailsAdvancesListComponent,
     SecondsToHoursPipe,
     DateToStringWeekDayPipe,
-    DateToMDYPipe
+    DateToMDYPipe,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -150,7 +152,7 @@ import { ReportDetailsAdvancesListComponent } from './report-details-advances-li
     OverlayPanelModule,
     ChartModule,
     CheckboxModule,
-    GrowlModule
+    GrowlModule,
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
   AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService,

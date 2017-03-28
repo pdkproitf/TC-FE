@@ -16,6 +16,7 @@
         font-weight: bold;
         line-height: 48px;
         color: #363636;
+        display: inline-block;
     }
     h4{
         font-size: 18px;
@@ -23,6 +24,10 @@
         line-height: 22px;
         color: $colorHeader;
         margin: 0;
+    }
+    a.advanced-report{
+        float: right;
+        color: $blueColor;
     }
 // -------------------------------------------------------- Search Report--------------------------------------------    
     .search-report{

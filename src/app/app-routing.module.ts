@@ -1,3 +1,4 @@
+import { ProfileComponent } from './profile/profile.component';
 import { ReportDetailProjectComponent } from './report-detail-project/report-detail-project.component';
 import { ReportDetailComponent } from './report-detail/report-detail.component';
 import { ReportComponent } from './report/report.component';
@@ -42,6 +43,7 @@ const routes: Routes = [
     { path: 'report-detail/:id/:begin/:end', component: ReportDetailComponent, canActivate: [AuthenLoggedIn] },
     { path: 'report-detail-project/:id/:begin/:end', component: ReportDetailProjectComponent, canActivate: [AuthenLoggedIn] },
     { path: 'report-advance', component: ReportDetailsAdvancesComponent, canActivate: [AuthenLoggedIn] },
+    { path: 'profile', component: ProfileComponent, canActivate: [AuthenLoggedIn] },
     // { path: '', component: AppComponent }
     // { path: '', redirectTo: '/home', pathMatch: 'full'}
 ];

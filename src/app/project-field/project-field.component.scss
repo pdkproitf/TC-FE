@@ -5,6 +5,7 @@
     min-height: 340px;
     border-radius: 3px 35px 35px 3px;
     box-shadow: 2px 2px 4px 1px $shadowColor;
+    overflow-y: auto;
     .company-name{
         font-family: $headerFont;
         font-size: 12px;
