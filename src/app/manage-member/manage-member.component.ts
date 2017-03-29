@@ -14,18 +14,26 @@ export class ManageMemberComponent implements OnInit {
   msgs: Message[] = [];
   display: boolean = false;
   membership: Membership = new Membership();
-  // membershipPost: MembershipPost = new MembershipPost();
-
   employeePosts: Member[] = [];
-  // newEmployeePost: EmployeePost = new EmployeePost();
+  items: any;
+  navClass = ['choosing', '', '', ''];
+  roles = ['Admin', 'PM', 'Member'];
   constructor(private membershipService: MembershipService) { }
-
   ngOnInit() {
     this.membershipService.getAllMembership()
       .then(res => {
           this.employeePosts = res;
+          console.log(res);
         })
       .catch(err => console.log(err));
+    this.items = [
+      {label: 'PDF', icon: 'fa-file-pdf-o'},
+      {label: 'DOC', icon: 'fa-file-text-o'},
+      {label: 'XSL', icon: 'fa-file-excel-o', command: (event) => {
+        console.log(event);
+        }
+      }
+    ];
   }
 
   displayDialog() {
@@ -50,5 +58,13 @@ export class ManageMemberComponent implements OnInit {
       this.msgs = [];
       this.msgs.push({severity: 'error', summary: 'Error', detail: content});
     });
+  }
+
+  changeNavClass(a) {
+    let len = this.navClass.length;
+    for (let i = 0; i < len; i++) {
+      this.navClass[i] = '';
+    }
+    this.navClass[a] = 'choosing';
   }
 }

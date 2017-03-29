@@ -1,29 +1,61 @@
 <app-member-menu-bar [currentState]="4"></app-member-menu-bar>
-<div class="member-manage">
-    <div class="member-list">
-        <h3>Member list: </h3>
-        <hr/>
-        <ul class="employ-list">
-            <li *ngFor="let employeePost of employeePosts; let i = index;">{{employeePost.user.first_name}} {{employeePost.user.last_name}}</li>
-        </ul>
-    </div>
-    <div class="member-action">
-        <button class="add-btn" (click)="displayDialog()" pButton type="button" label="Add new member"></button>
-    </div>
-
-    <p-dialog header="Add New Member" [(visible)]="display" width="600">
-        <div class="form-container">
-        <form (ngSubmit)="onSubmitMember()">
-                <div class="form-group">
-                <input style="width:100%;" type="text" class="form-control" id="client-name" placeholder="Email"
-                name="email" [(ngModel)]="membership.email" required><br/><br/>
-                <button class="active" type="submit">Create New</button>
-                <button type="button" (click)="undisplayDialog()">Cancel</button>
-            </div>
-        </form>
+<div class="container">
+    <ul class="nav-bar">
+        <li [class]="navClass[0]" (click)="changeNavClass(0)" ><p>Employees</p></li>
+        <li [class]="navClass[1]" (click)="changeNavClass(1)"><p>Projects</p></li>
+        <li [class]="navClass[2]" (click)="changeNavClass(2)"><p>Clients</p></li>
+        <li [class]="navClass[3]" (click)="changeNavClass(3)"><p>Holidays</p></li>
+        <li class="export">
+            <p-menu #menu popup="popup" [model]="items"></p-menu>
+            <button pButton type="button" label="Export" icon="fa-caret-down" (click)="menu.toggle($event)" iconPos="right"></button>
+        </li>
+    </ul>
+    <div class="member-manage">
+        <div class="member-list">
+            <table>
+                <thead>
+                    <tr>
+                        <th width="5%"><th>
+                        <th width="25%">Name</th>
+                        <th max-width="99%">Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let employee of employeePosts">
+                        <td class="avatar" width="5%"><img src="assets/image-profile/default-avatar.png"></td>
+                        <td class="name" width="25%">
+                            <p class="full-name">{{employee.user.first_name}} {{employee.user.last_name}}<p>
+                            <p class="email">{{employee.user.email}}</p>    
+                        </td>
+                        <td class="role" max-width="99%">
+                            <select [value]="roles.indexOf(employee.role.name)">
+                                <option value=0>Admin</option>
+                                <option value=1>PM</option>
+                                <option value=2>Member</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-    </p-dialog>
+        <br/>
+        <div class="member-action">
+            <button class="add-btn" (click)="displayDialog()" pButton type="button" label="Add new member"></button>
+        </div>
 
+        <p-dialog header="Add New Member" [(visible)]="display" width="600">
+            <div class="form-container">
+            <form (ngSubmit)="onSubmitMember()">
+                    <div class="form-group">
+                    <input style="width:100%;" type="text" class="form-control" id="client-name" placeholder="Email"
+                    name="email" [(ngModel)]="membership.email" required><br/><br/>
+                    <button class="active" type="submit">Create New</button>
+                    <button type="button" (click)="undisplayDialog()">Cancel</button>
+                </div>
+            </form>
+            </div>
+        </p-dialog>
+
+    </div>
 </div>
-
 <p-growl [value]="msgs"></p-growl>
