@@ -15,16 +15,30 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Name</th>
+                        <th width="5%"><th>
+                        <th width="25%">Name</th>
+                        <th max-width="99%">Role</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let employee of employeePosts">
-                        <td>{{employee.user.first_name}} {{employee.user.last_name}}</td>
+                        <td class="avatar" width="5%"><img src="assets/image-profile/default-avatar.png"></td>
+                        <td class="name" width="25%">
+                            <p class="full-name">{{employee.user.first_name}} {{employee.user.last_name}}<p>
+                            <p class="email">{{employee.user.email}}</p>    
+                        </td>
+                        <td class="role" max-width="99%">
+                            <select [value]="roles.indexOf(employee.role.name)">
+                                <option value=0>Admin</option>
+                                <option value=1>PM</option>
+                                <option value=2>Member</option>
+                            </select>
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
+        <br/>
         <div class="member-action">
             <button class="add-btn" (click)="displayDialog()" pButton type="button" label="Add new member"></button>
         </div>

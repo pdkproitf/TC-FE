@@ -45,10 +45,20 @@
     -->
     <button class="sign-up-btn" id="submit" pButton type="submit" label="Sign Up Free"></button>
   </form>
+  <br/>
+  <div class="claim">
+    <p>
+      By clicking "Sign Up Free" I agree to Time Cloud’s
+    </p>
+    <a href="#">
+      Terms of Service.
+    </a>
+  </div>
 </div>
 <div *ngIf="submitted" class="container form-container">
   <h2>Please verify your email !</h2>
   <p> An email has been sent to the the email <strong><i>{{user.email}}</i></strong>.
    Please check your inbox and follow the instruction to finsish your registration</p>
 </div>
+
 <p-growl [value]="msgs"></p-growl>

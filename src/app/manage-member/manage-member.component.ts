@@ -17,6 +17,7 @@ export class ManageMemberComponent implements OnInit {
   employeePosts: Member[] = [];
   items: any;
   navClass = ['choosing', '', '', ''];
+  roles = ['Admin', 'PM', 'Member'];
   constructor(private membershipService: MembershipService) { }
   ngOnInit() {
     this.membershipService.getAllMembership()
