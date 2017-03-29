@@ -1,3 +1,4 @@
+import { JobService } from './../services/job-service';
 import { Message } from 'primeng/primeng';
 import { Member } from './../models/member';
 import { EmployeePost } from './../models/employee';
@@ -16,16 +17,29 @@ export class ManageMemberComponent implements OnInit {
   membership: Membership = new Membership();
   employeePosts: Member[] = [];
   items: any;
-  navClass = ['choosing', '', '', ''];
+  navClass = ['choosing', '', '', '', ''];
   roles = ['Admin', 'PM', 'Member'];
-  constructor(private membershipService: MembershipService) { }
+  displayAddJob: boolean = false;
+  newJobName: string = '';
+  currentJobs = [];
+  constructor(private membershipService: MembershipService, private jobService: JobService) { }
   ngOnInit() {
     this.membershipService.getAllMembership()
-      .then(res => {
-          this.employeePosts = res;
-          console.log(res);
-        })
-      .catch(err => console.log(err));
+    .then(res => {
+        this.employeePosts = res;
+        console.log(res);
+      })
+    .catch(err => console.log(err));
+    this.jobService.getAllJobs()
+    .then(res => {
+      console.log(res);
+      this.currentJobs = res;
+    })
+    .catch(err => {
+      let content = JSON.parse(err['_body']).error;
+      this.msgs = [];
+      this.msgs.push({severity: 'error', summary: 'Error', detail: content});
+    });
     this.items = [
       {label: 'PDF', icon: 'fa-file-pdf-o'},
       {label: 'DOC', icon: 'fa-file-text-o'},
@@ -58,6 +72,26 @@ export class ManageMemberComponent implements OnInit {
       this.msgs = [];
       this.msgs.push({severity: 'error', summary: 'Error', detail: content});
     });
+  }
+
+  onSubmitJob() {
+    let job = {name: this.newJobName};
+    let jobPost = {job: job};
+    this.jobService.addNewJob(jobPost)
+    .then(res => {
+      console.log(res);
+      this.newJobName = '';
+      this.displayAddJob = false;
+      let content = 'New Job Added';
+      this.msgs = [];
+      this.msgs.push({severity: 'success', summary: 'Success', detail: content});
+      this.currentJobs.push(res);
+    })
+    .catch(err => {
+      let content = JSON.parse(err['_body']).error;
+      this.msgs = [];
+      this.msgs.push({severity: 'error', summary: 'Error', detail: content});
+    })
   }
 
   changeNavClass(a) {

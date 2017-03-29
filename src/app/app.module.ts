@@ -1,3 +1,4 @@
+import { JobService } from './services/job-service';
 import { DateToMDYPipe } from './pipes/string-date-mdy.pipe';
 import { DateToStringWeekDayPipe } from './pipes/date-to-string-weekday.pipe';
 import { SecondsToHoursPipe } from './pipes/seconds-to-hours.pipe';
@@ -156,7 +157,8 @@ import { ProfileComponent } from './profile/profile.component';
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
   AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService,
-  TimerService, ProjectJoinService, TimerFetchService, TaskService, TimeoffService, ReportService],
+  TimerService, ProjectJoinService, TimerFetchService, TaskService, TimeoffService, ReportService,
+  JobService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
