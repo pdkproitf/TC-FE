@@ -374,12 +374,12 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     }
 
     getNumOfPersonTimeOff(member_id :number, id: number){
-        this.timeoffService.getPersonNumTimeOff(member_id, id).then(
+        this.timeoffService.getPersonNumTimeOff(id).then(
             (result) => {
                 this.dialog_personNumTimeOff = result;
             },
             (error) => {
-                console.log('result', error);
+                this.noticeMessage(JSON.parse(error['_body']).error, false)
             }
         )
     }

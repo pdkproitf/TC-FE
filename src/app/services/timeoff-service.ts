@@ -106,9 +106,9 @@ export class TimeoffService {
     }
 
     // load totaltimeoff and rmain timeoff of current person
-    getPersonNumTimeOff(member_id :number = null, id: number = null){
+    getPersonNumTimeOff( id: number = null){
         let requestUrl = this.timeoffUrl + '/num-of-timeoff';
-        if(member_id != null && id != null) requestUrl = requestUrl+'?member_id='+member_id+'&id='+id;
+        if(id != null) requestUrl = requestUrl+'?id='+id;
         let headers = new Headers;
         this.headersService.createAuthHeaders(headers);
         return this.http
