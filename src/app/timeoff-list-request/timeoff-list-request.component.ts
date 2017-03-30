@@ -56,7 +56,7 @@ export class TimeoffListRequestComponent implements OnInit, OnChanges {
                 if(a.updated_at < b.updated_at) return 1;
                 return 0;
             });
-            this.initialize_description_status();
+            this.initializeDescriptionStatus();
         }
     }
 
@@ -66,7 +66,8 @@ export class TimeoffListRequestComponent implements OnInit, OnChanges {
     //@param
     //@result void
     ////
-    initialize_description_status(){
+    // initialize_description_status(){
+    initializeDescriptionStatus(){
         this.show_timeoff_details = new Map<Number, boolean>();
         this.show_description_details = new Map<Number, Number>();
         this._timeoffs.forEach((timeoff) =>{
@@ -122,7 +123,8 @@ export class TimeoffListRequestComponent implements OnInit, OnChanges {
     //@result void
     ////
     showDetails(id: Number){
-        this.show_timeoff_details.get(id)? $('#description-details-'+id).css({'display': 'none'}):$('#description-details-'+id).css({'display': 'block'})
+        this.show_timeoff_details.get(id)? $('#description-details-'+id).css({'display': 'none'}):
+            $('#description-details-'+id).css({'display': 'block'})
         this.show_timeoff_details.set(id, !this.show_timeoff_details.get(id))
     }
 
@@ -133,7 +135,8 @@ export class TimeoffListRequestComponent implements OnInit, OnChanges {
     //@result void
     ////
     showTimeoffControl(is_show: boolean,id: number){
-        is_show? $('#your-timeoff-control-'+id).css({'display': 'inline-block'}) : $('#your-timeoff-control-'+id).css({'display': 'none'});
+        is_show? $('#your-timeoff-control-'+id).css({'display': 'inline-block'}) :
+            $('#your-timeoff-control-'+id).css({'display': 'none'});
     }
 
     ////

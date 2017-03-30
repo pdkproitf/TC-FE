@@ -109,30 +109,30 @@ export class ReportDetailsAdvancesComponent implements OnInit {
     }
 
     totalProjectSelect(){
-        var value = 'All  ';
+        var value = ['All'];
         if(this.projects_selected.length > 0 && this.projects.length > 0){
-            value = '';
-            this.projects_selected.forEach(project => value += project.name + ', ');
+            value = [];
+            this.projects_selected.forEach(project => value.push(project.name +' ,'));
         }
-        return value.slice(0, value.length - 2);
+        return value;
     }
 
     totalCategorySelect(){
-        var value = 'All  ';
+        var value = ['All'];
         if(this.categories_selected.length > 0 && this.categories.length > 0){
-            value = '';
-            this.categories_selected.forEach(category => value += category.name + ', ');
+            value = [];
+            this.categories_selected.forEach(category => value.push(category.name + ' ,'));
         }
-        return value.slice(0, value.length - 2);
+        return value;
     }
 
     totalPeopleSelect(){
-        var value = 'Everyone  ';
+        var value = ['Everyone'];
         if(this.peoples_selected.length > 0 && this.peoples.length > 0){
-            value = '';
-            this.peoples_selected.forEach(member => value += member.user.first_name + ' ' + member.user.last_name + ', ');
+            value = [];
+            this.peoples_selected.forEach(member => value.push(member.user.first_name + ' ' + member.user.last_name + ' ,'));
         }
-        return value.slice(0, value.length - 2);
+        return value;
     }
 /** END: result after run report using to show in search result ***************/
 
@@ -145,7 +145,7 @@ export class ReportDetailsAdvancesComponent implements OnInit {
     changeFilters(showFilters: boolean){
         if(showFilters){
             $('.search-header').hide();
-            $('.search-filters').show();
+            $('.search-filters').css({"display": "-webkit-box"})
             $('.button-filter').hide();
         }else{
             $('.search-header').show();
@@ -337,7 +337,6 @@ export class ReportDetailsAdvancesComponent implements OnInit {
         if(this.end_date > this.today) this.end_date = this.today;
         this.time_selected = this.options[row][col];
         this.showCalendar(false);
-
     }
 
     ////
@@ -454,7 +453,7 @@ export class ReportDetailsAdvancesComponent implements OnInit {
     ////
     runReport(){
         this.start_date.setHours(0, 0, 0, 0);
-        this.end_date.setHours(0, 0, 0, 0);
+        this.end_date.setHours(23, 59, 59, 9999);
         // console.log('runReport', this.start_date, '->', this.end_date);
 
         if(this.getProjectId().length == 0) this.initSelected();

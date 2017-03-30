@@ -127,7 +127,7 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
                 this.initializeHashMemberDayStatus();
             },
             (error) => {
-                console.log('error');
+                this.noticeMessage(JSON.parse(error['_body']).error, false)
             }
         )
     }
