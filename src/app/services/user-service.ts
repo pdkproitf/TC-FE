@@ -49,7 +49,7 @@ export class UserService {
     }
 
     logOut(auth): Promise<any> {
-        let requestUrl = 'https://timecloudbackend.herokuapp.com/api/users/sign-out';
+        let requestUrl = this.serverdomain.domain + '/users/sign-out';
         let headers = new Headers;
         this.headersService.createAuthHeaders(headers);
         return this.http
@@ -60,7 +60,7 @@ export class UserService {
     }
 
     confirm(verifyEmail): Promise<any>{
-        let requestUrl = 'https://timecloudbackend.herokuapp.com/api/users/confirmation?user[confirmation_token]='
+        let requestUrl = this.serverdomain.domain + '/users/confirmation?user[confirmation_token]='
         + verifyEmail.user.confirmation_token;
         let headers = new Headers;
         this.headersService.createAuthHeaders(headers);
