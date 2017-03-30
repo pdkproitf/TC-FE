@@ -61,14 +61,16 @@
             align-items: center;
             .search-result{
                 width: 100%;
+                display: flex;
+                align-self: center;
+                padding: 8%;
                 .times{
-                    display: inline-block;
+                    display: inline-table;
                     text-align: left;
                     font-weight: normal;
-                    font-family: $headerFont;
+                    font-family: Lato;
                     font-size: 16px;
                     line-height: 24px;
-                    height: 75px;
                     label{
                         color: rgba(54, 54, 54, 0.7);
                         height: 24px;
@@ -78,6 +80,9 @@
                         > strong{
                             color: #363636
                         }
+                    }
+                    .block{
+                        display: flex;
                     }
                     .time-frame{
                         > label{
@@ -105,7 +110,7 @@
                 width: 100%;
                 display: none;
                 background-color: #FFFFFF;
-                height: 376px;
+                min-height: 376px;
                 border: 1px solid rgba(54,54,54,0.3);
                 border-radius: 5px;
                 .content{
