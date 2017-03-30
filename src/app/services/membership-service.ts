@@ -49,4 +49,12 @@ export class MembershipService {
         .catch(error => this.handleError(error));
     }
 
+    /* editMember(id: number): Promise<any> {
+        let requestUrl = this.serverdomain.domain + '/members';
+        let headers = new Headers();
+        this.headersService.createAuthHeaders(headers);
+        return this.http
+        .put
+    }*/
+
 }

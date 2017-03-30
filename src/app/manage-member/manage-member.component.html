@@ -20,12 +20,13 @@
                         <th width="5%"><th>
                         <th width="25%">Name</th>
                         <th width="35%">Jobs</th>
-                        <th max-width="99%">Role</th>
-                        <th width="20%"></th>
+                        <th width="8%">Role</th>
+                        <th width="9%" style="padding-left: 1%;">Days Off</th>
+                        <th max-width="99%" style="text-align: center"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let employee of employeePosts; let id = index;">
+                    <tr *ngFor="let employee of members; let id = index;">
                         <td class="avatar" width="5%"><img src="assets/image-profile/default-avatar.png"></td>
                         <td class="name" width="25%">
                             <p class="full-name">{{employee.user.first_name}} {{employee.user.last_name}}<p>
@@ -33,11 +34,13 @@
                         </td>
                         <td class="jobs" width="35%">
                             <div>
-                                <div class="job">Developper <span class="fa fa-times"></span></div>
-                                <div class="job">Tester <span class="fa fa-times"></span></div>
-                                <div class="job">Deleter <span class="fa fa-times"></span></div>
+                                <div *ngFor="let job of employee.jobs" class="job">{{job.name}}<span class="fa fa-times"></span></div>
                             </div>
                             <input type=text placeholder="Add job">
+                            <div class="submit">
+                                <span class="fa fa-check" aria-hidden="true"></span>                            
+                                <span class="fa fa-times" aria-hidden="true"></span>
+                            </div>                      
                             <div *ngIf="id === 0" class="job-selector">
                                 <ul class="job-ul">
                                     <li *ngFor="let job of currentJobs; let i = index" class="job-li">{{job.name}}</li>
@@ -45,22 +48,25 @@
                                 </ul>
                             </div>
                         </td>
-                        <td class="role" max-width="99%">
+                        <td class="role" width="8%">
                             <select [value]="roles.indexOf(employee.role.name)">
                                 <option value=0>Admin</option>
                                 <option value=1>PM</option>
                                 <option value=2>Member</option>
                             </select>
                         </td>
-                        <td class="actions" width="20%">
+                        <td class="days-off" width="8%">
+                            {{employee.furlough_total}}
+                        </td>
+                        <td class="actions" max-width="99%">
                             <div class="action-items">
-                                <div class="oval" (click)="save()">
+                                <div class="oval">
                                     <span class="fa fa-download" aria-hidden="true"></span>
                                 </div>
-                                <div class="oval" (click)="delete()">
+                                <div class="oval">
                                     <span class="fa fa-trash" aria-hidden="true"></span>
                                 </div>
-                                <div class="oval" (click)="edit(project)">
+                                <div class="oval">
                                     <span class="fa fa-pencil" aria-hidden="true"></span>
                                 </div>
                             </div>

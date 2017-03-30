@@ -16,6 +16,7 @@ export class ManageMemberComponent implements OnInit {
   display: boolean = false;
   membership: Membership = new Membership();
   employeePosts: Member[] = [];
+  members: Member[] = [];
   items: any;
   navClass = ['choosing', '', '', '', ''];
   roles = ['Admin', 'PM', 'Member'];
@@ -27,6 +28,10 @@ export class ManageMemberComponent implements OnInit {
     this.membershipService.getAllMembership()
     .then(res => {
         this.employeePosts = res;
+        for (let em of this.employeePosts) {
+          let mem = Object.create(em);
+          this.members.push(mem);
+        }
         console.log(res);
       })
     .catch(err => console.log(err));

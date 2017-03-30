@@ -188,7 +188,22 @@
                                         }
                                     }
                                 }
-                            }
+                            }                            
+                            .submit{
+                                display: inline-block; 
+                                .fa{
+                                    text-align: center;
+                                    padding-top: 8px;
+                                    -webkit-text-stroke: 1px white;
+                                    margin-left: 5px;
+                                    &.fa-check{
+                                        color: green;
+                                    }
+                                    &.fa-times{
+                                        color: red; 
+                                    }
+                                }
+                            }                            
                         }
                         &.role{
                             select{
@@ -220,6 +235,9 @@
                                     }
                                 }
                             }
+                        }
+                        &.days-off{
+                            text-align: center;
                         }
                     }
                 }
