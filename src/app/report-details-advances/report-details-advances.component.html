@@ -26,19 +26,25 @@
                 </div>
 
                 <div class="times types">
-                    <div class="project">
+                    <div class="block">
                         <label for="">Projects</label>
-                        <label for=""><strong>{{totalProjectSelect()}}</strong></label>
+                        <div class="inline">
+                            <label *ngFor="let name of totalProjectSelect()"><strong>{{name | capitalize}}</strong></label>
+                        </div>
                     </div>
 
-                    <div class="category">
+                    <div class="block">
                         <label for="">Categoryes</label>
-                        <label for=""><strong>{{totalCategorySelect()}}</strong></label>
+                        <div class="inline">
+                            <label *ngFor="let name of totalCategorySelect()"><strong>{{name | capitalize}}</strong></label>
+                        </div>
                     </div>
 
-                    <div class="people">
+                    <div class="block">
                         <label for="">Peoples</label>
-                        <label for=""><strong>{{totalPeopleSelect() | capitalize}}</strong></label>
+                        <div class="inline">
+                            <label *ngFor="let name of totalPeopleSelect()"><strong>{{name | capitalize}}</strong></label>
+                        </div>
                     </div>
                 </div>
             </div>
