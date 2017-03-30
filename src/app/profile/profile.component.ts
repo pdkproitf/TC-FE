@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CloudinaryOptions, CloudinaryUploader } from 'ng2-cloudinary';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -12,7 +13,20 @@ export class ProfileComponent implements OnInit {
   role: string;
   company: string;
   navClass = ['choosing', ''];
-  constructor() { }
+  preview: string;
+  imageId: string;
+  uploader: CloudinaryUploader = new CloudinaryUploader(
+    new CloudinaryOptions({cloudName: 'dfov79mrc', uploadPreset: 'sxkpe5fs'})
+  );
+  constructor() {
+    this.uploader.onSuccessItem = (item: any, response: string, status: number, headers: any): any => {
+      let res: any = JSON.parse(response);
+      this.imageId = res.public_id;
+      this.preview = '';
+      console.log({item, response, status, headers});
+      return { item, response, status, headers };
+    };
+  }
 
   ngOnInit() {
     let userInfo = localStorage.getItem('UserInfo');
@@ -34,6 +48,16 @@ export class ProfileComponent implements OnInit {
       this.navClass[i] = '';
     }
     this.navClass[a] = 'choosing';
+  }
+
+  upload() {
+    this.uploader.uploadAll();
+  }
+
+  setImage(arg) {
+    console.log(arg);
+    this.preview = arg.target.value;
+    console.log(this.preview);
   }
 
 }

@@ -76,6 +76,8 @@ import { GradientPipe }     from './pipes/gradient.pipe';
 import { ReportDetailsAdvancesComponent } from './report-details-advances/report-details-advances.component';
 import { ReportDetailsAdvancesListComponent } from './report-details-advances-list/report-details-advances-list.component';
 import { ProfileComponent } from './profile/profile.component';
+import { Ng2CloudinaryModule } from 'ng2-cloudinary';
+import { FileUploadModule } from 'ng2-file-upload';
 
 @NgModule({
   declarations: [
@@ -154,6 +156,8 @@ import { ProfileComponent } from './profile/profile.component';
     ChartModule,
     CheckboxModule,
     GrowlModule,
+    Ng2CloudinaryModule,
+    FileUploadModule
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
   AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService,
