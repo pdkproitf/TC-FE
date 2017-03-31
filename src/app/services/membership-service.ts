@@ -45,7 +45,7 @@ export class MembershipService {
         return this.http
         .put(requestUrl, JSON.stringify(memberShipConfirm), {headers: headers})
         .toPromise()
-        .then(res => res.json)
+        .then(res => res.json())
         .catch(error => this.handleError(error));
     }
 

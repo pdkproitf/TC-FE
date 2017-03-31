@@ -23,6 +23,10 @@ export class ManageMemberComponent implements OnInit {
   displayAddJob: boolean = false;
   newJobName: string = '';
   currentJobs = [];
+  divDisplays = [];
+  submitJobs = [];
+  searchJobText = '';
+
   constructor(private membershipService: MembershipService, private jobService: JobService) { }
   ngOnInit() {
     this.membershipService.getAllMembership()
@@ -31,6 +35,8 @@ export class ManageMemberComponent implements OnInit {
         for (let em of this.employeePosts) {
           let mem = Object.create(em);
           this.members.push(mem);
+          this.divDisplays.push(0);
+          this.submitJobs.push(false);
         }
         console.log(res);
       })
@@ -80,23 +86,30 @@ export class ManageMemberComponent implements OnInit {
   }
 
   onSubmitJob() {
-    let job = {name: this.newJobName};
-    let jobPost = {job: job};
+    let jobPost = {
+        job: {
+          name: this.newJobName
+        }
+      };
+    console.log(jobPost);
     this.jobService.addNewJob(jobPost)
     .then(res => {
       console.log(res);
+      console.log('success');
       this.newJobName = '';
       this.displayAddJob = false;
       let content = 'New Job Added';
       this.msgs = [];
       this.msgs.push({severity: 'success', summary: 'Success', detail: content});
       this.currentJobs.push(res);
-    })
+      }
+    )
     .catch(err => {
       let content = JSON.parse(err['_body']).error;
       this.msgs = [];
       this.msgs.push({severity: 'error', summary: 'Error', detail: content});
-    })
+      }
+    );
   }
 
   changeNavClass(a) {
@@ -105,5 +118,39 @@ export class ManageMemberComponent implements OnInit {
       this.navClass[i] = '';
     }
     this.navClass[a] = 'choosing';
+  }
+
+  addJobToEmployee(employee, job) {
+    if (employee.jobs.indexOf(job) < 0) {
+      employee.jobs.push(job);
+    }
+    console.log(this.employeePosts.indexOf(employee));
+  }
+
+  deleteJobFromEmployee(employee, job) {
+    let i = employee.jobs.indexOf(job);
+    console.log(i);
+    if (i >= 0) {
+      employee.jobs.splice(i, 1);
+    }
+    console.log(this.employeePosts.indexOf(employee));
+  }
+
+  doesHasNewJobs(id): boolean {
+    console.log('add - delete job');
+    console.log(this.employeePosts[id].jobs);
+    console.log(this.members[id].jobs);
+    if (this.employeePosts[id].jobs.length !== this.members[id].jobs.length) {
+      console.log('difference range');
+      return true;
+    }
+    let len = this.members[id].jobs.length;
+    for (let i = 0; i < len; i++) {
+      if (this.employeePosts[id].jobs[i].id !== this.members[id].jobs[i].id ) {
+        console.log('difference elements');
+        return true;
+      }
+    }
+    return false;
   }
 }

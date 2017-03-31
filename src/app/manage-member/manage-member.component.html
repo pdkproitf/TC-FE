@@ -33,17 +33,18 @@
                             <p class="email">{{employee.user.email}}</p>    
                         </td>
                         <td class="jobs" width="35%">
-                            <div>
-                                <div *ngFor="let job of employee.jobs" class="job">{{job.name}}<span class="fa fa-times"></span></div>
+                            <div *ngIf="employee.jobs.length > 0">
+                                <div *ngFor="let job of employee.jobs" class="job">{{job.name}}<span (click)="deleteJobFromEmployee(employee, job); submitJobs[id] = doesHasNewJobs(id);" class="fa fa-times"></span></div>
                             </div>
-                            <input type=text placeholder="Add job">
-                            <div class="submit">
+                            <input type=text placeholder="Add job" (focus)="divDisplays[id] = 1;" (blur)="divDisplays[id] = 0;"
+                            [(ngModel)]="searchJobText" name="search-text">
+                            <div *ngIf="submitJobs[id]" class="submit">
                                 <span class="fa fa-check" aria-hidden="true"></span>                            
                                 <span class="fa fa-times" aria-hidden="true"></span>
                             </div>                      
-                            <div *ngIf="id === 0" class="job-selector">
+                            <div *ngIf="divDisplays[id] === 1" class="job-selector">
                                 <ul class="job-ul">
-                                    <li *ngFor="let job of currentJobs; let i = index" class="job-li">{{job.name}}</li>
+                                    <li *ngFor="let job of currentJobs; let i = index" (mousedown)="addJobToEmployee(employee, job); submitJobs[id] = doesHasNewJobs(id);" class="job-li">{{job.name}}</li>
                                     <li class="job-li" (mousedown)="displayAddJob = true;">Add new job</li>
                                 </ul>
                             </div>

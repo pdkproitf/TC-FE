@@ -35,13 +35,13 @@ export class JobService {
         let headers = new Headers();
         this.headersService.createAuthHeaders(headers);
         return this.http
-        .post(requestUrl, jobPost, {headers: headers})
+        .post(requestUrl, JSON.stringify(jobPost), {headers: headers})
         .toPromise()
         .then(res => {
             return res.json().data;
         })
         .catch(error => {
-            this.handleError(error);
+            return this.handleError(error);
         });
     }
 }
