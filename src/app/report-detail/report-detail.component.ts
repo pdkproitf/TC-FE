@@ -259,10 +259,15 @@ export class ReportDetailComponent implements OnInit {
         }
       let maxSum = Math.max(...this.sum);
       let maxY = 10;
+      let step = 2;
       while (maxSum + 1 >= maxY) {
         maxY += 2;
+        if (Math.round(maxSum / 10) > step) {
+          step = Math.round(maxSum / 10);
+        }
       }
       this.options.scales.yAxes[0].ticks.max = maxY;
+      this.options.scales.yAxes[0].ticks.stepSize = step;
       this.isLoaded = true;
     })
     .catch(error => {
@@ -334,10 +339,15 @@ export class ReportDetailComponent implements OnInit {
     let maxSum = Math.max(...this.sum);
     console.log(maxSum);
     let maxY = 10;
+    let step = 2;
     while (maxSum + 1 >= maxY) {
       maxY += 2;
+      if (Math.round(maxSum / 10) > step) {
+        step = Math.round(maxSum / 10);
+      }
     }
     this.options.scales.yAxes[0].ticks.max = maxY;
+    this.options.scales.yAxes[0].ticks.stepSize = step;
     this.isLoaded = true;
     this.chart.refresh();
   }
