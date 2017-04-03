@@ -12,6 +12,6 @@ export class HolidayPost {
 export class HolidaySchedule {
     id: number;
     title: string;
-    start: string;
-    end: string;
+    start: Date;
+    end: Date;
 }

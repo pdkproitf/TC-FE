@@ -33,9 +33,20 @@ export class HolidayService {
         let headers = new Headers();
         this.headersService.createAuthHeaders(headers);
         return this.http
-        .post(requestUrl, JSON.stringify(holiday) , {headers: headers})
-        .toPromise()
-        .then(res => res.json())
-        .catch(error => this.handleError(error));
+            .post(requestUrl, JSON.stringify(holiday) , {headers: headers})
+            .toPromise()
+            .then(res => res.json())
+            .catch(error => this.handleError(error));
+    }
+
+    delete(id: number): Promise<any> {
+        let requestUrl = new ServerDomain().domain + '/holidays/' + id;
+        let headers = new Headers();
+        this.headersService.createAuthHeaders(headers);
+        return this.http
+            .delete(requestUrl , {headers: headers})
+            .toPromise()
+            .then(res => res.json())
+            .catch(error => this.handleError(error));
     }
 }

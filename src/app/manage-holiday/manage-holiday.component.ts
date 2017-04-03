@@ -71,6 +71,7 @@ export class ManageHolidayComponent implements OnInit {
             right: 'next'
         };
         this.holiday = new HolidaySchedule();
+        console.log('holidays', this.holidays);
 
     }
 
@@ -82,6 +83,7 @@ export class ManageHolidayComponent implements OnInit {
     }
 
     handleEventClick(event){
+        console.log('event', event);
         this.initCurrentDate(event.calEvent);
         this.showDialog();
     }
@@ -98,12 +100,13 @@ export class ManageHolidayComponent implements OnInit {
         this.dialogVisible = show;
     }
 
-    deleteEvent(event){
-
-    }
-
     saveEvent(){
         (this.holiday.id)? this.edit() : this.create();
+        this.showDialog(false);
+    }
+
+    deleteEvent(){
+        if(this.holiday.id) this.delete();
         this.showDialog(false);
     }
 
@@ -111,6 +114,7 @@ export class ManageHolidayComponent implements OnInit {
         this.holidayService.create(this.getHolidayPost()).then(
             (result) => {
                 this.holidays.push(this.convertToHolidaySchedule(result.data));
+                this.noticeMessage('Create ' + result['status'] , true)
             },
             (error) => {
                 this.noticeMessage(JSON.parse(error['_body']).error);
@@ -132,11 +136,11 @@ export class ManageHolidayComponent implements OnInit {
     }
 
     delete(){
-        this.holidayService.create(this.getHolidayPost()).then(
+        this.holidayService.delete(this.holiday.id).then(
             (result) => {
-                result.data.forEach((holiday) => {
-                    this.holidays.push(this.convertToHolidaySchedule(holiday));
-                })
+                var index = this.holidays.findIndex(x => x.id == this.holiday.id);
+                this.noticeMessage('Delete ' + result['status'] , true)
+                this.holidays.splice(index, 1);
             },
             (error) => {
                 this.noticeMessage(JSON.parse(error['_body']).error);
@@ -173,7 +177,7 @@ export class ManageHolidayComponent implements OnInit {
             this.holiday.id = event.id;
             this.holiday.title = event.title;
             this.holiday.start = event._start._d;
-            this.holiday.end = event._end._d;
+            this.holiday.end = event._end == null ? event._start._d : event._end._d;
             console.log('this.event', this.holiday);
         }
     }
@@ -186,13 +190,14 @@ export class ManageHolidayComponent implements OnInit {
         var year = date.getFullYear();
         var month = date.getUTCMonth() > 9 ? (date.getUTCMonth() + 1) : '0' + (date.getUTCMonth() + 1);
         var day = date.getDate() > 9 ? date.getDate() : '0' + date.getDate();
-        return year + '-' + month + '-' + day;
+        // return year + '-' + month + '-' + day + 'T16:00:00';
+        return date;
     }
 
-    noticeMessage(content: string, is_error: boolean = true){
+    noticeMessage(content: string, is_error: boolean = false){
         this.msgs = [];
         is_error?
-            this.msgs.push({severity: 'error', summary: 'Error Messages', detail: content}) :
-            this.msgs.push({severity: 'warn', summary: 'Warn Message', detail: content})
+            this.msgs.push({severity: 'success', summary: 'Success Message', detail: content}) :
+            this.msgs.push({severity: 'error', summary: 'Error Messages', detail: content})
     }
 }
