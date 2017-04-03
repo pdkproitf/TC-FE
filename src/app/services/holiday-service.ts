@@ -1,7 +1,8 @@
-import { HeadersService } from './headers-service';
-import { Headers, Http } from '@angular/http';
-import { Injectable } from '@angular/core';
-import { ServerDomain } from '../models/server-domain';
+import { HeadersService }   from './headers-service';
+import { Headers, Http }    from '@angular/http';
+import { ServerDomain }     from '../models/server-domain';
+import { HolidayPost }      from '../models/holiday';
+import { Injectable }       from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
@@ -15,7 +16,7 @@ export class HolidayService {
         return Promise.reject(error.message || error);
     }
 
-    getHolidays(): Promise<any> {
+    gets(): Promise<any> {
         let requestUrl = new ServerDomain().domain + '/holidays';
         let headers = new Headers();
         this.headersService.createAuthHeaders(headers);
@@ -26,4 +27,15 @@ export class HolidayService {
         .catch(error => this.handleError(error));
     }
 
+    create(holiday: HolidayPost): Promise<any> {
+        console.log('holiday service', JSON.stringify(holiday))
+        let requestUrl = new ServerDomain().domain + '/holidays';
+        let headers = new Headers();
+        this.headersService.createAuthHeaders(headers);
+        return this.http
+        .post(requestUrl, JSON.stringify(holiday) , {headers: headers})
+        .toPromise()
+        .then(res => res.json())
+        .catch(error => this.handleError(error));
+    }
 }

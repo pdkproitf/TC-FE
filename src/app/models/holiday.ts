@@ -5,6 +5,10 @@ export class Holiday {
     company_id: number;
 }
 
+export class HolidayPost {
+    holiday: Holiday;
+}
+
 export class HolidaySchedule {
     id: number;
     title: string;

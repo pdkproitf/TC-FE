@@ -1,4 +1,4 @@
-import { Holiday, HolidaySchedule } from '../models/holiday';
+import { Holiday, HolidaySchedule, HolidayPost } from '../models/holiday';
 import { Component, OnInit } from '@angular/core';
 import { ChangeDetectorRef } from "@angular/core";
 import { HolidayService }    from './../services/holiday-service';
@@ -18,10 +18,10 @@ export class ManageHolidayComponent implements OnInit {
     msgs: Message[] = [];
 
     constructor(private holidayService: HolidayService) {
-        holidayService.getHolidays().then(
+        holidayService.gets().then(
             (result) => {
                 result.data.forEach((holiday) => {
-                    this.holidays.push(this.getHoliday(holiday));
+                    this.holidays.push(this.convertToHolidaySchedule(holiday));
                 })
             },
             (error) => {
@@ -75,44 +75,76 @@ export class ManageHolidayComponent implements OnInit {
     }
 
     handleDayClick(event) {
-        console.log('onEventDragStop holiday', this.holiday.end);
         this.holiday = new HolidaySchedule();
+        this.holiday.start = event.date._d;
+        this.holiday.end = event.date._d;
         this.showDialog();
     }
 
     handleEventClick(event){
         this.initCurrentDate(event.calEvent);
-        console.log('handleEventClick', event);
-        // this.event.id = event.calEvent.id;
-        // this.event.title = event.calEvent.title;
-        // this.event.start = event.calEvent.start._d;
-        // this.event.end = event.calEvent.end._d;
         this.showDialog();
     }
 
     onEventDragStop(event) {
         this.initCurrentDate(event.event);
-        console.log('onEventDragStop holiday', this.holiday.end);
     }
 
     onEventResizeStop(event){
         this.initCurrentDate(event.event);
-        console.log('onEventResizeStop event event', event.event._end);
     }
 
-    showDialog(){
-        this.dialogVisible = true;
+    showDialog(show: boolean = true){
+        this.dialogVisible = show;
     }
 
     deleteEvent(event){
 
     }
 
-    saveEvent(event){
-        event.prev();
+    saveEvent(){
+        (this.holiday.id)? this.edit() : this.create();
+        this.showDialog(false);
     }
 
-    getHoliday(object: Object): HolidaySchedule{
+    create(){
+        this.holidayService.create(this.getHolidayPost()).then(
+            (result) => {
+                this.holidays.push(this.convertToHolidaySchedule(result.data));
+            },
+            (error) => {
+                this.noticeMessage(JSON.parse(error['_body']).error);
+            }
+        )
+    }
+
+    edit(){
+        this.holidayService.create(this.getHolidayPost()).then(
+            (result) => {
+                result.data.forEach((holiday) => {
+                    this.holidays.push(this.convertToHolidaySchedule(holiday));
+                })
+            },
+            (error) => {
+                this.noticeMessage(JSON.parse(error['_body']).error);
+            }
+        )
+    }
+
+    delete(){
+        this.holidayService.create(this.getHolidayPost()).then(
+            (result) => {
+                result.data.forEach((holiday) => {
+                    this.holidays.push(this.convertToHolidaySchedule(holiday));
+                })
+            },
+            (error) => {
+                this.noticeMessage(JSON.parse(error['_body']).error);
+            }
+        )
+    }
+
+    convertToHolidaySchedule(object: Object): HolidaySchedule{
         var holiday: HolidaySchedule = new HolidaySchedule();
         holiday.id = object['id'];
         holiday.title = object['name'];
@@ -120,6 +152,20 @@ export class ManageHolidayComponent implements OnInit {
         holiday.end = this.convertdateToString(new Date(object['end_date']));
 
         return holiday;
+    }
+
+    getHolidayPost(){
+        var holidayPost = new HolidayPost();
+        holidayPost.holiday = this.getHoliday();
+        return holidayPost;
+    }
+
+    getHoliday(){
+        var data = new Holiday();
+        data.name = this.holiday.title;
+        data.begin_date = new Date(this.holiday.start);
+        data.end_date = new Date(this.holiday.end);
+        return data;
     }
 
     initCurrentDate(event){
