@@ -40,7 +40,6 @@ export class DashboardComponent implements OnInit {
     this.taskService.getRecentTasks(num)
     .then(res => {
       this.recentTasks = res;
-      console.log(this.recentTasks);
     })
     .catch( err => {
       console.log(err);

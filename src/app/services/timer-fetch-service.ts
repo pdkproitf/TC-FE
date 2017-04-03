@@ -18,14 +18,33 @@ export class TimerFetchService {
     }
 
     getTimerFetch(from: string, to: string): Promise<any> {
+        let offset = new Date().getTimezoneOffset();
+        let timeDifference = offset * 60 * 1000;
+        let fromDate = new Date(from);
+        let toDate = new Date(to);
         let requestUrl = this.serverdomain.domain + '/timers?period[from_day]=' +
-        from + '&period[to_day]=' + to;
+        JSON.stringify(fromDate) + '&period[to_day]=' + JSON.stringify(toDate);
         let headers = new Headers();
         this.headersService.createAuthHeaders(headers);
         return this.http
         .get(requestUrl, {headers: headers})
         .toPromise()
-        .then(res => res.json())
+        .then(res => {
+            let timerFetchs = res.json();
+            let keys = Object.keys(timerFetchs);
+            let len = keys.length;
+            for (let i = 0; i < len; i ++) {
+                let timerFetch = timerFetchs[keys[i]];
+                for (let timer of timerFetch) {
+                    let startTime = new Date(timer.start_time).getTime() + timeDifference;
+                    let stopTime = new Date(timer.stop_time).getTime() + timeDifference;
+                    timer.start_time = new Date(startTime);
+                    timer.stop_time = new Date(stopTime);
+                }
+            }
+            return timerFetchs;
+            }
+        )
         .catch(err => this.handleError(err));
     }
 

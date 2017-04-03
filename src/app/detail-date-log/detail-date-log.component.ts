@@ -40,6 +40,7 @@ export class DetailDateLogComponent implements OnInit {
     let chosenDate = new Date(firstDateTmp.setDate(this.firstWeekDay.getDate() + number));
     this.timerFetchService.getTimerFetch(this.firstString, this.lastString)
     .then(res => {
+      console.log(res);
       this.fullWeekTimer = res;
       let chooseString = this.dateToShortString(chosenDate);
       this.currentTimers = this.fullWeekTimer[chooseString];
@@ -154,7 +155,6 @@ export class DetailDateLogComponent implements OnInit {
     }
     this.generateTotalTime();
     this.endLastTimer = new Date(arg.stop_time);
-    console.log(this.recentTasks);
   }
 
   onStart(arg) {
