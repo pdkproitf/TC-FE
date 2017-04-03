@@ -4,3 +4,10 @@ export class Holiday {
     end_date: Date;
     company_id: number;
 }
+
+export class HolidaySchedule {
+    id: number;
+    title: string;
+    start: string;
+    end: string;
+}

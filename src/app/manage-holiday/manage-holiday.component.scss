@@ -1,0 +1,11 @@
+.content{
+    width: 80%;
+    margin: auto;
+    margin-top: 4em;
+    margin-bottom: 4em;
+}
+/deep/.ui-datepicker {
+    position: fixed;
+    top: inherit !important;
+    left: inherit !important;
+}
