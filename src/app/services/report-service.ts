@@ -47,7 +47,20 @@ export class ReportService {
         return this.http
         .get(requestUrl, {headers: headers})
         .toPromise()
-        .then(res => res.json().data)
+        .then(res => {
+            let report = res.json().data;
+            console.log(report);
+            let offset = new Date().getTimezoneOffset();
+            let timeDifference = offset * 60 * 1000;
+            for (let ot of report.overtime) {
+                let startTime = new Date(ot.start_time).getTime() + timeDifference;
+                let stopTime = new Date(ot.stop_time).getTime() + timeDifference;
+                ot.start_time = new Date(startTime);
+                ot.stop_time = new Date(stopTime);
+                }
+            return report;
+            }
+        )
         .catch(error => this.handleError(error));
     }
 

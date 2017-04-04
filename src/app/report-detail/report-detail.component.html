@@ -9,7 +9,7 @@
       <tr>
         <td class="info">
           <img *ngIf="member.user.image != null" src="{{member.user.image}}">
-          <img src="assets/image-profile/default-avatar.png">
+          <img *ngIf="member.user.image === null" src="assets/image-profile/default-avatar.png">
           <p class="name">{{member.user.first_name}} {{member.user.last_name}}</p><br/>
           <p class="email">{{member.user.email}}</p>
         </td>

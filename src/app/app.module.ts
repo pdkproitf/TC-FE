@@ -1,3 +1,4 @@
+import { JobService } from './services/job-service';
 import { DateToMDYPipe } from './pipes/string-date-mdy.pipe';
 import { DateToStringWeekDayPipe } from './pipes/date-to-string-weekday.pipe';
 import { SecondsToHoursPipe } from './pipes/seconds-to-hours.pipe';
@@ -73,6 +74,8 @@ import { GradientPipe }     from './pipes/gradient.pipe';
 import { ReportDetailsAdvancesComponent } from './report-details-advances/report-details-advances.component';
 import { ReportDetailsAdvancesListComponent } from './report-details-advances-list/report-details-advances-list.component';
 import { ProfileComponent } from './profile/profile.component';
+import { Ng2CloudinaryModule } from 'ng2-cloudinary';
+import { FileUploadModule } from 'ng2-file-upload';
 import { ManageHolidayComponent } from './manage-holiday/manage-holiday.component';
 
 @NgModule({
@@ -153,11 +156,14 @@ import { ManageHolidayComponent } from './manage-holiday/manage-holiday.componen
     ChartModule,
     CheckboxModule,
     GrowlModule,
+    Ng2CloudinaryModule,
+    FileUploadModule,
     ScheduleModule
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
   AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService,
-  TimerService, ProjectJoinService, TimerFetchService, TaskService, TimeoffService, ReportService, HolidayService],
+  TimerService, ProjectJoinService, TimerFetchService, TaskService, TimeoffService, ReportService,
+  JobService, HolidayService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

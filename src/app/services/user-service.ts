@@ -70,4 +70,18 @@ export class UserService {
         .then(res => res.json().data)
         .catch(this.handleError);
     }
+
+    editProfile(userPut: any): Promise<any> {
+        let requestUrl = this.serverdomain.domain + '/users';
+        let headers = new Headers();
+        this.headersService.createAuthHeaders(headers);
+        return this.http
+        .put(requestUrl, JSON.stringify(userPut), {headers: headers})
+        .toPromise()
+        .then(res => {
+            console.log(res.json());
+            return res.json();
+        })
+        .catch(error => this.handleError(error));
+    }
 }

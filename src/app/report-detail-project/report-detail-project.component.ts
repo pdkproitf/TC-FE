@@ -117,7 +117,7 @@ export class ReportDetailProjectComponent implements OnInit {
                     ctx.fillStyle = '#FFFFFF';
                     let toFull = height - 50  - bar._model.y;
                     if  (data > 0)  {
-                      ctx.fillText('$', bar._model.x, bar._model.y + (toFull / 2) + 8);
+                      ctx.fillText('$', bar._model.x, bar._model.y + (toFull / 2));
                     }
                     ctx.fillStyle = '#000000';
                 });
@@ -226,10 +226,15 @@ export class ReportDetailProjectComponent implements OnInit {
       }
       let maxSum = Math.max(...this.sum);
       let maxY = 10;
+      let step = 2;
       while (maxSum + 1 >= maxY) {
-        maxY += 2;
+        maxY += step;
+        if (Math.round(maxSum / 10) > step) {
+          step = Math.round(maxSum / 10);
+        }
       }
       this.options.scales.yAxes[0].ticks.max = maxY;
+      this.options.scales.yAxes[0].ticks.stepSize = step;
       this.isLoaded = true;
     })
     .catch(error => {
@@ -280,10 +285,15 @@ export class ReportDetailProjectComponent implements OnInit {
     let maxSum = Math.max(...this.sum);
     console.log(maxSum);
     let maxY = 10;
-    while (maxSum + 1 > maxY) {
-      maxY += 2;
+    let step = 2;
+    while (maxSum + 1 >= maxY) {
+      maxY += step;
+      if (Math.round(maxSum / 10) > step) {
+        step = Math.round(maxSum / 10);
+      }
     }
     this.options.scales.yAxes[0].ticks.max = maxY;
+    this.options.scales.yAxes[0].ticks.stepSize = step;
     this.isLoaded = true;
     this.chart.refresh();
   }

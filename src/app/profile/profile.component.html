@@ -1,12 +1,17 @@
-<app-member-menu-bar></app-member-menu-bar>
+<app-member-menu-bar #memberBar></app-member-menu-bar>
 <div class = "profile">
   <div class="info">
     <img [src]="avatar">
     <p class="name">{{firstName}} {{lastName}}</p><br/>
     <p class="email">{{email}}</p><br/>
     <p [class]="role">{{role}}</p> <p style="color: rgba(54,54,54,0.7)">at</p> <p style="font-weight: bold; color: #0066CC">{{company}}</p><br/>
-    <!--<input type="file">-->
   </div>
+  <div class="change-avatar">
+      <label for="upload-photo">Browse Image</label>
+      <input type="file" ng2FileSelect [uploader]="uploader" (change)="setImage($event)"
+      id="upload-photo" accept="image/*;capture=camera"><span>{{preview}}</span>
+      <button type="button" (click)="upload()">Update your avatar</button>
+    </div>
 </div>
 <div class = "update">
   <ul class="nav-bar">
@@ -23,16 +28,16 @@
         </tr>
         <tr>
           <td><label>First name:</label></td>
-          <td><input type="text" [placeholder]="firstName"></td>
+          <td><input type="text" [(ngModel)]="firstName" name="first-name" [placeholder]="firstName"></td>
         </tr>
         <tr>
           <td><label>Last name:</label></td>
-          <td><input type="text" [placeholder]="lastName"></td>
+          <td><input type="text" [(ngModel)]="lastName" name="last-name" [placeholder]="lastName"></td>
         </tr>
       </table>
       <br/>
-      <button type="button">Cancel</button>
-      <button type="submit">Save</button>
+      <button (click)="cancel()" type="button">Cancel</button>
+      <button (click)="submitEditProfile()" type="submit">Save</button>
     </form>
   </div>
 
@@ -53,8 +58,9 @@
         </tr>
       </table>
       <br/>
-      <button type="button">Cancel</button>
+      <button (click)="cancel()" type="button">Cancel</button>
       <button type="submit">Save</button>
     </form>
   </div>
 </div>
+
