@@ -228,7 +228,7 @@ export class ReportDetailProjectComponent implements OnInit {
       let maxY = 10;
       let step = 2;
       while (maxSum + 1 >= maxY) {
-        maxY += 2;
+        maxY += step;
         if (Math.round(maxSum / 10) > step) {
           step = Math.round(maxSum / 10);
         }
@@ -287,7 +287,7 @@ export class ReportDetailProjectComponent implements OnInit {
     let maxY = 10;
     let step = 2;
     while (maxSum + 1 >= maxY) {
-      maxY += 2;
+      maxY += step;
       if (Math.round(maxSum / 10) > step) {
         step = Math.round(maxSum / 10);
       }

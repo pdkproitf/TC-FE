@@ -34,6 +34,8 @@ export class ManageMemberComponent implements OnInit {
         this.employeePosts = res;
         for (let em of this.employeePosts) {
           let mem = Object.create(em);
+          let jobs = Object.create(em.jobs);
+          mem.jobs = jobs;
           this.members.push(mem);
           this.divDisplays.push(0);
           this.submitJobs.push(false);
