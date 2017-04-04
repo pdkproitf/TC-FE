@@ -9,3 +9,67 @@
     top: inherit !important;
     left: inherit !important;
 }
+/deep/ .ui-dialog {
+    .ui-dialog-title {
+        font-family: Lato;
+        font-size: 16px !important;
+        line-height: 24px;
+        color: rgba(54,54,54,0.7);
+    }
+    .fa {
+        -webkit-text-stroke: 1px whitesmoke;
+    }
+
+    .ui-dialog-titlebar-close {
+        border: 1px solid transparent;
+    }
+    .ui-dialog-buttonpane {
+        border: 0;
+    }
+    button{
+        font-family: Lato;
+        font-size: 16px !important;
+        line-height: 24px;
+    }
+    .ui-fluid .ui-inputtext {
+        font-family: Lato;
+        font-size: 16px !important;
+        line-height: 24px;
+        cursor: pointer;
+    }
+}
+.ui-grid{
+    box-shadow: inset 0 -1px 0 0 rgba(54,54,54,0.3);
+    padding-bottom: 1em;
+}
+.ui-grid-row{
+    margin-bottom: 0.5em;
+    font-family: Lato;
+    font-size: 16px !important;
+    line-height: 24px;
+    color: rgba(54,54,54,0.7);
+}
+/deep/ .fc{
+    .fc-view-container{
+        font-family: Lato;
+        font-size: 16px !important;
+        line-height: 24px;
+    }
+    .fc-event{
+        background-color: rgba(155,89,182,0.8);
+        border: 1px solid rgba(155,89,221,0.8);
+    }
+    .fc-day-grid-event .fc-time {
+        display: none;
+    }
+    button{
+        border: 0;
+        font-family: Lato;
+        font-size: 16px !important;
+        line-height: 24px;
+    }
+}
+/deep/.ui-growl-item {
+    display: flex;
+    font-family: Lato;
+}

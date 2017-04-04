@@ -1,7 +1,7 @@
 <div class="content">
     <p-schedule [events]="holidays" [header]="headerConfig"  [editable]="true" locale="en"
         (onDayClick)="handleDayClick($event); " (onEventClick)="handleEventClick($event); "
-        (onEventDragStop)="onEventDragStop($event)" (onEventResizeStop)="onEventResizeStop($event)" #fc>
+        (onEventDragStop)="onEventDragStop($event)" (onEventResizeStop)="onEventResizeStop($event)">
     </p-schedule>
 </div>
 
@@ -21,7 +21,7 @@
         </div>
     </div>
     <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-        <button type="button" pButton icon="fa-close" (click)="deleteEvent()" label="Delete"></button>
+        <button type="button" pButton icon="fa-close" (click)="deleteEvent()" [disabled]="!holiday.id" label="Delete"></button>
         <button type="button" pButton icon="fa-check" (click)="saveEvent()" label="Save"></button>
     </div>
 </p-dialog>
