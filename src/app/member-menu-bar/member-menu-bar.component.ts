@@ -69,4 +69,10 @@ export class MemberMenuBarComponent implements OnInit {
     );
   }
 
+  updateInfo() {
+    let userInfo = localStorage.getItem('UserInfo');
+    let userObj = JSON.parse(userInfo);
+    this.user.name = userObj.user.first_name;
+    this.imageUrl = userObj.user.image;
+  }
 }

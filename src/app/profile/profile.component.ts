@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { MemberMenuBarComponent } from './../member-menu-bar/member-menu-bar.component';
+import { Location } from '@angular/common';
+import { UserService } from './../services/user-service';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CloudinaryOptions, CloudinaryUploader } from 'ng2-cloudinary';
 @Component({
   selector: 'app-profile',
@@ -6,6 +9,7 @@ import { CloudinaryOptions, CloudinaryUploader } from 'ng2-cloudinary';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
+  @ViewChild('memberBar') memberBar: MemberMenuBarComponent;
   firstName: string;
   lastName: string;
   avatar: string = 'assets/image-profile/default-avatar.png';
@@ -18,12 +22,15 @@ export class ProfileComponent implements OnInit {
   uploader: CloudinaryUploader = new CloudinaryUploader(
     new CloudinaryOptions({cloudName: 'dfov79mrc', uploadPreset: 'sxkpe5fs'})
   );
-  constructor() {
+  constructor(private userService: UserService, private location: Location) {
     this.uploader.onSuccessItem = (item: any, response: string, status: number, headers: any): any => {
       let res: any = JSON.parse(response);
       this.imageId = res.public_id;
       this.preview = '';
       console.log({item, response, status, headers});
+      let url = JSON.parse(response).url;
+      this.avatar = url;
+      this.submitEditProfile();
       return { item, response, status, headers };
     };
   }
@@ -60,4 +67,29 @@ export class ProfileComponent implements OnInit {
     console.log(this.preview);
   }
 
+  submitEditProfile() {
+    let userPut = {
+      user: {
+        first_name: this.firstName,
+        last_name: this.lastName,
+        image: this.avatar
+      }
+    };
+    this.userService.editProfile(userPut)
+    .then( result => {
+        let userInfo = localStorage.getItem('UserInfo');
+        let userObj = JSON.parse(userInfo);
+        userObj.user.image = this.avatar;
+        userObj.user.first_name = this.firstName;
+        userObj.user.last_name = this.lastName;
+        let newUserInfo = JSON.stringify(userObj);
+        localStorage.setItem('UserInfo', newUserInfo);
+        this.memberBar.updateInfo();
+      })
+    .catch(err => console.log(err));
+  }
+
+  cancel() {
+    this.location.back();
+  }
 }
