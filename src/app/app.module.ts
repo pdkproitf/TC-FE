@@ -15,10 +15,13 @@ import { TimeoffService } from './services/timeoff-service';
 import { NotLoggedIn } from './services/not-logged-in';
 import { AuthenLoggedIn } from './services/authen-logged-in';
 import { UserService } from './services/user-service';
+import { HolidayService } from './services/holiday-service';
 import { LocationStrategy, HashLocationStrategy }from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
-import { ToolbarModule, ButtonModule, InputTextModule, MenuModule, AutoCompleteModule, CarouselModule,
-  CalendarModule, DropdownModule, DialogModule, ChartModule, GrowlModule } from 'primeng/primeng';
+import { ToolbarModule, ButtonModule, InputTextModule, MenuModule, AutoCompleteModule,
+    CarouselModule, CalendarModule, DropdownModule, DialogModule, ChartModule,
+    GrowlModule, ScheduleModule, RadioButtonModule, CheckboxModule, OverlayPanelModule,
+    PaginatorModule, TabViewModule } from 'primeng/primeng';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -44,8 +47,6 @@ import { ProjectListComponent } from './project-list/project-list.component';
 import { ProjectDetailsComponent } from './project-details/project-details.component';
 import { ProjecTableComponent } from './project-table/project-table.component';
 import { AddingMemberComponent } from './adding-member/adding-member.component';
-import {PaginatorModule}    from 'primeng/primeng';
-import {TabViewModule}      from 'primeng/primeng';
 import { ProjectDetailsTasksComponent } from './project-details-tasks/project-details-tasks.component';
 import { ProjectDetailsTeamComponent } from './project-details-team/project-details-team.component';
 import { DetailDateLogLiComponent } from './detail-date-log-li/detail-date-log-li.component';
@@ -56,14 +57,12 @@ import { TimeFromSecondsPipe } from './pipes/time-from-seconds.pipe';
 import { TimeoffManageComponent }   from './timeoff-manage/timeoff-manage.component';
 import { CreateTimeoffComponent }   from './create-timeoff/create-timeoff.component';
 import { ReactiveFormsModule }      from '@angular/forms';
-import { RadioButtonModule }    from 'primeng/primeng';
 import { TimeoffListRequestComponent } from './timeoff-list-request/timeoff-list-request.component';
 import { MomentModule } from 'angular2-moment';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
 import { TimeoffPendingRequestsComponent } from './timeoff-pending-requests/timeoff-pending-requests.component';
 import { EditProjectComponent } from './edit-project/edit-project.component';
 import { MembersConfirmComponent } from './members-confirm/members-confirm.component';
-import {OverlayPanelModule}     from 'primeng/primeng';
 import { ReportComponent } from './report/report.component';
 import { ReportSearchComponent } from './report-search/report-search.component';
 import { TimeoffPassRequestsComponent } from './timeoff-pass-requests/timeoff-pass-requests.component';
@@ -71,13 +70,13 @@ import { ReportDetailComponent } from './report-detail/report-detail.component';
 import { ReportDetailProjectComponent } from './report-detail-project/report-detail-project.component';
 import { TimeoffCalendarComponent } from './timeoff-calendar/timeoff-calendar.component';
 import { TimeoffTableViewComponent } from './timeoff-table-view/timeoff-table-view.component';
-import { CheckboxModule }   from 'primeng/primeng';
 import { GradientPipe }     from './pipes/gradient.pipe';
 import { ReportDetailsAdvancesComponent } from './report-details-advances/report-details-advances.component';
 import { ReportDetailsAdvancesListComponent } from './report-details-advances-list/report-details-advances-list.component';
 import { ProfileComponent } from './profile/profile.component';
 import { Ng2CloudinaryModule } from 'ng2-cloudinary';
 import { FileUploadModule } from 'ng2-file-upload';
+import { ManageHolidayComponent } from './manage-holiday/manage-holiday.component';
 
 @NgModule({
   declarations: [
@@ -131,7 +130,8 @@ import { FileUploadModule } from 'ng2-file-upload';
     SecondsToHoursPipe,
     DateToStringWeekDayPipe,
     DateToMDYPipe,
-    ProfileComponent
+    ProfileComponent,
+    ManageHolidayComponent,
   ],
   imports: [
     BrowserModule,
@@ -157,12 +157,13 @@ import { FileUploadModule } from 'ng2-file-upload';
     CheckboxModule,
     GrowlModule,
     Ng2CloudinaryModule,
-    FileUploadModule
+    FileUploadModule,
+    ScheduleModule
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
   AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService,
   TimerService, ProjectJoinService, TimerFetchService, TaskService, TimeoffService, ReportService,
-  JobService],
+  JobService, HolidayService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

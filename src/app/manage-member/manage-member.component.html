@@ -1,6 +1,7 @@
 <app-member-menu-bar [currentState]="4"></app-member-menu-bar>
 <div class="container">
-    <ul class="nav-bar">
+    <app-manage-holiday></app-manage-holiday>
+    <!-- <ul class="nav-bar">
         <li [class]="navClass[0]" (click)="changeNavClass(0)" ><p>Employees</p></li>
         <li [class]="navClass[1]" (click)="changeNavClass(1)"><p>Invites</p></li>
         <li [class]="navClass[2]" (click)="changeNavClass(2)"><p>Clients</p></li>
@@ -34,7 +35,7 @@
                         </td>
                         <td class="name" width="25%">
                             <p class="full-name">{{employee.user.first_name}} {{employee.user.last_name}}<p>
-                            <p class="email">{{employee.user.email}}</p>    
+                            <p class="email">{{employee.user.email}}</p>
                         </td>
                         <td class="jobs" width="35%">
                             <div *ngIf="employee.jobs.length > 0">
@@ -111,7 +112,7 @@
             </div>
         </p-dialog>
 
-    </div>
+    </div> -->
 </div>
 
 <p-growl [value]="msgs"></p-growl>
