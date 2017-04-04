@@ -1,0 +1,8 @@
+<p>
+  invites-confirm works!
+</p>
+<div *ngIf="isLogedOut">
+  <p>type your email to verify</p>
+  <input type="text" [(ngModel)]="email" name="email">
+  <button (click)="confirmInvite()" type="button">Confirm</button>
+</div>

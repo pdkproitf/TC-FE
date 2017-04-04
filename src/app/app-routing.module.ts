@@ -1,3 +1,4 @@
+import { InvitesConfirmComponent } from './invites-confirm/invites-confirm.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ReportDetailProjectComponent } from './report-detail-project/report-detail-project.component';
 import { ReportDetailComponent } from './report-detail/report-detail.component';
@@ -44,6 +45,7 @@ const routes: Routes = [
     { path: 'report-detail-project/:id/:begin/:end', component: ReportDetailProjectComponent, canActivate: [AuthenLoggedIn] },
     { path: 'report-advance', component: ReportDetailsAdvancesComponent, canActivate: [AuthenLoggedIn] },
     { path: 'profile', component: ProfileComponent, canActivate: [AuthenLoggedIn] },
+    { path: 'invites-confirm/:token/:name/:domain', component: InvitesConfirmComponent },
     // { path: '', component: AppComponent }
     // { path: '', redirectTo: '/home', pathMatch: 'full'}
 ];

@@ -77,6 +77,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { Ng2CloudinaryModule } from 'ng2-cloudinary';
 import { FileUploadModule } from 'ng2-file-upload';
 import { ManageHolidayComponent } from './manage-holiday/manage-holiday.component';
+import { InvitesConfirmComponent } from './invites-confirm/invites-confirm.component';
 
 @NgModule({
   declarations: [
@@ -132,6 +133,7 @@ import { ManageHolidayComponent } from './manage-holiday/manage-holiday.componen
     DateToMDYPipe,
     ProfileComponent,
     ManageHolidayComponent,
+    InvitesConfirmComponent,
   ],
   imports: [
     BrowserModule,
