@@ -28,12 +28,22 @@ export class HolidayService {
     }
 
     create(holiday: HolidayPost): Promise<any> {
-        console.log('holiday service', JSON.stringify(holiday))
         let requestUrl = new ServerDomain().domain + '/holidays';
         let headers = new Headers();
         this.headersService.createAuthHeaders(headers);
         return this.http
             .post(requestUrl, JSON.stringify(holiday) , {headers: headers})
+            .toPromise()
+            .then(res => res.json())
+            .catch(error => this.handleError(error));
+    }
+
+    update(holiday: HolidayPost): Promise<any> {
+        let requestUrl = new ServerDomain().domain + '/holidays/' + holiday.holiday.id;
+        let headers = new Headers();
+        this.headersService.createAuthHeaders(headers);
+        return this.http
+            .put(requestUrl, JSON.stringify(holiday) , {headers: headers})
             .toPromise()
             .then(res => res.json())
             .catch(error => this.handleError(error));

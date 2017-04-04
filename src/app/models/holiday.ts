@@ -1,4 +1,5 @@
 export class Holiday {
+    id: number;
     name: string;
     begin_date: Date;
     end_date: Date;
@@ -12,6 +13,6 @@ export class HolidayPost {
 export class HolidaySchedule {
     id: number;
     title: string;
-    start: Date;
-    end: Date;
+    start: string;
+    end: string;
 }

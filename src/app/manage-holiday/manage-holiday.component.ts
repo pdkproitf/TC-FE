@@ -17,7 +17,7 @@ export class ManageHolidayComponent implements OnInit {
     holiday: HolidaySchedule;
     msgs: Message[] = [];
 
-    constructor(private holidayService: HolidayService) {
+    constructor(private holidayService: HolidayService, private cd: ChangeDetectorRef) {
         holidayService.gets().then(
             (result) => {
                 result.data.forEach((holiday) => {
@@ -31,48 +31,12 @@ export class ManageHolidayComponent implements OnInit {
     }
 
     ngOnInit() {
-
-        this.events = [
-            {
-                'id':  1,
-                "title": "All Day Event",
-                "start": "2017-04-01",
-                "end": "2017-0430"
-            },
-            {
-                'id':  2,
-                "title": "Long Event",
-                "start": "2017-04-07",
-                "end": "2017-04-10"
-            },
-            {
-                'id':  3,
-                "title": "Repeating Event",
-                "start": "2017-04-09T16:00:00",
-                "end": "2017-04-09T16:00:00"
-            },
-            {
-                'id':  4,
-                "title": "Repeating Event",
-                "start": "2017-04-16T16:00:00",
-                "end": "2017-04-16T16:00:00"
-            },
-            {
-                'id':  5,
-                "title": "Conference",
-                "start": "2017-04-11",
-                "end": "2017-04-13"
-            }
-        ];
-
         this.headerConfig = {
             left: 'prev today',
             center: 'title',
             right: 'next'
         };
         this.holiday = new HolidaySchedule();
-        console.log('holidays', this.holidays);
-
     }
 
     handleDayClick(event) {
@@ -83,13 +47,15 @@ export class ManageHolidayComponent implements OnInit {
     }
 
     handleEventClick(event){
-        console.log('event', event);
         this.initCurrentDate(event.calEvent);
         this.showDialog();
     }
 
-    onEventDragStop(event) {
-        this.initCurrentDate(event.event);
+    onEventDragStop($event) {
+        setTimeout(()=> {
+            this.initCurrentDate($event.event);
+            this.edit();
+        }, 500);
     }
 
     onEventResizeStop(event){
@@ -123,11 +89,11 @@ export class ManageHolidayComponent implements OnInit {
     }
 
     edit(){
-        this.holidayService.create(this.getHolidayPost()).then(
+        this.holidayService.update(this.getHolidayPost()).then(
             (result) => {
-                result.data.forEach((holiday) => {
-                    this.holidays.push(this.convertToHolidaySchedule(holiday));
-                })
+                this.noticeMessage('Update ' + result['status'] , true);
+                this.deleteElement(this.holiday.id);
+                this.holidays.push(this.convertToHolidaySchedule(result.data));
             },
             (error) => {
                 this.noticeMessage(JSON.parse(error['_body']).error);
@@ -138,9 +104,8 @@ export class ManageHolidayComponent implements OnInit {
     delete(){
         this.holidayService.delete(this.holiday.id).then(
             (result) => {
-                var index = this.holidays.findIndex(x => x.id == this.holiday.id);
+                this.deleteElement(this.holiday.id);
                 this.noticeMessage('Delete ' + result['status'] , true)
-                this.holidays.splice(index, 1);
             },
             (error) => {
                 this.noticeMessage(JSON.parse(error['_body']).error);
@@ -166,6 +131,7 @@ export class ManageHolidayComponent implements OnInit {
 
     getHoliday(){
         var data = new Holiday();
+        data.id = this.holiday.id;
         data.name = this.holiday.title;
         data.begin_date = new Date(this.holiday.start);
         data.end_date = new Date(this.holiday.end);
@@ -173,13 +139,10 @@ export class ManageHolidayComponent implements OnInit {
     }
 
     initCurrentDate(event){
-        if(event){
-            this.holiday.id = event.id;
-            this.holiday.title = event.title;
-            this.holiday.start = event._start._d;
-            this.holiday.end = event._end == null ? event._start._d : event._end._d;
-            console.log('this.event', this.holiday);
-        }
+        this.holiday.id = event.id;
+        this.holiday.title = event.title;
+        this.holiday.start = event.start._d;
+        this.holiday.end = event._end == null ? event.start._d : event.end._d;
     }
 
     findEvent(id){
@@ -190,8 +153,13 @@ export class ManageHolidayComponent implements OnInit {
         var year = date.getFullYear();
         var month = date.getUTCMonth() > 9 ? (date.getUTCMonth() + 1) : '0' + (date.getUTCMonth() + 1);
         var day = date.getDate() > 9 ? date.getDate() : '0' + date.getDate();
-        // return year + '-' + month + '-' + day + 'T16:00:00';
-        return date;
+        return year + '-' + month + '-' + day + 'T16:00:00';
+        // return date;
+    }
+
+    deleteElement(id: number){
+        var index = this.holidays.findIndex(x => x.id == id);
+        this.holidays.splice(index, 1);
     }
 
     noticeMessage(content: string, is_error: boolean = false){
