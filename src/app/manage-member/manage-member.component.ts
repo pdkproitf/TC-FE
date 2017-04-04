@@ -15,6 +15,7 @@ export class ManageMemberComponent implements OnInit {
   msgs: Message[] = [];
   display: boolean = false;
   membership: Membership = new Membership();
+  allEmployees: Member[] = [];
   employeePosts: Member[] = [];
   members: Member[] = [];
   items: any;
@@ -23,23 +24,19 @@ export class ManageMemberComponent implements OnInit {
   displayAddJob: boolean = false;
   newJobName: string = '';
   currentJobs = [];
+  searchJobs = [];
   divDisplays = [];
   submitJobs = [];
   searchJobText = '';
-
+  searchNameText = '';
+  varTimeOut: any;
+  varTimeOut0: any;
   constructor(private membershipService: MembershipService, private jobService: JobService) { }
   ngOnInit() {
     this.membershipService.getAllMembership()
     .then(res => {
-        this.employeePosts = res;
-        for (let em of this.employeePosts) {
-          let mem = Object.create(em);
-          let jobs = Object.create(em.jobs);
-          mem.jobs = jobs;
-          this.members.push(mem);
-          this.divDisplays.push(0);
-          this.submitJobs.push(false);
-        }
+        this.allEmployees = res;
+        this.filterEmployees('');
         console.log(res);
       })
     .catch(err => console.log(err));
@@ -47,6 +44,7 @@ export class ManageMemberComponent implements OnInit {
     .then(res => {
       console.log(res);
       this.currentJobs = res;
+      this.filterJobs('');
     })
     .catch(err => {
       let content = JSON.parse(err['_body']).error;
@@ -104,6 +102,7 @@ export class ManageMemberComponent implements OnInit {
       this.msgs = [];
       this.msgs.push({severity: 'success', summary: 'Success', detail: content});
       this.currentJobs.push(res);
+      this.filterJobs(this.searchJobText);
       }
     )
     .catch(err => {
@@ -139,9 +138,6 @@ export class ManageMemberComponent implements OnInit {
   }
 
   doesHasNewJobs(id): boolean {
-    console.log('add - delete job');
-    console.log(this.employeePosts[id].jobs);
-    console.log(this.members[id].jobs);
     if (this.employeePosts[id].jobs.length !== this.members[id].jobs.length) {
       console.log('difference range');
       return true;
@@ -154,5 +150,81 @@ export class ManageMemberComponent implements OnInit {
       }
     }
     return false;
+  }
+
+  cancelJobs(id) {
+    let jobs = Object.create(this.employeePosts[id].jobs);
+    this.members[id].jobs = jobs;
+  }
+
+  editRole(event, id) {
+    console.log(event);
+    this.members[id].role.id = event;
+    this.submitEditedJobs(id);
+  }
+
+  filterJobs(str) {
+    this.searchJobs = [];
+    for (let job of this.currentJobs) {
+      if(job.name.indexOf(str) > -1){
+        this.searchJobs.push(job);
+      }
+    }
+  }
+
+  keyUpSearch() {
+    clearTimeout(this.varTimeOut);
+    this.varTimeOut = setTimeout(() => this.filterJobs(this.searchJobText), 500);
+  }
+
+  filterEmployees(str) {
+    this.employeePosts = [];
+    this.members = [];
+    for (let employee of this.allEmployees) {
+      if (employee.user.first_name.indexOf(str) > -1 || employee.user.last_name.indexOf(str) > -1) {
+        this.employeePosts.push(employee);
+      }
+    }
+    for (let em of this.employeePosts) {
+      let mem = Object.create(em);
+      let jobs = Object.create(em.jobs);
+      mem.jobs = jobs;
+      this.members.push(mem);
+      this.divDisplays.push(0);
+      this.submitJobs.push(false);
+    }
+  }
+
+  keyUpSearchName() {
+    clearTimeout(this.varTimeOut0);
+    this.varTimeOut0 = setTimeout(() => this.filterEmployees(this.searchNameText), 500);
+  }
+
+  submitEditedJobs(id) {
+    let jobs = [];
+    for (let job of this.members[id].jobs) {
+      jobs.push(job.id);
+    }
+    let mem = {
+      members: {
+        role_id: this.members[id].role.id,
+        jobs: jobs
+      }
+    };
+    this.membershipService.editMember(this.members[id].id, mem)
+    .then(res => {
+      console.log(res);
+      let content = 'Edit successfully';
+      this.msgs = [];
+      this.msgs.push({severity: 'success', summary: 'Success', detail: content});
+      this.employeePosts[id] = res;
+      // console.log(this.employeePosts);
+      this.submitJobs[id] = this.doesHasNewJobs(id);
+    })
+    .catch(err => {
+      let content = JSON.parse(err['_body']).error;
+      this.msgs = [];
+      this.msgs.push({severity: 'error', summary: 'Error', detail: content});
+    })
   }
 }

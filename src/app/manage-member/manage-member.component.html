@@ -12,7 +12,8 @@
         </li>
     </ul>
 
-    <div class="member-manage">
+    <div *ngIf="navClass[0] === 'choosing'" class="member-manage">
+        <input class="search-em" type="text" placeholder="search employee" [(ngModel)]="searchNameText" (keyup)="keyUpSearchName()" name="search-em">
         <div class="member-list">
             <table>
                 <thead>
@@ -27,7 +28,10 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let employee of members; let id = index;">
-                        <td class="avatar" width="5%"><img src="assets/image-profile/default-avatar.png"></td>
+                        <td class="avatar" width="5%">
+                            <img *ngIf="employee.user.image !== null" [src]="employee.user.image">
+                            <img *ngIf="employee.user.image === null" src="assets/image-profile/default-avatar.png">
+                        </td>
                         <td class="name" width="25%">
                             <p class="full-name">{{employee.user.first_name}} {{employee.user.last_name}}<p>
                             <p class="email">{{employee.user.email}}</p>    
@@ -37,23 +41,23 @@
                                 <div *ngFor="let job of employee.jobs" class="job">{{job.name}}<span (click)="deleteJobFromEmployee(employee, job); submitJobs[id] = doesHasNewJobs(id);" class="fa fa-times"></span></div>
                             </div>
                             <input type=text placeholder="Add job" (focus)="divDisplays[id] = 1;" (blur)="divDisplays[id] = 0;"
-                            [(ngModel)]="searchJobText" name="search-text">
+                            [(ngModel)]="searchJobText" (keyup)="keyUpSearch()" name="search-text">
                             <div *ngIf="submitJobs[id]" class="submit">
-                                <span class="fa fa-check" aria-hidden="true"></span>                            
-                                <span class="fa fa-times" aria-hidden="true"></span>
+                                <span class="fa fa-check" (click)="submitEditedJobs(id)" aria-hidden="true"></span>                            
+                                <span class="fa fa-times" (click)="cancelJobs(id); submitJobs[id] = false;" aria-hidden="true"></span>
                             </div>                      
                             <div *ngIf="divDisplays[id] === 1" class="job-selector">
                                 <ul class="job-ul">
-                                    <li *ngFor="let job of currentJobs; let i = index" (mousedown)="addJobToEmployee(employee, job); submitJobs[id] = doesHasNewJobs(id);" class="job-li">{{job.name}}</li>
+                                    <li *ngFor="let job of searchJobs; let i = index" (mousedown)="addJobToEmployee(employee, job); submitJobs[id] = doesHasNewJobs(id);" class="job-li">{{job.name}}</li>
                                     <li class="job-li" (mousedown)="displayAddJob = true;">Add new job</li>
                                 </ul>
                             </div>
                         </td>
                         <td class="role" width="8%">
-                            <select [value]="roles.indexOf(employee.role.name)">
-                                <option value=0>Admin</option>
-                                <option value=1>PM</option>
-                                <option value=2>Member</option>
+                            <select (change)="editRole($event.target.value, id)" [value]="employee.role.id">
+                                <option value=1 disabled>Admin</option>
+                                <option value=2>PM</option>
+                                <option value=3>Member</option>
                             </select>
                         </td>
                         <td class="days-off" width="8%">

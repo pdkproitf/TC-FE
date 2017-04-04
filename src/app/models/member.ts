@@ -6,6 +6,7 @@ class Company {
 }
 class RoleMember {
     name: string;
+    id: number;
 }
 class UserMember {
     email: string;
@@ -21,7 +22,7 @@ export class Member {
     role: RoleMember;
     user: UserMember;
     is_pm: boolean;
-    jobs :Job[];
+    jobs: Job[];
 }
 
 export class MemberTrackTime {

@@ -126,7 +126,7 @@ export class ReportDetailComponent implements OnInit {
                     ctx.fillStyle = '#FFFFFF';
                     let toFull = height - 50  - bar._model.y;
                     if  (data > 0)  {
-                      ctx.fillText('$', bar._model.x, bar._model.y + (toFull / 2) + 8);
+                      ctx.fillText('$', bar._model.x, bar._model.y + (toFull / 2));
                     }
                     ctx.fillStyle = '#000000';
                 });

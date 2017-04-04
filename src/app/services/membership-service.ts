@@ -49,12 +49,15 @@ export class MembershipService {
         .catch(error => this.handleError(error));
     }
 
-    /* editMember(id: number): Promise<any> {
-        let requestUrl = this.serverdomain.domain + '/members';
+    editMember(id: number, memberPut: any): Promise<any> {
+        let requestUrl = this.serverdomain.domain + '/members/' + id.toString();
         let headers = new Headers();
         this.headersService.createAuthHeaders(headers);
         return this.http
-        .put
-    }*/
+        .put(requestUrl, JSON.stringify(memberPut), {headers: headers})
+        .toPromise()
+        .then(res => res.json().data)
+        .catch(err => this.handleError(err));
+    }
 
 }
