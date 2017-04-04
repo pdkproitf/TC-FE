@@ -158,6 +158,9 @@ export class ManageMemberComponent implements OnInit {
   }
 
   editRole(event, id) {
+    if (this.members[id].id === 1) {
+      return;
+    }
     console.log(event);
     this.members[id].role.id = event;
     this.submitEditedJobs(id);
@@ -166,7 +169,7 @@ export class ManageMemberComponent implements OnInit {
   filterJobs(str) {
     this.searchJobs = [];
     for (let job of this.currentJobs) {
-      if(job.name.indexOf(str) > -1){
+      if(job.name.indexOf(str) > -1) {
         this.searchJobs.push(job);
       }
     }
