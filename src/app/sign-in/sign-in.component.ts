@@ -1,7 +1,7 @@
 import { Message } from 'primeng/primeng';
 import { UserService } from './../services/user-service';
 import { User, UserPost } from './../models/user';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -13,12 +13,17 @@ export class SignInComponent implements OnInit {
   user: User = new User();
   userPost: UserPost = new UserPost();
   msgs: Message[] = [];
-  constructor(private router: Router, private userService: UserService) { }
+  constructor(private router: Router, private userService: UserService, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    let para = this.route.params['_value'];
+    console.log(para);
+    if (para.companyDomain !== null) {
+      this.user.company_domain = para.companyDomain;
+    }
   }
 
-  log(): void{
+  log(): void {
     console.log(this.user);
   }
 

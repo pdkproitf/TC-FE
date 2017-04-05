@@ -32,6 +32,11 @@ export class InvitesConfirmComponent implements OnInit {
     }else {
       this.isLogedOut = true;
     }
+    let para = this.route.params['_value'];
+    console.log(para);
+    this.inviteToken = para.token;
+    this.companyName = para.name;
+    this.companyDomain = para.domain;
     // this.varInterval = setInterval(() => this.confirmInvite(), 100);
   }
   logOut(): void {
@@ -62,11 +67,6 @@ export class InvitesConfirmComponent implements OnInit {
     if (!this.isLogedOut) {
       return;
     }else {
-      let para = this.route.params['_value'];
-      console.log(para);
-      this.inviteToken = para.token;
-      this.companyName = para.name;
-      this.companyDomain = para.domain;
       this.memberShipConfirm.email = this.email;
       this.memberShipConfirm.token = this.inviteToken;
       this.memberShipService.confirmMemberShip(this.memberShipConfirm)
