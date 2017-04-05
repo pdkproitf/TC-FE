@@ -55,7 +55,7 @@
                         </td>
                         <td class="role" width="8%">
                             <select [disabled]="employee.role.id === 1" (change)="editRole($event.target.value, id)" [value]="employee.role.id">
-                                <option disabled value=1 disabled>Admin</option>
+                                <option value=1 disabled>Admin</option>
                                 <option value=2>PM</option>
                                 <option value=3>Member</option>
                             </select>
