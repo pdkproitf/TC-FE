@@ -245,14 +245,18 @@ export class DetailDateLogLiComponent implements OnInit {
     let from = this.startDateEdit.getTime();
     let to = this.endDateEdit.getTime();
     let res = Math.round((to - from) / 1000);
-    console.log(res);
     if (res >= 0) {
+      if (res >= 24 * 60 * 60) {
+        let date = this.endDateEdit.getDate();
+        date -= 1;
+        this.endDateEdit.setDate(date);
+        return this.totalTimeEdit();
+      }
       return res;
     } else {
       let date = this.endDateEdit.getDate();
       date += 1;
       this.endDateEdit.setDate(date);
-      console.log(this.endDateEdit);
       return this.totalTimeEdit();
     }
   }
