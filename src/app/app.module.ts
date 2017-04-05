@@ -1,3 +1,4 @@
+import { RolesService } from './services/roles-service';
 import { JobService } from './services/job-service';
 import { DateToMDYPipe } from './pipes/string-date-mdy.pipe';
 import { DateToStringWeekDayPipe } from './pipes/date-to-string-weekday.pipe';
@@ -165,7 +166,7 @@ import { InvitesConfirmComponent } from './invites-confirm/invites-confirm.compo
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
   AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService,
   TimerService, ProjectJoinService, TimerFetchService, TaskService, TimeoffService, ReportService,
-  JobService, HolidayService],
+  JobService, HolidayService, RolesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
