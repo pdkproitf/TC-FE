@@ -81,7 +81,7 @@ export class ReportDetailComponent implements OnInit {
             stacked: true,
             ticks: {
               fontColor: 'rgba(54,54,54,0.7);',
-              fontSize: 14,
+              fontSize: 12,
               fontStyle: 'normal',
               fontFamily: 'Lato',
             }
@@ -177,14 +177,23 @@ export class ReportDetailComponent implements OnInit {
     let charts = this.projects[0].chart;
     let keys = Object.keys(charts);
     let len = keys.length;
+    let type = (keys[0].length < 8) ? 0 : 1; // 0 for year - 1 for month-week
+    console.log(type);
     for (let i = 0; i < len; i++) {
       let bill = this.secondsToHours(charts[keys[i]].billable);
       this.billables.push(bill);
       let unbill = this.secondsToHours(charts[keys[i]].unbillable);
       this.unbillables.push(unbill);
       let date = new Date(keys[i]);
-      let dayLabel = this.dayStrings[date.getDay()];
-      let dateLabel = this.monthStrings[(date.getMonth())] + ' ' + date.getDate().toString();
+      let dayLabel;
+      let dateLabel;
+      if (type === 0) {
+        dayLabel = date.getFullYear().toString();
+        dateLabel = this.monthStrings[(date.getMonth())];
+      } else {
+        dayLabel = this.dayStrings[date.getDay()];
+        dateLabel = this.monthStrings[(date.getMonth())] + ' ' + date.getDate().toString();
+      }
       let label = [dayLabel, dateLabel];
       this.labels.push(label);
     }

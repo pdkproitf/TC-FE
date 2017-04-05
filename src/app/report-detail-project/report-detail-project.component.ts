@@ -163,11 +163,20 @@ export class ReportDetailProjectComponent implements OnInit {
 
   generateLabels() {
     let len = this.charts.length;
+    let type = (Object.keys(this.charts[0])[0].length < 8) ? 0 : 1; // 0 for year - 1 for month-week
+    console.log(type);
     for (let i = 0; i < len; i++) {
       let key = Object.keys(this.charts[i])[0];
       let date = new Date(key);
-      let dayLabel = this.dayStrings[date.getDay()];
-      let dateLabel = this.monthStrings[(date.getMonth())] + ' ' + date.getDate().toString();
+      let dayLabel;
+      let dateLabel;
+      if (type === 0) {
+        dayLabel = date.getFullYear().toString();
+        dateLabel = this.monthStrings[(date.getMonth())];
+      } else {
+        dayLabel = this.dayStrings[date.getDay()];
+        dateLabel = this.monthStrings[(date.getMonth())] + ' ' + date.getDate().toString();
+      }
       let label = [dayLabel, dateLabel];
       this.labels.push(label);
     }
