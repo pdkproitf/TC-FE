@@ -1,3 +1,4 @@
+import { RolesService } from './../services/roles-service';
 import { JobService } from './../services/job-service';
 import { Message } from 'primeng/primeng';
 import { Member } from './../models/member';
@@ -20,7 +21,6 @@ export class ManageMemberComponent implements OnInit {
   members: Member[] = [];
   items: any;
   navClass = ['choosing', '', '', '', ''];
-  roles = ['Admin', 'PM', 'Member'];
   displayAddJob: boolean = false;
   newJobName: string = '';
   currentJobs = [];
@@ -31,7 +31,9 @@ export class ManageMemberComponent implements OnInit {
   searchNameText = '';
   varTimeOut: any;
   varTimeOut0: any;
-  constructor(private membershipService: MembershipService, private jobService: JobService) { }
+  roles: any[] = [];
+  idRoleAdmin: any;
+  constructor(private membershipService: MembershipService, private jobService: JobService, private rolesService: RolesService) { }
   ngOnInit() {
     this.membershipService.getAllMembership()
     .then(res => {
@@ -45,6 +47,22 @@ export class ManageMemberComponent implements OnInit {
       console.log(res);
       this.currentJobs = res;
       this.filterJobs('');
+    })
+    .catch(err => {
+      let content = JSON.parse(err['_body']).error;
+      this.msgs = [];
+      this.msgs.push({severity: 'error', summary: 'Error', detail: content});
+    });
+    this.rolesService.getAllRoles()
+    .then(res => {
+      console.log(res);
+      this.roles = res;
+      for (let role of this.roles) {
+        if(role.name === 'Admin') {
+          this.idRoleAdmin = role.id;
+          break;
+        }
+      }
     })
     .catch(err => {
       let content = JSON.parse(err['_body']).error;
@@ -158,10 +176,12 @@ export class ManageMemberComponent implements OnInit {
   }
 
   editRole(event, id) {
-    if (this.members[id].id === 1) {
+    if (this.members[id].role.id === this.idRoleAdmin) {
       return;
     }
-    console.log(event);
+    if (parseInt(event.toString(), 10) === this.idRoleAdmin) {
+      return;
+    }
     this.members[id].role.id = event;
     this.submitEditedJobs(id);
   }

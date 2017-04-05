@@ -1,3 +1,4 @@
+import { RolesService } from './services/roles-service';
 import { JobService } from './services/job-service';
 import { DateToMDYPipe } from './pipes/string-date-mdy.pipe';
 import { DateToStringWeekDayPipe } from './pipes/date-to-string-weekday.pipe';
@@ -77,6 +78,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { Ng2CloudinaryModule } from 'ng2-cloudinary';
 import { FileUploadModule } from 'ng2-file-upload';
 import { ManageHolidayComponent } from './manage-holiday/manage-holiday.component';
+import { InvitesConfirmComponent } from './invites-confirm/invites-confirm.component';
 
 @NgModule({
   declarations: [
@@ -132,6 +134,7 @@ import { ManageHolidayComponent } from './manage-holiday/manage-holiday.componen
     DateToMDYPipe,
     ProfileComponent,
     ManageHolidayComponent,
+    InvitesConfirmComponent,
   ],
   imports: [
     BrowserModule,
@@ -163,7 +166,7 @@ import { ManageHolidayComponent } from './manage-holiday/manage-holiday.componen
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
   AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService,
   TimerService, ProjectJoinService, TimerFetchService, TaskService, TimeoffService, ReportService,
-  JobService, HolidayService],
+  JobService, HolidayService, RolesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

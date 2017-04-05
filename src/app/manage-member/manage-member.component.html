@@ -54,10 +54,8 @@
                             </div>
                         </td>
                         <td class="role" width="8%">
-                            <select [disabled]="employee.role.id === 1" (change)="editRole($event.target.value, id)" [value]="employee.role.id">
-                                <option disabled value=1 disabled>Admin</option>
-                                <option value=2>PM</option>
-                                <option value=3>Member</option>
+                            <select *ngIf="roles.length > 0" [disabled]="employee.role.id === idRoleAdmin" (change)="editRole($event.target.value, id)" [value]="employee.role.id">
+                                <option *ngFor="let role of roles" [value]="role.id" [disabled]="role.id === idRoleAdmin">{{role.name}}</option>
                             </select>
                         </td>
                         <td class="days-off" width="8%">

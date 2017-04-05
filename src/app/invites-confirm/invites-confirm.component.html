@@ -1,0 +1,31 @@
+<app-marketing-menu-bar typePage=0></app-marketing-menu-bar>
+<div class="image">
+  <img src="assets/image-screen/element_logo_icon-white@2x.png">
+</div>
+<div *ngIf="!isConfirmed && isLogedOut" class="container form-container">
+  <button (click)="signIn()" class="asking" type="button">Sign In</button>
+  <p class="asking">Already have an account?</p>
+  <br><br><br><br><br><br>
+  <h2>Get started absolutely free.</h2>
+  <p class="des">Free forever. No credit card needed.</p>
+  <h4 *ngIf="companyName !== ''">Welcome to company <i>{{companyName}}</i> !</h4>
+  <br><br><br>  
+  <form (ngSubmit)="confirmInvite()">
+    <div class="form-group">
+      <label for="email">Type your email to confirm your membership: </label><br/>
+      <input pInputText type="text" class="form-control" id="email" [(ngModel)]="email"
+      placeholder="julie@example.com" required name="email">
+    </div>
+    <br/>
+    <button class="sign-up-btn" id="submit" pButton type="submit" label="Confirm"></button>
+  </form>
+  <br/>
+
+</div>
+<div *ngIf="isConfirmed" class="container form-container">
+  <h2>Confirm Successfully !</h2>
+  <p>Now you can <a routerLink="sign-in/{{companyDomain}}">Sign In</a> using the domain: <i>{{companyDomain}}</i></p>
+</div>
+
+<p-growl [value]="msgs"></p-growl>
+

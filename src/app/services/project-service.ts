@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { ProjectGetAll, ProjectPost, ProjectGetOne, ProjectCategory, ProjectCategoryMember } from './../models/project';
 import { User }     from './../models/user';
 import { Member } from './../models/member';
@@ -15,10 +16,16 @@ export class ProjectService {
     headersService: HeadersService = new HeadersService();
     projectUrl: String = new ServerDomain().domain + '/projects';
 
-    constructor(private http: Http) {}
+    constructor(private http: Http, private router: Router) {}
 
     private handleError(error: any): Promise<any> {
         console.error('An error occurred', error);
+        let userInfo = localStorage.getItem('UserInfo');
+        if (error.status === 401 && userInfo != null) {
+            alert('Your token is expired');
+            localStorage.removeItem('UserInfo');
+            this.router.navigate(['sign-in']);
+        }
         return Promise.reject(error.message || error);
     }
 

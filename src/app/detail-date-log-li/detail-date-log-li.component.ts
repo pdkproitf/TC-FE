@@ -87,6 +87,7 @@ export class DetailDateLogLiComponent implements OnInit {
 
   secondToTime(totalTime) {
     let sec_num = totalTime;
+    console.log(totalTime);
     let hours   = Math.floor(sec_num / 3600);
     let minutes = Math.floor((sec_num - (hours * 3600)) / 60);
     let seconds = sec_num - (hours * 3600) - (minutes * 60);
@@ -245,13 +246,18 @@ export class DetailDateLogLiComponent implements OnInit {
     let to = this.endDateEdit.getTime();
     let res = Math.round((to - from) / 1000);
     if (res >= 0) {
+      if (res >= 24 * 60 * 60) {
+        let date = this.endDateEdit.getDate();
+        date -= 1;
+        this.endDateEdit.setDate(date);
+        return this.totalTimeEdit();
+      }
       return res;
     } else {
-      this.startString = this.timeToString(this.timerFetch.start_time);
-      this.endString = this.timeToString(this.timerFetch.stop_time);
-      this.startDateEdit = new Date(this.timerFetch.start_time);
-      this.endDateEdit = new Date(this.timerFetch.stop_time);
-      this.totalTime();
+      let date = this.endDateEdit.getDate();
+      date += 1;
+      this.endDateEdit.setDate(date);
+      return this.totalTimeEdit();
     }
   }
 
