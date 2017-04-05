@@ -161,6 +161,9 @@ export class ManageMemberComponent implements OnInit {
     if (this.members[id].id === 1) {
       return;
     }
+    if (event === 1) {
+      
+    }
     console.log(event);
     this.members[id].role.id = event;
     this.submitEditedJobs(id);
