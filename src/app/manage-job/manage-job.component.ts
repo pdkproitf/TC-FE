@@ -148,6 +148,43 @@ export class ManageJobComponent implements OnInit {
         }
     }
 
+    removeJobFromMember(member: Member, job_id: number){
+        var jobs = member.jobs;
+        var index = jobs.findIndex(x => x.id == job_id);
+        if(index != -1){
+            jobs.splice(index, 1);
+            member.jobs = jobs;
+            this.updateMember(member)
+        }
+    }
+
+    updateMember(member: Member) {
+        let jobs = [];
+        for (let job of member.jobs) {
+            jobs.push(job.id);
+        }
+        let mem = {
+            members: {
+                role_id: member.role.id,
+                jobs: jobs
+            }
+        };
+
+        this.membershipService.editMember(member.id, mem).then(
+            (result) => {
+                for (let i in this.members)
+                    if(this.members[i].id == result.id){
+                        this.members[i] = result;
+                        this.noticeMessage('Success!', 0);
+                        break;
+                    }
+            },
+            (error) => {
+                this.noticeMessage(JSON.parse(error['_body']).error);
+            }
+        )
+    }
+
 
     showDialog(show: boolean){
         this.dialogVisible = show;
