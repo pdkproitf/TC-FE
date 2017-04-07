@@ -1,0 +1,72 @@
+<div class="container">
+    <div class="header">
+        <p></p>
+        <button class="button-create" (click)="showDialog(true)" type="button">Create Job</button>
+    </div>
+
+    <div class="content">
+        <div class="members">
+            <div class="members-content">
+                <div class="header">Members</div>
+
+                <div class="body">
+                    <ul class="users-list clearfix">
+                        <li *ngFor="let member of members" pDraggable="userMembers"
+                        (onDragStart)="dragStart($event, member.id)" (onDragEnd)="dragEnd($event)">
+                            <img src="{{member.user.image || '/assets/image-profile/default-avatar.png'}}" alt="" draggable="false">
+                            <a class="users-list-name" href="#">{{member.user.first_name + ' ' + member.user.last_name | capitalize}}</a>
+                            <span class="users-list-date">{{member.role.name | capitalize}}</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="footer"><a href="/#/manage">Manage Member</a></div>
+            </div>
+        </div>
+
+        <div class="job-content">
+            <div *ngFor="let job of jobs; let i = index;" class="job" (mouseover)='showControl(true, job)' (mouseleave)='showControl(false, job)'
+                pDroppable="userMembers" (onDrop)="drop($event, job.id)">
+                <div class="header">
+                    <input type="text" #aVariable value="{{job.name}}">
+                    <div class="control" id="job-{{job.id}}">
+                        <div class="oval" (click)="save(job, aVariable.value)">
+                            <div class="text">
+                                <i class="fa fa-fw fa-refresh" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="oval" (click)="delete(job)">
+                            <div class="text">
+                                <i class="fa fa-fw fa-trash" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="job-members" pDroppable="jobMember" (onDrop)="jobDrop($event, job.id)">
+                    <ul class="users-list">
+                        <li *ngFor="let member of getJobMembers(job.id);" pDraggable="jobMember"
+                            (onDragStart)="jobDragStart($event, member.id, job.id)" (onDragEnd)="jobDragEnd($event)">
+                            <span *ngIf="member">
+                                <img src="{{member.user.image || '/assets/image-profile/default-avatar.png'}}" alt="" draggable="false">
+                                <a class="users-list-name" href="#">{{member.user.first_name + ' ' + member.user.last_name | capitalize}}</a>
+                                <span class="users-list-date">{{member.role.name | capitalize}}</span>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<p-dialog header="Create Job" [(visible)]="dialogVisible" [resizable]="false">
+    <div class="ui-grid ui-grid-responsive ui-fluid">
+        <input type="text" #jobVariable focus>
+    </div>
+    <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+        <button type="button" pButton icon="fa-close" (click)="showDialog(false)" label="Cancle"></button>
+        <button type="button" pButton icon="fa-check" (click)="createJob(jobVariable.value)" label="Create"></button>
+    </div>
+</p-dialog>
+
+<p-growl [value]="msgs" [life]="3000" ></p-growl>
