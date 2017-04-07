@@ -40,7 +40,6 @@ export class ManageJobComponent implements OnInit {
         this.jobService.getAllJobs().then(
             (result) => {
                 this.jobs = result;
-                console.log('get job', result);
             },
             (error) => {
                 this.noticeMessage(JSON.parse(error['_body']).error);
@@ -85,7 +84,6 @@ export class ManageJobComponent implements OnInit {
     /** ****** drag member in company members ******************************* */
     dragStart(event, member_id: number) {
         this.member_drag = member_id;
-        console.log('drag start');
     }
 
     drop(event, job_id: number) {
@@ -185,6 +183,40 @@ export class ManageJobComponent implements OnInit {
         )
     }
 
+    save(job: Job, job_name: string){
+        let job_update = {
+            job:{
+                name: job_name
+            }
+        };
+        this.jobService.updateJob(job.id, job_update).then(
+            (result) => {
+                for (let i in this.jobs)
+                    if(this.jobs[i].id == job.id){
+                        this.jobs[i].name = result.name;
+                        this.noticeMessage('Success!', 0);
+                    }
+            },
+            (error) => {
+                this.noticeMessage(JSON.parse(error['_body']).error);
+            }
+        )
+    }
+
+    delete(job: Job){
+        this.jobService.delete(job.id).then(
+            (result) => {
+                var index = this.jobs.findIndex(x => x.id == job.id)
+                if(index != -1){
+                    this.jobs.splice(index, 1);
+                    this.noticeMessage('Success!', 0);
+                }
+            },
+            (error) => {
+                this.noticeMessage(JSON.parse(error['_body']).error);
+            }
+        )
+    }
 
     showDialog(show: boolean){
         this.dialogVisible = show;

@@ -13,7 +13,7 @@
                     <ul class="users-list clearfix">
                         <li *ngFor="let member of members" pDraggable="userMembers"
                         (onDragStart)="dragStart($event, member.id)" (onDragEnd)="dragEnd($event)">
-                            <img src="{{member.user.image || '/assets/image-profile/default-avatar.png'}}" alt="" draggable="true">
+                            <img src="{{member.user.image || '/assets/image-profile/default-avatar.png'}}" alt="" draggable="false">
                             <a class="users-list-name" href="#">{{member.user.first_name + ' ' + member.user.last_name | capitalize}}</a>
                             <span class="users-list-date">{{member.role.name | capitalize}}</span>
                         </li>
