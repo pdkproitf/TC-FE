@@ -13,7 +13,7 @@
                     <ul class="users-list clearfix">
                         <li *ngFor="let member of members" pDraggable="userMembers"
                         (onDragStart)="dragStart($event, member.id)" (onDragEnd)="dragEnd($event)">
-                            <img src="{{member.user.image || '/assets/image-profile/default-avatar.png'}}" alt="" draggable="false">
+                            <img src="{{member.user.image || '/assets/image-profile/default-avatar.png'}}" alt="" draggable="true">
                             <a class="users-list-name" href="#">{{member.user.first_name + ' ' + member.user.last_name | capitalize}}</a>
                             <span class="users-list-date">{{member.role.name | capitalize}}</span>
                         </li>
@@ -63,6 +63,7 @@
     <div class="ui-grid ui-grid-responsive ui-fluid">
         <input type="text" #jobVariable focus>
     </div>
+
     <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
         <button type="button" pButton icon="fa-close" (click)="showDialog(false)" label="Cancle"></button>
         <button type="button" pButton icon="fa-check" (click)="createJob(jobVariable.value)" label="Create"></button>

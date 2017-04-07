@@ -59,7 +59,118 @@ export class ManageJobComponent implements OnInit {
         )
     }
 
-    
+    // get job from list job
+    getJob(id: number){
+        return this.jobs.find(x => x.id == id);
+    }
+
+    // get member from list member
+    getMember(id: number){
+        return this.members.find(x => x.id == id);
+    }
+
+    // get list member constraint job_id
+    getJobMembers(job_id: number){
+        var list = [];
+        for (let member of this.members)
+        if(member.jobs.findIndex(x => x.id == job_id) != -1)
+        list.push(member);
+        return list;
+    }
+
+    showControl(show: boolean, job: Job){
+        show? $('#job-' + job.id).css({'display': 'inline-flex'}) : $('#job-' + job.id).css({'display': 'none'});
+    }
+
+    /** ****** drag member in company members ******************************* */
+    dragStart(event, member_id: number) {
+        this.member_drag = member_id;
+        console.log('drag start');
+    }
+
+    drop(event, job_id: number) {
+        var job = this.jobs.find(x => x.id == job_id);
+        var member = this.getMember(this.member_drag);
+        if(!member){
+            this.noticeMessage('Member Not Found!');
+            return;
+        }
+
+        if(member.jobs.find(x => x.id == job_id)){
+            this.noticeMessage('Member already exist!', 1);
+        }else{
+            this.addJobToMember(member, job_id);
+        }
+    }
+
+    dragEnd(event) {
+        this.member_drag = 0;
+    }
+    /** ****** end drag member in company members *************************** */
+
+    /** ****** drag member in job members *********************************** */
+    jobDragStart(event, member_id: number, job_id: number) {
+        this.member_drag = member_id;
+        this.job_drag_member = job_id;
+    }
+
+    jobDragEnd(event) {
+        if((this.job_drag_member != this.job_drop_member) && this.job_drag_member != 0){
+            var member = this.getMember(this.member_drag)
+            !member && this.noticeMessage('Member Not Found!');
+
+            if(member.jobs.findIndex(x => x.id == this.job_drop_member) != -1){
+                this.noticeMessage('Member already exist!', 1);
+            }else{
+                this.removeJobFromMember(member, this.job_drag_member);
+                this.job_drop_member && this.addJobToMember(member , this.job_drop_member);
+            }
+        }
+        this.job_drag_member = 0;
+        this.member_drag = 0;
+        this.job_drop_member = 0;
+    }
+
+    jobDrop(event, job_id: number) {
+        this.job_drop_member = job_id;
+    }
+    /** ****** end drag member in job members ******************************* */
+
+    addJobToMember(member: Member, job_id: number){
+        var job = this.getJob(job_id);
+        if(job){
+            if(member.jobs.findIndex(x => x.id == job.id) != -1){
+                this.noticeMessage('Member already exist!', 1);
+            }else{
+                member.jobs.push(job);
+                this.updateMember(member);
+            }
+        }
+    }
+
+
+    showDialog(show: boolean){
+        this.dialogVisible = show;
+    }
+
+    createJob(name: string){
+        let jobPost = {
+            job: {
+              name: name
+            }
+          };
+
+        this.jobService.addNewJob(jobPost).then(
+            (result) => {
+                var index = this.jobs.push(result);
+                this.showDialog(false);
+                this.noticeMessage('Success!', 0);
+            },
+            (error) => {
+                this.noticeMessage(JSON.parse(error['_body']).error);
+            }
+        )
+    }
 
     // status = 0 -> success, 1 -> warning, 2 -> error
     noticeMessage(content: string, status: number = 2){

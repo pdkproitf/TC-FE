@@ -22,7 +22,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ToolbarModule, ButtonModule, InputTextModule, MenuModule, AutoCompleteModule,
     CarouselModule, CalendarModule, DropdownModule, DialogModule, ChartModule,
     GrowlModule, ScheduleModule, RadioButtonModule, CheckboxModule, OverlayPanelModule,
-    PaginatorModule, TabViewModule } from 'primeng/primeng';
+    PaginatorModule, TabViewModule, DragDropModule } from 'primeng/primeng';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';

@@ -1,9 +1,9 @@
 import { Router } from '@angular/router';
 import { HeadersService } from './headers-service';
 import { Headers, Http } from '@angular/http';
+import { ServerDomain } from '../models/server-domain';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
-import { ServerDomain } from '../models/server-domain';
 
 @Injectable()
 export class JobService {
@@ -43,6 +43,36 @@ export class JobService {
         this.headersService.createAuthHeaders(headers);
         return this.http
         .post(requestUrl, JSON.stringify(jobPost), {headers: headers})
+        .toPromise()
+        .then(res => {
+            return res.json().data;
+        })
+        .catch(error => {
+            return this.handleError(error);
+        });
+    }
+
+    updateJob(id: number, jobPost: Object): Promise<any> {
+        let requestUrl = this.serverdomain.domain + '/jobs/' + id;
+        let headers = new Headers();
+        this.headersService.createAuthHeaders(headers);
+        return this.http
+        .put(requestUrl, JSON.stringify(jobPost), {headers: headers})
+        .toPromise()
+        .then(res => {
+            return res.json().data;
+        })
+        .catch(error => {
+            return this.handleError(error);
+        });
+    }
+
+    delete(id: number): Promise<any> {
+        let requestUrl = this.serverdomain.domain + '/jobs/' + id;
+        let headers = new Headers();
+        this.headersService.createAuthHeaders(headers);
+        return this.http
+        .delete(requestUrl, {headers: headers})
         .toPromise()
         .then(res => {
             return res.json().data;
