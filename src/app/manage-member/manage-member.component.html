@@ -43,9 +43,9 @@
                             <input type=text placeholder="Add job" (focus)="divDisplays[id] = 1;" (blur)="divDisplays[id] = 0;"
                             [(ngModel)]="searchJobText" (keyup)="keyUpSearch()" name="search-text">
                             <div *ngIf="submitJobs[id]" class="submit">
-                                <span class="fa fa-check" (click)="submitEditedJobs(id)" aria-hidden="true"></span>                            
+                                <span class="fa fa-check" (click)="submitEditedJobs(id)" aria-hidden="true"></span>
                                 <span class="fa fa-times" (click)="cancelJobs(id); submitJobs[id] = false;" aria-hidden="true"></span>
-                            </div>                      
+                            </div>
                             <div *ngIf="divDisplays[id] === 1" class="job-selector">
                                 <ul class="job-ul">
                                     <li *ngFor="let job of searchJobs; let i = index" (mousedown)="addJobToEmployee(employee, job); submitJobs[id] = doesHasNewJobs(id);" class="job-li">{{job.name}}</li>
@@ -112,6 +112,7 @@
     </div>
 
     <app-manage-holiday *ngIf="navClass[3] === 'choosing'"></app-manage-holiday>
+    <app-manage-job *ngIf="navClass[4] === 'choosing'"></app-manage-job>
 
 </div>
 
