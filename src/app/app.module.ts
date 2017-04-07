@@ -1,3 +1,4 @@
+import { CompanyService } from './services/company-service';
 import { RolesService } from './services/roles-service';
 import { JobService } from './services/job-service';
 import { DateToMDYPipe } from './pipes/string-date-mdy.pipe';
@@ -79,6 +80,7 @@ import { Ng2CloudinaryModule } from 'ng2-cloudinary';
 import { FileUploadModule } from 'ng2-file-upload';
 import { ManageHolidayComponent } from './manage-holiday/manage-holiday.component';
 import { InvitesConfirmComponent } from './invites-confirm/invites-confirm.component';
+import { SettingComponent } from './setting/setting.component';
 
 @NgModule({
   declarations: [
@@ -135,6 +137,7 @@ import { InvitesConfirmComponent } from './invites-confirm/invites-confirm.compo
     ProfileComponent,
     ManageHolidayComponent,
     InvitesConfirmComponent,
+    SettingComponent,
   ],
   imports: [
     BrowserModule,
@@ -166,7 +169,7 @@ import { InvitesConfirmComponent } from './invites-confirm/invites-confirm.compo
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
   AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService,
   TimerService, ProjectJoinService, TimerFetchService, TaskService, TimeoffService, ReportService,
-  JobService, HolidayService, RolesService],
+  JobService, HolidayService, RolesService, CompanyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
