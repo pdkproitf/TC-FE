@@ -1,0 +1,235 @@
+.container{
+    // background-color: #ecf0f5;
+    width: 90%;
+    margin: auto;
+    .header{
+        p{
+            width: 175px;
+            height: 48px;
+            font-family: Montserrat;
+            font-size: 40px;
+            font-weight: bold;
+            line-height: 48px;
+            color: #363636;
+            display: inline-block;
+            // margin-top: 2em;
+        }
+        button{
+            border: 0px;
+            width: 167px;
+            height: 40px;
+            background-color: #0066CC;
+            border-radius: 3px;
+            &.button-create{
+                font-family: Lato;
+                font-size: 16px;
+                text-align: center;
+                line-height: 24px;
+                color: #FFFFFF;
+                float: right;
+                margin-top: 2em;
+                cursor: pointer;;
+            }
+        }
+    }
+    .content{
+        margin-bottom: 4em;
+        // margin-top: 4em;
+        display: flex;
+        .members{
+            display: inline-block;
+            min-width: 320px;;
+            .members-content{
+                background: white;
+                width: 320px;;
+                min-height: 40px;
+                border-radius: 3px;
+                box-shadow: 0 1px 30px rgba(0, 0, 0, 0.1);
+                border-top: 3px solid #d2d6de;
+                border-top-color: #dd4b39;
+                font-family: Lato;
+                font-size: 16px;
+                line-height: 24px;
+                // position: fixed;
+                .header{
+                    color: #444;
+                    display: block;
+                    padding: 10px;
+                    position: relative;
+                    border-bottom: 1px solid #f4f4f4;
+                }
+                .body{
+                    border-top-left-radius: 0;
+                    border-top-right-radius: 0;
+                    border-bottom-right-radius: 3px;
+                    border-bottom-left-radius: 3px;
+                    min-height: 230px;
+                    overflow: auto;
+
+                }
+                .footer{
+                    border-top-left-radius: 0;
+                    border-top-right-radius: 0;
+                    border-bottom-right-radius: 3px;
+                    border-bottom-left-radius: 3px;
+                    border-top: 1px solid #f4f4f4;
+                    padding: 10px;
+                    background-color: #fff;
+                    text-align: center;
+                    a{
+                        text-decoration: none;
+                        color: #3c8dbc;
+                    }
+                }
+            }
+        }
+        .job-content{
+            display: inline-block;
+            width: 80%;
+            min-width: 320px;
+            margin-left: 2em;
+            .job{
+                background: white;
+                width: 100%;
+                min-height: 50px;
+                border-top-color: #f39c12;
+                box-shadow: 0 1px 15px rgba(0,0,0,0.1);
+                // margin-bottom: 1em;
+                display: block;
+                .header{
+                    width: 100%;
+                    min-height: 40px;
+                    position: relative;
+                    border-radius: 3px;
+                    border-top: 3px solid #d2d6de;
+                    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+                    border-top-color: #f39c12;
+                    display: block;
+                    input{
+                        outline: none;
+                        border: none;
+                        width: 50%;
+                        font-family: Lato;
+                        font-size: 16px;
+                        line-height: 24px;
+                        margin-left: 10px;
+                        cursor: pointer;
+                        display: inline-block;
+                        height: 30px;
+                        margin-top: 4px
+                    }
+                    .control{
+                        margin-right: 10px;
+                        padding-bottom: 5px;
+                        float: right;
+                        margin-top: 2px;
+                        display: none;
+                        .oval{
+                            display: inline-block;
+                            width: 32px;
+                            height: 32px;
+                            border-radius: 50%;
+                            opacity: 0.7;
+                            background-color: #FFFFFF;
+                            box-shadow: 0 1px 2px 0 rgba(0,0,0,0.24);
+                            margin-left: 10px;
+                            .text{
+                                font-size: 14px;
+                                text-align: center;
+                                padding-top: 8px;
+                                color: rgba(54, 54, 54, 0.7);
+                            }
+                        }
+                        .oval:hover{
+                            background-color:#ddd;
+                            cursor: pointer;
+                        };
+                    }
+                }
+                .job-members{
+                    font-family: Lato;
+                    font-size: 16px;
+                    line-height: 24px;
+                    min-height: 142px;
+                    li{
+                        max-width: 70px;
+                        max-height: 120px;
+                        margin-right: 1em;
+                    }
+                }
+            }
+            .job:hover{
+                input{
+                    background-color: #F3F5F8;
+                }
+            }
+        }
+        .users-list{
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            >li{
+                width: 25%;
+                max-width: 80px;
+                max-height: 136px;
+                display: inline-block;
+                padding: 10px;
+                text-align: center;
+                cursor: pointer;
+                img{
+                    border-radius: 50%;
+                    max-width: 100%;
+                    height: auto;
+                }
+                .users-list-name{
+                    font-weight: 600;
+                    color: #444;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                }
+                a{
+                    display: block;
+                    text-decoration: none;
+                }
+                .users-list-date{
+                    color: #999;
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+}
+/deep/ .ui-dialog {
+    .ui-dialog-title {
+        font-family: Lato;
+        font-size: 16px !important;
+        line-height: 24px;
+        color: rgba(54,54,54,0.7);
+    }
+    .fa {
+        -webkit-text-stroke: 1px whitesmoke;
+    }
+
+    .ui-dialog-titlebar-close {
+        border: 1px solid transparent;
+    }
+    .ui-dialog-buttonpane {
+        border: 0;
+    }
+    button{
+        font-family: Lato;
+        font-size: 16px !important;
+        line-height: 24px;
+    }
+    .ui-fluid .ui-inputtext {
+        font-family: Lato;
+        font-size: 16px !important;
+        line-height: 24px;
+        cursor: pointer;
+    }
+}
+/deep/.ui-growl-item {
+    display: flex;
+    font-family: Lato;
+}

@@ -22,7 +22,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ToolbarModule, ButtonModule, InputTextModule, MenuModule, AutoCompleteModule,
     CarouselModule, CalendarModule, DropdownModule, DialogModule, ChartModule,
     GrowlModule, ScheduleModule, RadioButtonModule, CheckboxModule, OverlayPanelModule,
-    PaginatorModule, TabViewModule } from 'primeng/primeng';
+    PaginatorModule, TabViewModule, DragDropModule } from 'primeng/primeng';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -79,6 +79,7 @@ import { Ng2CloudinaryModule } from 'ng2-cloudinary';
 import { FileUploadModule } from 'ng2-file-upload';
 import { ManageHolidayComponent } from './manage-holiday/manage-holiday.component';
 import { InvitesConfirmComponent } from './invites-confirm/invites-confirm.component';
+import { ManageJobComponent } from './manage-job/manage-job.component';
 
 @NgModule({
   declarations: [
@@ -135,6 +136,7 @@ import { InvitesConfirmComponent } from './invites-confirm/invites-confirm.compo
     ProfileComponent,
     ManageHolidayComponent,
     InvitesConfirmComponent,
+    ManageJobComponent,
   ],
   imports: [
     BrowserModule,
