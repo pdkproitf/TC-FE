@@ -1,9 +1,13 @@
+import { TestBed } from '@angular/core/testing';
 import { ReportService } from './../services/report-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UIChart } from 'primeng/primeng';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {style, state, animate, transition, trigger} from '@angular/core';
+import {ElementRef} from '@angular/core';
 
+declare let jsPDF;
+declare let html2canvas;
 @Component({
   selector: 'app-report-detail',
   templateUrl: './report-detail.component.html',
@@ -22,6 +26,7 @@ import {style, state, animate, transition, trigger} from '@angular/core';
 })
 export class ReportDetailComponent implements OnInit {
   @ViewChild('chart') chart: UIChart;
+  @ViewChild('container') el;
   monthStrings = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   dayStrings = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   oTTypes = [/*'weekend', 'holiday', 'weekend', ''*/];
@@ -157,7 +162,9 @@ export class ReportDetailComponent implements OnInit {
     }
     this.newRange([begin, end]);
     this.items = [
-      {label: 'PDF', icon: 'fa-file-pdf-o'},
+      {label: 'PDF', icon: 'fa-file-pdf-o', command: (event) => {
+        this.downloadPdf();
+      }},
       {label: 'DOC', icon: 'fa-file-text-o'},
       {label: 'XSL', icon: 'fa-file-excel-o', command: (event) => {
         console.log(event);
@@ -400,4 +407,35 @@ export class ReportDetailComponent implements OnInit {
     this.calOvertime();
   }
 
+  public downloadPdf() {
+        /*let doc = new jsPDF();
+        doc.fromHTML(document.getElementById('testdiv'), 20, 20, {
+        'width': 500});
+        doc.save('TestPdf.pdf');*/
+        let doc = new jsPDF();
+        let yAnchor = 0;
+        html2canvas(document.getElementById('inforeport'), {
+          onrendered: function (canvas) {
+            let scale = canvas.height / canvas.width;
+            yAnchor = 5 + scale * 200;
+            let img = canvas.toDataURL('image/png');
+            doc.addImage(img, 'JPEG', 5, 5, 200, 200 * scale );
+          }
+        });
+        html2canvas(document.getElementById('chartreport'), {
+          onrendered: function (canvas) {
+            let interval;
+            interval = setInterval(() => {
+              if (yAnchor > 0) {
+                let scale = canvas.height / canvas.width;
+                let img = canvas.toDataURL('image/png');
+                doc.addImage(img, 'JPEG', 5, 5 + yAnchor, 200, 200 * scale );
+                doc.save('test.pdf');
+                clearInterval(interval);
+              } else {
+              }
+            }, 500);
+          }
+        });
+    }
 }

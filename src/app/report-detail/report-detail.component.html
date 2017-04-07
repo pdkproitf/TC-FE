@@ -1,10 +1,10 @@
 <app-member-menu-bar [currentState]="3"></app-member-menu-bar>
-<div class="container">
+<div class="container" #container>
   <h1>Reports</h1>
   <app-report-search *ngIf="isLoaded" (emitRange)="newRange($event)" [member]="member.user.first_name + ' ' + member.user.last_name"
   (emitMember)="chooseMember($event)" (emitProject)="chooseProject($event)" [firstString]="from" [lastString]="to"></app-report-search>
 
-  <div *ngIf="isLoaded" class="user-info">
+  <div *ngIf="isLoaded" id="inforeport" class="user-info">
     <table class="user-info">
       <tr>
         <td class="info">
@@ -21,7 +21,7 @@
     </table>
   </div>
 
-  <div *ngIf="isLoaded" class="chart">
+  <div *ngIf="isLoaded" id="chartreport" class="chart">
     <p-chart #chart type="bar" [data]="data" [options]="options" height="75"></p-chart>
   </div>
 
