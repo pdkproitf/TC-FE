@@ -12,8 +12,14 @@ declare var $:any
     styleUrls: ['./manage-job.component.scss']
 })
 export class ManageJobComponent implements OnInit {
+    /** data get from api */
     members: Member[];
     jobs: Job[];
+
+    /** current data to show */
+    _members: Member[];
+    _jobs: Job[];
+
     msgs: Message[] = [];
 
     member_drag: number = 0;
@@ -21,6 +27,9 @@ export class ManageJobComponent implements OnInit {
     job_drop_member: number = 0;
 
     dialogVisible: boolean = false;
+
+    classImageSearch = 'fa fa-search imgspan';
+    searchJobParten = '';
 
     /** using trap job_member drop in job area */
 
@@ -39,6 +48,7 @@ export class ManageJobComponent implements OnInit {
     getJobs(){
         this.jobService.getAllJobs().then(
             (result) => {
+                this._jobs = result;
                 this.jobs = result;
             },
             (error) => {
@@ -51,6 +61,7 @@ export class ManageJobComponent implements OnInit {
         this.membershipService.getAllMembership().then(
             (result) => {
                 this.members = result;
+                this._members = result;
             },
             (error) => {
                 this.noticeMessage(JSON.parse(error['_body']).error);
@@ -79,6 +90,16 @@ export class ManageJobComponent implements OnInit {
 
     showControl(show: boolean, job: Job){
         show? $('#job-' + job.id).css({'display': 'inline-flex'}) : $('#job-' + job.id).css({'display': 'none'});
+    }
+
+    searchJob(){
+        this._jobs = [];
+        for (let job of this.jobs) {
+            if ((job.name.toUpperCase().indexOf(this.searchJobParten.toUpperCase()) > -1) ||
+                (job.name.toLowerCase() .indexOf(this.searchJobParten.toLowerCase()) > -1)) {
+                this._jobs.push(job);
+            }
+        }
     }
 
     /** ****** drag member in company members ******************************* */
