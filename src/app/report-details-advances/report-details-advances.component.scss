@@ -83,6 +83,13 @@
                     }
                     .block{
                         display: flex;
+                        strong{
+                            display: block !important;
+                            span{
+                                display: inline-block !important;
+                                margin-right: 5px;
+                            }
+                        }
                     }
                     .time-frame{
                         > label{
@@ -103,7 +110,8 @@
                     }
                 }
                 .types{
-                    margin-left: 8%;;               }
+                    margin-left: 8%;;
+                    display: block;             }
                 }
             }
             .search-filters{
@@ -273,6 +281,7 @@
                                     margin-top: 21px;
                                     margin-left: 20px;
                                     float: left;
+                                    margin-right: 1em;
                                     .ui-datepicker{
                                         border: none !important;
                                         .ui-datepicker-header{

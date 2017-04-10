@@ -296,9 +296,12 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
                 break;
             }
             case 1:{ //item is category type
-                var category = this.getCategory(item_id);
-                project.timers.forEach(timer => {
-                    if((timer.category_member.category_id == item_id) && this.isShow(project, timer))
+                /**  because the DB design category table comflex so you have to find the category in this.selectedCategory
+                    end after that find category with the name have just found in project */
+                var category = this.getCategory(item_id); if(!category) return
+                var project_cate = this.getProjectCategory(category.name, project);
+                project_cate && project.timers.forEach(timer => {
+                    if((timer.category_member.category_id == project_cate.id) && this.isShow(project, timer))
                         timers_show.push(timer);
                 })
                 break;
@@ -341,17 +344,17 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
         let num = parseInt(this.show_selected + '', 10);
         var value = false;
         switch(num){
-            case 0:{
+            case 0:{ //show All Hours
                 value = true;
                 break;
             }
-            case 1: {
+            case 1: {  //show Billible
                 var pro_category = project.categories.find(x => x.id == timer.category_member.category_id)
                 if(pro_category)
                     value = pro_category.is_billable;
                 break;
             }
-            case 2: {
+            case 2: {   //show unBillible
                 var pro_category = project.categories.find(x => x.id == timer.category_member.category_id)
                 if(pro_category)
                     value = !pro_category.is_billable;
@@ -392,6 +395,16 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
     ////
     getCategory(id: number){
         return this.categories_selected.find(x => x.id == id);
+    }
+
+    ////
+    //@function getCategory
+    //@desc get category in a project
+    //@param name -> name of category in project
+    //@result categopryAdvance
+    ////
+    getProjectCategory(name: string, project: ProjectReportAdvance){
+        return project.categories.find(x => x.name == name)
     }
 
     ////
