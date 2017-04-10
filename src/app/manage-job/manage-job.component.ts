@@ -1,5 +1,5 @@
+import { Component, OnInit, EventEmitter, Output }    from '@angular/core';
 import { MembershipService }    from './../services/membership-service';
-import { Component, OnInit }    from '@angular/core';
 import { JobService }           from './../services/job-service';
 import { Message }              from 'primeng/primeng';
 import { Member }               from '../models/member';
@@ -24,6 +24,7 @@ export class ManageJobComponent implements OnInit {
 
     member_drag: number = 0;
     job_drag_member: number = 0;
+    /** using trap job_member drop in job area */
     job_drop_member: number = 0;
 
     dialogVisible: boolean = false;
@@ -31,7 +32,9 @@ export class ManageJobComponent implements OnInit {
     searchJobParten = '';
     searchMemberParten = '';
 
-    /** using trap job_member drop in job area */
+    /** chang to empoy tag */
+    @Output() changeTab = new EventEmitter<string>();
+
 
     constructor(private membershipService: MembershipService, private jobService: JobService) {
         this.members = [];
@@ -270,6 +273,10 @@ export class ManageJobComponent implements OnInit {
                 this.noticeMessage(JSON.parse(error['_body']).error);
             }
         )
+    }
+
+    tagToEmployees(){
+        this.changeTab.emit('employees');
     }
 
     // status = 0 -> success, 1 -> warning, 2 -> error
