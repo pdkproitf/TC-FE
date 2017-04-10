@@ -28,8 +28,8 @@ export class ManageJobComponent implements OnInit {
 
     dialogVisible: boolean = false;
 
-    classImageSearch = 'fa fa-search imgspan';
     searchJobParten = '';
+    searchMemberParten = '';
 
     /** using trap job_member drop in job area */
 
@@ -90,6 +90,16 @@ export class ManageJobComponent implements OnInit {
 
     showControl(show: boolean, job: Job){
         show? $('#job-' + job.id).css({'display': 'inline-flex'}) : $('#job-' + job.id).css({'display': 'none'});
+    }
+
+    searchMember(){
+        this._members = [];
+        for (let member of this.members) {
+            var name = member.user.first_name + ' '+ member.user.last_name;
+            if ((name.toUpperCase().indexOf(this.searchMemberParten.toUpperCase()) > -1) || (name.toLowerCase().indexOf(this.searchMemberParten.toLowerCase()) > -1)) {
+                this._members.push(member);
+            }
+        }
     }
 
     searchJob(){

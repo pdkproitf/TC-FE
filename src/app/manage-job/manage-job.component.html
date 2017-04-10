@@ -1,8 +1,8 @@
 <div class="container">
     <div class="header">
         <div class="search-group">
-            <span [class]="classImageSearch"></span>
-            <input class="search-text" type="text" [(ngModel)]="searchJobParten" (keyup)="searchJob()"/>
+            <span class="fa fa-search imgspan"></span>
+            <input class="search-text" type="text" [(ngModel)]="searchJobParten" (keyup)="searchJob()" placeholder="Search Jobs"/>
         </div>
 
         <button class="button-create" (click)="showDialog(true)" type="button">Create Job</button>
@@ -11,11 +11,17 @@
     <div class="content">
         <div class="members">
             <div ng2-sticky class="members-content">
-                <div class="header">Members</div>
+                <div class="header">
+                    <span>Members</span>
+                    <div class="search-group">
+                        <input class="search-text" type="text" [(ngModel)]="searchMemberParten" (keyup)="searchMember()" placeholder="Search Members"/>
+                        <span class="fa fa-search imgspan"></span>
+                    </div>
+                </div>
 
                 <div class="body">
                     <ul class="users-list clearfix">
-                        <li *ngFor="let member of members" pDraggable="userMembers"
+                        <li *ngFor="let member of _members" pDraggable="userMembers"
                         (onDragStart)="dragStart($event, member.id)" (onDragEnd)="dragEnd($event)">
                             <img src="{{member.user.image || '/assets/image-profile/default-avatar.png'}}" alt="" draggable="false">
                             <a class="users-list-name" href="#">{{member.user.first_name + ' ' + member.user.last_name | capitalize}}</a>
@@ -75,13 +81,3 @@
 </p-dialog>
 
 <p-growl [value]="msgs" [life]="3000" ></p-growl>
-
-<script>
-$(document).ready(function(){
-    $(document).on('click','.button-create',function(e){
-        e.preventDefault();
-        alert('abc');
-    });
-
-});
-</script>

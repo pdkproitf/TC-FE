@@ -78,6 +78,15 @@
                     position: relative;
                     border-bottom: 1px solid #f4f4f4;
                     height: auto;
+                    .search-group{
+                        display: inline-block;
+                        float: right;
+                        margin: 0;
+                        padding: 0;
+                        width: initial;
+                        text-align: right;
+                        
+                    }
                 }
                 .body{
                     border-top-left-radius: 0;
@@ -190,6 +199,7 @@
             list-style: none;
             margin: 0;
             padding: 0;
+            max-height: 500px;
             >li{
                 width: 25%;
                 max-width: 80px;
