@@ -78,7 +78,8 @@
             }
             .checkeds{
                 width: 22px;
-                padding-right: 5px;
+                height: 22px;
+                margin-right: 5px;
             }
             td{
                 .avatar{
@@ -136,6 +137,7 @@
                         word-break: break-all;
                         span{
                             padding-right: 5px;
+                            display: -webkit-inline-box
                         }
                     }
                 }
