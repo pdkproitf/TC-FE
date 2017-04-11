@@ -1,0 +1,22 @@
+<app-member-menu-bar></app-member-menu-bar>
+
+<form>
+  <table>
+    <tr>
+      <th class="label-field"></th>
+      <th class="input-field"></th>
+    </tr>
+    <tr>
+      <td><label>Company name:</label></td>
+      <td><input type="text" [(ngModel)]="name" name="name" [placeholder]="name"></td>
+    </tr>
+    <tr>
+      <td><label>Begin week:</label></td>
+      <td><input type="text" [(ngModel)]="beginWeek" name="begin-week" [placeholder]="beginWeek"></td>
+    </tr>
+  </table>
+  <br/>
+  <button (click)="cancel()" type="button">Cancel</button>
+  <button (click)="submitEditCompany()" type="submit">Save</button>
+</form>
+<p-growl [value]="msgs"></p-growl>

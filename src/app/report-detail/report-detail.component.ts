@@ -1,9 +1,13 @@
+import { TestBed } from '@angular/core/testing';
 import { ReportService } from './../services/report-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UIChart } from 'primeng/primeng';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {style, state, animate, transition, trigger} from '@angular/core';
+import {ElementRef} from '@angular/core';
 
+declare let jsPDF;
+declare let html2canvas;
 @Component({
   selector: 'app-report-detail',
   templateUrl: './report-detail.component.html',
@@ -22,6 +26,7 @@ import {style, state, animate, transition, trigger} from '@angular/core';
 })
 export class ReportDetailComponent implements OnInit {
   @ViewChild('chart') chart: UIChart;
+  @ViewChild('container') el;
   monthStrings = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   dayStrings = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   oTTypes = [/*'weekend', 'holiday', 'weekend', ''*/];
@@ -108,7 +113,7 @@ export class ReportDetailComponent implements OnInit {
             ctx = chartInstance.ctx;
             let height = chartInstance.canvas.height;
             ctx.fillStyle = '#000000';
-            ctx.font = 'bold 14px Lato';
+            ctx.font = 'bold 12px Lato';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'bottom';
             let len = this.data.labels.length;
@@ -135,7 +140,7 @@ export class ReportDetailComponent implements OnInit {
                 meta.data.forEach(function (bar, index) {
                     let data = dataset.data[index];
                     let display = sum[index];
-                    ctx.fillText(display, bar._model.x, bar._model.y - 10);
+                    ctx.fillText(display, bar._model.x, bar._model.y - 2);
                     ctx.fillStyle = '#FFFFFF';
                     let toFull = height - 50  - bar._model.y;
                     ctx.fillStyle = '#000000';
@@ -157,7 +162,9 @@ export class ReportDetailComponent implements OnInit {
     }
     this.newRange([begin, end]);
     this.items = [
-      {label: 'PDF', icon: 'fa-file-pdf-o'},
+      {label: 'PDF', icon: 'fa-file-pdf-o', command: (event) => {
+        this.preparePDF();
+      }},
       {label: 'DOC', icon: 'fa-file-text-o'},
       {label: 'XSL', icon: 'fa-file-excel-o', command: (event) => {
         console.log(event);
@@ -400,4 +407,211 @@ export class ReportDetailComponent implements OnInit {
     this.calOvertime();
   }
 
+  intervalVar;
+  public preparePDF() {
+    this.navClass[0] = 'choosing';
+    this.navClass[1] = 'choosing';
+    this.navClass[2] = 'choosing';
+    this.intervalVar = setInterval(() => {
+      if (document.getElementById('by-projects') != null && document.getElementById('by-tasks') != null
+      && document.getElementById('overtime') != null)  {
+        this.downloadPdf();
+        clearInterval(this.intervalVar);
+      }
+    }, 100);
+  }
+
+  public downloadPdf() {
+        let doc = new jsPDF();
+        doc.setFontSize(16);
+        doc.setFont('courier', 'bold');
+        let interval;
+        let pageHeight = 290;
+        let yAnchor = 105;
+        let isLoaded1 = false;
+        let isLoaded2 = false;
+        let isLoaded3 = false;
+        let projectsLoaded: boolean[] = [];
+        let tasksLoaded: boolean[] = [];
+        let overtimeLoaded: boolean[] = [];
+        html2canvas(document.getElementById('inforeport'), {
+          onrendered: function (canvas) {
+            let scale = canvas.height / canvas.width;
+            let img = canvas.toDataURL('image/png');
+            doc.addImage(img, 'JPEG', 5, 25, 200, 200 * scale );
+            isLoaded1 = true;
+          }
+        });
+        html2canvas(document.getElementById('report-search'), {
+          onrendered: function (canvas) {
+            let scale = canvas.height / canvas.width;
+            let img = canvas.toDataURL('image/png');
+            doc.addImage(img, 'JPEG', 5, 5, 200, 200 * scale );
+            isLoaded2 = true;
+          }
+        });
+        html2canvas(document.getElementById('chartreport'), {
+          onrendered: function (canvas) {
+            let scale = canvas.height / canvas.width;
+            let img = canvas.toDataURL('image/png');
+            doc.addImage(img, 'JPEG', 5, 45, 200, 200 * scale );
+            doc.text(5, yAnchor, 'By Project:');
+            isLoaded3 = true;
+          }
+        });
+        let divByProjects = document.getElementById('by-projects');
+        let divByTasks = document.getElementById('by-tasks');
+        let divOvertime = document.getElementById('overtime');
+        let lenProjects = this.projects.length;
+        if (lenProjects === 0) {
+          projectsLoaded.push(true);
+        }else {
+          for (let i = 0; i < lenProjects; i++) {
+            this.spanClassProject[i] = 'fa fa-minus icon left';
+            projectsLoaded.push(false);
+          }
+        }
+        let currentProject = 0;
+
+        let lenTasks = this.filteredTasks.length;
+        if (lenTasks === 0) {
+          tasksLoaded.push(true);
+        }else {
+          for (let i = 0; i < lenTasks; i++) {
+            tasksLoaded.push(false);
+          }
+        }
+        let currentTask = 0;
+
+        let lenOvertime = this.filteredOvertimes.length;
+        if (lenOvertime === 0) {
+          overtimeLoaded.push(true);
+        }else {
+          for (let i = 0; i < lenOvertime; i++) {
+            overtimeLoaded.push(false);
+          }
+        }
+        let currentOvertime = 0;
+        console.log(overtimeLoaded);
+        interval = setInterval(() => {
+          if (currentProject < lenProjects && lenProjects > 0) {
+            if (currentProject === 0 || projectsLoaded[currentProject - 1]) {
+              html2canvas(divByProjects.getElementsByClassName('project')[currentProject], {
+                current: currentProject,
+                onrendered: function(canvas) {
+                  let scale = canvas.height / canvas.width;
+                  let img = canvas.toDataURL('image/png');
+                  if ((yAnchor + 200 * scale) > pageHeight){
+                    doc.addPage();
+                    yAnchor = 5;
+                  }
+                  doc.addImage(img, 'JPEG', 0, yAnchor, 200, 200 * scale );
+                  yAnchor += 200 * scale;
+                  projectsLoaded[this.current] = true;
+                }
+              });
+              currentProject++;
+            }
+          } else {
+            lenProjects = 1;
+            currentProject = 1;
+          }
+
+          if (projectsLoaded[lenProjects - 1]) {
+            if (currentTask < lenTasks && lenTasks > 0) {
+              if (currentTask === 0 || tasksLoaded[currentTask - 1]) {
+                if (currentTask === 0) {
+                  yAnchor += 10;
+                  doc.text(5, yAnchor, 'By Tasks:');
+                  let yPos = yAnchor + 3;
+                  yAnchor += 10;
+                  html2canvas(divByTasks.getElementsByClassName('entry')[0], {
+                    yPos: yPos,
+                    onrendered: function(canvas) {
+                      let scale = canvas.height / canvas.width;
+                      let img = canvas.toDataURL('image/png');
+                      if ((this.yPos + 200 * scale) > pageHeight) {
+                        doc.addPage();
+                        this.yPos = 5;
+                        yAnchor = this.yPos + 5;
+                      }
+                      doc.addImage(img, 'JPEG', 5, this.yPos, 200, 200 * scale );
+                      }
+                  });
+                }
+                html2canvas(divByTasks.getElementsByClassName('task')[currentTask], {
+                  current: currentTask,
+                  onrendered: function(canvas) {
+                    let scale = canvas.height / canvas.width;
+                    let img = canvas.toDataURL('image/png');
+                    if ((yAnchor + 200 * scale) > pageHeight) {
+                      doc.addPage();
+                      yAnchor = 5;
+                    }
+                    doc.addImage(img, 'JPEG', 5, yAnchor, 200, 200 * scale );
+                    yAnchor += 200 * scale;
+                    tasksLoaded[this.current] = true;
+                  }
+                });
+                currentTask++;
+              }
+            } else {
+              lenTasks = 1;
+              currentTask = 1;
+            }
+          }
+
+          if (tasksLoaded[lenTasks - 1]) {
+            if (currentOvertime < lenOvertime && lenOvertime > 0) {
+              if (currentOvertime === 0 || overtimeLoaded[currentOvertime - 1]) {
+                if (currentOvertime === 0) {
+                  yAnchor += 10;
+                  doc.text(5, yAnchor, 'Overtime:');
+                  yAnchor += 5;
+                  let yPos0 = yAnchor;
+                  yAnchor += 10;
+                  html2canvas(divOvertime.getElementsByClassName('summary')[0], {
+                    yPos: yPos0,
+                    onrendered: function(canvas) {
+                      let scale = canvas.height / canvas.width;
+                      let img = canvas.toDataURL('image/png');
+                      if ((this.yPos + 200 * scale) > pageHeight) {
+                        doc.addPage();
+                        this.yPos = 5;
+                        yAnchor = this.yPos + 10;
+                      }
+                      doc.addImage(img, 'JPEG', 60, this.yPos, 80, 80 * scale );
+                    }
+                  });
+                }
+                html2canvas(divOvertime.getElementsByClassName('info')[currentOvertime], {
+                  current: currentOvertime,
+                  onrendered: function(canvas) {
+                    let scale = canvas.height / canvas.width;
+                    let img = canvas.toDataURL('image/png');
+                    if ((yAnchor + 200 * scale) > pageHeight) {
+                      doc.addPage();
+                      yAnchor = 5;
+                    }
+                    doc.addImage(img, 'JPEG', 5, yAnchor, 200, 200 * scale );
+                    yAnchor += 200 * scale;
+                    overtimeLoaded[this.current] = true;
+                  }
+                });
+                currentOvertime++;
+              }
+            } else {
+              lenOvertime = 1;
+              currentOvertime = 1;
+            }
+          }
+
+          if (isLoaded1 && isLoaded2 && isLoaded3 && overtimeLoaded[lenOvertime - 1]) {
+            doc.save('personal-report-' + this.member.user.first_name + '-' + this.member.user.last_name + '.pdf');
+            this.navClass[1] = '';
+            this.navClass[2] = '';
+            clearInterval(interval);
+          }else {}
+        }, 100);
+    }
 }

@@ -59,8 +59,8 @@
                             (onDragStart)="jobDragStart($event, member.id, job.id)" (onDragEnd)="jobDragEnd($event)">
                             <span *ngIf="member">
                                 <img src="{{member.user.image || '/assets/image-profile/default-avatar.png'}}" alt="" draggable="false">
-                                <a class="users-list-name" href="#">{{member.user.first_name + ' ' + member.user.last_name | capitalize}}</a>
-                                <span class="users-list-date">{{member.role.name | capitalize}}</span>
+                                <a class="users-list-name" href="#">{{member.user.first_name + ' ' + member.user.last_name}}</a>
+                                <span class="users-list-date">{{member.role.name}}</span>
                             </span>
                         </li>
                     </ul>
