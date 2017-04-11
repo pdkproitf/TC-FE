@@ -41,11 +41,14 @@ export class ReportDetailProjectComponent implements OnInit {
   sum = [];
   categories: any = [];
   members = [];
+  // displayMembers = [];
   spanMemberClass = [];
   spanCategoryClass = [];
   isLoaded = false;
   from: string = '';
   to: string = '';
+  // idMember = null;
+  // hoursTracked = 0;
   constructor(private route: ActivatedRoute, private reportService: ReportService, private router: Router) { }
 
   ngOnInit() {
@@ -218,6 +221,7 @@ export class ReportDetailProjectComponent implements OnInit {
       console.log(res);
       this.sources = res;
       this.project = this.findProject(id, this.sources);
+      // this.hoursTracked = this.project.tracked_time;
       this.charts = this.project.chart;
       this.categories = this.project.categories;
       this.client_name = this.project.client.name;
@@ -226,7 +230,7 @@ export class ReportDetailProjectComponent implements OnInit {
       this.generateLabels();
       this.generateValues();
       this.generateMembers();
-
+      // this.filterMemberInCategories();
       this.sum = [];
       let len = this.data.labels.length;
       for (let i = 0; i < len; i++) {
@@ -276,6 +280,7 @@ export class ReportDetailProjectComponent implements OnInit {
     this.isLoaded = false;
     this.router.navigate(['report-detail-project', idEvent, begin, end]);
     this.project = this.findProject(idEvent, this.sources);
+    // this.hoursTracked = this.project.tracked_time;
     this.charts = this.project.chart;
     this.categories = this.project.categories;
     this.client_name = this.project.client.name;
@@ -284,7 +289,7 @@ export class ReportDetailProjectComponent implements OnInit {
     this.generateLabels();
     this.generateValues();
     this.generateMembers();
-
+    // this.filterMemberInCategories();
     this.sum = [];
     let len = this.data.labels.length;
     for (let i = 0; i < len; i++) {
@@ -313,7 +318,40 @@ export class ReportDetailProjectComponent implements OnInit {
     let begin = para.begin;
     let end = para.end;
     this.router.navigate(['report-detail', idMember, begin, end]);
+    /*this.displayMembers = [];
+    for (let mem of this.members) {
+      if (mem.id === idMember) {
+        this.displayMembers.push(mem);
+        this.hoursTracked = mem.tracked_time;
+        break;
+      }
+    }
+    this.idMember = idMember;
+    this.filterMemberInCategories();*/
   }
+
+  /*filterMemberInCategories() {
+    if (this.idMember == null) {
+      for (let category of this.categories) {
+        category.displayMembers = [];
+        for (let mem of category.members){
+          category.displayMembers.push(mem);
+        }
+        category.displayTrackedTime = category.tracked_time;
+      }
+    } else {
+      for (let category of this.categories) {
+        category.displayMembers = [];
+        for (let mem of category.members){
+          if (mem.id === this.idMember) {
+            category.displayMembers.push(mem);
+            category.displayTrackedTime = mem.tracked_time;
+            break;
+          }
+        }
+      }
+    }
+  }*/
 
   generateMembers() {
     this.spanMemberClass = [];
@@ -324,8 +362,12 @@ export class ReportDetailProjectComponent implements OnInit {
       for (let i = 0; i < len; i++) {
         let j = this.isInMemberList(category.members[i]);
         if (j < 0) {
+          console.log(category.members[i]);
           let mem = Object.create(category.members[i]);
+          mem.tracked_time = category.members[i].tracked_time;
+          mem.id = category.members[i].id;
           this.members.push(mem);
+          // this.displayMembers.push(mem);
           this.spanMemberClass.push('fa fa-plus icon left');
         } else {
           this.members[j].tracked_time += category.members[i].tracked_time;

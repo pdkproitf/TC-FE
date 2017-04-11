@@ -49,7 +49,7 @@
                             <div *ngIf="divDisplays[id] === 1" class="job-selector">
                                 <ul class="job-ul">
                                     <li *ngFor="let job of searchJobs; let i = index" (mousedown)="addJobToEmployee(employee, job); submitJobs[id] = doesHasNewJobs(id);" class="job-li">{{job.name}}</li>
-                                    <li class="job-li" (mousedown)="displayAddJob = true;">Add new job</li>
+                                    <!--<li class="job-li" (mousedown)="displayAddJob = true;">Add new job</li>-->
                                 </ul>
                             </div>
                         </td>

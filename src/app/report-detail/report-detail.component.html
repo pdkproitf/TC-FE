@@ -1,8 +1,10 @@
 <app-member-menu-bar [currentState]="3"></app-member-menu-bar>
 <div class="container" #container>
   <h1>Reports</h1>
+  <div id="report-search">
   <app-report-search *ngIf="isLoaded" (emitRange)="newRange($event)" [member]="member.user.first_name + ' ' + member.user.last_name"
   (emitMember)="chooseMember($event)" (emitProject)="chooseProject($event)" [firstString]="from" [lastString]="to"></app-report-search>
+  </div>
 
   <div *ngIf="isLoaded" id="inforeport" class="user-info">
     <table class="user-info">
@@ -36,7 +38,7 @@
       </li>
     </ul>
 
-    <div class="by-projects" *ngIf = "navClass[0] === 'choosing'">
+    <div id="by-projects" class="by-projects" *ngIf = "navClass[0] === 'choosing'">
       <div class="project" *ngFor="let project of projects; let id = index;">
         <div class="summary">
           <span style="-webkit-text-stroke: 2px white;" (click)="changeSpanProject(id)" [class]="spanClassProject[id]"></span>
@@ -61,14 +63,14 @@
       </div>
     </div>
 
-    <div class="by-tasks" *ngIf = "navClass[1] === 'choosing'">
+    <div id="by-tasks" class="by-tasks" *ngIf = "navClass[1] === 'choosing'">
       <table>
-        <tr>
+        <tr class="entry">
           <th class="time-entry">Time entry<span class="fa fa-angle-down"></span></th>
           <th class="ca-pro">Categories - Project</th>
           <th></th>
         </tr>
-        <tr *ngFor="let task of filteredTasks; let id = index;">
+        <tr class="task" *ngFor="let task of filteredTasks; let id = index;">
           <td><span style="-webkit-text-stroke: 2px white;" class="fa fa-plus"></span>{{task.name}}</td>
           <td class="ca-pro">{{task.category_name}} - {{task.project_name}} ({{task.client.name}})</td>
           <td class="tracked-time">{{task.tracked_time | timeFromSeconds}}</td>
@@ -77,7 +79,7 @@
     </div>
   </div>
 
-  <div class="overtime" *ngIf = "navClass[2] === 'choosing'">
+  <div id="overtime" class="overtime" *ngIf = "navClass[2] === 'choosing'">
     <div class="summary">
       <div class="left regular">
         <p class="hour">{{otRegular | secondsToHours}}h</p>
