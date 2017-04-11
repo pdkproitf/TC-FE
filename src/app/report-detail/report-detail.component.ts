@@ -463,26 +463,38 @@ export class ReportDetailComponent implements OnInit {
         let divByTasks = document.getElementById('by-tasks');
         let divOvertime = document.getElementById('overtime');
         let lenProjects = this.projects.length;
-        for (let i = 0; i < lenProjects; i++) {
-          this.spanClassProject[i] = 'fa fa-minus icon left';
-          projectsLoaded.push(false);
+        if (lenProjects === 0) {
+          projectsLoaded.push(true);
+        }else {
+          for (let i = 0; i < lenProjects; i++) {
+            this.spanClassProject[i] = 'fa fa-minus icon left';
+            projectsLoaded.push(false);
+          }
         }
         let currentProject = 0;
 
         let lenTasks = this.filteredTasks.length;
-        for (let i = 0; i < lenTasks; i++) {
-          tasksLoaded.push(false);
+        if (lenTasks === 0) {
+          tasksLoaded.push(true);
+        }else {
+          for (let i = 0; i < lenTasks; i++) {
+            tasksLoaded.push(false);
+          }
         }
         let currentTask = 0;
 
         let lenOvertime = this.filteredOvertimes.length;
-        for (let i = 0; i < lenOvertime; i++) {
-          overtimeLoaded.push(false);
+        if (lenOvertime === 0) {
+          overtimeLoaded.push(true);
+        }else {
+          for (let i = 0; i < lenOvertime; i++) {
+            overtimeLoaded.push(false);
+          }
         }
         let currentOvertime = 0;
-
+        console.log(overtimeLoaded);
         interval = setInterval(() => {
-          if (currentProject < lenProjects) {
+          if (currentProject < lenProjects && lenProjects > 0) {
             if (currentProject === 0 || projectsLoaded[currentProject - 1]) {
               html2canvas(divByProjects.getElementsByClassName('project')[currentProject], {
                 current: currentProject,
@@ -500,10 +512,13 @@ export class ReportDetailComponent implements OnInit {
               });
               currentProject++;
             }
+          } else {
+            lenProjects = 1;
+            currentProject = 1;
           }
 
           if (projectsLoaded[lenProjects - 1]) {
-            if (currentTask < lenTasks) {
+            if (currentTask < lenTasks && lenTasks > 0) {
               if (currentTask === 0 || tasksLoaded[currentTask - 1]) {
                 if (currentTask === 0) {
                   yAnchor += 10;
@@ -540,11 +555,14 @@ export class ReportDetailComponent implements OnInit {
                 });
                 currentTask++;
               }
+            } else {
+              lenTasks = 1;
+              currentTask = 1;
             }
           }
 
           if (tasksLoaded[lenTasks - 1]) {
-            if (currentOvertime < lenOvertime) {
+            if (currentOvertime < lenOvertime && lenOvertime > 0) {
               if (currentOvertime === 0 || overtimeLoaded[currentOvertime - 1]) {
                 if (currentOvertime === 0) {
                   yAnchor += 10;
@@ -582,6 +600,9 @@ export class ReportDetailComponent implements OnInit {
                 });
                 currentOvertime++;
               }
+            } else {
+              lenOvertime = 1;
+              currentOvertime = 1;
             }
           }
 
