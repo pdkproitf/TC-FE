@@ -3,6 +3,7 @@
     margin: auto;
     margin-top: 4em;
     margin-bottom: 4em;
+    width: 700px;
 }
 /deep/.ui-datepicker {
     position: fixed;
@@ -50,6 +51,7 @@
     color: rgba(54,54,54,0.7);
 }
 /deep/ .fc{
+
     .fc-view-container{
         font-family: Lato;
         font-size: 16px !important;
@@ -67,6 +69,16 @@
         font-family: Lato;
         font-size: 16px !important;
         line-height: 24px;
+    }
+    .fc-basic-view .fc-body .fc-row {
+        height: 86px !important;
+    }
+
+    .fc-scroller {
+        height: auto !important;
+    }
+    .fc-toolbar h2 {
+        font-family: Lato;
     }
 }
 /deep/.ui-growl-item {

@@ -29,21 +29,21 @@
                     <div class="block">
                         <label for="">Projects</label>
                         <div class="inline">
-                            <label *ngFor="let name of totalProjectSelect()"><strong>{{name | capitalize}}</strong></label>
+                            <strong><span *ngFor="let name of totalProjectSelect()">{{name | capitalize}}</span></strong>
                         </div>
                     </div>
 
                     <div class="block">
                         <label for="">Categoryes</label>
                         <div class="inline">
-                            <label *ngFor="let name of totalCategorySelect()"><strong>{{name | capitalize}}</strong></label>
+                            <strong><span *ngFor="let name of totalCategorySelect()">{{name | capitalize}}</span></strong>
                         </div>
                     </div>
 
                     <div class="block">
                         <label for="">Peoples</label>
                         <div class="inline">
-                            <label *ngFor="let name of totalPeopleSelect()"><strong>{{name | capitalize}}</strong></label>
+                            <strong><span *ngFor="let name of totalPeopleSelect()">{{name | capitalize}}</span></strong>
                         </div>
                     </div>
                 </div>

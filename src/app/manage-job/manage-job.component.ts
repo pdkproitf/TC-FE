@@ -1,5 +1,5 @@
+import { Component, OnInit, EventEmitter, Output }    from '@angular/core';
 import { MembershipService }    from './../services/membership-service';
-import { Component, OnInit }    from '@angular/core';
 import { JobService }           from './../services/job-service';
 import { Message }              from 'primeng/primeng';
 import { Member }               from '../models/member';
@@ -12,17 +12,29 @@ declare var $:any
     styleUrls: ['./manage-job.component.scss']
 })
 export class ManageJobComponent implements OnInit {
+    /** data get from api */
     members: Member[];
     jobs: Job[];
+
+    /** current data to show */
+    _members: Member[];
+    _jobs: Job[];
+
     msgs: Message[] = [];
 
     member_drag: number = 0;
     job_drag_member: number = 0;
+    /** using trap job_member drop in job area */
     job_drop_member: number = 0;
 
     dialogVisible: boolean = false;
 
-    /** using trap job_member drop in job area */
+    searchJobParten = '';
+    searchMemberParten = '';
+
+    /** chang to empoy tag */
+    @Output() changeTab = new EventEmitter<string>();
+
 
     constructor(private membershipService: MembershipService, private jobService: JobService) {
         this.members = [];
@@ -39,6 +51,7 @@ export class ManageJobComponent implements OnInit {
     getJobs(){
         this.jobService.getAllJobs().then(
             (result) => {
+                this._jobs = result;
                 this.jobs = result;
             },
             (error) => {
@@ -51,6 +64,7 @@ export class ManageJobComponent implements OnInit {
         this.membershipService.getAllMembership().then(
             (result) => {
                 this.members = result;
+                this._members = result;
             },
             (error) => {
                 this.noticeMessage(JSON.parse(error['_body']).error);
@@ -79,6 +93,26 @@ export class ManageJobComponent implements OnInit {
 
     showControl(show: boolean, job: Job){
         show? $('#job-' + job.id).css({'display': 'inline-flex'}) : $('#job-' + job.id).css({'display': 'none'});
+    }
+
+    searchMember(){
+        this._members = [];
+        for (let member of this.members) {
+            var name = member.user.first_name + ' '+ member.user.last_name;
+            if ((name.toUpperCase().indexOf(this.searchMemberParten.toUpperCase()) > -1) || (name.toLowerCase().indexOf(this.searchMemberParten.toLowerCase()) > -1)) {
+                this._members.push(member);
+            }
+        }
+    }
+
+    searchJob(){
+        this._jobs = [];
+        for (let job of this.jobs) {
+            if ((job.name.toUpperCase().indexOf(this.searchJobParten.toUpperCase()) > -1) ||
+                (job.name.toLowerCase() .indexOf(this.searchJobParten.toLowerCase()) > -1)) {
+                this._jobs.push(job);
+            }
+        }
     }
 
     /** ****** drag member in company members ******************************* */
@@ -239,6 +273,10 @@ export class ManageJobComponent implements OnInit {
                 this.noticeMessage(JSON.parse(error['_body']).error);
             }
         )
+    }
+
+    tagToEmployees(){
+        this.changeTab.emit('employees');
     }
 
     // status = 0 -> success, 1 -> warning, 2 -> error
