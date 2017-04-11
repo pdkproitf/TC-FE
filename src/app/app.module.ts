@@ -82,6 +82,7 @@ import { ManageHolidayComponent } from './manage-holiday/manage-holiday.componen
 import { InvitesConfirmComponent } from './invites-confirm/invites-confirm.component';
 import { SettingComponent } from './setting/setting.component';
 import { ManageJobComponent } from './manage-job/manage-job.component';
+import { Ng2StickyModule } from 'ng2-sticky';
 
 @NgModule({
   declarations: [
@@ -166,7 +167,9 @@ import { ManageJobComponent } from './manage-job/manage-job.component';
     GrowlModule,
     Ng2CloudinaryModule,
     FileUploadModule,
-    ScheduleModule
+    ScheduleModule,
+    DragDropModule,
+    Ng2StickyModule
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
   AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService,

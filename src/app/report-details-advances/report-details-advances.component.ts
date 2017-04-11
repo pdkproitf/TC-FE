@@ -109,29 +109,32 @@ export class ReportDetailsAdvancesComponent implements OnInit {
     }
 
     totalProjectSelect(){
-        var value = ['All'];
+        var value = ['All   '];
         if(this.projects_selected.length > 0 && this.projects.length > 0){
             value = [];
-            this.projects_selected.forEach(project => value.push(project.name +' ,'));
+            this.projects_selected.forEach(project => value.push(project.name +' -'));
         }
+        value[value.length - 1] = value[value.length - 1].slice(0, value[value.length - 1].length - 3);
         return value;
     }
 
     totalCategorySelect(){
-        var value = ['All'];
+        var value = ['All   '];
         if(this.categories_selected.length > 0 && this.categories.length > 0){
             value = [];
-            this.categories_selected.forEach(category => value.push(category.name + ' ,'));
+            this.categories_selected.forEach(category => value.push(category.name + ' -'));
         }
+        value[value.length - 1] = value[value.length - 1].slice(0, value[value.length - 1].length - 3);
         return value;
     }
 
     totalPeopleSelect(){
-        var value = ['Everyone'];
+        var value = ['Everyone   '];
         if(this.peoples_selected.length > 0 && this.peoples.length > 0){
             value = [];
-            this.peoples_selected.forEach(member => value.push(member.user.first_name + ' ' + member.user.last_name + ' ,'));
+            this.peoples_selected.forEach(member => value.push(member.user.first_name + ' ' + member.user.last_name + ' -'));
         }
+        value[value.length - 1] = value[value.length - 1].slice(0, value[value.length - 1].length - 3);
         return value;
     }
 /** END: result after run report using to show in search result ***************/
@@ -460,7 +463,7 @@ export class ReportDetailsAdvancesComponent implements OnInit {
         this.reportService.getReportAdvances(this.start_date, this.end_date,
             this.getProjectId(), this.getCategoryName(), this.getPeopleId()).then(
                 (result) => {
-                    // console.log("report advances", result);
+                    console.log("report advances", result);
                     this._projects = result['projects'];
                     if(this.projects_selected.length == 0){
                         this.initProjects();
@@ -515,6 +518,5 @@ export class ReportDetailsAdvancesComponent implements OnInit {
 
     cancel(){
         this.changeFilters(false);
-        console.log('cancel');
     }
 }

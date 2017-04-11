@@ -207,8 +207,8 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     initializeHashMemberDayStatus(){
         this.hash_member_day_status = new Map<string, string>();
         for (let member of this.distionary_member){
-            this.push_to_list_projects(member);
-            this.push_to_list_jobs(member);
+            this.pushToListProjects(member);
+            this.pushToListJobs(member);
             for(let day of this.days)
                 this.hash_member_day_status.set(member.id+'-'+day.getDate(), this.computeClassDayCel(day, member.id));
         }
@@ -216,14 +216,14 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
         this.initJobtypes.emit(this.jobs_types);
     }
 
-    push_to_list_projects(member: Member){
+    pushToListProjects(member: Member){
         if(member['projects_joined'])
             for (var project of member['projects_joined'])
                 if(this.projects_types.findIndex(x => x.id === project.id) == -1)
                     this.projects_types.push(project);
     }
 
-    push_to_list_jobs(member: Member){
+    pushToListJobs(member: Member){
         for (var job of member.jobs)
             if(this.jobs_types.findIndex(x => x.id === job.id) == -1)
                 this.jobs_types.push(job);
