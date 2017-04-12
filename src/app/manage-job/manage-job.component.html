@@ -10,28 +10,30 @@
 
     <div class="content">
         <div class="members">
-            <div ng2-sticky class="members-content">
-                <div class="header">
-                    <span>Members</span>
-                    <div class="search-group">
-                        <input class="search-text" type="text" [(ngModel)]="searchMemberParten" (keyup)="searchMember()" placeholder="Search Members"/>
-                        <span class="fa fa-search imgspan"></span>
+            <sticky sticky-zIndex="999" sticky-offset-top="50">
+                <div class="members-content">
+                    <div class="header">
+                        <span>Members</span>
+                        <div class="search-group">
+                            <input class="search-text" type="text" [(ngModel)]="searchMemberParten" (keyup)="searchMember()" placeholder="Search Members"/>
+                            <span class="fa fa-search imgspan"></span>
+                        </div>
                     </div>
-                </div>
 
-                <div class="body">
-                    <ul class="users-list clearfix">
-                        <li *ngFor="let member of _members" pDraggable="userMembers"
-                        (onDragStart)="dragStart($event, member.id)" (onDragEnd)="dragEnd($event)">
-                            <img src="{{member.user.image || '/assets/image-profile/default-avatar.png'}}" alt="" draggable="false">
-                            <a class="users-list-name" href="#">{{member.user.first_name + ' ' + member.user.last_name | capitalize}}</a>
-                            <span class="users-list-date">{{member.role.name | capitalize}}</span>
-                        </li>
-                    </ul>
-                </div>
+                    <div class="body">
+                        <ul class="users-list clearfix">
+                            <li *ngFor="let member of _members" pDraggable="userMembers"
+                                (onDragStart)="dragStart($event, member.id)" (onDragEnd)="dragEnd($event)">
+                                <img src="{{member.user.image || '/assets/image-profile/default-avatar.png'}}" alt="" draggable="false">
+                                <a class="users-list-name" href="#">{{member.user.first_name + ' ' + member.user.last_name | capitalize}}</a>
+                                <span class="users-list-date">{{member.role.name | capitalize}}</span>
+                            </li>
+                        </ul>
+                    </div>
 
-                <div class="footer"><a (click)="tagToEmployees()" href="/#/manage">Manage Member</a></div>
-            </div>
+                    <div class="footer"><a (click)="tagToEmployees()" href="/#/manage">Manage Member</a></div>
+                </div>
+            </sticky>
         </div>
 
         <div class="job-content">
