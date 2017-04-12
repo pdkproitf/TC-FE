@@ -522,19 +522,25 @@ export class ReportDetailComponent implements OnInit {
               if (currentTask === 0 || tasksLoaded[currentTask - 1]) {
                 if (currentTask === 0) {
                   yAnchor += 10;
+                  if (yAnchor > pageHeight) {
+                    doc.addPage();
+                    yAnchor = 5;
+                  }
                   doc.text(5, yAnchor, 'By Tasks:');
                   let yPos = yAnchor + 3;
-                  yAnchor += 10;
+                  console.log('before if: ' + yPos);
+                  if (yPos + 7.2 > pageHeight) {
+                    doc.addPage();
+                    yPos = 5;
+                  }
+                  console.log('after if: ' + yPos);
+                  yAnchor = yPos + 8;
                   html2canvas(divByTasks.getElementsByClassName('entry')[0], {
                     yPos: yPos,
                     onrendered: function(canvas) {
                       let scale = canvas.height / canvas.width;
                       let img = canvas.toDataURL('image/png');
-                      if ((this.yPos + 200 * scale) > pageHeight) {
-                        doc.addPage();
-                        this.yPos = 5;
-                        yAnchor = this.yPos + 5;
-                      }
+                      console.log('entry: ' + 200 * scale );
                       doc.addImage(img, 'JPEG', 5, this.yPos, 200, 200 * scale );
                       }
                   });
@@ -566,20 +572,26 @@ export class ReportDetailComponent implements OnInit {
               if (currentOvertime === 0 || overtimeLoaded[currentOvertime - 1]) {
                 if (currentOvertime === 0) {
                   yAnchor += 10;
+                  if (yAnchor > pageHeight) {
+                    doc.addPage();
+                    yAnchor = 5;
+                  }
                   doc.text(5, yAnchor, 'Overtime:');
                   yAnchor += 5;
                   let yPos0 = yAnchor;
-                  yAnchor += 10;
+                  console.log('before if: ' + yPos0);
+                  if (yPos0 + 33.4 > pageHeight) {
+                    doc.addPage();
+                    yPos0 = 5;
+                  }
+                  console.log('after if: ' + yPos0);
+                  yAnchor = yPos0 + 13;
                   html2canvas(divOvertime.getElementsByClassName('summary')[0], {
                     yPos: yPos0,
                     onrendered: function(canvas) {
                       let scale = canvas.height / canvas.width;
                       let img = canvas.toDataURL('image/png');
-                      if ((this.yPos + 200 * scale) > pageHeight) {
-                        doc.addPage();
-                        this.yPos = 5;
-                        yAnchor = this.yPos + 10;
-                      }
+                      console.log('summary: ' + 200 * scale );
                       doc.addImage(img, 'JPEG', 60, this.yPos, 80, 80 * scale );
                     }
                   });

@@ -4,6 +4,8 @@ import { UIChart } from 'primeng/primeng';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {style, state, animate, transition, trigger} from '@angular/core';
 
+declare let jsPDF;
+declare let html2canvas;
 @Component({
   selector: 'app-report-detail-project',
   templateUrl: './report-detail-project.component.html',
@@ -80,7 +82,7 @@ export class ReportDetailProjectComponent implements OnInit {
             stacked: true,
             ticks: {
               fontColor: 'rgba(54,54,54,0.7);',
-              fontSize: 14,
+              fontSize: 12,
               fontStyle: 'normal',
               fontFamily: 'Lato',
             }
@@ -102,7 +104,7 @@ export class ReportDetailProjectComponent implements OnInit {
             ctx = chartInstance.ctx;
             let height = chartInstance.canvas.height;
             ctx.fillStyle = '#000000';
-            ctx.font = 'bold 14px Lato';
+            ctx.font = 'bold 12px Lato';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'bottom';
             let len = this.data.labels.length;
@@ -129,7 +131,7 @@ export class ReportDetailProjectComponent implements OnInit {
                 meta.data.forEach(function (bar, index) {
                     let data = dataset.data[index];
                     let display = sum[index];
-                    ctx.fillText(display, bar._model.x, bar._model.y - 10);
+                    ctx.fillText(display, bar._model.x, bar._model.y - 2);
                     ctx.fillStyle = '#FFFFFF';
                     let toFull = height - 50  - bar._model.y;
                     ctx.fillStyle = '#000000';
@@ -147,7 +149,9 @@ export class ReportDetailProjectComponent implements OnInit {
     this.to = end;
     this.newRange([begin, end]);
     this.items = [
-      {label: 'PDF', icon: 'fa-file-pdf-o'},
+      {label: 'PDF', icon: 'fa-file-pdf-o', command: (event) => {
+        this.preparePdf();
+      }},
       {label: 'DOC', icon: 'fa-file-text-o'},
       {label: 'XSL', icon: 'fa-file-excel-o', command: (event) => {
         console.log('XSL');
@@ -420,4 +424,145 @@ export class ReportDetailProjectComponent implements OnInit {
     : this.spanCategoryClass[id].replace('minus', 'plus');
   }
 
+  intervalVar;
+  public preparePdf() {
+    this.navClass[0] = 'choosing';
+    this.navClass[1] = 'choosing';
+    this.intervalVar = setInterval(() => {
+      if (document.getElementById('by-people') != null &&
+      document.getElementById('by-categories') != null) {
+        this.downloadPdf();
+        clearInterval(this.intervalVar);
+      }
+    }, 100);
+  }
+
+  public downloadPdf() {
+    let doc = new jsPDF();
+    doc.setFontSize(16);
+    doc.setFont('courier', 'bold');
+    let interval;
+    let pageHeight = 290;
+    let yAnchor = 105;
+    let isLoaded1 = false;
+    let isLoaded2 = false;
+    let isLoaded3 = false;
+    let peopleLoaded: boolean[] = [];
+    let categoriesLoaded: boolean[] = [];
+    html2canvas(document.getElementById('project-info'), {
+      onrendered: function(canvas) {
+        let scale = canvas.height / canvas.width;
+        let img = canvas.toDataURL('image/png');
+        doc.addImage(img, 'JPEG', 0, 25, 200, 200 * scale );
+        isLoaded1 = true;
+      }
+    });
+    html2canvas(document.getElementById('report-search'), {
+      onrendered: function(canvas) {
+        let scale = canvas.height / canvas.width;
+        let img = canvas.toDataURL('image/png');
+        doc.addImage(img, 'JPEG', 5, 5, 200, 200 * scale );
+        isLoaded2 = true;
+      }
+    });
+    html2canvas(document.getElementById('chart-report'), {
+      onrendered: function (canvas) {
+        let scale = canvas.height / canvas.width;
+        let img = canvas.toDataURL('image/png');
+        doc.addImage(img, 'JPEG', 5, 45, 200, 200 * scale );
+        doc.text(5, yAnchor, 'By People:');
+        yAnchor += 5;
+        isLoaded3 = true;
+      }
+    });
+    let divByPeople = document.getElementById('by-people');
+    let divByCategories = document.getElementById('by-categories');
+
+    let lenPeople = this.members.length;
+    if (lenPeople === 0) {
+      peopleLoaded.push(true);
+    } else {
+      for (let i = 0; i < lenPeople; i++) {
+        this.spanMemberClass[i] = 'fa fa-minus icon left';
+        peopleLoaded.push(false);
+      }
+    }
+    let currentPerson = 0;
+
+    let lenCategories = this.categories.length;
+    if (lenCategories === 0) {
+      categoriesLoaded.push(true);
+    } else {
+      for (let i = 0; i < lenCategories; i++) {
+        this.spanCategoryClass[i] = 'fa fa-minus icon left';
+        categoriesLoaded.push(false);
+      }
+    }
+    let currentCategory = 0;
+    interval = setInterval(() => {
+      if (currentPerson < lenPeople && lenPeople > 0) {
+        if (currentPerson === 0 || peopleLoaded[currentPerson - 1]) {
+          html2canvas(divByPeople.getElementsByClassName('person')[currentPerson], {
+            current: currentPerson,
+            onrendered: function(canvas) {
+              let scale = canvas.height / canvas.width;
+              let img = canvas.toDataURL('image/png');
+              if ((yAnchor + 200 * scale) > pageHeight) {
+                doc.addPage();
+                yAnchor = 5;
+              }
+              doc.addImage(img, 'JPEG', 0, yAnchor, 200, 200 * scale);
+              yAnchor += 200 * scale;
+              peopleLoaded[this.current] = true;
+            }
+          });
+          currentPerson++;
+        }
+      } else {
+        lenPeople = 1;
+        currentPerson = 1;
+      }
+
+      if (peopleLoaded[lenPeople - 1]) {
+        if (currentCategory < lenCategories && lenCategories > 0) {
+          if (currentCategory === 0 || categoriesLoaded[currentCategory - 1]) {
+            if (currentCategory === 0) {
+              yAnchor += 10;
+              if (yAnchor > pageHeight) {
+                doc.addPage();
+                yAnchor = 5;
+              }
+              doc.text(5, yAnchor, 'By Categories:');
+              let yPos = yAnchor + 3;
+              yAnchor += 5;
+            }
+            html2canvas(divByCategories.getElementsByClassName('category')[currentCategory], {
+              current: currentCategory,
+              onrendered: function(canvas) {
+                let scale = canvas.height / canvas.width;
+                let img = canvas.toDataURL('image/png');
+                if ((yAnchor + 200 * scale) > pageHeight) {
+                  doc.addPage();
+                  yAnchor = 5;
+                }
+                doc.addImage(img, 'JPEG', 0, yAnchor, 200, 200 * scale );
+                yAnchor += 200 * scale;
+                categoriesLoaded[this.current] = true;
+              }
+            });
+            currentCategory ++;
+          }
+        } else {
+          lenCategories = 1;
+          currentCategory = 1;
+        }
+      }
+
+      if (isLoaded1 && isLoaded2 && isLoaded3 && categoriesLoaded[lenCategories - 1]) {
+        doc.save('report-for-project-' + this.project.name + '.pdf');
+        this.navClass[1] = '';
+        clearInterval(interval);
+      } else {}
+    }, 100);
+  }
 }
