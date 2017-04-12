@@ -33,6 +33,17 @@ export class UserService {
         return this.LoggedIn;
     }
 
+    isAdmin(): boolean {
+        if (this.LoggedIn) {
+            let userInfo = localStorage.getItem('UserInfo');
+            let userObj = JSON.parse(userInfo);
+            if (userObj.role.name === 'Admin') {
+                return true;
+            }
+        }
+        return false;
+    }
+
     signUp(user): Promise<any> {
         let requestUrl = this.serverdomain.domain + '/users';
         let headers = new Headers;

@@ -1,3 +1,4 @@
+import { AuthenAdmin } from './services/authen-admin';
 import { SettingComponent } from './setting/setting.component';
 import { InvitesConfirmComponent } from './invites-confirm/invites-confirm.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -34,7 +35,7 @@ const routes: Routes = [
     { path: 'verify-email/:text', component: VerifyEmailPageComponent, canActivate: [NotLoggedIn] },
     { path: 'projects', component: ProjectManageComponent, canActivate: [AuthenLoggedIn] },
     { path: 'new-project', component: CreateProjectComponent, canActivate: [AuthenLoggedIn] },
-    { path: 'manage', component: ManageMemberComponent, canActivate: [AuthenLoggedIn] },
+    { path: 'manage', component: ManageMemberComponent, canActivate: [AuthenAdmin] },
     { path: 'projects/:id', component: ProjectDetailsComponent, canActivate: [AuthenLoggedIn] },
     { path: 'timeoffs', component: TimeoffManageComponent, canActivate: [AuthenLoggedIn] },
     { path: 'new-timeoff', component: CreateTimeoffComponent, canActivate: [AuthenLoggedIn] },

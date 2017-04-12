@@ -20,7 +20,7 @@ export class MemberMenuBarComponent implements OnInit {
   @Input()
   currentState: number = null;
   classActive: string[] = ['', '', '', '', ''];
-
+  isAdmin: boolean = false;
   constructor(private router: Router, private userService: UserService) { }
 
   ngOnInit() {
@@ -30,6 +30,7 @@ export class MemberMenuBarComponent implements OnInit {
     let userInfo = localStorage.getItem('UserInfo');
     let userObj = JSON.parse(userInfo);
     // console.log(userObj);
+    this.isAdmin = (userObj.role.name === 'Admin') ? true : false;
     this.user.name = userObj.user.first_name;
     this.imageUrl = userObj.user.image;
     this.items = [
