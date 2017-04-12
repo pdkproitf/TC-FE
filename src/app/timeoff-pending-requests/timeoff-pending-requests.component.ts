@@ -27,6 +27,9 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
     /** show notification */
     msgs: Message[] = [];
 
+    current_page: number = 1;
+    rowOfPage: number = 8;
+
     @Input()
     set timeoffs(timeoffs: TimeOff[]){
         this._timeoffs = timeoffs || [];
@@ -36,6 +39,12 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
     @Input()
     set showAll(show: Boolean){
         this.is_show_all = show;
+    }
+
+    @Input()
+    set rowsOfPage(num: number){
+        console.log('get row of page', num);
+        this.rowOfPage = num;
     }
 
     @Output() reload = new EventEmitter();
@@ -161,6 +170,25 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
     ////
     showForm(status: string){
         this.timeOffPut.answer_timeoff_request.status = status;
+    }
+
+    // update current_page each time click page_button
+    paginates(event) {
+        this.current_page = event.page + 1;
+        // this.changeIconPaginate();
+        //event.first = Index of the first record
+        //event.rows = Number of rows to display in new page
+        //event.page = Index of the new page
+        //event.pageCount = Total number of pages
+    }
+
+    // change forward anjd backforward icon
+    changeIconPaginate(){
+        $('#projects-paginate').css({'display': 'block'});
+        $('.fa-forward').addClass('fa fa-angle-right');
+        $('.fa-backward').addClass('fa fa-angle-left');
+        $('.fa-step-forward').addClass('fa fa-angle-double-right fa-1');
+        $('.fa-step-backward').addClass('fa fa-angle-double-left fa-1');
     }
 
     ////

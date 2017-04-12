@@ -9,7 +9,7 @@
             <p-tabPanel header="Pending">
                 <div class="timeoff-manage-content">
                     <h2>Pending request ({{list_timeoff.pending_requests.length}})</h2>
-                    <app-timeoff-pending-requests [timeoffs]="list_timeoff.pending_requests" (reload)="getTimeOffsPending()"></app-timeoff-pending-requests>
+                    <app-timeoff-pending-requests [timeoffs]="list_timeoff.pending_requests" (reload)="getTimeOffsPending()" [rowsOfPage]="rowOfPage"></app-timeoff-pending-requests>
                 </div>
 
                 <div class="timeoff-calendar">

@@ -12,7 +12,10 @@ export class TimeoffPassRequestsComponent implements OnInit {
     _timeoffs: TimeOff[] = [];
     list_timeoff: TimeOff[] = [];
     type_request = ['All request', 'pending', 'approved', 'rejected']
-    type_select = 'All request'
+    type_select = 'All request';
+
+    /** numof timeoff pending show in a page*/
+    rowOfPage: number = 15;
 
     constructor(private timeoffService: TimeoffService) {
         this.getTimeOffsPending();
