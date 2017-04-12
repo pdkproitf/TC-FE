@@ -6,14 +6,11 @@
         <li [class]="navClass[2]" (click)="changeNavClass(2)"><p>Clients</p></li>
         <li [class]="navClass[3]" (click)="changeNavClass(3)"><p>Holidays</p></li>
         <li [class]="navClass[4]" (click)="changeNavClass(4)"><p>Jobs</p></li>
-        <li class="export">
-            <p-menu #menu popup="popup" [model]="items"></p-menu>
-            <button pButton type="button" label="Export" icon="fa-caret-down" (click)="menu.toggle($event)" iconPos="right"></button>
-        </li>
     </ul>
 
     <div *ngIf="navClass[0] === 'choosing'" class="member-manage">
-        <input class="search-em" type="text" placeholder="search employee" [(ngModel)]="searchNameText" (keyup)="keyUpSearchName()" name="search-em">
+        <p style="margin-bottom: 0;">Search employees by name:</p>
+        <input class="search-em" type="text" placeholder="Ex: David" [(ngModel)]="searchNameText" (keyup)="keyUpSearchName()" name="search-em">
         <div class="member-list">
             <table>
                 <thead>
