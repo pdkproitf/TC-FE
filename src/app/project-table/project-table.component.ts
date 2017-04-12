@@ -34,7 +34,6 @@ export class ProjecTableComponent implements OnInit, OnChanges {
             for(var _i = 0; _i < this._projects.length; _i+=this.rowOfPage){
                 this.pages.push(j++);
             }
-            if(this.projects.length > this.rowOfPage) this.changeIconPaginate();
         }
         this._projects = this.projects;
     }
@@ -106,14 +105,5 @@ export class ProjecTableComponent implements OnInit, OnChanges {
         //event.rows = Number of rows to display in new page
         //event.page = Index of the new page
         //event.pageCount = Total number of pages
-    }
-
-    // change forward anjd backforward icon
-    changeIconPaginate(){
-        $('#projects-paginate').css({'display': 'block'});
-        $('.fa-forward').addClass('fa fa-angle-right');
-        $('.fa-backward').addClass('fa fa-angle-left');
-        $('.fa-step-forward').addClass('fa fa-angle-double-right fa-1');
-        $('.fa-step-backward').addClass('fa fa-angle-double-left fa-1');
     }
 }

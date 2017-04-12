@@ -14,6 +14,9 @@ export class TimeoffManageComponent implements OnInit {
     personNumTimeOff: PersonNumTimeOff = new PersonNumTimeOff();
     userObj: Object;
 
+    /** numof timeoff pending show in a page*/
+    rowOfPage = 8
+
     constructor(private router: Router, private timeoffService: TimeoffService) { }
 
     ngOnInit() {
