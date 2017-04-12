@@ -65,4 +65,4 @@
         </table>
     </div>
 </div>
-<div id="projects-paginate" ><p-paginator rows="{{rowOfPage}}" totalRecords="{{projects.length}}" (onPageChange)="paginates($event)" (onLoad)="changeIconPaginate()"></p-paginator></div>
+<div *ngIf="projects.length > rowOfPage" ><p-paginator rows="{{rowOfPage}}" totalRecords="{{projects.length}}" (onPageChange)="paginates($event)" ></p-paginator></div>

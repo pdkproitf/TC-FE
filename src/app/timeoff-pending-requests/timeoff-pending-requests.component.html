@@ -1,5 +1,5 @@
 <div class="content">
-    <div class="request" *ngFor="let timeoff of _timeoffs" (mouseover)='showTimeoffControl(true, timeoff.id)' (mouseleave)='showTimeoffControl(false, timeoff.id)'>
+    <div class="request" *ngFor="let timeoff of _timeoffs.slice((current_page -1)*rowOfPage, current_page*rowOfPage)" (mouseover)='showTimeoffControl(true, timeoff.id)' (mouseleave)='showTimeoffControl(false, timeoff.id)'>
         <div class="avatar" *ngIf="!timeoff.sender.user.image"></div>
         <div class="avatar" *ngIf="timeoff.sender.user.image" [ngStyle]="{'background-image': 'url('+timeoff.sender.user.image+')'}" ></div>
         <div class="details">
@@ -10,7 +10,8 @@
                         <span>{{timeoff.status | capitalize}}</span>
                     </div>
                 </div><br>
-                <span class="days-off">Vacation on {{timeoff.start_date | date: 'MMM dd'}} - {{timeoff.end_date | date: 'MMM dd'}} </span> <span class="total-days-off">
+                <span class="days-off">Vacation on {{timeoff.start_date | date: 'MMM dd'}} - {{timeoff.end_date | date: 'MMM dd'}} </span>
+                <span class="total-days-off">
                     ({{ (timeoff.end_date | amDifference: timeoff.start_date :'days' : true) + 1 - (timeoff.is_start_half_day? 0.5:0) - (timeoff.is_end_half_day? 0.5:0) }} days)
                 </span> <br>
             </div>
@@ -61,5 +62,6 @@
             <div class="request-at">Requested {{timeoff.created_at | amTimeAgo}}</div>
         </div>
     </div>
+    <div *ngIf="_timeoffs.length > rowOfPage"><p-paginator rows="{{rowOfPage}}" totalRecords="{{_timeoffs.length}}" (onPageChange)="paginates($event)" (onLoad)="changeIconPaginate()"></p-paginator></div>
     <p-growl [value]="msgs" [life]="3000" ></p-growl>
 </div>
