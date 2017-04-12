@@ -51,7 +51,10 @@
     color: rgba(54,54,54,0.7);
 }
 /deep/ .fc{
-
+    .fc-day-grid-event .fc-content {
+        white-space: inherit !important;
+        text-overflow: ellipsis;
+    }
     .fc-view-container{
         font-family: Lato;
         font-size: 16px !important;
