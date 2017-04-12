@@ -1,3 +1,4 @@
+import { AuthenAdmin } from './services/authen-admin';
 import { CompanyService } from './services/company-service';
 import { RolesService } from './services/roles-service';
 import { JobService } from './services/job-service';
@@ -174,7 +175,7 @@ import { Ng2StickyModule } from 'ng2-sticky';
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
   AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService,
   TimerService, ProjectJoinService, TimerFetchService, TaskService, TimeoffService, ReportService,
-  JobService, HolidayService, RolesService, CompanyService],
+  JobService, HolidayService, RolesService, CompanyService, AuthenAdmin],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
