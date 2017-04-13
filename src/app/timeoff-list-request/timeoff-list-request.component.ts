@@ -59,7 +59,7 @@ export class TimeoffListRequestComponent implements OnInit, OnChanges {
     //@function sort newest
     //@desc sort list _timeoffs DESC day updated
     //@param
-    //@result void
+    //@result
     ////
     sortNewest(){
         if(this._timeoffs.length > 1){
@@ -76,7 +76,7 @@ export class TimeoffListRequestComponent implements OnInit, OnChanges {
     //@function initialize description status each timeoff
     //@desc each timeoff show descriptio when hander click action, so it initialized show is false
     //@param
-    //@result void
+    //@result
     ////
     // initialize_description_status(){
     initializeDescriptionStatus(){
@@ -91,7 +91,7 @@ export class TimeoffListRequestComponent implements OnInit, OnChanges {
     //@function sort
     //@desc sort list_timeoff follow status
     //@param
-    //@result void
+    //@result
     ////
     sort(){
         switch(this.type){
@@ -133,7 +133,7 @@ export class TimeoffListRequestComponent implements OnInit, OnChanges {
     //@function show timeoff details
     //@desc handler click action -> show details timeoff status
     //@param timeoff_id to get timeoff's show description status and update
-    //@result void
+    //@result
     ////
     showDetails(id: Number){
         this.show_timeoff_details.get(id)? $('#description-details-'+id).css({'display': 'none'}):
@@ -145,7 +145,7 @@ export class TimeoffListRequestComponent implements OnInit, OnChanges {
     //@function show timeoff control
     //@desc handler mouseover/mouseleave action -> show timeoff control
     //@param is_show and timeoff_id
-    //@result void
+    //@result
     ////
     showTimeoffControl(is_show: boolean,id: number){
         is_show? $('#your-timeoff-control-'+id).css({'display': 'inline-block'}) :
@@ -176,7 +176,7 @@ export class TimeoffListRequestComponent implements OnInit, OnChanges {
     //@function show timeoff controledit timeoff
     //@desc navigate to edit timeoff pages
     //@param timeoff_id
-    //@result void
+    //@result
     ////
     edit(id: number){
         this.router.navigate(['/edit-timeoff/'+id]);
@@ -186,7 +186,7 @@ export class TimeoffListRequestComponent implements OnInit, OnChanges {
     //@function delete timeoff controledit timeoff
     //@desc delete timeoff
     //@param timeoff_id
-    //@result void
+    //@result
     ////
     delete(id: number){
         this.timeoffService.delete(id,)

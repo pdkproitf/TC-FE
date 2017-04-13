@@ -29,7 +29,7 @@ export class TimeoffPassRequestsComponent implements OnInit {
     //@function get timeoffs
     //@desc get list timeoffs with current_member role when start_date is begining of year
     //@param void
-    //@result void
+    //@result
     ////
     getTimeOffsPending(){
         this.timeoffService.getAllTimeOffs().then(
@@ -48,7 +48,7 @@ export class TimeoffPassRequestsComponent implements OnInit {
     //@function sort
     //@desc sort list_timeoff follow status
     //@param void
-    //@result void
+    //@result
     ////
     sort(){
         switch(this.type_select){

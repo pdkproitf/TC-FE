@@ -10,11 +10,15 @@ import { Message }           from 'primeng/primeng';
     styleUrls: ['./manage-holiday.component.scss']
 })
 export class ManageHolidayComponent implements OnInit {
-    events: any[];
+    /** config what will be show in header of schedule */
     headerConfig: any;
+    /** dialod show holiday details status, true -> show */
     dialogVisible: boolean = false;
+    /** list holiday get from api */
     holidays: HolidaySchedule[] = [];
+    /** current_holiday working on */
     holiday: HolidaySchedule;
+    /** Message object to show inform panel */
     msgs: Message[] = [];
 
     constructor(private holidayService: HolidayService, private cd: ChangeDetectorRef) {
@@ -39,6 +43,7 @@ export class ManageHolidayComponent implements OnInit {
         this.holiday = new HolidaySchedule();
     }
 
+    /** handle event in schedule **********************************************/
     handleDayClick(event) {
         this.holiday = new HolidaySchedule();
         this.holiday.start = event.date._d;
@@ -75,7 +80,9 @@ export class ManageHolidayComponent implements OnInit {
         if(this.holiday.id) this.delete();
         this.showDialog(false);
     }
+    /** end handle event in schedule ******************************************/
 
+    /** call services function ************************************************/
     create(){
         this.holidayService.create(this.getHolidayPost()).then(
             (result) => {
@@ -91,7 +98,7 @@ export class ManageHolidayComponent implements OnInit {
     edit(){
         this.holidayService.update(this.getHolidayPost()).then(
             (result) => {
-                this.noticeMessage('Update ' + result['status'] , true);
+                this.noticeMessage(result['status'] , true);
                 this.deleteElement(this.holiday.id);
                 this.holidays.push(this.convertToHolidaySchedule(result.data));
             },
@@ -112,7 +119,14 @@ export class ManageHolidayComponent implements OnInit {
             }
         )
     }
+    /** call services function ************************************************/
 
+    ////
+    //@function convertToHolidaySchedule
+    //@desc convert holiday get from API to schedule format, able to show
+    //@param object -> holiday object
+    //@result holiday schedule format
+    ////
     convertToHolidaySchedule(object: Object): HolidaySchedule{
         var holiday: HolidaySchedule = new HolidaySchedule();
         holiday.id = object['id'];
@@ -123,12 +137,24 @@ export class ManageHolidayComponent implements OnInit {
         return holiday;
     }
 
+    ////
+    //@function getHolidayPost
+    //@desc create a holidayPost object from this.holiday
+    //@param void
+    //@result holidayPost object
+    ////
     getHolidayPost(){
         var holidayPost = new HolidayPost();
         holidayPost.holiday = this.getHoliday();
         return holidayPost;
     }
 
+    ////
+    //@function getHoliday
+    //@desc create a holiday object from this.holiday
+    //@param void
+    //@result holiday object
+    ////
     getHoliday(){
         var data = new Holiday();
         data.id = this.holiday.id;
@@ -138,6 +164,12 @@ export class ManageHolidayComponent implements OnInit {
         return data;
     }
 
+    ////
+    //@function initCurrentDate
+    //@desc init data to this.holiday
+    //@param void
+    //@result
+    ////
     initCurrentDate(event){
         this.holiday.id = event.id;
         this.holiday.title = event.title;
@@ -145,26 +177,33 @@ export class ManageHolidayComponent implements OnInit {
         this.holiday.end = event._end == null ? event.start._d : event.end._d;
     }
 
-    findEvent(id){
-        this.holiday = this.holidays.find(x => x.id == id)
-    }
-
     convertdateToString(date: Date){
         var year = date.getFullYear();
         var month = date.getUTCMonth() > 9 ? (date.getUTCMonth() + 1) : '0' + (date.getUTCMonth() + 1);
         var day = date.getDate() > 9 ? date.getDate() : '0' + date.getDate();
         return year + '-' + month + '-' + day + 'T16:00:00';
-        // return date;
     }
 
+    ////
+    //@function deleteElement
+    //@desc delete holiday to holidays
+    //@param id -> holiday's id
+    //@result
+    ////
     deleteElement(id: number){
         var index = this.holidays.findIndex(x => x.id == id);
         this.holidays.splice(index, 1);
     }
 
-    noticeMessage(content: string, is_error: boolean = false){
+    ////
+    //@function noticeMessage
+    //@desc show notice inform
+    //@param content -> message, is_success -> inform messages success or error, default inform error message
+    //@result
+    ////
+    noticeMessage(content: string, is_success: boolean = false){
         this.msgs = [];
-        is_error?
+        is_success?
             this.msgs.push({severity: 'success', summary: 'Success Message', detail: content}) :
             this.msgs.push({severity: 'error', summary: 'Error Messages', detail: content})
     }
