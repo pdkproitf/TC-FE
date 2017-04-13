@@ -230,15 +230,22 @@ export class DetailDateLogLiComponent implements OnInit {
     let str = '';
     let date;
     if (i === 0) {
+      if (this.startString === '') {
+        this.startString = this.timeToString(this.timerFetch.start_time);
+      }
       str = this.startString;
       date = this.startDateEdit;
     }
     if (i === 1) {
+      if (this.endString === '') {
+        this.endString = this.timeToString(this.timerFetch.start_time);
+      }
       str = this.endString;
       date = this.endDateEdit;
     }
-    this.stringToTime(str, date);
-    this.totalString = this.secondToTime(this.totalTimeEdit());
+    console.log(str);
+    //this.stringToTime(str, date);
+    //this.totalString = this.secondToTime(this.totalTimeEdit());
   }
 
   totalTimeEdit() {
@@ -413,8 +420,8 @@ export class DetailDateLogLiComponent implements OnInit {
       || className === 'ui-state-default ui-state-hover ui-state-highlight' || className === 'ui-state-default ui-state-hover'
       || className === 'ui-datepicker-year' || className === 'ui-datepicker-month'
       || className === 'time-picker ng-untouched ng-pristine ng-valid' || className === 'time-picker ng-untouched ng-valid ng-dirty'
-      || className === 'option start' || className === 'option end' || className === 'earlier' || className === 'later'
-      || className === 'op-name') {
+      || className === 'time-picker ng-valid ng-dirty ng-touched' || className === 'option start' || className === 'option end'
+      || className === 'earlier' || className === 'later' || className === 'op-name') {
 
       } else {
         this.divClass[2] = 'hiddenDiv';
