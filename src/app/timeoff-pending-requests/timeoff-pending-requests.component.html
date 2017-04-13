@@ -1,11 +1,16 @@
 <div class="content">
-    <div class="request" *ngFor="let timeoff of _timeoffs.slice((current_page -1)*rowOfPage, current_page*rowOfPage)" (mouseover)='showTimeoffControl(true, timeoff.id)' (mouseleave)='showTimeoffControl(false, timeoff.id)'>
+    <div class="search-group">
+        <span class="fa fa-search imgspan"></span>
+        <input class="search-text" type="text" [(ngModel)]="searchPattern" (keyup)="search()" placeholder="Search People"/>
+    </div>
+
+    <div class="request" *ngFor="let timeoff of current_timeoffs.slice((current_page -1)*rowOfPage, current_page*rowOfPage)" (mouseover)='showTimeoffControl(true, timeoff.id)' (mouseleave)='showTimeoffControl(false, timeoff.id)'>
         <div class="avatar" *ngIf="!timeoff.sender.user.image"></div>
         <div class="avatar" *ngIf="timeoff.sender.user.image" [ngStyle]="{'background-image': 'url('+timeoff.sender.user.image+')'}" ></div>
         <div class="details">
             <div class="inform" (click)="showDetails(timeoff.id)">
                 <div class="name-status">
-                    <div class="name">{{timeoff.sender.user.first_name + timeoff.sender.user.last_name}}</div>
+                    <div class="name">{{timeoff.sender.user.first_name + ' ' + timeoff.sender.user.last_name}}</div>
                     <div *ngIf="is_show_all" class="status {{timeoff.status}}">
                         <span>{{timeoff.status | capitalize}}</span>
                     </div>
@@ -62,6 +67,6 @@
             <div class="request-at">Requested {{timeoff.created_at | amTimeAgo}}</div>
         </div>
     </div>
-    <div *ngIf="_timeoffs.length > rowOfPage"><p-paginator rows="{{rowOfPage}}" totalRecords="{{_timeoffs.length}}" (onPageChange)="paginates($event)" (onLoad)="changeIconPaginate()"></p-paginator></div>
+    <div *ngIf="current_timeoffs.length > rowOfPage"><p-paginator rows="{{rowOfPage}}" totalRecords="{{current_timeoffs.length}}" (onPageChange)="paginates($event)"></p-paginator></div>
     <p-growl [value]="msgs" [life]="3000" ></p-growl>
 </div>

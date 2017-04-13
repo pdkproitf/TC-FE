@@ -7,7 +7,12 @@
     </div>
 </div>
 <div class="content">
-    <div class="request" *ngFor="let timeoff of _timeoffs" (mouseover)='showTimeoffControl(true, timeoff.id)' (mouseleave)='showTimeoffControl(false, timeoff.id)'>
+    <div class="search-group">
+        <span class="fa fa-search imgspan"></span>
+        <input class="search-text" type="text" [(ngModel)]="searchPattern" (keyup)="search()" placeholder="Search description"/>
+    </div>
+
+    <div class="request" *ngFor="let timeoff of current_timeoffs.slice((current_page -1)*rowOfPage, current_page*rowOfPage)" (mouseover)='showTimeoffControl(true, timeoff.id)' (mouseleave)='showTimeoffControl(false, timeoff.id)'>
         <div *ngIf="timeoff" class="thumbnai" id="thumbnai-{{timeoff.id}}" >
             <div class="dates">
                 <div class="dates-content">
@@ -65,4 +70,6 @@
             </div>
         </div>
     </div>
+
+    <div *ngIf="current_timeoffs.length > rowOfPage"><p-paginator rows="{{rowOfPage}}" totalRecords="{{current_timeoffs.length}}" (onPageChange)="paginates($event)"></p-paginator></div>
 </div>

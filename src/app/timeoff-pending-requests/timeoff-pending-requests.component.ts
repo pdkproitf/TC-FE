@@ -15,7 +15,11 @@ declare var $:any;
 export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
     is_show_pending_details: Map<Number, Boolean> = new Map<Number, Boolean>();
 
+    /** pure timeoff */
     _timeoffs: TimeOff[] = [];
+    /** using show */
+    current_timeoffs: TimeOff[] = [];
+
     timeOffPut: TimeOffAnswer;
 
     user: Member ;
@@ -30,6 +34,9 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
     current_page: number = 1;
     rowOfPage: number = 8;
 
+    /** using search */
+    searchPattern: string = '';
+
     @Input()
     set timeoffs(timeoffs: TimeOff[]){
         this._timeoffs = timeoffs || [];
@@ -43,7 +50,6 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
 
     @Input()
     set rowsOfPage(num: number){
-        console.log('get row of page', num);
         this.rowOfPage = num;
     }
 
@@ -57,6 +63,7 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
         this.user = JSON.parse(userInfo);
         var date = new Date();
         this.today.setHours(0, 0, 0, 0);
+        this.current_timeoffs = this._timeoffs;
     }
 
     ngOnChanges(changes: {[propKey: string]: SimpleChange}){
@@ -67,7 +74,7 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
     //@function sort newest
     //@desc sort list _timeoffs DESC day updated/created
     //@param
-    //@result void
+    //@result
     ////
     sortNewest(){
         if(this._timeoffs.length > 1){
@@ -84,7 +91,7 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
     //@function setShowPenddingDetails
     //@desc each timeoff show description when hander click action, so it initialized show is false
     //@param
-    //@result void
+    //@result
     ////
     setShowPenddingDetails(){
         this.is_show_pending_details = new Map<Number, boolean>();
@@ -97,7 +104,7 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
     //@function showDetails
     //@desc show description for timeoff
     //@param timeoff_id
-    //@result void
+    //@result
     ////
     showDetails(timeoff_id: number){
         var cf = this.is_show_pending_details.get(timeoff_id);
@@ -109,7 +116,7 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
     //@function show button edit and delete
     //@desc show button edit and control when mouseover
     //@param is_show = true ->  show , id -> using for get timeoff in list is_show_pending_details
-    //@result void
+    //@result
     ////
     showTimeoffControl(is_show: boolean, id: number){
         is_show? $('#timeoff-control-'+id).css({'display': 'inline-block'}) : $('#timeoff-control-'+id).css({'display': 'none'});
@@ -119,7 +126,7 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
     //@function edit a timeoff
     //@desc navigate to edit timeoff page
     //@param using to pass to edit-timeoff pages
-    //@result void
+    //@result
     ////
     edit(id: number){
         this.router.navigate(['/edit-timeoff/'+id]);
@@ -129,7 +136,7 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
     //@function delete
     //@desc delete a timeoff
     //@param id using to pass to serve
-    //@result void
+    //@result
     ////
     delete(id: number){
         this.timeoffService.delete(id,)
@@ -148,7 +155,7 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
     //@function update
     //@desc answer a timeoff request
     //@param id using to pass to serve
-    //@result void
+    //@result
     ////
     update(id: number){
         this.timeoffService.update(id, this.timeOffPut).then(
@@ -166,7 +173,7 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
     //@function showForm
     //@desc update button content when show Form answer
     //@param status
-    //@result void
+    //@result
     ////
     showForm(status: string){
         this.timeOffPut.answer_timeoff_request.status = status;
@@ -182,20 +189,28 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
         //event.pageCount = Total number of pages
     }
 
-    // change forward anjd backforward icon
-    changeIconPaginate(){
-        $('#projects-paginate').css({'display': 'block'});
-        $('.fa-forward').addClass('fa fa-angle-right');
-        $('.fa-backward').addClass('fa fa-angle-left');
-        $('.fa-step-forward').addClass('fa fa-angle-double-right fa-1');
-        $('.fa-step-backward').addClass('fa fa-angle-double-left fa-1');
+    ////
+    //@function search
+    //@desc seach timeoff follow person, give the result for current_timeoffs
+    //@param this.searchPattern
+    //@result
+    ////
+    search(){
+        this.current_timeoffs = [];
+        for (let timeoff of this._timeoffs) {
+            var name = timeoff.sender.user.first_name + ' '+ timeoff.sender.user.last_name;
+            if ((name.toUpperCase().indexOf(this.searchPattern.toUpperCase()) > -1) || (name.toLowerCase().indexOf(this.searchPattern.toLowerCase()) > -1)) {
+                this.current_timeoffs.push(timeoff);
+            }
+        }
+        this.current_page = 1;
     }
 
     ////
     //@function noticeMessage
     //@desc show notice messages
     //@param content -> content messages, isSuccess -> show messages sucess or error
-    //@result void
+    //@result
     ////
     noticeMessage(content: string, isSuccess){
         this.msgs = [];

@@ -13,12 +13,23 @@ export class TimeoffListRequestComponent implements OnInit, OnChanges {
     show_description_details: Map<Number, Number> = new Map<Number, Number>();
     show_timeoff_details: Map<Number, boolean> = new Map<Number, boolean>();
 
-    _timeoffs :TimeOff[] = []; //list timeoffs using for view
+    /** list timeoffs get from parent */
+    list_timeoff :TimeOff[] = [];
+    /** list timeoffs using for view folllow sort types */
+    _timeoffs :TimeOff[] = [];
+    /** list timeoffs using for view. Using this variable because view can follow search*/
+    current_timeoffs :TimeOff[] = [];
     _personNumTimeOff: PersonNumTimeOff = new PersonNumTimeOff();
-    list_timeoff :TimeOff[] = []; //list timeoffs get from parent
 
     types = ['All types', 'pending', 'approved', 'rejected']
     type = 'All types'
+
+    /** using search */
+    searchPattern: string = '';
+
+    /** using paginates */
+    current_page: number = 1;
+    rowOfPage: number = 8;
 
     @Input()
     set timeoffs(timeoffs: TimeOff[]){
@@ -37,6 +48,7 @@ export class TimeoffListRequestComponent implements OnInit, OnChanges {
     ngOnInit() {
         this._timeoffs = this.list_timeoff;
         this.sortNewest();
+        this.current_timeoffs = this._timeoffs;
     }
 
     ngOnChanges(changes: {[propKey: string]: SimpleChange}){
@@ -47,7 +59,7 @@ export class TimeoffListRequestComponent implements OnInit, OnChanges {
     //@function sort newest
     //@desc sort list _timeoffs DESC day updated
     //@param
-    //@result void
+    //@result
     ////
     sortNewest(){
         if(this._timeoffs.length > 1){
@@ -64,7 +76,7 @@ export class TimeoffListRequestComponent implements OnInit, OnChanges {
     //@function initialize description status each timeoff
     //@desc each timeoff show descriptio when hander click action, so it initialized show is false
     //@param
-    //@result void
+    //@result
     ////
     // initialize_description_status(){
     initializeDescriptionStatus(){
@@ -79,7 +91,7 @@ export class TimeoffListRequestComponent implements OnInit, OnChanges {
     //@function sort
     //@desc sort list_timeoff follow status
     //@param
-    //@result void
+    //@result
     ////
     sort(){
         switch(this.type){
@@ -114,13 +126,14 @@ export class TimeoffListRequestComponent implements OnInit, OnChanges {
                 this.ngOnInit();
             }
         }
+        this.current_timeoffs = this._timeoffs;
     }
 
     ////
     //@function show timeoff details
     //@desc handler click action -> show details timeoff status
     //@param timeoff_id to get timeoff's show description status and update
-    //@result void
+    //@result
     ////
     showDetails(id: Number){
         this.show_timeoff_details.get(id)? $('#description-details-'+id).css({'display': 'none'}):
@@ -132,18 +145,38 @@ export class TimeoffListRequestComponent implements OnInit, OnChanges {
     //@function show timeoff control
     //@desc handler mouseover/mouseleave action -> show timeoff control
     //@param is_show and timeoff_id
-    //@result void
+    //@result
     ////
     showTimeoffControl(is_show: boolean,id: number){
         is_show? $('#your-timeoff-control-'+id).css({'display': 'inline-block'}) :
             $('#your-timeoff-control-'+id).css({'display': 'none'});
     }
 
+    search(){
+        this.current_timeoffs = [];
+        for (var i = 0; i < this._timeoffs.length; i++){
+            var timeoff = this._timeoffs[i];
+            if(timeoff.description.search(this.searchPattern) != -1)
+                this.current_timeoffs.push(timeoff);
+        }
+        this.current_page = 1;
+    }
+
+    // update current_page each time click page_button
+    paginates(event) {
+        this.current_page = event.page + 1;
+        // this.changeIconPaginate();
+        //event.first = Index of the first record
+        //event.rows = Number of rows to display in new page
+        //event.page = Index of the new page
+        //event.pageCount = Total number of pages
+    }
+
     ////
     //@function show timeoff controledit timeoff
     //@desc navigate to edit timeoff pages
     //@param timeoff_id
-    //@result void
+    //@result
     ////
     edit(id: number){
         this.router.navigate(['/edit-timeoff/'+id]);
@@ -153,7 +186,7 @@ export class TimeoffListRequestComponent implements OnInit, OnChanges {
     //@function delete timeoff controledit timeoff
     //@desc delete timeoff
     //@param timeoff_id
-    //@result void
+    //@result
     ////
     delete(id: number){
         this.timeoffService.delete(id,)

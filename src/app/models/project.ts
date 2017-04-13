@@ -75,6 +75,7 @@ export class ProjectGetAll {
     client: Client;
     members: Member[];
     tracked_time: number;
+    updated_at: Date;
 }
 
 // using for load one project from api

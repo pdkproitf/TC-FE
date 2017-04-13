@@ -136,7 +136,7 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
     //@function selectShow
     //@desc select show type -> update data show for each project with show-type change
     //@param
-    //@result void
+    //@result
     ////
     selectShow(){
         this.selectGroup();
@@ -146,7 +146,7 @@ export class ReportDetailsAdvancesListComponent implements OnInit, OnChanges {
     //@function search
     //@desc update data show for each project with people change
     //@param
-    //@result void
+    //@result
     ////
     search(){
         this.searchList = [];

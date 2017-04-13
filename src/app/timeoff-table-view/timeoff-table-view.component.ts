@@ -112,7 +112,7 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     //@function get timeoff
     //@desc get timeoff from API and init values for variable
     //@param
-    //@result void
+    //@result
     ////
     getTimeOff(){
         this.timeoffService.getPhaseTimeOffsMemberOrdinal(this.start_date, this.end_date).then(
@@ -136,7 +136,7 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     //@function init list_member values
     //@desc set list_member all values get from API
     //@param
-    //@result void
+    //@result
     ////
     initializeAllValues(){
         this.list_members = this.distionary_member;
@@ -146,7 +146,7 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     //@function init list_member values
     //@desc set list_member values selected
     //@param
-    //@result void
+    //@result
     ////
     initializeSelectedValues(){
         this.list_members = [];
@@ -162,7 +162,7 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     //@function init list_member values
     //@desc set list_member values follow types
     //@param
-    //@result void
+    //@result
     ////
     initializeValuesFollowTypes(){
         this.list_members = [];
@@ -187,7 +187,7 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     //@function init list_member values
     //@desc set list_member values searched
     //@param
-    //@result void
+    //@result
     ////
     initializeSearchValues(){
         this.distionary_member.forEach((member) =>{
@@ -202,7 +202,7 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     //@function init initializeHashMemberDayStatus
     //@desc set values initializeHashMemberDayStatus
     //@param
-    //@result void
+    //@result
     ///
     initializeHashMemberDayStatus(){
         this.hash_member_day_status = new Map<string, string>();
@@ -233,7 +233,7 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     //@function computeClassDayCel
     //@desc set status for each day in table
     //@param _day -> day set, id -> member_id to get list member's timeoff
-    //@result void
+    //@result
     ///
     computeClassDayCel(_day: Date, id: number){
         var status = "cel-";
@@ -300,7 +300,7 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     //@function checked
     //@desc if member was checked then hide/show dialog "selected"
     //@param
-    //@result void
+    //@result
     ///
     checked() {
         if(this.selectedValues.length > 0){
@@ -330,7 +330,7 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     //@function search
     //@desc hander typing to search text area and init values for list_member
     //@param
-    //@result void
+    //@result
     ///
     search(){
         this.list_members = [];
@@ -341,7 +341,7 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     //@function goToFutureDayOff
     //@desc show nearest futuerday off in table
     //@param date -> the day nearest
-    //@result void
+    //@result
     ///
     goToFutureDayOff(date: Date){
         this.setWeeks.emit(new Date(date));
@@ -351,7 +351,7 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     //@function initDialog
     //@desc init data when show dialog
     //@param date -> the day nearest
-    //@result void
+    //@result
     ///
     initDialog(member_id :number, _day :Date){
         this.hash_timeoff.get(member_id)
@@ -486,7 +486,7 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     //@function reload
     //@desc reload component and emit parent reload
     //@param date -> the day nearest
-    //@result void
+    //@result
     ///
     reload(){
         this.ngOnInit();
@@ -497,7 +497,7 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     //@function noticeMessage
     //@desc show notice messages
     //@param content -> content messages, isSuccess -> show messages sucess or error
-    //@result void
+    //@result
     ////
     noticeMessage(content: string, isSuccess){
         this.msgs = [];

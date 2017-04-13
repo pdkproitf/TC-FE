@@ -48,6 +48,7 @@ export class ManageJobComponent implements OnInit {
         this.getMembers();
     }
 
+/** *** init data from services ********************************************* */
     getJobs(){
         this.jobService.getAllJobs().then(
             (result) => {
@@ -71,26 +72,48 @@ export class ManageJobComponent implements OnInit {
             }
         )
     }
+    /** end init data from services ***************************************** */
 
-    // get job from list job
+    ////
+    //@function getJob
+    //@desc get job from list job
+    //@param id -> job_id
+    //@result job object
+    ////
     getJob(id: number){
         return this.jobs.find(x => x.id == id);
     }
 
-    // get member from list member
+    ////
+    //@function getMember
+    //@desc get member from list member
+    //@param id -> member_id
+    //@result member object
+    ////
     getMember(id: number){
         return this.members.find(x => x.id == id);
     }
 
-    // get list member constraint job_id
+    ////
+    //@function getJobMembers
+    //@desc get list member constraint job_id
+    //@param job_id
+    //@result list member constraint job_id
+    ////
     getJobMembers(job_id: number){
         var list = [];
         for (let member of this.members)
-        if(member.jobs.findIndex(x => x.id == job_id) != -1)
-        list.push(member);
+            if(member.jobs.findIndex(x => x.id == job_id) != -1)
+                list.push(member);
         return list;
     }
 
+    ////
+    //@function showControl
+    //@desc show/hide job control button in each job panel
+    //@param show: true -> show, job -> to get job_id
+    //@result
+    ////
     showControl(show: boolean, job: Job){
         show? $('#job-' + job.id).css({'display': 'inline-flex'}) : $('#job-' + job.id).css({'display': 'none'});
     }
@@ -168,6 +191,7 @@ export class ManageJobComponent implements OnInit {
     }
     /** ****** end drag member in job members ******************************* */
 
+    /** *** cal services function ******************************************* */
     addJobToMember(member: Member, job_id: number){
         var job = this.getJob(job_id);
         if(job){
@@ -251,6 +275,7 @@ export class ManageJobComponent implements OnInit {
             }
         )
     }
+    /** end call services function ****************************************** */
 
     showDialog(show: boolean){
         this.dialogVisible = show;

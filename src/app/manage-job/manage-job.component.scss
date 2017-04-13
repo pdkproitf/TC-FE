@@ -1,16 +1,14 @@
 .container{
     // background-color: #ecf0f5;
-    width: 90%;
     margin: auto;
+    width: 90%;
     .header{
-        height: 7em;
+        height: 5em;
+        margin-bottom: 1em;
         .search-group{
-            margin-bottom: 20px;
-            width: 30%;
-            display: inline-block;
-            margin-top: 2em;
-            margin-left: 30.5%;
-            // input:focus{ background: #F3F5F8;}
+            min-width: 30%;
+            display: -webkit-inline-box;
+            margin-top: 1em;
             .search-text{
                 font-size: 16px;
                 width: 80%;
@@ -29,6 +27,7 @@
                 color: #898989;
                 width: 20px;
                 height: 20px;
+                margin-right: 1em;
             }
             .imghidden{
                 visibility: hidden;
@@ -47,22 +46,24 @@
                 line-height: 24px;
                 color: #FFFFFF;
                 float: right;
-                margin-top: 2em;
-                cursor: pointer;;
+                cursor: pointer;
             }
         }
     }
     .content{
         margin-bottom: 4em;
-        // margin-top: 4em;
+        margin-top: 3em;
         display: flex;
         .members{
             display: inline-block;
             min-width: 320px;;
+            padding-top: 6em;
+            sticky{
+                padding-top: 6em;
+            }
             .members-content{
                 background: white;
                 width: 320px;;
-                min-height: 40px;
                 border-radius: 3px;
                 box-shadow: 0 1px 30px rgba(0, 0, 0, 0.1);
                 border-top: 3px solid #d2d6de;
@@ -86,7 +87,9 @@
                         padding: 0;
                         width: initial;
                         text-align: right;
-
+                        .imgspan{
+                            margin-right: 0px;
+                        }
                     }
                 }
                 .body{
@@ -94,7 +97,7 @@
                     border-top-right-radius: 0;
                     border-bottom-right-radius: 3px;
                     border-bottom-left-radius: 3px;
-                    min-height: 230px;
+                    min-height: 270px;
                     overflow: auto;
 
                 }

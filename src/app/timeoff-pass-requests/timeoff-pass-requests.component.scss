@@ -21,14 +21,13 @@
         }
         .dropdown{
             float: right;
-            height: 40px;
+            height: 30px;
             background-color: #EEEEEE;
             border-radius: 100px;
             vertical-align: middle;
             text-align: center;
             position: relative;
             select{
-                margin-top: 10px;
                 border: 0;
                 background: none;
                 cursor: pointer;
@@ -39,9 +38,13 @@
                 color: rgba(54,54,54,0.7);
                 max-width: 140;
                 padding-left: 5px;
+                vertical-align: -webkit-baseline-middle;
                 &:focus{
                     outline: none;
                     box-shadow: none;
+                }
+                option{
+                    cursor: pointer;
                 }
             }
         }
