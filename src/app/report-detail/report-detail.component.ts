@@ -626,4 +626,9 @@ export class ReportDetailComponent implements OnInit {
           }else {}
         }, 100);
     }
+
+    @ViewChild('reportSearch') reportSearch;
+    reportSearchMouseHandle(event) {
+      this.reportSearch.showEvent(event);
+    }
 }

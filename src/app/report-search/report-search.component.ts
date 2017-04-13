@@ -330,14 +330,17 @@ export class ReportSearchComponent implements OnInit {
   showEvent(event) {
     let className = event.toElement.className;
     console.log(className);
-    if (className === 'class-calendar' || className === 'choose-time' || className === 'fa fa-angle-left'
-    || className === 'fa fa-angle-right' || className === 'ui-datepicker-next ui-corner-all ui-state-hover ui-datepicker-next-hover'
-    || className === 'ui-datepicker-prev ui-corner-all ui-state-hover ui-datepicker-prev-hover'
-    || className === 'ui-state-default ui-state-active ui-state-hover' || className === 'value-field'
-    || className === 'fa fa-angle-down down-img calendar' || className === 'fa fa-long-arrow-right') {
-      return;
-    }else {
-      this.classDiv[0] += ' hide';
+    if (this.classDiv[0] === 'choose-time') {
+      if (className === 'class-calendar' || className === 'choose-time' || className === 'fa fa-angle-left'
+      || className === 'fa fa-angle-right' || className === 'ui-datepicker-next ui-corner-all ui-state-hover ui-datepicker-next-hover'
+      || className === 'ui-datepicker-prev ui-corner-all ui-state-hover ui-datepicker-prev-hover'
+      || className === 'ui-state-default ui-state-active ui-state-hover' || className === 'ui-datepicker-title'
+      || className === 'ui-state-default ui-state-hover ui-state-highlight' || className === 'ui-state-default ui-state-hover'
+      || className === 'ui-datepicker-year' || className === 'ui-datepicker-month') {
+        return;
+      }else {
+        this.classDiv[0] += ' hide';
+      }
     }
   }
 }
