@@ -15,7 +15,11 @@ declare var $:any;
 export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
     is_show_pending_details: Map<Number, Boolean> = new Map<Number, Boolean>();
 
+    /** pure timeoff */
     _timeoffs: TimeOff[] = [];
+    /** using show */
+    current_timeoffs: TimeOff[] = [];
+
     timeOffPut: TimeOffAnswer;
 
     user: Member ;
@@ -30,6 +34,9 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
     current_page: number = 1;
     rowOfPage: number = 8;
 
+    /** using search */
+    searchPattern: string = '';
+
     @Input()
     set timeoffs(timeoffs: TimeOff[]){
         this._timeoffs = timeoffs || [];
@@ -43,7 +50,6 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
 
     @Input()
     set rowsOfPage(num: number){
-        console.log('get row of page', num);
         this.rowOfPage = num;
     }
 
@@ -57,6 +63,7 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
         this.user = JSON.parse(userInfo);
         var date = new Date();
         this.today.setHours(0, 0, 0, 0);
+        this.current_timeoffs = this._timeoffs;
     }
 
     ngOnChanges(changes: {[propKey: string]: SimpleChange}){
@@ -182,15 +189,15 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
         //event.pageCount = Total number of pages
     }
 
-    // change forward anjd backforward icon
-    changeIconPaginate(){
-        $('#projects-paginate').css({'display': 'block'});
-        $('.fa-forward').addClass('fa fa-angle-right');
-        $('.fa-backward').addClass('fa fa-angle-left');
-        $('.fa-step-forward').addClass('fa fa-angle-double-right fa-1');
-        $('.fa-step-backward').addClass('fa fa-angle-double-left fa-1');
+    search(){
+        this.current_timeoffs = [];
+        for (let timeoff of this._timeoffs) {
+            var name = timeoff.sender.user.first_name + ' '+ timeoff.sender.user.last_name;
+            if ((name.toUpperCase().indexOf(this.searchPattern.toUpperCase()) > -1) || (name.toLowerCase().indexOf(this.searchPattern.toLowerCase()) > -1)) {
+                this.current_timeoffs.push(timeoff);
+            }
+        }
     }
-
     ////
     //@function noticeMessage
     //@desc show notice messages
