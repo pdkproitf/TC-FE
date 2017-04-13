@@ -3,7 +3,7 @@ import { MembershipService } from './../services/membership-service';
 import { ProjectService } from './../services/project-service';
 import { ProjectGetAll } from './../models/project';
 import { Member } from './../models/member';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-report-search',
@@ -70,7 +70,10 @@ export class ReportSearchComponent implements OnInit {
 
   changeClassDiv(i) {
     if (i === 0) {
-      this.classDiv[i] = (this.classDiv[i] === 'choose-time') ? 'choose-time hide' : 'choose-time';
+      // this.classDiv[i] = (this.classDiv[i] === 'choose-time') ? 'choose-time hide' : 'choose-time';
+      if (this.classDiv[i] === 'choose-time hide') {
+        this.classDiv[i] = 'choose-time';
+      }
     }
   }
 
@@ -320,6 +323,23 @@ export class ReportSearchComponent implements OnInit {
     for (let project of this.projectLists) {
       if (project.name.indexOf(str) > -1 || project.client.name.indexOf(str) > -1) {
         this.projectListsSearch.push(project);
+      }
+    }
+  }
+
+  showEvent(event) {
+    let className = event.toElement.className;
+    console.log(className);
+    if (this.classDiv[0] === 'choose-time') {
+      if (className === 'class-calendar' || className === 'choose-time' || className === 'fa fa-angle-left'
+      || className === 'fa fa-angle-right' || className === 'ui-datepicker-next ui-corner-all ui-state-hover ui-datepicker-next-hover'
+      || className === 'ui-datepicker-prev ui-corner-all ui-state-hover ui-datepicker-prev-hover'
+      || className === 'ui-state-default ui-state-active ui-state-hover' || className === 'ui-datepicker-title'
+      || className === 'ui-state-default ui-state-hover ui-state-highlight' || className === 'ui-state-default ui-state-hover'
+      || className === 'ui-datepicker-year' || className === 'ui-datepicker-month') {
+        return;
+      }else {
+        this.classDiv[0] += ' hide';
       }
     }
   }

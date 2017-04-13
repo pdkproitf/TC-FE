@@ -230,15 +230,22 @@ export class DetailDateLogLiComponent implements OnInit {
     let str = '';
     let date;
     if (i === 0) {
+      if (this.startString === '') {
+        this.startString = this.timeToString(this.timerFetch.start_time);
+      }
       str = this.startString;
       date = this.startDateEdit;
     }
     if (i === 1) {
+      if (this.endString === '') {
+        this.endString = this.timeToString(this.timerFetch.start_time);
+      }
       str = this.endString;
       date = this.endDateEdit;
     }
-    this.stringToTime(str, date);
-    this.totalString = this.secondToTime(this.totalTimeEdit());
+    console.log(str);
+    //this.stringToTime(str, date);
+    //this.totalString = this.secondToTime(this.totalTimeEdit());
   }
 
   totalTimeEdit() {
@@ -384,5 +391,41 @@ export class DetailDateLogLiComponent implements OnInit {
       this.msgs.push({severity: 'error', summary: 'Error', detail: content});
     });
     this.editDes = '';
+  }
+
+  getClickEvent(className) {
+    console.log(className);
+    if (this.divClass[0] === 'dropdown div-des') {
+      if (className === 'fa fa-check imgspan submit' || className === 'recta' || className === 'content'
+      || className === 'search-text ng-untouched ng-pristine ng-valid') {
+
+      } else {
+        this.divClass[0] = 'hiddenDiv';
+      }
+    }
+    if (this.divClass[1] === 'dropdown div-task') {
+      if (className === 'search-text ng-untouched ng-pristine ng-valid' || className === 'search-box'
+      || className === 'dot' || className === 'dot-container' || className === 'client' || className === 'project'
+      || className === 'title-container') {
+
+      } else {
+        this.divClass[1] = 'hiddenDiv';
+      }
+    }
+    if (this.divClass[2] === 'dropdown div-time') {
+      if (className === 'dropdown div-time' || className === 'time-label' || className === 'fa fa-angle-left'
+      || className === 'fa fa-angle-right' || className === 'ui-datepicker-next ui-corner-all ui-state-hover ui-datepicker-next-hover'
+      || className === 'ui-datepicker-prev ui-corner-all ui-state-hover ui-datepicker-prev-hover'
+      || className === 'ui-state-default ui-state-active ui-state-hover' || className === 'ui-datepicker-title'
+      || className === 'ui-state-default ui-state-hover ui-state-highlight' || className === 'ui-state-default ui-state-hover'
+      || className === 'ui-datepicker-year' || className === 'ui-datepicker-month'
+      || className === 'time-picker ng-untouched ng-pristine ng-valid' || className === 'time-picker ng-untouched ng-valid ng-dirty'
+      || className === 'time-picker ng-valid ng-dirty ng-touched' || className === 'option start' || className === 'option end'
+      || className === 'earlier' || className === 'later' || className === 'op-name') {
+
+      } else {
+        this.divClass[2] = 'hiddenDiv';
+      }
+    }
   }
 }

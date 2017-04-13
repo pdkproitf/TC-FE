@@ -2,7 +2,7 @@
   <div [class]="classDiv">
   <span [class]="spanClass"><button (click)="deleteTimer()" type="button" pButton icon="fa-trash"></button></span>
   <ul class="aa">
-    <li (click)="showDiv(0)" class="des"><p>{{timerFetch.task.name | slice:0:64}}</p></li>
+    <li (click)="showDiv(0)" class="des"><p class="p-des">{{timerFetch.task.name | slice:0:64}}</p></li>
     <li (click)="showDiv(1)" class="pro-ta">
       <div class="dot" [style.background]="timerFetch.background"></div>
       <p>{{timerFetch.project_name}} - {{timerFetch.category_name}}</p>
@@ -41,15 +41,15 @@
   <table class="edit-time">
     <tr class="set-time">
       <td>
-        <p>Start:</p>
+        <p class="time-label">Start:</p>
         <input class="time-picker" type="time" name="start-time" (focus)="showMini(0)" (blur)="editTimerTime(0); hideMini(0)" [(ngModel)]="startString"/>
       </td>
       <td>
-        <p>End:</p>
+        <p class="time-label">End:</p>
         <input class="time-picker" type="time" name="end-time" (focus)="showMini(1)" (blur)="editTimerTime(1); hideMini(1)" [(ngModel)]="endString"/>
       </td>
       <td class="total-time">
-        <p>{{totalString}}</p>
+        <p class="time-label">{{totalString}}</p>
       </td>
     </tr>
   </table>

@@ -1,7 +1,7 @@
 import { ProjectJoin } from './../models/project-join';
 import { TimerFetch } from './../models/timer-fetch';
 import { TimerFetchService } from './../services/timer-fetch-service';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChildren } from '@angular/core';
 
 @Component({
   selector: 'app-detail-date-log',
@@ -232,5 +232,15 @@ export class DetailDateLogComponent implements OnInit {
       });
     }
     this.emitEdit.emit(event);
+  }
+  @ViewChildren('logLi') logLis: any;
+  showEvent(event) {
+    let className = event.toElement.className;
+    // console.log(className);
+    let children = this.logLis._results;
+    let len = children.length;
+    for (let i = 0; i < len; i++) {
+      children[i].getClickEvent(className);
+    }
   }
 }

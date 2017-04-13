@@ -88,16 +88,15 @@
 
     .report{
         margin-top: 32px;
-        .nav-bar{
+        ul.nav-bar{
             list-style-type: none;
             width: 100%;
-            height: 55px;
+            height: 45px;
             padding: 0;
             box-shadow: inset 0 -2px 0 0 #EEEEEE;
             li{
                 float: left;
-                padding-top: 12px;
-                padding-bottom: 6px;
+                height: 43px;
                 margin-left: 32px;
                 &:hover{
                     cursor: pointer;
@@ -107,6 +106,9 @@
                     margin-bottom: 0;
                     padding-bottom: 0;
                     color: #C2C2C2;
+                    margin: 0;
+                    padding: 0;
+                    line-height: 43px;
                 }
                 &.choosing{
                     border-bottom: solid 2px $blueColor;

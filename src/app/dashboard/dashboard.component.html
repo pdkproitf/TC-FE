@@ -1,3 +1,4 @@
+<div (mousedown)="detailDateLog.showEvent($event)">
 <app-member-menu-bar [currentState]="0"></app-member-menu-bar>
 <app-time-track-bar [currentCategory]="currentCategory" [projectJoins]="projectJoins" #timeTrackBar
 (outCategory)="selectCategory($event)" [recentTasks]="recentTasks" (addedTimer)="detailDateLog.addTimer($event); getRecentTask(10)"></app-time-track-bar>
@@ -9,8 +10,9 @@
     <br/>
 </div>
 <div class="beneath">
-    <app-detail-date-log [weekAnchor]="weekAnchor" (emitStart)="timeTrackBar.getTimerFetchStart($event)" (emitEdit)="getRecentTask(10)"
+    <app-detail-date-log #detailDateLog [weekAnchor]="weekAnchor" (emitStart)="timeTrackBar.getTimerFetchStart($event)" (emitEdit)="getRecentTask(10)"
     [projectJoins]="projectJoins" [recentTasks]="recentTasks" #detailDateLog></app-detail-date-log>
 </div>
 <div class="end-page">
+</div>
 </div>

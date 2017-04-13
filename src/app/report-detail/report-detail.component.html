@@ -1,8 +1,9 @@
+<div *ngIf="isLoaded" (mousedown)="reportSearchMouseHandle($event)">
 <app-member-menu-bar [currentState]="3"></app-member-menu-bar>
 <div class="container" #container>
   <h1>Reports</h1>
   <div id="report-search">
-  <app-report-search *ngIf="isLoaded" (emitRange)="newRange($event)" [member]="member.user.first_name + ' ' + member.user.last_name"
+  <app-report-search *ngIf="isLoaded" #reportSearch (emitRange)="newRange($event)" [member]="member.user.first_name + ' ' + member.user.last_name"
   (emitMember)="chooseMember($event)" (emitProject)="chooseProject($event)" [firstString]="from" [lastString]="to"></app-report-search>
   </div>
 
@@ -120,4 +121,5 @@
     </table>
   </div>
   <br/><br/>
+</div>
 </div>
