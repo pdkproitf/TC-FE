@@ -189,6 +189,12 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
         //event.pageCount = Total number of pages
     }
 
+    ////
+    //@function search
+    //@desc seach timeoff follow person, give the result for current_timeoffs
+    //@param this.searchPattern
+    //@result void
+    ////
     search(){
         this.current_timeoffs = [];
         for (let timeoff of this._timeoffs) {
@@ -198,6 +204,7 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
             }
         }
     }
+
     ////
     //@function noticeMessage
     //@desc show notice messages

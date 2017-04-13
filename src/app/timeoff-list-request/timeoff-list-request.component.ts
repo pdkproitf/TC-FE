@@ -13,12 +13,19 @@ export class TimeoffListRequestComponent implements OnInit, OnChanges {
     show_description_details: Map<Number, Number> = new Map<Number, Number>();
     show_timeoff_details: Map<Number, boolean> = new Map<Number, boolean>();
 
-    _timeoffs :TimeOff[] = []; //list timeoffs using for view
+    /** list timeoffs get from parent */
+    list_timeoff :TimeOff[] = [];
+    /** list timeoffs using for view folllow sort types */
+    _timeoffs :TimeOff[] = [];
+    /** list timeoffs using for view. Using this variable because view can follow search*/
+    current_timeoffs :TimeOff[] = [];
     _personNumTimeOff: PersonNumTimeOff = new PersonNumTimeOff();
-    list_timeoff :TimeOff[] = []; //list timeoffs get from parent
 
     types = ['All types', 'pending', 'approved', 'rejected']
     type = 'All types'
+
+    /** using search */
+    searchPattern: string = '';
 
     @Input()
     set timeoffs(timeoffs: TimeOff[]){
@@ -37,6 +44,7 @@ export class TimeoffListRequestComponent implements OnInit, OnChanges {
     ngOnInit() {
         this._timeoffs = this.list_timeoff;
         this.sortNewest();
+        this.current_timeoffs = this._timeoffs;
     }
 
     ngOnChanges(changes: {[propKey: string]: SimpleChange}){
@@ -114,6 +122,7 @@ export class TimeoffListRequestComponent implements OnInit, OnChanges {
                 this.ngOnInit();
             }
         }
+        this.current_timeoffs = this._timeoffs;
     }
 
     ////
@@ -137,6 +146,15 @@ export class TimeoffListRequestComponent implements OnInit, OnChanges {
     showTimeoffControl(is_show: boolean,id: number){
         is_show? $('#your-timeoff-control-'+id).css({'display': 'inline-block'}) :
             $('#your-timeoff-control-'+id).css({'display': 'none'});
+    }
+
+    search(){
+        this.current_timeoffs = [];
+        for (var i = 0; i < this._timeoffs.length; i++){
+            var timeoff = this._timeoffs[i];
+            if(timeoff.description.search(this.searchPattern) != -1)
+                this.current_timeoffs.push(timeoff);
+        }
     }
 
     ////
