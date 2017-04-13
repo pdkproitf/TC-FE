@@ -1,8 +1,9 @@
+<div (click)="reportSearch.showEvent($event)">
 <app-member-menu-bar [currentState]="3"></app-member-menu-bar>
 <div class="container">
   <h1>Reports</h1>
   <a class="advanced-report" routerLink = '/report-advance'>Advanced Reports <span class="fa fa-caret-right"></span></a>
-  <app-report-search (emitRange)="newRange($event)" (emitProject)="detailReportProject($event)"
+  <app-report-search #reportSearch (emitRange)="newRange($event)" (emitProject)="detailReportProject($event)"
   (emitMember)="detailReport($event)" [firstString]="firstString" [lastString]="lastString"></app-report-search>
 
   <div class="people">
@@ -71,4 +72,5 @@
       </tr>
     </table>
   </div>
+</div>
 </div>

@@ -6,24 +6,24 @@
         <div class="in-th when">
           <p class="title-field">When</p><br/>
           <p (click)="changeClassDiv(0)" class="value-field">{{firstString | dateToStringWeekDay}} <span class="fa fa-long-arrow-right"></span> {{lastString | dateToStringWeekDay}}</p>
-          <span class="fa fa-angle-down down-img" (click)="changeClassDiv(0)"></span>
+          <span class="fa fa-angle-down down-img calendar" (click)="changeClassDiv(0)"></span>
         </div>
       </th>
       <th class="what">
         <div class="in-th what">
           <p class="title-field">What</p><br/>
-          <input type=text class="text-field" (focus)="showClassDiv(1)" (blur)="hideClassDiv(1)"
+          <input #projectName type=text class="text-field" (focus)="showClassDiv(1)" (blur)="hideClassDiv(1)"
           (keyup)="keyUpProjectSearch()" name="project" [(ngModel)]="project" placeholder="Project...">
-          <span class="fa fa-angle-down down-img"></span>
+          <span class="fa fa-angle-down down-img" (click)="projectName.focus()"></span>
         </div>
       </th>
       <th class="who">
         <div class="in-th who">
           <p class="title-field">Who</p>            
           <button (click)="runReport()" class="run-btn" type="button"><p>Run report</p></button><br/>
-          <input type=text class="text-field" (focus)="showClassDiv(2)" (blur)="hideClassDiv(2)"
+          <input #memberName type=text class="text-field" (focus)="showClassDiv(2)" (blur)="hideClassDiv(2)"
           (keyup)="keyUpMemberSearch()" name="member" [(ngModel)]="member" placeholder="Team member...">
-          <span class="fa fa-angle-down down-img"></span>
+          <span class="fa fa-angle-down down-img" (click)="memberName.focus()"></span>
         </div>
       </th>
     </tr>
@@ -31,8 +31,8 @@
 </div>
 
 <div [class]="classDiv[0]">
-  <p-calendar (onSelect)="selectDate(0,$event)"  [inline]="true"></p-calendar>
-  <p-calendar (onSelect)="selectDate(1,$event)"  [inline]="true"></p-calendar>
+  <p-calendar class="class-calendar" (onSelect)="selectDate(0,$event)"  [inline]="true"></p-calendar>
+  <p-calendar class="class-calendar" (onSelect)="selectDate(1,$event)"  [inline]="true"></p-calendar>
   <div class="options">
     <table class="options">
       <tr *ngFor="let option of options; let row = index">
