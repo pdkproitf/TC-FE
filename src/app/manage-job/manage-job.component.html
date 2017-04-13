@@ -1,16 +1,7 @@
 <div class="container">
-    <div class="header">
-        <div class="search-group">
-            <span class="fa fa-search imgspan"></span>
-            <input class="search-text" type="text" [(ngModel)]="searchJobParten" (keyup)="searchJob()" placeholder="Search Jobs"/>
-        </div>
-
-        <button class="button-create" (click)="showDialog(true)" type="button">Create Job</button>
-    </div>
-
     <div class="content">
         <div class="members">
-            <sticky sticky-zIndex="999" sticky-offset-top="50">
+            <sticky sticky-offset-top="80">
                 <div class="members-content">
                     <div class="header">
                         <span>Members</span>
@@ -37,6 +28,15 @@
         </div>
 
         <div class="job-content">
+            <div class="header">
+                <div class="search-group">
+                    <span class="fa fa-search imgspan"></span>
+                    <input class="search-text" type="text" [(ngModel)]="searchJobParten" (keyup)="searchJob()" placeholder="Search Jobs"/>
+                </div>
+
+                <button class="button-create" (click)="showDialog(true)" type="button">Create Job</button>
+            </div>
+
             <div *ngFor="let job of _jobs; let i = index;" class="job" (mouseover)='showControl(true, job)' (mouseleave)='showControl(false, job)'
                 pDroppable="userMembers" (onDrop)="drop($event, job.id)">
                 <div class="header">

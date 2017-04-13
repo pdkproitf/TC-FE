@@ -119,7 +119,7 @@ export class ManageHolidayComponent implements OnInit {
             }
         )
     }
-    /** call services function ************************************************/
+    /** end call services function ************************************************/
 
     ////
     //@function convertToHolidaySchedule
