@@ -1,35 +1,39 @@
 <div class="table-content">
     <div class="search-group">
-        <span [class]="classImageSearch"></span>
+        <span class="fa fa-search imgspan"></span>
         <input class="search-text" type="text" [(ngModel)]="searchPattern"
-        (keyup)="search()" (focus)="onFocus()" (blur)="onBlur()"/>
+        (keyup)="search()" (focus)="onFocus()" />
     </div>
     <div class="table">
         <table>
             <tr class="table-header">
-                <th style="width: 2%;" >
-                    Project
+                <th>
+                    <span>Project</span>
+                    <span (click)="sortProject()" style="cursor: pointer;"><i id="sort-project" class="fa fa-angle-down"></i></span>
                 </th>
-                <th (click)="sortProject()" style="cursor: pointer;"><span><i id="sort-project" class="fa fa-angle-down"></i></span></th>
-                <th style="width: 20%">Client</th>
-                <th style="width: 12%">Tracked time (h:m)</th>
-                <th style="width: 20%">Members</th>
-                <th style="width: 20%"></th>
+                <!-- <th ></th> -->
+                <th>Client</th>
+                <th>Tracked time (h:m)</th>
+                <th>Members</th>
+                <th></th>
             </tr>
             <tbody *ngFor="let project of _projects.slice((current_page -1)*rowOfPage, current_page*rowOfPage); let i = index;">
                 <tr class="project-line" (click)="projectDetails(project)" (mouseover)='showProjectControl(true, i)' (mouseleave)='showProjectControl(false, i)' >
                     <td>
-                        <div class="project-bacground" [style.background]="project.background | gradient"></div>
+                        <span class="project-title">
+                            <div class="project-bacground" [style.background]="project.background | gradient"></div>
+                            <div class="column-text"> {{project.name}} </div>
+                        </span>
                     </td>
-                    <td><div class="column-text"> {{project.name}} </div></td>
+                    <!-- <td></td> -->
                     <td class="column-text">{{project.client.name}}</td>
                     <td class="column-text">{{project.tracked_time | timeFromSeconds}}</td>
                     <td class="column-text">
                         <div class="project-user inline-block" >
                             <div *ngIf="project.members">
                                 <div *ngFor="let member of project.members.slice(0,3)">
-                                    <div  *ngIf="!member.image" class="oval user-avatar"></div>
-                                    <div *ngIf="member.image" class="oval" [ngStyle]="{'background-image': 'url('+member.image+')'}" ></div>
+                                    <div  *ngIf="!member.user.image" class="oval user-avatar"></div>
+                                    <div *ngIf="member.user.image" class="oval" [ngStyle]="{'background-image': 'url(' + member.user.image + ')'}" ></div>
                                 </div>
                             </div>
                         </div>
@@ -41,7 +45,7 @@
                             </div>
                         </div>
                     </td>
-                    <td  style="min-width: 128px;">
+                    <td class="project-control">
                         <div class="project-user" id="project-control-{{i}}" style="display: none;">
                             <div class="oval" (click)="save()">
                                 <div class="text">
@@ -64,5 +68,5 @@
             </tbody>
         </table>
     </div>
+    <div *ngIf="_projects.length > rowOfPage" ><p-paginator rows="{{rowOfPage}}" totalRecords="{{_projects.length}}" (onPageChange)="paginates($event)" ></p-paginator></div>
 </div>
-<div *ngIf="projects.length > rowOfPage" ><p-paginator rows="{{rowOfPage}}" totalRecords="{{projects.length}}" (onPageChange)="paginates($event)" ></p-paginator></div>

@@ -19,8 +19,8 @@
 
                         <div class="group-user" *ngIf="project_category.members">
                             <div class="project-user" *ngFor="let member of project_category.members.slice(0, num_of_user_show.get(project_category.id))">
-                                <div *ngIf="!member.image" class="oval user-avatar inline"></div>
-                                <div *ngIf="member.image" class="oval user-avatar inline" [ngStyle]="{'background-image': 'url('+member.image+')'}"></div>
+                                <div *ngIf="!member.user.image" class="oval user-avatar inline"></div>
+                                <div *ngIf="member.user.image" class="oval user-avatar inline" [ngStyle]="{'background-image': 'url(' + member.user.image + ')'}"></div>
                                 <div class="user-name text inline">
                                     {{member.user.first_name + " " + member.user.last_name}}
                                 </div>

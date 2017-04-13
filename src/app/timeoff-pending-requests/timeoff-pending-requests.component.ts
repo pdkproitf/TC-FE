@@ -203,6 +203,7 @@ export class TimeoffPendingRequestsComponent implements OnInit, OnChanges {
                 this.current_timeoffs.push(timeoff);
             }
         }
+        this.current_page = 1;
     }
 
     ////

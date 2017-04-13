@@ -1,7 +1,9 @@
 import { Component, OnInit, Input, OnChanges, SimpleChange } from '@angular/core';
 import { AutoCompleteModule }   from 'primeng/primeng';
+import { ProjectService }       from './../services/project-service';
 import { ProjectGetAll }        from '../models/project';
 import { Router }               from '@angular/router';
+import { Project } from '../models/project';
 declare var $:any;
 
 @Component({
@@ -10,39 +12,71 @@ declare var $:any;
     styleUrls: ['./project-table.component.scss']
 })
 export class ProjecTableComponent implements OnInit, OnChanges {
+    //flag sort down of day update
     isSortDown: boolean = true;
-    project_id: number = 1;
-    current_page: number = 1;
+
+    /** paginate */
     rowOfPage: number = 6;
     pages: Number[] = [];
-    classImageSearch = 'fa fa-search imgspan';
+    current_page: number = 1;
+
     searchPattern = '';
+
+    /** pure projects  */
+    projects: ProjectGetAll[] = [];
+    /** project using show */
     _projects: ProjectGetAll[] = [];
 
-    @Input() projects: ProjectGetAll[];
-
-    constructor(private router: Router) { }
+    constructor(private router: Router, private projectService: ProjectService) {}
 
     ngOnInit() {
-        if(this.projects.length > 1){
-            this.projects.sort(function(a, b){
-                if(a.name < b.name) return -1;
-                if(a.name > b.name) return 1;
-                return 0;
-            });
-            var j = 1;
-            for(var _i = 0; _i < this._projects.length; _i+=this.rowOfPage){
-                this.pages.push(j++);
-            }
-        }
-        this._projects = this.projects;
+        this.initProjects();
     }
 
     ngOnChanges(changes: {[propKey: string]: SimpleChange}){
         if(changes['projects']) this.ngOnInit();
     }
 
-    // sort project by project name follow alpha.
+    initProjects(){
+        this.projectService.getProjects().then(
+            (result) => {
+                this.projects = result;
+                this.sortNewest();
+            },
+            (error) => {
+                alert(error);
+                console.log('error',error);
+            }
+        );
+    }
+
+    ////
+    //@function sortNewest
+    //@desc sort projects DESC day updated
+    //@param
+    //@result
+    ////
+    sortNewest(){
+        if(this.projects.length > 1){
+            this.projects.sort(function(a, b){
+                if(a.updated_at < b.updated_at) return 1;
+                if(a.updated_at > b.updated_at) return -1;
+                return 0;
+            });
+            var j = 1;
+            for(var _i = 0; _i < this._projects.length; _i += this.rowOfPage){
+                this.pages.push(j++);
+            }
+            this._projects = this.projects;
+        }
+    }
+
+    ////
+    //@function sortProject
+    //@desc sort projects followupdated
+    //@param
+    //@result
+    ////
     sortProject(){
         if(this.isSortDown){
             $('#sort-project').removeClass('fa fa-angle-down').addClass('fa fa-angle-up');
@@ -61,16 +95,10 @@ export class ProjecTableComponent implements OnInit, OnChanges {
                 this._projects.push(project);
             }
         }
-    }
-
-    onBlur() {
-        if (this.searchPattern === '') {
-            this.classImageSearch = 'fa fa-search imgspan';
-        }
+        this.current_page = 1;
     }
 
     onFocus() {
-        this.classImageSearch = 'fa fa-search imghidden';
         $('search-group').css({'background': '#ddd'})
     }
 
