@@ -109,7 +109,7 @@
     </div>
 
     <app-manage-holiday *ngIf="navClass[3] === 'choosing'"></app-manage-holiday>
-    <app-manage-job *ngIf="navClass[4] === 'choosing'"></app-manage-job>
+    <app-manage-job *ngIf="navClass[4] === 'choosing'" (changeTab)="setTab($event)"></app-manage-job>
 
 </div>
 

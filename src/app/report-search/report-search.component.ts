@@ -45,6 +45,7 @@ export class ReportSearchComponent implements OnInit {
   @Output()
   emitMember = new EventEmitter<any>();
   classDiv = ['choose-time hide', 'choose-project hide', 'choose-member hide'];
+  startWeekDay = 0;
   constructor(private projectService: ProjectService, private membershipService: MembershipService) { }
 
   ngOnInit() {

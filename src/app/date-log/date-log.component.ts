@@ -1,5 +1,5 @@
 import { TimerFetchService } from './../services/timer-fetch-service';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-date-log',
@@ -21,15 +21,28 @@ export class DateLogComponent implements OnInit {
   outDates = new EventEmitter<Date[]>();
   @Output()
   outSpecificDate = new EventEmitter<Date>();
+  @Input()
+  set startWeekDay(value) {
+    this._startWeekDay = value;
+    this.thisWeek();
+  }
+  get startWeekDay() {
+    return this._startWeekDay;
+  }
+  _startWeekDay = 0;
   constructor(private timerFetchService: TimerFetchService) { }
 
   ngOnInit() {
+    this.thisWeek();
+  }
+  thisWeek() {
     let curr = new Date();
     this.currentDate = new Date(curr);
     this.chosenDate = new Date(curr);
     let curr1 = new Date(curr);
     let curr2 = new Date(curr);
-    let first = curr.getDate() - curr.getDay();
+    console.log(this.startWeekDay);
+    let first = curr.getDate() - curr.getDay() + this.startWeekDay;
     let last = first + 6;
 
     this.firstDate = new Date(curr1.setDate(first));
@@ -41,7 +54,6 @@ export class DateLogComponent implements OnInit {
     this.firstWeekMonth = this.monthsName[this.firstDate.getMonth()];
     this.lastWeekDate = this.lastDate.getDate();
     this.lastWeekMonth = this.monthsName[this.lastDate.getMonth()];
-
   }
 
   prevWeek() {
@@ -52,7 +64,7 @@ export class DateLogComponent implements OnInit {
 
     let curr1 = new Date(curr);
     let curr2 = new Date(curr);
-    let first = curr.getDate() - curr.getDay();
+    let first = curr.getDate() - curr.getDay() + this.startWeekDay;
     let last = first + 6;
 
     this.firstDate = new Date(curr1.setDate(first));
@@ -74,7 +86,7 @@ export class DateLogComponent implements OnInit {
 
     let curr1 = new Date(curr);
     let curr2 = new Date(curr);
-    let first = curr.getDate() - curr.getDay();
+    let first = curr.getDate() - curr.getDay() + this.startWeekDay;
     let last = first + 6;
 
     this.firstDate = new Date(curr1.setDate(first));

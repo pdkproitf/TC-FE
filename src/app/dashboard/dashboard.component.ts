@@ -1,3 +1,4 @@
+import { CompanyService } from './../services/company-service';
 import { Task } from './../models/task';
 import { TaskService } from './../services/task-service';
 import { Timer } from './../models/timer';
@@ -15,10 +16,18 @@ export class DashboardComponent implements OnInit {
   projectJoins: ProjectJoin[] = [];
   weekAnchor: Date[] = [];
   recentTasks: Task[] = [];
-  constructor(private taskService: TaskService) { }
+  startWeekDay: number = 0;
+  constructor(private taskService: TaskService, private companyService: CompanyService) { }
 
   ngOnInit() {
     this.getRecentTask(10);
+    this.companyService.getCompany()
+    .then(res => {
+      this.startWeekDay = res.begin_week;
+    })
+    .catch(err => {
+      console.log(err);
+    });
   }
   selectCategory(arg) {
     this.currentCategory = arg;

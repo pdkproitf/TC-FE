@@ -1,3 +1,4 @@
+import { CompanyService } from './../services/company-service';
 import { ReportService } from './../services/report-service';
 import { Router } from '@angular/router';
 import { ProjectService } from './../services/project-service';
@@ -18,18 +19,25 @@ export class ReportComponent implements OnInit {
   lastWeekDay: Date;
   firstString: string;
   lastString: string;
-  constructor(private router: Router, private reportService: ReportService) { }
+  weekStartDay = 0;
+  constructor(private router: Router, private reportService: ReportService, private companyService: CompanyService) { }
 
   ngOnInit() {
-    this.generateLastWeek();
-    this.reportService.getReportAll(this.firstString, this.lastString)
+    this.companyService.getCompany()
     .then(res => {
-      console.log(res);
-      this.members = res.people;
-      this.projectLists = res.projects;
-    })
-    .catch(error => {
-      console.log(error);
+      this.weekStartDay = res.begin_week;
+      this.generateLastWeek();
+      this.reportService.getReportAll(this.firstString, this.lastString)
+      .then(res => {
+        console.log(res);
+        this.members = res.people;
+        this.projectLists = res.projects;
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    }).catch(err => {
+      console.log(err);
     });
   }
 
@@ -58,7 +66,7 @@ export class ReportComponent implements OnInit {
     curr.setDate(currDate);
     let curr1 = new Date(curr);
     let curr2 = new Date(curr);
-    let first = curr1.getDate() - curr1.getDay();
+    let first = curr1.getDate() - curr1.getDay() + this.weekStartDay;
     this.firstWeekDay = new Date(curr1.setDate(first));
     this.lastWeekDay = new Date(curr2.setDate(first + 6));
     this.firstString = this.dateToShortString(this.firstWeekDay);

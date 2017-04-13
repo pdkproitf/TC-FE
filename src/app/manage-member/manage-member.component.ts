@@ -248,6 +248,11 @@ export class ManageMemberComponent implements OnInit {
       let content = JSON.parse(err['_body']).error;
       this.msgs = [];
       this.msgs.push({severity: 'error', summary: 'Error', detail: content});
-    })
+    });
+  }
+
+  setTab(event) {
+    console.log(event);
+    this.changeNavClass(0);
   }
 }
