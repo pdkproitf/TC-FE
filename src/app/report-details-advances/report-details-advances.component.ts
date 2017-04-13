@@ -349,7 +349,7 @@ export class ReportDetailsAdvancesComponent implements OnInit {
     //return void
     ////
     showCalendar(show :boolean){
-        show? $('.choose-time').show() : $('.choose-time').hide();
+        show? $('.choose-time').css({'display': 'flex'}) : $('.choose-time').hide();
     }
 
     ////
@@ -459,9 +459,9 @@ export class ReportDetailsAdvancesComponent implements OnInit {
         this.end_date.setHours(23, 59, 59, 9999);
         // console.log('runReport', this.start_date, '->', this.end_date);
 
-        if(this.getProjectId().length == 0) this.initSelected();
+        if(this.getProjectIds().length == 0) this.initSelected();
         this.reportService.getReportAdvances(this.start_date, this.end_date,
-            this.getProjectId(), this.getCategoryName(), this.getPeopleId()).then(
+            this.getProjectIds(), this.getCategoryNames(), this.getPeopleIds()).then(
                 (result) => {
                     console.log("report advances", result);
                     this._projects = result['projects'];
@@ -487,12 +487,12 @@ export class ReportDetailsAdvancesComponent implements OnInit {
     }
 
     ////
-    //@function getProjectId
+    //@function getProjectIds
     //@desc get array project id for query
     //@param
     //return void
     ////
-    getProjectId(){
+    getProjectIds(){
         var arr = [];
         this.projects_selected.forEach(project => {
             arr.push(project.id);
@@ -500,7 +500,13 @@ export class ReportDetailsAdvancesComponent implements OnInit {
         return arr;
     }
 
-    getCategoryName(){
+    ////
+    //@function getCategoryNames
+    //@desc get array getCategory Name for query
+    //@param
+    //return void
+    ////
+    getCategoryNames(){
         var arr = [];
         this.categories_selected.forEach(category => {
             arr.push(category.name);
@@ -508,7 +514,13 @@ export class ReportDetailsAdvancesComponent implements OnInit {
         return arr;
     }
 
-    getPeopleId(){
+    ////
+    //@function getPeopleId
+    //@desc get array getPeopleId Name for query
+    //@param
+    //return void
+    ////
+    getPeopleIds(){
         var arr = [];
         this.peoples_selected.forEach(project => {
             arr.push(project.id);
