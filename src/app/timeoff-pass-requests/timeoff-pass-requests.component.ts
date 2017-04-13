@@ -15,7 +15,7 @@ export class TimeoffPassRequestsComponent implements OnInit {
     type_select = 'All request';
 
     /** numof timeoff pending show in a page*/
-    rowOfPage: number = 15;
+    rowOfPage: number = 8;
 
     constructor(private timeoffService: TimeoffService) {
         this.getTimeOffsPending();

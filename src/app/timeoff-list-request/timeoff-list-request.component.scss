@@ -36,6 +36,7 @@
 }
 
 .content{
+    margin-bottom: 5em;
     .search-group{
         margin-bottom: 20px;
         width: 100%;
@@ -66,7 +67,6 @@
             margin-top: 8px;
         }
     }
-    margin-bottom: 5em;
     .request:hover{ background-color: #F3F5F8;}
     .request{
         width: 100%;
@@ -248,5 +248,56 @@
                 }
             }
         }
+    }
+    /deep/.ui-paginator{
+        a{
+            outline: none;
+            cursor: pointer;
+        }
+        .fa-step-backward:before {
+            content: "\F100";
+        }
+        .fa-step-forward:before {
+            content: "\F101";
+        }
+        .fa-backward:before {
+            content: "\F104";
+        }
+        .fa-forward:before {
+            content: "\F105";
+        }
+        display: inline-block;
+        width: 100%;
+        padding: 10px 0px 10px 0px;
+        background: white;
+        font-family: -webkit-body;
+        border: 0px;
+        margin-bottom: 10px;
+        .ui-paginator-page{
+            padding: 8px 16px;
+            text-decoration: none;
+            line-height: 1.42857143;
+            cursor: pointer;
+            border-radius: 50% !important;
+            border: forestgreen;
+            background: #f5f5f5;
+            color: black;
+        }
+        .ui-paginator-next, .ui-paginator-prev, .ui-paginator-last, .ui-paginator-first{
+            border-radius: 50% !important;
+            background: #f5f5f5;
+            border: 0px;
+            padding: 8px 16px;
+            line-height: 1.42857143;
+        }
+        .ui-paginator-next:hover:not(.ui-state-disabled),
+        .ui-paginator-prev:hover:not(.ui-state-disabled),
+        .ui-paginator-last:hover:not(.ui-state-disabled),
+        .ui-paginator-first:hover:not(.ui-state-disabled) {background-color: #ddd; color: black;}
+        .ui-paginator-page.ui-state-active{
+            background: green;
+            color: white;
+        }
+        .ui-paginator-page:hover  {background-color: #ddd; color: black;}
     }
 }

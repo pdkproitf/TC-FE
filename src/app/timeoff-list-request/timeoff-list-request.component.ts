@@ -27,6 +27,10 @@ export class TimeoffListRequestComponent implements OnInit, OnChanges {
     /** using search */
     searchPattern: string = '';
 
+    /** using paginates */
+    current_page: number = 1;
+    rowOfPage: number = 8;
+
     @Input()
     set timeoffs(timeoffs: TimeOff[]){
         this.list_timeoff = timeoffs || [];
@@ -155,6 +159,17 @@ export class TimeoffListRequestComponent implements OnInit, OnChanges {
             if(timeoff.description.search(this.searchPattern) != -1)
                 this.current_timeoffs.push(timeoff);
         }
+        this.current_page = 1;
+    }
+
+    // update current_page each time click page_button
+    paginates(event) {
+        this.current_page = event.page + 1;
+        // this.changeIconPaginate();
+        //event.first = Index of the first record
+        //event.rows = Number of rows to display in new page
+        //event.page = Index of the new page
+        //event.pageCount = Total number of pages
     }
 
     ////
