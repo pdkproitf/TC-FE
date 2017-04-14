@@ -21,7 +21,7 @@
                             <div class="project-user" *ngFor="let member of project_category.members.slice(0, num_of_user_show.get(project_category.id))">
                                 <div *ngIf="!member.user.image" class="oval user-avatar inline"></div>
                                 <div *ngIf="member.user.image" class="oval user-avatar inline" [ngStyle]="{'background-image': 'url(' + member.user.image + ')'}"></div>
-                                <div class="user-name text inline">
+                                <div class="user-name text inline" [hidden]="!is_show_project_categoy_details.get(project_category.id)">
                                     {{member.user.first_name + " " + member.user.last_name}}
                                 </div>
                             </div>
@@ -37,7 +37,7 @@
                 </td>
                 <div class="right-colum">
                     {{project_category.tracked_time | timeFromSeconds}}
-                    <div class="member-tracker tracked-details">
+                    <div class="member-tracker tracked-details" [hidden]="!is_show_project_categoy_details.get(project_category.id)">
                         <div class="tracked-text" *ngFor="let member of project_category.members">
                             {{member.tracked_time | timeFromSeconds}}
                         </div>
