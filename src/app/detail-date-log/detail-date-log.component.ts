@@ -27,6 +27,7 @@ export class DetailDateLogComponent implements OnInit {
   emitEdit = new EventEmitter<boolean>();
   @Input()
   set weekAnchor(arg) {
+    this.thisWeek();
     this._weekAnchor = arg;
     this.firstWeekDay = arg[0];
     this.lastWeekDay = arg[1];
@@ -64,25 +65,26 @@ export class DetailDateLogComponent implements OnInit {
     this._startWeekDay = value;
     if (this._startWeekDay === 1) {
       this.days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Total'];
+      this.thisWeek();
+      let curr = new Date();
+      this.currentDateString = this.dateToShortString(curr);
+      let number = curr.getDay() - this._startWeekDay;
+      console.log('new thing happen: ' + number);
+      let firstDateTmp = new Date(this.firstWeekDay);
+      let chosenDate = new Date(firstDateTmp.setDate(this.firstWeekDay.getDate() + number));
+      this.timerFetchService.getTimerFetch(this.firstString, this.lastString)
+      .then(res => {
+        console.log(res);
+        this.fullWeekTimer = res;
+        let chooseString = this.dateToShortString(chosenDate);
+        this.currentTimers = this.fullWeekTimer[chooseString];
+        this.generateTotalTime();
+        this.setActiveDay(number);
+      })
+      .catch(err => {
+        console.log(err);
+      });
     }
-    this.thisWeek();
-    let curr = new Date();
-    this.currentDateString = this.dateToShortString(curr);
-    let number = curr.getDay() - this._startWeekDay;
-    let firstDateTmp = new Date(this.firstWeekDay);
-    let chosenDate = new Date(firstDateTmp.setDate(this.firstWeekDay.getDate() + number));
-    this.timerFetchService.getTimerFetch(this.firstString, this.lastString)
-    .then(res => {
-      console.log(res);
-      this.fullWeekTimer = res;
-      let chooseString = this.dateToShortString(chosenDate);
-      this.currentTimers = this.fullWeekTimer[chooseString];
-      this.generateTotalTime();
-      this.setActiveDay(number);
-    })
-    .catch(err => {
-      console.log(err);
-    });
   }
   get startWeekDay() {
     return this._startWeekDay;
@@ -113,7 +115,7 @@ export class DetailDateLogComponent implements OnInit {
     let curr = new Date();
     let curr1 = new Date();
     let curr2 = new Date();
-    this.classDay[curr.getDay()] = 'active';
+    this.classDay[curr.getDay() - this._startWeekDay] = 'active';
     let first = curr1.getDate() - curr1.getDay() + this._startWeekDay;
     this.firstWeekDay = new Date(curr1.setDate(first));
     this.lastWeekDay = new Date(curr2.setDate(first + 6));
@@ -128,7 +130,6 @@ export class DetailDateLogComponent implements OnInit {
       }
     }
     let day = this.firstWeekDay.getDate() + a;
-    console.log('sadfasdfsadfsadfsdafsadf: ' + day);
     let chosenDate = new Date(this.firstWeekDay);
     chosenDate.setDate(day);
     console.log(chosenDate);
@@ -248,7 +249,7 @@ export class DetailDateLogComponent implements OnInit {
     console.log(event);
     if (event) {
       let curr = new Date();
-      let day = curr.getDay();
+      let day = curr.getDay() - this._startWeekDay;
       this.timerFetchService.getTimerFetch(this.firstString, this.lastString)
       .then(res => {
         console.log(res);
