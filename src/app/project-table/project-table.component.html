@@ -32,8 +32,12 @@
                         <div class="project-user inline-block" >
                             <div *ngIf="project.members">
                                 <div *ngFor="let member of project.members.slice(0,3)">
-                                    <div  *ngIf="!member.user.image" class="oval user-avatar"></div>
-                                    <div *ngIf="member.user.image" class="oval" [ngStyle]="{'background-image': 'url(' + member.user.image + ')'}" ></div>
+                                    <div  *ngIf="!member.user.image" class="oval user-avatar tooltip">
+                                        <span class="tooltiptext">{{member.user.first_name + " " + member.user.last_name}}</span>
+                                    </div>
+                                    <div *ngIf="member.user.image" class="oval tooltip" [ngStyle]="{'background-image': 'url(' + member.user.image + ')'}" >
+                                        <span class="tooltiptext">{{member.user.first_name + " " + member.user.last_name}}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
