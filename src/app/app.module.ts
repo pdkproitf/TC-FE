@@ -84,6 +84,7 @@ import { InvitesConfirmComponent } from './invites-confirm/invites-confirm.compo
 import { SettingComponent } from './setting/setting.component';
 import { ManageJobComponent } from './manage-job/manage-job.component';
 import { StickyModule } from 'ng2-sticky-kit/ng2-sticky-kit';
+import { ManageCompanyComponent } from './manage-company/manage-company.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -140,6 +141,7 @@ import { StickyModule } from 'ng2-sticky-kit/ng2-sticky-kit';
     InvitesConfirmComponent,
     SettingComponent,
     ManageJobComponent,
+    ManageCompanyComponent,
   ],
   imports: [
     BrowserModule,
