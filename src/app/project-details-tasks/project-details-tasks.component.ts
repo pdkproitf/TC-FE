@@ -9,6 +9,9 @@ declare var $:any;
 })
 export class ProjectDetailsTasksComponent implements OnInit, OnChanges {
     is_show_project_categoy_details: Map<Number, boolean> = new Map<Number, boolean>();
+    /** limit num of member will be show in each task */
+    num_of_member_show: number = 3;
+    /** map constraint num_of_user_show in each task */
     num_of_user_show: Map<Number, Number> = new Map<Number, Number>();
 
     @Input() project: ProjectGetOne;
@@ -20,9 +23,10 @@ export class ProjectDetailsTasksComponent implements OnInit, OnChanges {
             this.num_of_user_show= new Map<Number, Number>();
             this.project.categories.forEach(res => {
                 this.is_show_project_categoy_details.set(res.id, false);
-                this.num_of_user_show.set(res.id, 5);
+                this.num_of_user_show.set(res.id, this.num_of_member_show);
             })
         }
+        console.log('project', this.project);
     }
 
     ngOnChanges(changes: {[propKey: string]: SimpleChange}){
@@ -32,19 +36,13 @@ export class ProjectDetailsTasksComponent implements OnInit, OnChanges {
     tasks_user_details(id: Number){
         var flag = this.is_show_project_categoy_details.get(id);
         if(flag){
-            this.num_of_user_show.set(id, 5);
+            this.num_of_user_show.set(id, this.num_of_member_show);
             $('#task-row-'+id).find('.fa-minus').removeClass('fa-minus').addClass('fa-plus');
-            $('#task-row-'+id).find('.project-user').css({'float': 'left'});
-
-            // $('#task-row-'+id).find('.user-name').css({'display': 'none'})
-            // $('#task-row-'+id).find('.member-tracker').css({'display': 'none'})
+            $('#task-row-'+id).find('.project-user').css({'display': 'inline-block'});
         }else{
             this.num_of_user_show.set(id, this.project.members.length);
             $('#task-row-'+id).find('.fa-plus').removeClass('fa-plus').addClass('fa-minus');
-            $('#task-row-'+id).find('.project-user').css({'float': 'none'});
-
-            // $('#task-row-'+id).find('.user-name').css({'display': 'block'})
-            // $('#task-row-'+id).find('.member-tracker').css({'display': 'block'})
+            $('#task-row-'+id).find('.project-user').css({'display': 'block'});
         }
         this.is_show_project_categoy_details.set(id, !flag);
     }
