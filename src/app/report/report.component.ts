@@ -28,16 +28,26 @@ export class ReportComponent implements OnInit {
       this.weekStartDay = res.begin_week;
       this.generateLastWeek();
       this.reportService.getReportAll(this.firstString, this.lastString)
-      .then(res => {
-        console.log(res);
-        this.members = res.people;
-        this.projectLists = res.projects;
+      .then(result => {
+        console.log(result);
+        this.members = result.people;
+        this.projectLists = result.projects;
       })
       .catch(error => {
         console.log(error);
       });
     }).catch(err => {
       console.log(err);
+      this.generateLastWeek();
+      this.reportService.getReportAll(this.firstString, this.lastString)
+      .then(result => {
+        console.log(result);
+        this.members = result.people;
+        this.projectLists = result.projects;
+      })
+      .catch(error => {
+        console.log(error);
+      });
     });
   }
 
