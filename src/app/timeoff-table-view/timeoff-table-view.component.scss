@@ -25,6 +25,7 @@
                 cursor: pointer;
                 background: #F3F5F8;
             }
+            &:focus{background: #F3F5F8;}
         }
         tr{
             max-height: 56px;

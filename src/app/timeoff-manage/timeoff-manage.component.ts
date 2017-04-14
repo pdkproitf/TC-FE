@@ -33,7 +33,7 @@ export class TimeoffManageComponent implements OnInit {
     //@function get timeoffs
     //@desc get list timeoffs with current_member role when start_date later than today
     //@param void
-    //@result void
+    //@result
     ////
     getTimeOffsPending(){
         var this_year = new Date(new Date().getFullYear(), 0, 1);
@@ -53,7 +53,7 @@ export class TimeoffManageComponent implements OnInit {
     //@function get number timeoff
     //@desc get number timeoff of current_member
     //@param void
-    //@result void
+    //@result
     ////
     getPersonNumTimeOff(){
         var this_year = new Date(new Date().getFullYear(), 0, 1);

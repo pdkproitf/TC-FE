@@ -46,7 +46,6 @@ import { DetailDateLogComponent } from './detail-date-log/detail-date-log.compon
 import { ProjectManageComponent } from './project-manage/project-manage.component';
 import { CreateProjectComponent } from './create-project/create-project.component';
 import { ManageMemberComponent } from './manage-member/manage-member.component';
-import { ProjectListComponent } from './project-list/project-list.component';
 import { ProjectDetailsComponent } from './project-details/project-details.component';
 import { ProjecTableComponent } from './project-table/project-table.component';
 import { AddingMemberComponent } from './adding-member/adding-member.component';
@@ -103,7 +102,6 @@ import { ManageCompanyComponent } from './manage-company/manage-company.componen
     ProjectManageComponent,
     CreateProjectComponent,
     ManageMemberComponent,
-    ProjectListComponent,
     ProjectDetailsComponent,
     AddingMemberComponent,
     ProjecTableComponent,

@@ -10,6 +10,7 @@
             cursor: auto;
         }
         .project-user{
+            min-width: inherit;
             width: auto;;
             margin-bottom: 4%;
             height: 32px;
@@ -18,13 +19,12 @@
                 padding-top: 7px;
             }
             .user-name{
-                display: none;
+                // display: none;
                 font-weight: lighter;
             }
         }
         .text{
             text-align: left;;
-            display: block;;
             padding-top: 0px;
             font-family: Lato;
             font-size: 16px;
@@ -61,7 +61,6 @@
             float: left;
         }
         .tracked-details{
-            display: none;
             padding-top: -4px;
             .tracked-text{
                 padding-top: 16px;
