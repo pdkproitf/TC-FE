@@ -21,6 +21,7 @@
                 //     background: #F3F5F8;
                 // }
                 box-shadow: inset 0 -1px 0 0 #EEEEEE;
+                &:focus{background: #F3F5F8;}
             }
             .imgspan{
                 font-size: 20px;
@@ -28,9 +29,8 @@
                 width: 20px;
                 height: 20px;
                 margin-right: 1em;
-            }
-            .imghidden{
-                visibility: hidden;
+                // background-image: url('/assets/image-input/searchicon.png');
+                // background-repeat: no-repeat;
             }
         }
         button{
