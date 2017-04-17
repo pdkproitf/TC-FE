@@ -2,14 +2,14 @@
 <div class="container">
     <ul class="nav-bar">
         <li [class]="navClass[0]" (click)="changeNavClass(0)" ><p>Employees</p></li>
-        <li [class]="navClass[1]" (click)="changeNavClass(1)"><p>Invites</p></li>
+        <li [class]="navClass[1]" (click)="changeNavClass(1)"><p>Company</p></li>
         <li [class]="navClass[2]" (click)="changeNavClass(2)"><p>Clients</p></li>
         <li [class]="navClass[3]" (click)="changeNavClass(3)"><p>Holidays</p></li>
         <li [class]="navClass[4]" (click)="changeNavClass(4)"><p>Jobs</p></li>
     </ul>
 
     <div *ngIf="navClass[0] === 'choosing'" class="member-manage">
-        <p style="margin-bottom: 0;">Search employees by name:</p>
+        <p style="margin-bottom: 5px;">Search employees by name:</p>
         <input class="search-em" type="text" placeholder="Ex: David" [(ngModel)]="searchNameText" (keyup)="keyUpSearchName()" name="search-em">
         <div class="member-list">
             <table>
@@ -107,9 +107,9 @@
         </p-dialog>
 
     </div>
-
+    <app-manage-company *ngIf="navClass[1] === 'choosing'"></app-manage-company>
     <app-manage-holiday *ngIf="navClass[3] === 'choosing'"></app-manage-holiday>
-    <app-manage-job *ngIf="navClass[4] === 'choosing'"></app-manage-job>
+    <app-manage-job *ngIf="navClass[4] === 'choosing'" (changeTab)="setTab($event)"></app-manage-job>
 
 </div>
 

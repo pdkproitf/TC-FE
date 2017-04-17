@@ -1,4 +1,5 @@
-import { ActivatedRoute } from '@angular/router';
+import { CompanyService } from './../services/company-service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MembershipService } from './../services/membership-service';
 import { ProjectService } from './../services/project-service';
 import { ProjectGetAll } from './../models/project';
@@ -45,7 +46,9 @@ export class ReportSearchComponent implements OnInit {
   @Output()
   emitMember = new EventEmitter<any>();
   classDiv = ['choose-time hide', 'choose-project hide', 'choose-member hide'];
-  constructor(private projectService: ProjectService, private membershipService: MembershipService) { }
+  startWeekDay = 0;
+  constructor(private projectService: ProjectService, private membershipService: MembershipService,
+  private companyService: CompanyService, private router: Router) { }
 
   ngOnInit() {
     this.projectService.getProjects()
@@ -66,6 +69,13 @@ export class ReportSearchComponent implements OnInit {
     .catch(err => {
       console.log(err);
     });
+    this.companyService.getCompany()
+    .then(res => {
+      this.startWeekDay = res.begin_week;
+    })
+    .catch(err => {
+      console.log(err);
+    })
   }
 
   changeClassDiv(i) {
@@ -177,7 +187,7 @@ export class ReportSearchComponent implements OnInit {
     curr.setDate(currDate);
     let curr1 = new Date(curr);
     let curr2 = new Date(curr);
-    let first = curr1.getDate() - curr1.getDay();
+    let first = curr1.getDate() - curr1.getDay() + this.startWeekDay;
     this.firstWeekDay = new Date(curr1.setDate(first));
     this.lastWeekDay = new Date(curr2.setDate(first + 6));
     this.firstString = this.dateToShortString(this.firstWeekDay);
@@ -297,6 +307,7 @@ export class ReportSearchComponent implements OnInit {
     }
     let res = [this.firstString, this.lastString, this.idProject, this.idMember];
     console.log(res);
+    this.router.navigate(['/report-advance']);
   }
 
   keyUpMemberSearch() {
@@ -336,7 +347,7 @@ export class ReportSearchComponent implements OnInit {
       || className === 'ui-datepicker-prev ui-corner-all ui-state-hover ui-datepicker-prev-hover'
       || className === 'ui-state-default ui-state-active ui-state-hover' || className === 'ui-datepicker-title'
       || className === 'ui-state-default ui-state-hover ui-state-highlight' || className === 'ui-state-default ui-state-hover'
-      || className === 'ui-datepicker-year' || className === 'ui-datepicker-month') {
+      || className === 'ui-datepicker-year' || className === 'ui-datepicker-month' || className === 'option') {
         return;
       }else {
         this.classDiv[0] += ' hide';

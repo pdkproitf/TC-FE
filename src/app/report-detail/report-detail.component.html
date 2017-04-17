@@ -33,6 +33,7 @@
       <li (click)="chooseNavClass(0)" [class]="navClass[0]"><p>By Projects</p></li>
       <li (click)="chooseNavClass(1)" [class]="navClass[1]"><p>By Tasks</p></li>
       <li (click)="chooseNavClass(2)" [class]="navClass[2]"><p>Overtime</p><div class="dot-ot"></div></li>
+      <li (click)="chooseNavClass(3)" [class]="navClass[3]"><p>Time Log</p></li>
       <li class="export">
         <p-menu #menu popup="popup" [model]="items"></p-menu>
         <button pButton type="button" label="Export" icon="fa-caret-down" (click)="menu.toggle($event)" iconPos="right"></button>
@@ -119,6 +120,33 @@
         <td class="hour">{{overtime.overtime | secondsToHours}}h</td>
       </tr>
     </table>
+  </div>
+
+  <div id="time-log" class="time-log" *ngIf="navClass[3] === 'choosing'">
+    <ul class="dates">
+      <li class="date" *ngFor = "let key of userAllTimerFetchKeys; let i = index">
+        <div [class]="divExpand[i]">
+          <span (click)="expandTimeLog(i)" [class]="timeLogExpand[i]"></span>{{key | dateToMDY}}
+          <div class="deco"></div>
+        </div>
+        <table *ngIf="timeLogExpand[i] === 'fa fa-caret-down icon left'">
+          <tr class="row-header">
+            <th class="task">Task</th>
+            <th class="project">Project</th>
+            <th class="time-span">Time Span</th>
+            <th class="total-time">Hours</th>
+            <th class="approved">Approved</th>
+          </tr>
+          <tr *ngFor="let timer of userAllTimerFetchs[key]">
+            <td>{{timer.task.name | slice:0:64}}</td>
+            <td>{{timer.project_name}} - {{timer.category_name}}</td>
+            <td>{{timer.start_time | date: 'hh:mm a'}} <span class="fa fa-long-arrow-right"></span> {{timer.stop_time | date: 'hh:mm a'}}</td>
+            <td>{{(-timer.start_time.getTime() + timer.stop_time.getTime()) / 1000 | secondsToHours}}h</td>
+            <td><label><input type="checkbox"></label></td>
+          </tr>
+        </table>
+      </li>
+    </ul>
   </div>
   <br/><br/>
 </div>
