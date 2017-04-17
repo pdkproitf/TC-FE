@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, OnChanges, SimpleChange, EventEmitter, Output }    from '@angular/core';
 import { TimeOff, TimeOffPost, PersonNumTimeOff } from './../models/timeoff';
 import { TimeoffService }       from '../services/timeoff-service';
+import { Message }              from 'primeng/primeng';
 import { Router }               from '@angular/router'
 declare var $:any;
 
@@ -30,6 +31,9 @@ export class TimeoffListRequestComponent implements OnInit, OnChanges {
     /** using paginates */
     current_page: number = 1;
     rowOfPage: number = 8;
+
+    /** show notification */
+    msgs: Message[] = [];
 
     @Input()
     set timeoffs(timeoffs: TimeOff[]){
@@ -193,11 +197,24 @@ export class TimeoffListRequestComponent implements OnInit, OnChanges {
         .then(
             (result) => {
                 this.reload.emit();
+                this.noticeMessage('Request deleted', true)
             },
-            (errors) => {
-                alert(errors.json().error);
-                console.log('timeoff error', errors.json().error);
+            (error) => {
+                this.noticeMessage(JSON.parse(error['_body']).error, false)
             }
         )
+    }
+
+    ////
+    //@function noticeMessage
+    //@desc show notice messages
+    //@param content -> content messages, isSuccess -> show messages sucess or error
+    //@result
+    ////
+    noticeMessage(content: string, isSuccess){
+        this.msgs = [];
+        isSuccess?
+            this.msgs.push({severity: 'success', summary: 'Success', detail: content}):
+            this.msgs.push({severity: 'error', summary: 'Error Messages', detail: content});
     }
 }

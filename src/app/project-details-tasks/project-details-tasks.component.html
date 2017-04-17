@@ -18,25 +18,33 @@
                         </div>
 
                         <div class="group-user" *ngIf="project_category.members">
-                            <div class="project-user" *ngFor="let member of project_category.members.slice(0, num_of_user_show.get(project_category.id))">
-                                <div *ngIf="!member.user.image" class="oval user-avatar inline tooltip">
-                                    <span class="tooltiptext">{{member.user.first_name + " " + member.user.last_name}}</span>
-                                </div>
-                                <div *ngIf="member.user.image" class="oval user-avatar inline tooltip" [ngStyle]="{'background-image': 'url(' + member.user.image + ')'}">
-                                    <span class="tooltiptext">{{member.user.first_name + " " + member.user.last_name}}</span>
-                                </div>
-                                <div class="user-name text inline" [hidden]="!is_show_project_categoy_details.get(project_category.id)">
-                                    {{member.user.first_name + " " + member.user.last_name}}
-                                </div>
+                            <div class="everyone" [hidden]="!(!is_show_project_categoy_details.get(project_category.id) && project_category.members.length == project.members.length)">
+                                Everyone
                             </div>
-                            <div class="over-member inline" *ngIf="project_category.members.length > num_of_user_show.get(project_category.id)">
-                                <div class="oval">
-                                    <div class="text task-over-user">
-                                        +{{project_category.members.length - num_of_user_show.get(project_category.id)}}
+                            <span [hidden]="!(project_category.members.length < project.members.length || is_show_project_categoy_details.get(project_category.id))">
+                                <div class="project-user" *ngFor="let member of project_category.members; let i = index">
+                                    <span [hidden]="i >= num_of_user_show.get(project_category.id)">
+                                        <div *ngIf="!member.user.image" class="oval user-avatar inline tooltip">
+                                            <span class="tooltiptext">{{member.user.first_name + " " + member.user.last_name}}</span>
+                                        </div>
+                                        <div *ngIf="member.user.image" class="oval user-avatar inline tooltip" [ngStyle]="{'background-image': 'url(' + member.user.image + ')'}">
+                                            <span class="tooltiptext">{{member.user.first_name + " " + member.user.last_name}}</span>
+                                        </div>
+                                        <div class="user-name text inline" [hidden]="!is_show_project_categoy_details.get(project_category.id)">
+                                            {{member.user.first_name + " " + member.user.last_name}}
+                                        </div>
+                                    </span>
+                                    <div class="over-member" *ngIf="project_category.members.length > num_of_user_show.get(project_category.id) && i == num_of_user_show.get(project_category.id)">
+                                        <div class="oval-2">
+                                            <div class="text-2 task-over-user">
+                                                +{{project_category.members.length - num_of_user_show.get(project_category.id)}}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </span>
                         </div>
+
                     </div>
                 </td>
                 <div class="right-colum">
