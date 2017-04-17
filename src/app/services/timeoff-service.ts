@@ -57,6 +57,19 @@ export class TimeoffService {
         .catch(this.handleError);
     }
 
+    /** get num of timeff pending request in phase */
+    getNumTimeoffsPending(from_date: Date, to_date: Date): Promise<TimeOffGetAll>{
+        let requestUrl = this.timeoffUrl + '/num-pending-request' + '?from_date=' + JSON.stringify(from_date) + '&to_date=' + JSON.stringify(to_date) + '&status=pending';
+        // let requestUrl = this.timeoffUrl + '?start_date='+start_date+'&end_date='+end_date;;
+        let headers = new Headers;
+        this.headersService.createAuthHeaders(headers);
+        return this.http
+        .get(requestUrl, {headers: headers})
+        .toPromise()
+        .then(res => res.json().data)
+        .catch(this.handleError);
+    }
+
     // load all timeoff current user under user role follow phase
     getPhaseTimeOffs(from_date: Date, to_date: Date): Promise<TimeOffGetAll>{
         let requestUrl = this.timeoffUrl + '?from_date=' + JSON.stringify(from_date) + '&to_date=' + JSON.stringify(to_date) + '&status=pending';

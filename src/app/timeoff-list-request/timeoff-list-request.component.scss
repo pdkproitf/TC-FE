@@ -38,7 +38,7 @@
 .content{
     margin-bottom: 5em;
     .search-group{
-        margin-bottom: 20px;
+        box-shadow: inset 0 -1px 0 0 #EEEEEE;
         width: 100%;
         display: flex;
         margin-top: 2em;
@@ -51,7 +51,6 @@
             line-height: 24px;
             height: 35px;
             width: 100%;
-            box-shadow: inset 0 -1px 0 0 #EEEEEE;
             &:hover{
                 // cursor: pointer;
                 background: #F3F5F8;
@@ -301,4 +300,8 @@
         }
         .ui-paginator-page:hover  {background-color: #ddd; color: black;}
     }
+}
+/deep/.ui-growl-item {
+    display: flex;
+    font-family: Lato;
 }

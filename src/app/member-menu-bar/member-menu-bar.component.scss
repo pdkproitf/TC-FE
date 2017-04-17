@@ -20,10 +20,31 @@ li {
         text-align: center;
         padding: 14px 16px;
         text-decoration: none;
-    
+
         &:hover:not(.active) {
             background-color: #111;
         }
+
+        & label{
+            height: 16px;
+            width: 16px;
+            border-radius: 91px;
+            background-color: #E74C3C;
+            margin-left: 5px;
+            display: inline-block;
+            & span{
+                color: #FFFFFF;
+                font-family: Lato;
+                font-size: 12px;
+                font-weight: bold;
+                line-height: 15px;
+                vertical-align: text-top;
+            }
+        }
+        .timeoff-bacground-yellow{
+            background-color: #E67E22;
+        }
+
     }
     &.iconApp{
         float: left !important;
@@ -65,12 +86,12 @@ li {
         /deep/ .ui-menu{
             left: 1280px !important;
         }
-    } 
+    }
 }
 .ui-button{
     top: 7px;
     background: $colorMain !important;
-    border: solid 0px $colorMain !important; 
+    border: solid 0px $colorMain !important;
 }
 .active {
     border-bottom: solid 5px $activeColor;
