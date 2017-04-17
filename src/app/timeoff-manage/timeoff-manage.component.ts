@@ -16,6 +16,7 @@ export class TimeoffManageComponent implements OnInit {
 
     /** numof timeoff pending show in a page*/
     rowOfPage = 8
+    timeoffRequest: number;
 
     constructor(private router: Router, private timeoffService: TimeoffService) { }
 
@@ -40,6 +41,7 @@ export class TimeoffManageComponent implements OnInit {
         this.timeoffService.getPhaseTimeOffs(this_year,new Date()).then(
             (result) => {
                 this.list_timeoff = result;
+                this.timeoffRequest = result.pending_requests.length;
             },
             (error) => {
                 // alert(error);
