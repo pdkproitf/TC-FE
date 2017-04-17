@@ -6,7 +6,7 @@
                     <div class="header">
                         <span>Members</span>
                         <div class="search-group">
-                            <input class="search-text" type="text" [(ngModel)]="searchMemberParten" (keyup)="searchMember()" placeholder="Search Members"/>
+                            <input class="search-text" type="text" [(ngModel)]="searchMemberParten" (keyup)="searchMember()" placeholder="Search member's name"/>
                             <span class="fa fa-search imgspan"></span>
                         </div>
                     </div>
@@ -31,7 +31,7 @@
             <div class="header">
                 <div class="search-group">
                     <span class="fa fa-search imgspan"></span>
-                    <input class="search-text" type="text" [(ngModel)]="searchJobParten" (keyup)="searchJob()" placeholder="Search Jobs"/>
+                    <input class="search-text" type="text" [(ngModel)]="searchJobParten" (keyup)="searchJob()" placeholder="Search job's title"/>
                 </div>
 
                 <button class="button-create" (click)="showDialog(true)" type="button">Create Job</button>
@@ -73,7 +73,7 @@
 </div>
 <p-dialog header="Create Job" [(visible)]="dialogVisible" [resizable]="false">
     <div class="ui-grid ui-grid-responsive ui-fluid">
-        <input type="text" #jobVariable focus>
+        <input type="text" #jobVariable focus placeholder="Job's title">
     </div>
 
     <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">

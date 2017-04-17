@@ -1,7 +1,7 @@
 <div class="content">
     <div class="search-group">
         <span class="fa fa-search imgspan"></span>
-        <input class="search-text" type="text" [(ngModel)]="searchPattern" (keyup)="search()" placeholder="Search People"/>
+        <input class="search-text" type="text" [(ngModel)]="searchPattern" (keyup)="search()" placeholder="Search people's name"/>
     </div>
 
     <div class="request" *ngFor="let timeoff of current_timeoffs.slice((current_page -1)*rowOfPage, current_page*rowOfPage)" (mouseover)='showTimeoffControl(true, timeoff.id)' (mouseleave)='showTimeoffControl(false, timeoff.id)'>
