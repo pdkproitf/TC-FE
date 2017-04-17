@@ -73,3 +73,4 @@
 
     <div *ngIf="current_timeoffs.length > rowOfPage"><p-paginator rows="{{rowOfPage}}" totalRecords="{{current_timeoffs.length}}" (onPageChange)="paginates($event)"></p-paginator></div>
 </div>
+<p-growl [value]="msgs" [life]="3000" ></p-growl>
