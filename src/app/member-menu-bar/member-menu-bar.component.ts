@@ -45,6 +45,7 @@ export class MemberMenuBarComponent implements OnInit {
         if (!this.isPM) {
             this.isPM = (userObj.pm_projects > 0);
         }
+
         this.user.name = userObj.user.first_name;
         this.imageUrl = userObj.user.image;
         this.items = [
