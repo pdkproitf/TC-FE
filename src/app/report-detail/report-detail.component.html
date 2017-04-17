@@ -138,7 +138,7 @@
             <th class="approved">Approved</th>
           </tr>
           <tr *ngFor="let timer of userAllTimerFetchs[key]">
-            <td>{{timer.task.name}}</td>
+            <td>{{timer.task.name | slice:0:64}}</td>
             <td>{{timer.project_name}} - {{timer.category_name}}</td>
             <td>{{timer.start_time | date: 'hh:mm a'}} <span class="fa fa-long-arrow-right"></span> {{timer.stop_time | date: 'hh:mm a'}}</td>
             <td>{{(-timer.start_time.getTime() + timer.stop_time.getTime()) / 1000 | secondsToHours}}h</td>
