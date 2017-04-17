@@ -137,22 +137,47 @@ export class ManageMemberComponent implements OnInit {
       this.navClass[i] = '';
     }
     this.navClass[a] = 'choosing';
+    if (a === 0) {
+      this.jobService.getAllJobs()
+      .then(res => {
+        this.searchJobText = '';
+        this.currentJobs = res;
+        this.filterJobs('');
+      })
+      .catch(err => {
+        let content = JSON.parse(err['_body']).error;
+        this.msgs = [];
+        this.msgs.push({severity: 'error', summary: 'Error', detail: content});
+      });
+    }
   }
 
   addJobToEmployee(employee, job) {
-    if (employee.jobs.indexOf(job) < 0) {
+    if (this.isJobIn(job, employee) < 0) {
       employee.jobs.push(job);
     }
     console.log(this.employeePosts.indexOf(employee));
   }
 
   deleteJobFromEmployee(employee, job) {
-    let i = employee.jobs.indexOf(job);
+    let i = this.isJobIn(job, employee);
     console.log(i);
     if (i >= 0) {
       employee.jobs.splice(i, 1);
     }
     console.log(this.employeePosts.indexOf(employee));
+  }
+
+  isJobIn(job, employee) {
+    let res = -1;
+    let i = 0;
+    for (let emjob of employee.jobs){
+      if (job.id === emjob.id){
+        return i;
+      }
+      i++;
+    }
+    return res;
   }
 
   doesHasNewJobs(id): boolean {

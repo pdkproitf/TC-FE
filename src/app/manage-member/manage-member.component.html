@@ -3,7 +3,7 @@
     <ul class="nav-bar">
         <li [class]="navClass[0]" (click)="changeNavClass(0)" ><p>Employees</p></li>
         <li [class]="navClass[1]" (click)="changeNavClass(1)"><p>Company</p></li>
-        <li [class]="navClass[2]" (click)="changeNavClass(2)"><p>Clients</p></li>
+        <!--<li [class]="navClass[2]" (click)="changeNavClass(2)"><p>Clients</p></li>-->
         <li [class]="navClass[3]" (click)="changeNavClass(3)"><p>Holidays</p></li>
         <li [class]="navClass[4]" (click)="changeNavClass(4)"><p>Jobs</p></li>
     </ul>
@@ -35,7 +35,9 @@
                         </td>
                         <td class="jobs" width="35%">
                             <div *ngIf="employee.jobs.length > 0">
-                                <div *ngFor="let job of employee.jobs" class="job">{{job.name}}<span (click)="deleteJobFromEmployee(employee, job); submitJobs[id] = doesHasNewJobs(id);" class="fa fa-times"></span></div>
+                                <div *ngFor="let job of employee.jobs" class="job">
+                                    {{job.name}}<span (click)="deleteJobFromEmployee(employee, job); submitJobs[id] = doesHasNewJobs(id);" class="fa fa-times"></span>
+                                </div>
                             </div>
                             <input type=text placeholder="Add job" (focus)="divDisplays[id] = 1;" (blur)="divDisplays[id] = 0;"
                             [(ngModel)]="searchJobText" (keyup)="keyUpSearch()" name="search-text">
@@ -44,8 +46,10 @@
                                 <span class="fa fa-times" (click)="cancelJobs(id); submitJobs[id] = false;" aria-hidden="true"></span>
                             </div>
                             <div *ngIf="divDisplays[id] === 1" class="job-selector">
-                                <ul class="job-ul">
-                                    <li *ngFor="let job of searchJobs; let i = index" (mousedown)="addJobToEmployee(employee, job); submitJobs[id] = doesHasNewJobs(id);" class="job-li">{{job.name}}</li>
+                                <ul *ngIf="searchJobs.length > 0" class="job-ul">
+                                    <li *ngFor="let job of searchJobs; let i = index" [hidden]="isJobIn(job, employee) > -1" (mousedown)="addJobToEmployee(employee, job); submitJobs[id] = doesHasNewJobs(id);" class="job-li">
+                                        {{job.name}}
+                                    </li>
                                     <!--<li class="job-li" (mousedown)="displayAddJob = true;">Add new job</li>-->
                                 </ul>
                             </div>
@@ -59,7 +63,7 @@
                             {{employee.furlough_total}}
                         </td>
                         <td class="actions" max-width="99%">
-                            <div class="action-items">
+                            <!--<div class="action-items">
                                 <div class="oval">
                                     <span class="fa fa-download" aria-hidden="true"></span>
                                 </div>
@@ -69,7 +73,7 @@
                                 <div class="oval">
                                     <span class="fa fa-pencil" aria-hidden="true"></span>
                                 </div>
-                            </div>
+                            </div>-->
                         </td>
                     </tr>
                 </tbody>

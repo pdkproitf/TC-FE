@@ -148,7 +148,7 @@ export class ReportDetailProjectComponent implements OnInit {
     this.from = begin;
     this.to = end;
     this.newRange([begin, end]);
-    this.items = [
+    /*this.items = [
       {label: 'PDF', icon: 'fa-file-pdf-o', command: (event) => {
         this.preparePdf();
       }},
@@ -157,7 +157,7 @@ export class ReportDetailProjectComponent implements OnInit {
         console.log('XSL');
         }
       }
-    ];
+    ];*/
   }
   chooseNavClass(a) {
     let len = this.navClass.length;
