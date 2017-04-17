@@ -28,11 +28,6 @@ export class MemberMenuBarComponent implements OnInit {
     timeoffRequest: number = 0;
     timeoffBacground: string = ' ';
 
-    @Input()
-    set timeoffRequestUpdate(data: number){
-        if(data) this.timeoffRequest = data;
-    }
-
     constructor(private router: Router, private userService: UserService, private timeoffService: TimeoffService) { }
 
     ngOnInit() {
