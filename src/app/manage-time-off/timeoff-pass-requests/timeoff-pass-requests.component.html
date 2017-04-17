@@ -1,4 +1,4 @@
-<!--<app-member-menu-bar [currentState]="2"></app-member-menu-bar>-->
+<app-member-menu-bar [currentState]="2" [timeoffRequestUpdate]="timeoffRequest"></app-member-menu-bar>
 <div class="pass-timeoffs">
     <div class="header">
         <p><a href="/#/timeoffs"><i class="fa fa-caret-left" aria-hidden="true"></i>Back to Time Off</a></p>
@@ -15,6 +15,6 @@
     </div>
 
     <div class="content">
-        <app-timeoff-pending-requests [timeoffs]="_timeoffs" [showAll]="true" (reload)="getTimeOffsPending()" [rowsOfPage]="rowOfPage"></app-timeoff-pending-requests>
+        <app-timeoff-pending-requests [timeoffs]="_timeoffs" [showAll]="true" (reload)="getTimeOffs()" [rowsOfPage]="rowOfPage"></app-timeoff-pending-requests>
     </div>
 </div>
