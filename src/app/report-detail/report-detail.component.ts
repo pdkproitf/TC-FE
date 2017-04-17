@@ -1,3 +1,6 @@
+import { TimerFetchService } from './../services/timer-fetch-service';
+import { TimerFetch } from './../models/timer-fetch';
+import { TimerService } from './../services/timer-service';
 import { TestBed } from '@angular/core/testing';
 import { ReportService } from './../services/report-service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -39,7 +42,7 @@ export class ReportDetailComponent implements OnInit {
   data: any;
   options: any;
   items: any;
-  navClass = ['choosing', '', ''];
+  navClass = ['choosing', '', '', ''];
   choosing: number = 0;
   member: any = {};
   sources: any;
@@ -55,7 +58,12 @@ export class ReportDetailComponent implements OnInit {
   from: string = '';
   to: string = '';
   spanClassProject = [];
-  constructor(private route: ActivatedRoute, private reportService: ReportService, private router: Router) {
+  userAllTimerFetchs: any[] = [];
+  userAllTimerFetchKeys: any[] = [];
+  timeLogExpand: string[] = [];
+  divExpand: string[] = [];
+  constructor(private route: ActivatedRoute, private reportService: ReportService, private router: Router,
+  private timerFetchService: TimerFetchService, private timerService: TimerService) {
   }
   ngOnInit() {
     this.data = {
@@ -161,6 +169,19 @@ export class ReportDetailComponent implements OnInit {
       this.idProject = para.idProject;
     }
     this.newRange([begin, end]);
+    this.timerFetchService.getTimerFetch(this.from, this.to)
+    .then(res => {
+      this.userAllTimerFetchs = res;
+      this.userAllTimerFetchKeys = Object.keys(this.userAllTimerFetchs);
+      console.log(this.userAllTimerFetchs);
+      for (let key of this.userAllTimerFetchKeys) {
+        this.timeLogExpand.push('fa fa-caret-right icon left');
+        this.divExpand.push('date-title');
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    });
     this.items = [
       {label: 'PDF', icon: 'fa-file-pdf-o', command: (event) => {
         this.preparePDF();
@@ -630,5 +651,15 @@ export class ReportDetailComponent implements OnInit {
     @ViewChild('reportSearch') reportSearch;
     reportSearchMouseHandle(event) {
       this.reportSearch.showEvent(event);
+    }
+
+    expandTimeLog(i) {
+      if (this.timeLogExpand[i] === 'fa fa-caret-right icon left') {
+        this.timeLogExpand[i] = 'fa fa-caret-down icon left';
+        this.divExpand[i] = 'date-title expanded';
+      } else {
+        this.timeLogExpand[i] = 'fa fa-caret-right icon left';
+        this.divExpand[i] = 'date-title';
+      }
     }
 }

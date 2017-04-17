@@ -377,4 +377,96 @@
             }
         }
     }
+    .time-log{
+        ul.dates{
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            li.date{
+                margin-top: 20px;
+                .date-title{
+                    transition: font-weight 2s;
+                }
+                .date-title.expanded{
+                    font-weight: bold;
+                }
+                .date-title .deco{
+                    width: 0px;
+                    height: 2px;
+                    transition: width 1s ease-out;
+                    border-bottom: solid 2px $blueColor;
+                }
+                .date-title.expanded .deco{
+                    width: 100%;
+                }
+                font-weight: normal;
+                line-height: 32px;
+                box-shadow: inset 0 -1px 0 0 #EEEEEE;
+                .left{
+                    float: left;
+                    margin-right: 10px;
+                    &.icon{
+                        margin-top: 8px;
+                        clear: left;
+                        color: black;
+                        &:hover{
+                            cursor: pointer;
+                        }
+                    }
+                }
+                table{
+                    width: 100%;
+                    border-collapse: collapse;
+                    input[type='checkbox']{
+                        float: right;
+                        margin-right: 30%;
+                        width: 16px;
+                        height: 16px;
+                        border-radius: 3px;
+                        &:after{
+                            content: "  ";
+                            background-color: white;
+                            display: inline-block;
+                            visibility: visible;    
+                            width: 16px;
+                            height: 16px;
+                            border-radius: 3px;
+                            text-align: center;
+                            font-size: 14px;
+                            border: solid 0.5px $blueColor;
+                        }
+                        &:checked:after{
+                            content: "\2714";
+                            color: white;
+                            background-color: $blueColor
+                        }
+                    }
+                    tr{
+                        &.row-header{
+                            background-color: #EEEEEE;
+                        }
+                        th{
+                            &.task{
+                                width: 35%;
+                            }
+                            &.project{
+                                width: 25%;
+                            }
+                            &.time-span{
+                                width: 20%;
+                            }
+                            &.total-time{
+                                width: 10%;
+                            }
+                            &.approved{
+                                max-width: 99%;
+                                float: right;
+                                margin-right: 10%
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
