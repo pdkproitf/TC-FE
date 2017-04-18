@@ -23,6 +23,7 @@ export class MemberMenuBarComponent implements OnInit {
     currentState: number = null;
     classActive: string[] = ['', '', '', '', ''];
     isAdmin: boolean = false;
+    isPM: boolean = false;
     /** timeoff num of pending request */
     timeoffRequest: number = 0;
     timeoffBacground: string = ' ';
@@ -42,6 +43,13 @@ export class MemberMenuBarComponent implements OnInit {
         let userObj = JSON.parse(userInfo);
         // console.log(userObj);
         this.isAdmin = (userObj.role.name === 'Admin') ? true : false;
+        this.isPM = this.isAdmin;
+        if (!this.isPM) {
+            this.isPM = (userObj.role.name === 'PM') ? true : false;
+        }
+        if (!this.isPM) {
+            this.isPM = (userObj.pm_projects > 0);
+        }
         this.user.name = userObj.user.first_name;
         this.imageUrl = userObj.user.image;
         this.items = [

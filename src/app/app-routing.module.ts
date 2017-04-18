@@ -1,3 +1,5 @@
+import { AuthenHighPM } from './services/authen-high-pm';
+import { AuthenNormalPM } from './services/authen-normal-pm';
 import { AuthenAdmin } from './services/authen-admin';
 import { SettingComponent } from './setting/setting.component';
 import { InvitesConfirmComponent } from './invites-confirm/invites-confirm.component';
@@ -33,13 +35,13 @@ const routes: Routes = [
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthenLoggedIn] },
     { path: '', component: MarketingPageComponent, canActivate: [NotLoggedIn] },
     { path: 'verify-email/:text', component: VerifyEmailPageComponent, canActivate: [NotLoggedIn] },
-    { path: 'projects', component: ProjectManageComponent, canActivate: [AuthenLoggedIn] },
-    { path: 'new-project', component: CreateProjectComponent, canActivate: [AuthenLoggedIn] },
+    { path: 'projects', component: ProjectManageComponent, canActivate: [AuthenNormalPM] },
+    { path: 'new-project', component: CreateProjectComponent, canActivate: [AuthenHighPM] },
     { path: 'manage', component: ManageMemberComponent, canActivate: [AuthenAdmin] },
-    { path: 'projects/:id', component: ProjectDetailsComponent, canActivate: [AuthenLoggedIn] },
+    { path: 'projects/:id', component: ProjectDetailsComponent, canActivate: [AuthenNormalPM] },
     { path: 'timeoffs', component: TimeoffManageComponent, canActivate: [AuthenLoggedIn] },
     { path: 'new-timeoff', component: CreateTimeoffComponent, canActivate: [AuthenLoggedIn] },
-    { path: 'edit-project/:id', component: EditProjectComponent, canActivate: [AuthenLoggedIn] },
+    { path: 'edit-project/:id', component: EditProjectComponent, canActivate: [AuthenNormalPM] },
     { path: 'members-confirm/:token', component: MembersConfirmComponent, canActivate: [AuthenLoggedIn] },
     { path: 'report', component: ReportComponent, canActivate: [AuthenLoggedIn] },
     { path: 'edit-timeoff/:id', component: CreateTimeoffComponent, canActivate: [AuthenLoggedIn] },

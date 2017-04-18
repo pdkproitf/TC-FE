@@ -44,6 +44,28 @@ export class UserService {
         return false;
     }
 
+    isHighPM(): boolean {
+        if (this.LoggedIn) {
+            let userInfo = localStorage.getItem('UserInfo');
+            let userObj = JSON.parse(userInfo);
+            if (userObj.role.name === 'PM' || userObj.role.name === 'Admin') {
+                return true;
+                }
+            }
+        return false;
+    }
+
+    isNormalPM(): boolean {
+        if (this.LoggedIn) {
+            let userInfo = localStorage.getItem('UserInfo');
+            let userObj = JSON.parse(userInfo);
+            if (userObj.role.name === 'PM' || userObj.role.name === 'Admin' || userObj.pm_projects > 0) {
+                return true;
+                }
+            }
+        return false;
+    }
+
     signUp(user): Promise<any> {
         let requestUrl = this.serverdomain.domain + '/users';
         let headers = new Headers;

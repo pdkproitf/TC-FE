@@ -1,3 +1,5 @@
+import { AuthenNormalPM } from './services/authen-normal-pm';
+import { AuthenHighPM } from './services/authen-high-pm';
 import { AuthenAdmin } from './services/authen-admin';
 import { CompanyService } from './services/company-service';
 import { RolesService } from './services/roles-service';
@@ -173,7 +175,7 @@ import { ManageCompanyComponent } from './manage-company/manage-company.componen
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
   AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService,
   TimerService, ProjectJoinService, TimerFetchService, TaskService, TimeoffService, ReportService,
-  JobService, HolidayService, RolesService, CompanyService, AuthenAdmin],
+  JobService, HolidayService, RolesService, CompanyService, AuthenAdmin, AuthenHighPM, AuthenNormalPM],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
