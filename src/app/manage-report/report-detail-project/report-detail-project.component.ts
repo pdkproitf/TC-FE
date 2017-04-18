@@ -1,4 +1,4 @@
-import { ReportService } from './../services/report-service';
+import { ReportService } from '../../services/report-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UIChart } from 'primeng/primeng';
 import { Component, OnInit, ViewChild } from '@angular/core';

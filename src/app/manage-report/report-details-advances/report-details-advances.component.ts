@@ -1,10 +1,10 @@
 import { Component, OnInit, OnChanges, SimpleChange }   from '@angular/core';
-import { ProjectReportAdvance, ProjectDefault }         from '../models/project';
+import { ProjectReportAdvance, ProjectDefault }         from '../../models/project';
 import { ActivatedRoute, Router }   from '@angular/router';
-import { ReportService }            from './../services/report-service';
-import { Category }                 from '../models/category';
-import { Member }                   from '../models/member';
-import { User }                     from '../models/user';
+import { ReportService }            from '../../services/report-service';
+import { Category }                 from '../../models/category';
+import { Member }                   from '../../models/member';
+import { User }                     from '../../models/user';
 declare var $:any;
 
 @Component({

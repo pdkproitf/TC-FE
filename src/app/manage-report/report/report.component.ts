@@ -1,10 +1,10 @@
-import { CompanyService } from './../services/company-service';
-import { ReportService } from './../services/report-service';
+import { CompanyService } from '../../services/company-service';
+import { ReportService } from '../../services/report-service';
 import { Router } from '@angular/router';
-import { ProjectService } from './../services/project-service';
-import { ProjectGetOne } from './../models/project';
-import { Member } from './../models/member';
-import { MembershipService } from './../services/membership-service';
+import { ProjectService } from '../../services/project-service';
+import { ProjectGetOne } from '../../models/project';
+import { Member } from '../../models/member';
+import { MembershipService } from '../../services/membership-service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

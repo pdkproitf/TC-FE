@@ -1,9 +1,9 @@
-import { CompanyService } from './../services/company-service';
+import { CompanyService } from '../../services/company-service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MembershipService } from './../services/membership-service';
-import { ProjectService } from './../services/project-service';
-import { ProjectGetAll } from './../models/project';
-import { Member } from './../models/member';
+import { MembershipService } from '../../services/membership-service';
+import { ProjectService } from '../../services/project-service';
+import { ProjectGetAll } from '../../models/project';
+import { Member } from '../../models/member';
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 
 @Component({

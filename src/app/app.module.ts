@@ -1,3 +1,4 @@
+import { ManageReportModule } from './manage-report/manage-report.module';
 import { ManageTimeOffModule } from './manage-time-off/manage-time-off.module';
 import { ManageProjectModule } from './manage-project/manage-project.module';
 import { ManageModule } from './manage/manage.module';
@@ -57,13 +58,7 @@ import { ReactiveFormsModule }      from '@angular/forms';
 import { MomentModule } from 'angular2-moment';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
 import { MembersConfirmComponent } from './members-confirm/members-confirm.component';
-import { ReportComponent } from './report/report.component';
-import { ReportSearchComponent } from './report-search/report-search.component';
-import { ReportDetailComponent } from './report-detail/report-detail.component';
-import { ReportDetailProjectComponent } from './report-detail-project/report-detail-project.component';
 import { GradientPipe }     from './pipes/gradient.pipe';
-import { ReportDetailsAdvancesComponent } from './report-details-advances/report-details-advances.component';
-import { ReportDetailsAdvancesListComponent } from './report-details-advances-list/report-details-advances-list.component';
 import { ProfileComponent } from './profile/profile.component';
 import { Ng2CloudinaryModule } from 'ng2-cloudinary';
 import { FileUploadModule } from 'ng2-file-upload';
@@ -93,13 +88,7 @@ import { StickyModule } from 'ng2-sticky-kit/ng2-sticky-kit';
     CapitalizePipe,
     MembersConfirmComponent,
     MembersConfirmComponent,
-    ReportComponent,
-    ReportSearchComponent,
-    ReportDetailComponent,
-    ReportDetailProjectComponent,
     GradientPipe,
-    ReportDetailsAdvancesComponent,
-    ReportDetailsAdvancesListComponent,
     SecondsToHoursPipe,
     DateToStringWeekDayPipe,
     DateToMDYPipe,
@@ -137,7 +126,8 @@ import { StickyModule } from 'ng2-sticky-kit/ng2-sticky-kit';
     StickyModule,
     ManageModule,
     ManageProjectModule,
-    ManageTimeOffModule
+    ManageTimeOffModule,
+    ManageReportModule
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
   AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService,

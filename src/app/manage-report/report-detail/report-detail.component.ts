@@ -1,8 +1,8 @@
-import { TimerFetchService } from './../services/timer-fetch-service';
-import { TimerFetch } from './../models/timer-fetch';
-import { TimerService } from './../services/timer-service';
+import { TimerFetchService } from '../../services/timer-fetch-service';
+import { TimerFetch } from '../../models/timer-fetch';
+import { TimerService } from '../../services/timer-service';
 import { TestBed } from '@angular/core/testing';
-import { ReportService } from './../services/report-service';
+import { ReportService } from '../../services/report-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UIChart } from 'primeng/primeng';
 import { Component, OnInit, ViewChild } from '@angular/core';

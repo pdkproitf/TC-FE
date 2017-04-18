@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, OnChanges, SimpleChange }     from '@angular/core';
-import { ProjectReportAdvance, ProjectDefault }     from '../models/project';
-import { TimerAdvance }                 from '../models/timer';
-import { Category }                     from '../models/category';
-import { Member }                       from '../models/member';
-import { User }                         from '../models/user';
+import { ProjectReportAdvance, ProjectDefault }     from '../../models/project';
+import { TimerAdvance }                 from '../../models/timer';
+import { Category }                     from '../../models/category';
+import { Member }                       from '../../models/member';
+import { User }                         from '../../models/user';
 
 @Component({
     selector: 'app-report-details-advances-list',

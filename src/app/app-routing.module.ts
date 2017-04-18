@@ -4,9 +4,6 @@ import { AuthenAdmin } from './services/authen-admin';
 import { SettingComponent } from './setting/setting.component';
 import { InvitesConfirmComponent } from './invites-confirm/invites-confirm.component';
 import { ProfileComponent } from './profile/profile.component';
-import { ReportDetailProjectComponent } from './report-detail-project/report-detail-project.component';
-import { ReportDetailComponent } from './report-detail/report-detail.component';
-import { ReportComponent } from './report/report.component';
 import { MembersConfirmComponent } from './members-confirm/members-confirm.component';
 import { VerifyEmailPageComponent } from './verify-email-page/verify-email-page.component';
 import { NotLoggedIn } from './services/not-logged-in';
@@ -18,7 +15,6 @@ import { AppComponent } from './app.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ReportDetailsAdvancesComponent } from './report-details-advances/report-details-advances.component';
 const routes: Routes = [
     { path: 'sign-up', component: SignUpComponent, canActivate: [NotLoggedIn] },
     { path: 'sign-up/:token/:companyName/:companyDomain', component: SignUpComponent, canActivate: [NotLoggedIn] },
@@ -28,10 +24,6 @@ const routes: Routes = [
     { path: '', component: MarketingPageComponent, canActivate: [NotLoggedIn] },
     { path: 'verify-email/:text', component: VerifyEmailPageComponent, canActivate: [NotLoggedIn] },
     { path: 'members-confirm/:token', component: MembersConfirmComponent, canActivate: [AuthenLoggedIn] },
-    { path: 'report', component: ReportComponent, canActivate: [AuthenLoggedIn] },
-    { path: 'report-detail/:id/:begin/:end', component: ReportDetailComponent, canActivate: [AuthenLoggedIn] },
-    { path: 'report-detail-project/:id/:begin/:end', component: ReportDetailProjectComponent, canActivate: [AuthenLoggedIn] },
-    { path: 'report-advance', component: ReportDetailsAdvancesComponent, canActivate: [AuthenLoggedIn] },
     { path: 'profile', component: ProfileComponent, canActivate: [AuthenLoggedIn] },
     { path: 'setting', component: SettingComponent, canActivate: [AuthenLoggedIn] },
     { path: 'invites-confirm/:token/:name/:domain', component: InvitesConfirmComponent },
