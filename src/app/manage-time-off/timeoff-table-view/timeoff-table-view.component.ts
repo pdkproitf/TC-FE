@@ -1,12 +1,12 @@
 import { Component, OnInit, Input, OnChanges, SimpleChange, EventEmitter, Output } from '@angular/core';
-import { TimeOff, PersonNumTimeOff, TimeOffAnswer }    from '../models/timeoff';
-import { TimeoffService }               from '../services/timeoff-service';
-import { ProjectDefault }               from '../models/project';
-import { Holiday }                      from '../models/holiday';
+import { TimeOff, PersonNumTimeOff, TimeOffAnswer }    from '../../models/timeoff';
+import { TimeoffService }               from '../../services/timeoff-service';
+import { ProjectDefault }               from '../../models/project';
+import { Holiday }                      from '../../models/holiday';
 import { Message }                      from 'primeng/primeng';
-import { Member }                       from '../models/member';
-import { Router }                       from '@angular/router'
-import { Job }                          from '../models/job';
+import { Member }                       from '../../models/member';
+import { Router }                       from '@angular/router';
+import { Job }                          from '../../models/job';
 declare var $ :any;
 
 @Component({

@@ -18,9 +18,6 @@ import { AppComponent } from './app.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TimeoffManageComponent } from './timeoff-manage/timeoff-manage.component';
-import { CreateTimeoffComponent } from './create-timeoff/create-timeoff.component';
-import { TimeoffPassRequestsComponent } from './timeoff-pass-requests/timeoff-pass-requests.component';
 import { ReportDetailsAdvancesComponent } from './report-details-advances/report-details-advances.component';
 const routes: Routes = [
     { path: 'sign-up', component: SignUpComponent, canActivate: [NotLoggedIn] },
@@ -30,12 +27,8 @@ const routes: Routes = [
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthenLoggedIn] },
     { path: '', component: MarketingPageComponent, canActivate: [NotLoggedIn] },
     { path: 'verify-email/:text', component: VerifyEmailPageComponent, canActivate: [NotLoggedIn] },
-    { path: 'timeoffs', component: TimeoffManageComponent, canActivate: [AuthenLoggedIn] },
-    { path: 'new-timeoff', component: CreateTimeoffComponent, canActivate: [AuthenLoggedIn] },
     { path: 'members-confirm/:token', component: MembersConfirmComponent, canActivate: [AuthenLoggedIn] },
     { path: 'report', component: ReportComponent, canActivate: [AuthenLoggedIn] },
-    { path: 'edit-timeoff/:id', component: CreateTimeoffComponent, canActivate: [AuthenLoggedIn] },
-    { path: 'pass-timeoffs', component: TimeoffPassRequestsComponent, canActivate: [AuthenLoggedIn] },
     { path: 'report-detail/:id/:begin/:end', component: ReportDetailComponent, canActivate: [AuthenLoggedIn] },
     { path: 'report-detail-project/:id/:begin/:end', component: ReportDetailProjectComponent, canActivate: [AuthenLoggedIn] },
     { path: 'report-advance', component: ReportDetailsAdvancesComponent, canActivate: [AuthenLoggedIn] },

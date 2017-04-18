@@ -1,7 +1,7 @@
-import { TimeOff, TimeOffGetAll, PersonNumTimeOff }   from '../models/timeoff';
+import { TimeOff, TimeOffGetAll, PersonNumTimeOff }   from '../../models/timeoff';
 import { Component, OnInit }        from '@angular/core';
-import { TimeoffService }           from '../services/timeoff-service';
-import { Router }                   from '@angular/router'
+import { TimeoffService }           from '../../services/timeoff-service';
+import { Router }                   from '@angular/router';
 
 @Component({
     selector: 'app-timeoff-manage',

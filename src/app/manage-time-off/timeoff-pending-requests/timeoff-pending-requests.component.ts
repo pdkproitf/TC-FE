@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, Output, OnChanges, SimpleChange, EventEmitter }    from '@angular/core';
-import { TimeOff, TimeOffAnswer }   from '../models/timeoff';
-import { TimeoffService }           from '../services/timeoff-service';
+import { TimeOff, TimeOffAnswer }   from '../../models/timeoff';
+import { TimeoffService }           from '../../services/timeoff-service';
 import { Message }                  from 'primeng/primeng';
-import { Member }                   from '../models/member';
-import { Router }                   from '@angular/router'
+import { Member }                   from '../../models/member';
+import { Router }                   from '@angular/router';
 
 declare var $:any;
 

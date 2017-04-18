@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Output }        from '@angular/core';
-import { Project, ProjectDefault }  from '../models/project';
-import { Job }                      from '../models/job';
+import { Project, ProjectDefault }  from '../../models/project';
+import { Job }                      from '../../models/job';
 
 @Component({
     selector: 'app-timeoff-calendar',

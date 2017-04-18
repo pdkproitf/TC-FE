@@ -22,7 +22,7 @@ import { ToolbarModule, ButtonModule, InputTextModule, MenuModule, AutoCompleteM
     PaginatorModule, TabViewModule, DragDropModule } from 'primeng/primeng';
 const manageRoutes: Routes = [
   { path: 'manage', component: ManageMemberComponent, canActivate: [AuthenAdmin] },
-]
+];
 export const manageRouting = RouterModule.forChild(manageRoutes);
 @NgModule({
   imports: [

@@ -1,3 +1,4 @@
+import { ManageTimeOffModule } from './manage-time-off/manage-time-off.module';
 import { ManageProjectModule } from './manage-project/manage-project.module';
 import { ManageModule } from './manage/manage.module';
 import { AuthenNormalPM } from './services/authen-normal-pm';
@@ -52,21 +53,14 @@ import { ProjectInDivComponent } from './project-in-div/project-in-div.component
 import { RecentTasksComponent } from './recent-tasks/recent-tasks.component';
 import { RecentTasksLiComponent } from './recent-tasks-li/recent-tasks-li.component';
 import { TimeFromSecondsPipe } from './pipes/time-from-seconds.pipe';
-import { TimeoffManageComponent }   from './timeoff-manage/timeoff-manage.component';
-import { CreateTimeoffComponent }   from './create-timeoff/create-timeoff.component';
 import { ReactiveFormsModule }      from '@angular/forms';
-import { TimeoffListRequestComponent } from './timeoff-list-request/timeoff-list-request.component';
 import { MomentModule } from 'angular2-moment';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
-import { TimeoffPendingRequestsComponent } from './timeoff-pending-requests/timeoff-pending-requests.component';
 import { MembersConfirmComponent } from './members-confirm/members-confirm.component';
 import { ReportComponent } from './report/report.component';
 import { ReportSearchComponent } from './report-search/report-search.component';
-import { TimeoffPassRequestsComponent } from './timeoff-pass-requests/timeoff-pass-requests.component';
 import { ReportDetailComponent } from './report-detail/report-detail.component';
 import { ReportDetailProjectComponent } from './report-detail-project/report-detail-project.component';
-import { TimeoffCalendarComponent } from './timeoff-calendar/timeoff-calendar.component';
-import { TimeoffTableViewComponent } from './timeoff-table-view/timeoff-table-view.component';
 import { GradientPipe }     from './pipes/gradient.pipe';
 import { ReportDetailsAdvancesComponent } from './report-details-advances/report-details-advances.component';
 import { ReportDetailsAdvancesListComponent } from './report-details-advances-list/report-details-advances-list.component';
@@ -91,26 +85,18 @@ import { StickyModule } from 'ng2-sticky-kit/ng2-sticky-kit';
     DateLogComponent,
     VerifyEmailPageComponent,
     DetailDateLogComponent,
-    
     DetailDateLogLiComponent,
     ProjectInDivComponent,
-    TimeoffManageComponent,
-    CreateTimeoffComponent,
     RecentTasksComponent,
     RecentTasksLiComponent,
     TimeFromSecondsPipe,
-    TimeoffListRequestComponent,
     CapitalizePipe,
-    TimeoffPendingRequestsComponent,
     MembersConfirmComponent,
-    TimeoffPassRequestsComponent,
     MembersConfirmComponent,
     ReportComponent,
     ReportSearchComponent,
     ReportDetailComponent,
     ReportDetailProjectComponent,
-    TimeoffCalendarComponent,
-    TimeoffTableViewComponent,
     GradientPipe,
     ReportDetailsAdvancesComponent,
     ReportDetailsAdvancesListComponent,
@@ -150,7 +136,8 @@ import { StickyModule } from 'ng2-sticky-kit/ng2-sticky-kit';
     DragDropModule,
     StickyModule,
     ManageModule,
-    ManageProjectModule
+    ManageProjectModule,
+    ManageTimeOffModule
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
   AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService,

@@ -1,7 +1,7 @@
-import { TimeOff, TimeOffGetAll, TimeOffAnswer } from './../models/timeoff';
+import { TimeOff, TimeOffGetAll, TimeOffAnswer } from '../../models/timeoff';
 import { Component, OnInit }        from '@angular/core';
-import { TimeoffService }           from '../services/timeoff-service';
-import { Member }                   from '../models/member';
+import { TimeoffService }           from '../../services/timeoff-service';
+import { Member }                   from '../../models/member';
 
 @Component({
     selector: 'app-timeoff-pass-requests',

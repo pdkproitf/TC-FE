@@ -1,8 +1,8 @@
-import { TimeOff, TimeOffPost, PersonNumTimeOff }   from './../models/timeoff';
+import { TimeOff, TimeOffPost, PersonNumTimeOff }   from '../../models/timeoff';
 import { Validators, FormBuilder, FormControl }     from '@angular/forms';
 import { Component, OnInit }    from '@angular/core';
 import { CalendarModule }       from 'primeng/primeng';
-import { TimeoffService }       from '../services/timeoff-service';
+import { TimeoffService }       from '../../services/timeoff-service';
 import { ActivatedRoute }       from '@angular/router';
 import { Message }              from 'primeng/primeng';
 import { Router }               from '@angular/router';
