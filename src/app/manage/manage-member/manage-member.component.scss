@@ -1,0 +1,286 @@
+@import '../../general-style/color-style.scss';
+@import '../../general-style/font-style.scss';
+.container{
+    font-family: $headerFont;
+    ul.nav-bar{
+        list-style-type: none;
+        width: 100%;
+        height: 45px;
+        padding: 0;
+        box-shadow: inset 0 -2px 0 0 #EEEEEE;
+        li{
+            float: left;
+            height: 43px;
+            margin-left: 32px;
+            &:hover{
+                cursor: pointer;
+            }
+            p{
+                float: left;
+                margin-bottom: 0;
+                padding-bottom: 0;
+                color: #C2C2C2;
+                margin: 0;
+                padding: 0;
+                line-height: 43px;
+            }
+            &.choosing{
+                border-bottom: solid 2px $blueColor;
+                p{
+                    color: #363636;
+                }
+            }
+            .dot-ot{
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: #E74C3C;
+                float: left;
+                margin-top: 14px;
+                margin-left: 2px;
+            }
+            &.export{
+                float: right;
+                .ui-button{
+                    margin-top: 6px;
+                    background: white;
+                    color: #727272;
+                    border: solid 1px #C2C2C2;
+                }
+            }
+        }
+    }
+    .member-manage{
+        margin: auto;
+        width: 80%;
+        font-family: $headerFont;
+        color: $colorHeader;
+        input.search-em{
+            border: none;
+            font-size: 16px;
+            line-height: 24px;
+            box-shadow: inset 0 -1px 0 0 #EEEEEE;
+            width: 30%;
+            margin-bottom: 5px;
+            margin-top: 5px;
+        }
+        table{
+            margin-top: 20px;
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: none;
+            thead {
+                width: 100%;
+                tr {
+                    width: 100%;
+                    display: block;
+                    position: relative;
+                    th{
+                        display:inline-block;
+                        font-size: 14px;
+                        line-height: 17px;
+                        color: rgba(54,54,54,0.7);
+                        text-align: left;
+                    }
+                }
+            }
+            tbody {
+                display: block;
+                overflow: auto;
+                width: 100%;
+                max-height: 800px;
+                margin-top: 10px;
+                &::-webkit-scrollbar-track {
+                    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+                    background-color: #F5F5F5;
+                }
+
+                &::-webkit-scrollbar {
+                    width: 6px;
+                    background-color: #F5F5F5;
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    background-color: $blueColor;
+                }
+                tr{
+                    box-shadow: inset 0 -1px 0 0 #EEEEEE;
+                    display: block;
+                    padding-top: 10px;
+                    padding-bottom: 10px;
+                    width: 100%;
+                    &:hover{
+                        cursor: pointer;
+                        background: #F3F5F8;
+                        td.actions .action-items{
+                            visibility: visible;
+                        }
+                    }
+                    td{
+                        display:inline-block;
+                        position: relative;
+                        &.avatar{
+                            img{
+                                width: 48px;
+                                height: 48px;
+                                border-radius: 50%;
+                            }
+                        }
+                        &.name{
+                            p{
+                                margin: 0;
+                                padding: 0;
+                            }
+                            p.full-name{
+                                font-size: 16px;
+                                line-height: 24px;
+                                color: #363636;
+                            }
+                            p.email{
+                                font-size: 16px;
+                                line-height: 24px;
+                                color: rgba(54,54,54,0.7);
+                            }
+                        }
+                        &.jobs{
+                            input[type=text]{
+                                border-radius: 100px;
+                                background-color: #EEEEEE;
+                                font-size: 16px;
+                                line-height: 24px;
+                                color: rgba(54,54,54,0.7);
+                                border: none;
+                                width: 100px;
+                                text-align: center;
+                                margin-top: 5px;
+                            }
+                            .job{
+                                display: inline-block;
+                                background-color: #EEEEEE;
+                                color: rgba(54,54,54,0.7);
+                                border-radius: 100px;
+                                padding: 5px 10px;
+                                margin-top: 5px;
+                                .fa{
+                                    margin-left: 5px;
+                                    -webkit-text-stroke: 2px #EEEEEE;
+                                    &:hover{
+                                        cursor: pointer;
+                                    }
+                                }
+                            }
+                            .job-selector{
+                                margin-top: 10px;
+                                z-index: 1;
+                                position: absolute;
+                                left: -50px;
+                                height: auto;
+                                width: 200px;
+                                background: white;
+                                box-shadow: 0px 1px 1px rgba(54,54,54,0.7);
+                                &::after{
+                                    content: " ";
+                                    position: absolute;
+                                    bottom: 100%;
+                                    left: 50%;
+                                    margin-left: -5px;
+                                    border-width: 10px;
+                                    border-style: solid;
+                                    border-color: transparent transparent white transparent;
+                                }
+                                ul.job-ul{
+                                    list-style-type: none;
+                                    padding: 0;
+                                    margin: 5px 5px;
+                                    li.job-li{
+                                        text-align: center;
+                                        line-height: 24px;
+                                        &:hover{
+                                            color: white;
+                                            background: $blueColor;
+
+                                        }
+                                    }
+                                }
+                            }                            
+                            .submit{
+                                display: inline-block; 
+                                .fa{
+                                    text-align: center;
+                                    padding-top: 8px;
+                                    -webkit-text-stroke: 1px white;
+                                    margin-left: 5px;
+                                    &.fa-check{
+                                        color: green;
+                                    }
+                                    &.fa-times{
+                                        color: red; 
+                                    }
+                                }
+                            }                            
+                        }
+                        &.role{
+                            select{
+                                width: 100%;
+                                height: 40px;
+                                border: solid 0px white;
+                                background: transparent;
+                                font-size: 16px;
+                                outline: none;
+                            }
+                        }
+                        &.actions{
+                            .action-items{
+                                padding-left: 24px;
+                                visibility: hidden;
+                                .oval{
+                                    width: 32px;
+                                    height: 32px;
+                                    border-radius: 50%;
+                                    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24);
+                                    margin-right: 5px;
+                                    float: left;
+                                    background: white;
+                                    text-align: center;
+                                    .fa{
+                                        text-align: center;
+                                        padding-top: 8px;
+                                        color: rgba(54,54,54,0.7);
+                                    }
+                                }
+                            }
+                        }
+                        &.days-off{
+                            text-align: center;
+                        }
+                    }
+                }
+            }
+        }
+        button{
+            width: 121px;
+            height: 42px;
+            background-color: white;
+            font-family: $headerFont;
+            font-size: 16px;
+            text-align: center;
+            line-height: 24px;
+            margin: 0px;
+            padding: 0px;
+            border: solid 1px black;
+            margin-right: 10px;
+            &.active{
+                background-color: $blueColor;
+                color: white;
+            }
+            &.add-btn{
+                border: solid 0px white;
+                background: $whiteBorder;
+                width: 16%;
+                height: 42px;
+                border-radius: 50px;
+                color: $fontWhiteBorder;
+            }
+        }
+    }
+}

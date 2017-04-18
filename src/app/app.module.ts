@@ -1,3 +1,8 @@
+import { ManageDashboardModule } from './manage-dashboard/manage-dashboard.module';
+import { ManageReportModule } from './manage-report/manage-report.module';
+import { ManageTimeOffModule } from './manage-time-off/manage-time-off.module';
+import { ManageProjectModule } from './manage-project/manage-project.module';
+import { ManageModule } from './manage/manage.module';
 import { AuthenNormalPM } from './services/authen-normal-pm';
 import { AuthenHighPM } from './services/authen-high-pm';
 import { AuthenAdmin } from './services/authen-admin';
@@ -37,55 +42,20 @@ import { MarketingPageComponent } from './marketing-page/marketing-page.componen
 import { MarketingMenuBarComponent } from './marketing-menu-bar/marketing-menu-bar.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { SignInComponent } from './sign-in/sign-in.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { MemberMenuBarComponent } from './member-menu-bar/member-menu-bar.component';
-import { TimeTrackBarComponent } from './time-track-bar/time-track-bar.component';
-import { ProjectFieldListComponent } from './project-field-list/project-field-list.component';
-import { ProjectFieldComponent } from './project-field/project-field.component';
-import { DateLogComponent } from './date-log/date-log.component';
 import { VerifyEmailPageComponent } from './verify-email-page/verify-email-page.component';
-import { DetailDateLogComponent } from './detail-date-log/detail-date-log.component';
-import { ProjectManageComponent } from './project-manage/project-manage.component';
-import { CreateProjectComponent } from './create-project/create-project.component';
-import { ManageMemberComponent } from './manage-member/manage-member.component';
-import { ProjectDetailsComponent } from './project-details/project-details.component';
-import { ProjecTableComponent } from './project-table/project-table.component';
-import { AddingMemberComponent } from './adding-member/adding-member.component';
-import { ProjectDetailsTasksComponent } from './project-details-tasks/project-details-tasks.component';
-import { ProjectDetailsTeamComponent } from './project-details-team/project-details-team.component';
-import { DetailDateLogLiComponent } from './detail-date-log-li/detail-date-log-li.component';
-import { ProjectInDivComponent } from './project-in-div/project-in-div.component';
-import { RecentTasksComponent } from './recent-tasks/recent-tasks.component';
-import { RecentTasksLiComponent } from './recent-tasks-li/recent-tasks-li.component';
 import { TimeFromSecondsPipe } from './pipes/time-from-seconds.pipe';
-import { TimeoffManageComponent }   from './timeoff-manage/timeoff-manage.component';
-import { CreateTimeoffComponent }   from './create-timeoff/create-timeoff.component';
 import { ReactiveFormsModule }      from '@angular/forms';
-import { TimeoffListRequestComponent } from './timeoff-list-request/timeoff-list-request.component';
 import { MomentModule } from 'angular2-moment';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
-import { TimeoffPendingRequestsComponent } from './timeoff-pending-requests/timeoff-pending-requests.component';
-import { EditProjectComponent } from './edit-project/edit-project.component';
 import { MembersConfirmComponent } from './members-confirm/members-confirm.component';
-import { ReportComponent } from './report/report.component';
-import { ReportSearchComponent } from './report-search/report-search.component';
-import { TimeoffPassRequestsComponent } from './timeoff-pass-requests/timeoff-pass-requests.component';
-import { ReportDetailComponent } from './report-detail/report-detail.component';
-import { ReportDetailProjectComponent } from './report-detail-project/report-detail-project.component';
-import { TimeoffCalendarComponent } from './timeoff-calendar/timeoff-calendar.component';
-import { TimeoffTableViewComponent } from './timeoff-table-view/timeoff-table-view.component';
 import { GradientPipe }     from './pipes/gradient.pipe';
-import { ReportDetailsAdvancesComponent } from './report-details-advances/report-details-advances.component';
-import { ReportDetailsAdvancesListComponent } from './report-details-advances-list/report-details-advances-list.component';
 import { ProfileComponent } from './profile/profile.component';
 import { Ng2CloudinaryModule } from 'ng2-cloudinary';
 import { FileUploadModule } from 'ng2-file-upload';
-import { ManageHolidayComponent } from './manage-holiday/manage-holiday.component';
 import { InvitesConfirmComponent } from './invites-confirm/invites-confirm.component';
 import { SettingComponent } from './setting/setting.component';
-import { ManageJobComponent } from './manage-job/manage-job.component';
 import { StickyModule } from 'ng2-sticky-kit/ng2-sticky-kit';
-import { ManageCompanyComponent } from './manage-company/manage-company.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -93,55 +63,19 @@ import { ManageCompanyComponent } from './manage-company/manage-company.componen
     MarketingMenuBarComponent,
     SignUpComponent,
     SignInComponent,
-    DashboardComponent,
     MemberMenuBarComponent,
-    TimeTrackBarComponent,
-    ProjectFieldListComponent,
-    ProjectFieldComponent,
-    DateLogComponent,
     VerifyEmailPageComponent,
-    DetailDateLogComponent,
-    ProjectManageComponent,
-    CreateProjectComponent,
-    ManageMemberComponent,
-    ProjectDetailsComponent,
-    AddingMemberComponent,
-    ProjecTableComponent,
-    ProjectDetailsComponent,
-    ProjectDetailsTasksComponent,
-    ProjectDetailsTeamComponent,
-    DetailDateLogLiComponent,
-    ProjectInDivComponent,
-    TimeoffManageComponent,
-    CreateTimeoffComponent,
-    RecentTasksComponent,
-    RecentTasksLiComponent,
     TimeFromSecondsPipe,
-    TimeoffListRequestComponent,
     CapitalizePipe,
-    TimeoffPendingRequestsComponent,
-    EditProjectComponent,
     MembersConfirmComponent,
-    TimeoffPassRequestsComponent,
     MembersConfirmComponent,
-    ReportComponent,
-    ReportSearchComponent,
-    ReportDetailComponent,
-    ReportDetailProjectComponent,
-    TimeoffCalendarComponent,
-    TimeoffTableViewComponent,
     GradientPipe,
-    ReportDetailsAdvancesComponent,
-    ReportDetailsAdvancesListComponent,
     SecondsToHoursPipe,
     DateToStringWeekDayPipe,
     DateToMDYPipe,
     ProfileComponent,
-    ManageHolidayComponent,
     InvitesConfirmComponent,
     SettingComponent,
-    ManageJobComponent,
-    ManageCompanyComponent,
   ],
   imports: [
     BrowserModule,
@@ -170,7 +104,12 @@ import { ManageCompanyComponent } from './manage-company/manage-company.componen
     FileUploadModule,
     ScheduleModule,
     DragDropModule,
-    StickyModule
+    StickyModule,
+    ManageModule,
+    ManageProjectModule,
+    ManageTimeOffModule,
+    ManageReportModule,
+    ManageDashboardModule
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
   AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService,

@@ -1,0 +1,379 @@
+@import '../../general-style/color-style.scss';
+@import '../../general-style/font-style.scss';
+
+.body{
+    background: #F3F5F8;
+    min-height: 600px;
+    height: 100%;
+    .container{
+        button{ border: 0px;}
+        background-color: #F3F5F8;
+        width: 80%;
+        margin: auto;
+        overflow: hidden;
+        > p {
+            margin-top: 5em;
+            margin-bottom: -1em;
+            > a{
+                font-family: Lato;
+                font-size: 16px;
+                line-height: 24px;
+                color: rgba(54,54,54,0.7);
+                padding-bottom: 50px;
+            }
+        }
+        .header{
+            h2{
+                width: 265px;
+                height: 38px;
+                font-family: Montserrat;
+                font-size: 32px;
+                font-weight: bold;
+                line-height: 38px;
+                color: #363636;
+                display: inline-block;
+            }
+            > button{
+                width: 129px;
+                height: 32px;
+                background-color: rgba(0, 102, 204, 0);
+                border: 1px solid rgba(54, 54, 54, 0.3);
+                border-radius: 3px;
+                float: right;
+                margin-top: 30px;
+                font-family: Lato;
+                font-size: 16px;
+                text-align: center;
+                line-height: 24px;
+                color: rgba(54,54,54,0.7);
+                cursor: pointer;
+            }
+        }
+        .search-header{
+            width: 100%;
+            height: 152px;
+            background-color: #EEEEEE;
+            border-radius: 5px;
+            text-align: center;
+            margin: auto;
+            display: flex;
+            -webkit-box-align: center;
+            align-items: center;
+            .search-result{
+                width: 100%;
+                display: flex;
+                align-self: center;
+                padding: 8%;
+                .times{
+                    display: inline-table;
+                    text-align: left;
+                    font-weight: normal;
+                    font-family: Lato;
+                    font-size: 16px;
+                    line-height: 24px;
+                    label{
+                        color: rgba(54, 54, 54, 0.7);
+                        height: 24px;
+                        margin-right: 2em;;
+                        display: inline-flex;
+                        min-width: 80px;
+                        > strong{
+                            color: #363636
+                        }
+                    }
+                    .block{
+                        display: flex;
+                        strong{
+                            display: block !important;
+                            span{
+                                display: inline-block !important;
+                                margin-right: 5px;
+                            }
+                        }
+                    }
+                    .time-frame{
+                        > label{
+                            float: left;
+                        }
+                        .time-number{
+                            display: inline-block;
+                            .biliable{
+                                font-family: $headerFont;
+                                font-size: 14px;
+                                line-height: 17px;
+                                color: rgba(54,54,54,0.7);
+                            }
+                        }
+                    }
+                    .total{
+                        margin-top: 2em;
+                    }
+                }
+                .types{
+                    margin-left: 8%;;
+                    display: block;             }
+                }
+            }
+            .search-filters{
+                width: 100%;
+                display: none;
+                background-color: #FFFFFF;
+                min-height: 376px;
+                border: 1px solid rgba(54,54,54,0.3);
+                border-radius: 5px;
+                .content{
+                    width: 90%;
+                    min-width: 250px;
+                    margin: 2em;
+                    table{
+                        width: 100%;
+                        .lable{
+                            font-family: Lato;
+                            font-size: 18px;
+                            line-height: 22px;
+                            color: #363636;
+                            width: 15%;
+                            min-width: 100px;
+                        }
+                        tr{
+                            height: 50px;
+                            .time-block{
+                                display: -webkit-inline-box;
+                                -webkit-box-align: center;
+                                padding-left: 1em;
+                                cursor: pointer;
+                                > label{
+                                    margin-right: 10px;
+                                }
+                                > i{
+                                    margin-left: 5px;
+                                }
+                            }
+                            .block{
+                                height: 39px;
+                                background-color: #EEEEEE;
+                                border-radius: 76px;
+                                display: -webkit-inline-box;
+                                -webkit-box-align: center;
+                                margin-right: 1em;
+                                margin-bottom: .5em;
+                                > div{
+                                    padding: 0.5em;
+                                    font-family: Lato;
+                                    font-size: 16px;
+                                    line-height: 24px;
+                                    color: #363636;
+                                    > i {
+                                        -webkit-text-stroke: 2px #EEEEEE;
+                                        cursor: pointer;
+                                    }
+                                }
+                                .select{
+                                    z-index: 1;
+                                    display: none;
+                                    :hover{ display: block; }
+                                }
+                            }
+                            /* Dropdown button on hover & focus */
+                            .dropbtn:hover, .dropbtn:focus {
+                                background-color: #3e8e41;
+                            }
+
+                            /* The container <div> - needed to position the dropdown content */
+                            .dropdown {
+                                display: inline-block;
+                                cursor: pointer;
+                                padding: 0.5em;
+                                button{
+                                    font-family: Lato;
+                                    font-size: 16px;
+                                    line-height: 24px;
+                                    color: rgba(54,54,54,0.7);
+                                }
+                            }
+
+                            /* Dropdown Content (Hidden by Default) */
+                            .dropdown-content {
+                                display: none;
+                                position: absolute;
+                                min-width: 160px;
+                                z-index: 1;
+                                width: 239px;
+                                background-color: #FFFFFF;
+                                box-shadow: 0 5px 8px 0 rgba(0,0,0,0.09);
+                                border-radius: 5px;
+                                font-family: Lato;
+                                font-size: 16px;
+                                line-height: 24px;
+                                &::after{
+                                    content: "  ";
+                                    height: 24px;
+                                    position: absolute;
+                                    bottom: 100%;
+                                    left: 50%;
+                                    margin-left: -15px;
+                                    border-width: 10px;
+                                    border-style: solid;
+                                    border-color: transparent transparent white transparent;
+                                }
+                            }
+                            /* Links inside the dropdown */
+                            .dropdown-content li {
+                                padding: 12px 16px;
+                                text-decoration: none;
+                                display: block;
+                                cursor: pointer;
+                            }
+
+                            /* Change color of dropdown links on hover */
+                            .dropdown-content li:hover {
+                                color: #FFFFFF;
+                                background-color: #0066CC;
+                            }
+
+                            /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+                            .show {display:block;}
+                            .choose-time{
+                                &.hide{
+                                    display: none;
+                                }
+                                position: absolute;
+                                z-index: 1;
+                                height: 400px;
+                                background-color: #FFFFFF;
+                                box-shadow: inset 0 0 0 1px #DDE1E5, 0 5px 12px 0 rgba(0, 0, 0, 0.12);
+                                .options{
+                                    position: absolute;
+                                    bottom: 0px;
+                                    width: 100%;
+                                    height: 106px;
+                                    box-shadow: inset 0 1px 0 0 #EEEEEE;
+                                    table.options{
+                                        table-layout:fixed;
+                                        width: 100%;
+                                        height: 100%;
+                                        border-collapse: collapse;
+                                        border-spacing: none;
+                                        tr{
+                                            td{
+                                                text-align: center;
+                                                padding-left: 28px;
+                                                .option{
+                                                    font-size: 14px;
+                                                    line-height: 18px;
+                                                    color: #363636;
+                                                    font-weight: normal;
+
+                                                    padding-top: 8px;
+                                                    width: 90px;
+                                                    height: 24px;
+                                                    background-color: #EEEEEE;
+                                                    border-radius: 100px;
+                                                    &:hover{
+                                                        cursor: pointer;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                /deep/.ui-calendar{
+                                    margin-top: 21px;
+                                    margin-left: 20px;
+                                    float: left;
+                                    margin-right: 1em;
+                                    .ui-datepicker{
+                                        border: none !important;
+                                        .ui-datepicker-header{
+                                            background: transparent;
+                                            border: none !important;
+                                            font-size: 16px;
+                                            line-height: 24px;
+                                            color: rgba(54,54,54,0.7);
+                                            .ui-datepicker-month{
+                                                color: #363636;
+                                            }
+                                            .ui-datepicker-year{
+                                                font-weight: normal;
+                                            }
+                                            .ui-datepicker-prev,.ui-datepicker-next{
+                                                border-radius: 50%;
+                                                border: 1px solid rgba(54,54,54,0.3);
+                                                width: 24px;
+                                                height: 24px;
+                                            }
+                                        }
+                                        .ui-datepicker-calendar{
+                                            thead{
+                                                th {
+                                                    background: transparent;
+                                                    font-size: 12px;
+                                                    text-align: center;
+                                                    line-height: 15px;
+                                                    color: rgba(54,54,54,0.7);
+                                                    font-weight: normal;
+                                                }
+                                            }
+                                            tbody{
+                                                td{
+                                                    font-size: 12px;
+                                                    a {
+                                                        font-weight: bold !important;
+                                                    }
+                                                    border: 1px solid rgba(54,54,54,0.1);
+                                                }
+                                            }
+                                            .ui-state-highlight{
+                                                background: transparent !important;
+                                                color: $blueColor;
+                                            }
+                                            .ui-state-active{
+                                                background: $blueColor !important;
+                                                color: white;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .button-action{
+                        float: right;
+                        vertical-align: bottom;
+                        margin-right: 2em;
+                        margin-top: 1em;
+                        .run-report{
+                            cursor: pointer;
+                            width: 167px;
+                            height: 48px;
+                            background-color: #0066CC;
+                            border-radius: 3px;
+                            font-family: Lato;
+                            font-size: 16px;
+                            text-align: center;
+                            line-height: 24px;
+                            color: #FFFFFF;
+                        }
+                        &.run-report:active{border: 2px solid rgba(10, 10, 10, 0.92);}
+                        .cancel{
+                            cursor: pointer;
+                            width: 74px;
+                            height: 48px;
+                            background-color: rgba(0,102,204,0);
+                            border: 1px solid rgba(54,54,54,0.3);
+                            border-radius: 3px;
+                            font-family: Lato;
+                            font-size: 16px;
+                            text-align: center;
+                            line-height: 24px;
+                            color: rgba(54,54,54,0.7);
+                        }
+                        &.cancel:active{border: 2px solid rgba(10, 10, 10, 0.92);}
+                    }
+                }
+            }
+            .show-view{
+                margin-top: 4em;
+            }
+        }
+    }

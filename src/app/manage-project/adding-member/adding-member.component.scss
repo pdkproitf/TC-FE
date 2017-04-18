@@ -1,0 +1,165 @@
+@import '../../general-style/color-style.scss';
+@import '../../general-style/font-style.scss'; 
+.hidden{
+    display:none;
+}
+input[type='checkbox']{
+    margin-left: 0%;
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    &:after{
+        content: "  ";
+        background-color: white;
+        display: inline-block;
+        visibility: visible;    
+        width: 16px;
+        height: 16px;
+        border-radius: 3px;
+        text-align: center;
+        font-size: 14px;
+        border: solid 0.5px $blueColor;
+    }
+    &:checked:after{
+        content: "\2714";
+        color: white;
+        background-color: $blueColor
+    }
+}
+ul.current-list{
+    li {
+        margin-left: 10px;
+        .content{
+            height: 40px;
+            text-align: center;
+        }
+        
+    }
+    button.rem-btn{
+        color: $fontWhiteBorder ;
+        background-color: transparent ;
+        width: 27px;
+        height: auto;
+        margin-right: 0 ;
+        border: none ;
+        outline: none;
+        position: relative;
+        top: 20%;
+    }
+    p{
+        line-height: 24px;
+        position: relative;
+        top: 20%;
+    }
+}
+.add-btn
+{
+    border: solid 0px white;
+    background: $whiteBorder;
+    width: 30%;
+    height: 32px;
+    border-radius: 50px;
+    color: $fontWhiteBorder;
+    line-height: 24px;
+    font-size: 16px;
+    text-align: center;
+    margin-left: 0%;
+}
+ul{
+    padding: 0;
+}
+.content{
+    background: $whiteBorder;
+    color: $fontWhiteBorder;
+    border-radius: 50px;
+    padding-right: 10px;
+    p{
+        padding: 0;
+        margin: 0;
+        margin-left: -5%;
+        display: inline-block;
+    }
+}
+.member-to-add{
+    width: 300px;
+    height: auto;
+    background: white;
+    position: absolute;
+    z-index: 1;
+    margin-left: -8%;
+    box-shadow: 0px 1px 1px rgba(54,54,54,0.3);
+    &::after{
+        content: "  ";
+        height: 24px;
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 10px;
+        border-style: solid;
+        border-color: transparent transparent white transparent;
+    }
+    ul{
+        width: 100%;
+        display: table;
+        text-align: center;
+        font-weight: normal;
+        padding: 0;
+        margin: 0;
+        li{
+            width: 100%;
+            display:block;
+            &:hover{
+                background-color: $blueColor;
+                color: white;
+                cursor: pointer;
+            }
+        }
+    }
+    table{
+        width: 100%;
+        text-align: left;
+        font-weight: normal;
+        border-spacing: 0;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        tr{
+            width: 100%;
+            &:hover{
+                background-color: $blueColor;
+                color: white !important;
+                p.email{
+                    color: white !important;
+                }
+                cursor: pointer;
+            }
+            td{
+                &.avatar{
+                    padding-left: 10%;
+                }
+                img{
+                    height: 32px;
+                    width: 32px;
+                    border-radius: 50%;
+                }
+                p{
+                    font-size: 16px;
+                    line-height: 24px;
+                    padding: 0;
+                    margin: 0;
+                    font-weight: normal;
+                    &.email{
+                        color:#7B7B7B;
+                    }
+                }
+            }
+        }
+    }
+}
+ul.current-list{
+    list-style-type: none;
+    display: inline-block;
+    li{
+        float: left;
+    }
+}

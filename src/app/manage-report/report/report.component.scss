@@ -1,0 +1,340 @@
+@import '../../general-style/color-style.scss';
+@import '../../general-style/font-style.scss';
+.container{
+    margin: auto;
+    width: 80%;
+    font-family: $headerFont;
+    font-weight: bold;
+    color: $colorHeader;
+    margin-top: 97px;
+    h1{
+        margin: 0;
+        padding: 0;
+        width: 161px;
+        height: 48px;
+        font-size: 40px;
+        font-weight: bold;
+        line-height: 48px;
+        color: #363636;
+        display: inline-block;
+    }
+    h4{
+        font-size: 18px;
+        font-weight: bold;
+        line-height: 22px;
+        color: $colorHeader;
+        margin: 0;
+    }
+    a.advanced-report{
+        float: right;
+        color: $blueColor;
+    }
+// -------------------------------------------------------- Search Report--------------------------------------------    
+    .search-report{
+        width: 100%;
+        height: 72px;
+        margin-top: 32px;
+        background-color: #FFFFFF;
+        box-shadow: 0 1px 2px 0 rgba(0,0,0,0.17);
+        border: 1px solid #DDE1E5;
+        border-radius: 3px;
+        table.search-fields{
+            table-layout:fixed;
+            width: 100%;
+            height: 100%;
+            border-collapse: collapse;
+            border-spacing: none;
+            tr{ 
+                th{
+                    max-width: 100%;
+                    height: 100%;
+                    &.when{
+                        width: 33%;
+                    }
+                    &.what{
+                        width: 28%
+                    }
+                    &.who{
+                        max-width: 99%;
+                    }
+                    .in-th{
+                        width: 100%;
+                        height: 100%;
+                        text-align: left;
+                        box-shadow: inset -1px 0 0 0 #DDE1E5;
+                        padding-top: 12px;
+                        position: relative;
+                        p{
+                            padding: 0;
+                            margin: 0;
+                            margin-left: 24px;
+                            font-weight: normal;
+                            display: inline-block;
+                            &.title-field{
+                                width: 38px;
+                                height: 17px;
+                                font-size: 14px;
+                                line-height: 17px;
+                                color: #363636;
+                            }
+                            &.value-field{
+                                margin-top: 10px;
+                                font-size: 18px;
+                                line-height: 22px;
+                            }
+                        }
+                        .down-img{
+                            position: absolute;
+                            right: 18px;
+                            bottom: 6px;
+                            color: $fontWhiteBorder;
+                            font-size: 24px;
+                        }
+                        input.text-field{
+                            margin-left: 24px;
+                            margin-top: 10px;
+                            font-size: 18px;
+                            line-height: 22px;
+                            border: none;
+                        }
+                        &.when{
+
+                        }
+                        &.what{
+
+                        }
+                        &.who{
+                            box-shadow: none;
+                            button.run-btn{
+                                float: right;
+                                width: 119px;
+                                height: 48px;
+                                margin-right: 24px;
+                                background-color: #0066CC;
+                                border-radius: 3px;
+                                border: none;
+                                text-align: center;
+                                p{
+                                    width: 77px;
+                                    height: 24px;
+                                    font-size: 16px;
+                                    line-height: 24px;
+                                    color: #FFFFFF;
+                                    margin: auto;
+                                }
+                            }
+                            .down-img{
+                                right: 161px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+// --------------------------------------------------------End Search Report--------------------------------------------    
+// --------------------------------------------------------People-------------------------------------------------------
+    .people{
+        margin-top: 64px;
+        width: 100%;
+        table.people{
+            table-layout:fixed;
+            margin: 0;
+            border-collapse: collapse;
+            border-spacing: none;
+            th{
+                padding-top: 18px;
+                p{
+                    font-weight: normal;
+                    font-size: 14px;
+                    line-height: 17px;
+                    color: rgba(54,54,54,0.7);
+                    display: inline-block;
+                    padding: 0;
+                    margin: 0;
+                }
+                &.hours{
+                    width: 30%;
+                    p{
+                        float: right;
+                        margin-right: 20px;
+                    }
+                }
+                &.name{
+                    max-width: 99%;
+                    p{
+                        margin-left: 20px;
+                        float: left;
+                    }
+                    .down-img{
+                        float: left;
+                        margin-left: 5px;
+                        color: rgba(54,54,54,0.7);
+                    }
+                }
+            }
+            tr.data{
+                height: 56px;
+                box-shadow: inset 0 -1px 0 0 #EEEEEE;
+                padding: 0;
+                td{
+                    padding: 0;
+                    p{
+                        display: inline-block;
+                        font-size: 16px;
+                        line-height: 24px;
+                        color: #363636;
+                    }
+                    .name{
+                        img{
+                            width: 32px;
+                            height: 32px;
+                            border-radius: 50%;
+                            margin-top: 12px;
+                            margin-left: 24px;
+                            float: left;
+                        }
+                        p{
+                            margin-left: 16px;
+                            float: left;
+                        }
+                    }
+                    .hours{
+                        p{
+                            float: right;
+                            font-weight: normal;
+                            margin-right: 20px;
+                        }
+                        .over-time{  
+                            background: #FADBD8;
+                            width: 75px;
+                            height: 21px;
+                            line-height: 20px;
+                            font-size: 12px;
+                            text-align: center;
+                            font-weight: normal;
+                            color: #E74C3C;
+                            border-radius: 30px;
+                            float: right;
+                            margin-top: 18px;
+                            margin-right: 16px;
+                        }
+                    }
+                }
+                &:hover{
+                    cursor: pointer;
+                    background: #F6F8FD;
+                }
+            }
+        }
+    }
+    .projects{
+        margin-top: 64px;
+    }
+//--------------------------------------------------------End People------------------------------------------------------------
+//--------------------------------------------------------Projects--------------------------------------------------------------
+.projects{
+        margin-top: 64px;
+        width: 100%;
+        table.projects{
+            table-layout:fixed;
+            margin: 0;
+            border-collapse: collapse;
+            border-spacing: none;
+            th{
+                padding-top: 18px;
+                p{
+                    font-weight: normal;
+                    font-size: 14px;
+                    line-height: 17px;
+                    color: rgba(54,54,54,0.7);
+                    display: inline-block;
+                    padding: 0;
+                    margin: 0;
+                }
+                &.hours{
+                    width: 30%;
+                    p{
+                        float: right;
+                        margin-right: 20px;
+                    }
+                }
+                &.name{
+                    max-width: 99%;
+                    p{
+                        margin-left: 20px;
+                        float: left;
+                    }
+                    .down-img{
+                        float: left;
+                        margin-left: 5px;
+                        color: rgba(54,54,54,0.7);
+                    }
+                }
+            }
+            tr.data{
+                height: 56px;
+                box-shadow: inset 0 -1px 0 0 #EEEEEE;
+                padding: 0;
+                td{
+                    padding: 0;
+                    p{
+                        display: inline-block;
+                        font-size: 16px;
+                        line-height: 24px;
+                        color: #363636;
+                    }
+                    .name{
+                        .project-color{
+                            width: 32px;
+                            height: 32px;
+                            border-radius: 5px 35px 35px 5px;
+                            float: left;
+                            margin-left: 20px;
+                            margin-top: 10px;
+                        }
+                        p{
+                            float: left;
+                            &.project-name{
+                                margin-left:16px;
+                            }
+                            &.project-client{
+                                margin-left: 5px;
+                                font-weight: normal;
+                                color: #737373;
+                            }
+                        }
+                    }
+                    .hours{
+                        p{
+                            float: right;
+                            font-weight: normal;
+                            margin-right: 20px;
+                        }
+                        .over-time{  
+                            background: #FADBD8;
+                            width: 75px;
+                            height: 21px;
+                            line-height: 20px;
+                            font-size: 12px;
+                            text-align: center;
+                            font-weight: normal;
+                            color: #E74C3C;
+                            border-radius: 30px;
+                            float: right;
+                            margin-top: 18px;
+                            margin-right: 16px;
+                        }
+                    }
+                }
+                &:hover{
+                    cursor: pointer;
+                    background: #F6F8FD;
+                }
+            }
+        }
+    }
+    .projects{
+        margin-top: 64px;
+    }
+}

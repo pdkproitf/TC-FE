@@ -1,0 +1,84 @@
+<div class="new-timeoff">
+    <!--<app-member-menu-bar [currentState]="2"></app-member-menu-bar>-->
+    <div class="new-timeoff-container">
+        <h2>Request Time Off</h2>
+        <div class="new-timeoff-content">
+            <div class="new-timeoff-form">
+                <form [formGroup]="timeoffForm" (ngSubmit)="submit($event)">
+                    <div class="form-header">
+                        <div class="start-time">
+                            <div class="pick-day">
+                                <label>Start On:</label>
+                                <p-calendar [formControl]="timeoffForm.controls['start_date']" [minDate]="today" [showIcon]="true" readonlyInput="readonlyInput" dateFormat="M dd" placeholder="Pick a date..." (onSelect)="setAutoEndDay($event)"></p-calendar>
+                            </div>
+
+                            <div class="choice-type-day">
+                                <div class="ui-g-12">
+                                    <p-radioButton name="start_date" value="false" label="All day" [formControl]="timeoffForm.controls['is_start_half_day']"></p-radioButton>
+                                </div>
+                                <div class="ui-g-12">
+                                    <p-radioButton name="start_date" value="true" label="Half day" [formControl]="timeoffForm.controls['is_start_half_day']"></p-radioButton>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="arrow-right">
+                            <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                        </div>
+
+                        <div class="start-time">
+                            <div class="pick-day">
+                                <label>End On:</label>
+                                <p-calendar [formControl]="timeoffForm.controls['end_date']"  [minDate]="minDateValue" [showIcon]="true" readonlyInput="readonlyInput" dateFormat="M dd" placeholder="Pick a date..." (onSelect)="setShowChoiceTypeEndDay($event)"></p-calendar>
+                            </div>
+
+                            <div class="choice-type-day" id="choice-type-end-day">
+                                <div class="ui-g-12">
+                                    <p-radioButton name="end_date" value="false" label="All day"  [formControl]="timeoffForm.controls['is_end_half_day']"  ></p-radioButton>
+                                </div>
+                                <div class="ui-g-12">
+                                    <p-radioButton name="end_date" value="true" label="Half day"  [formControl]="timeoffForm.controls['is_end_half_day']"  ></p-radioButton>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-description">
+                        <p>Description</p>
+                        <textarea [formControl]="timeoffForm.controls['description']" placeholder="Typing something"></textarea>
+                    </div>
+
+                    <div class="form-button">
+                        <button class="submit" type="submit" >{{action}} request</button>
+                        <button class="cancel" type="button" (click)="cancel()">Cancel</button>
+                    </div>
+                </form>
+            </div>
+            <div class="timeoff-balance">
+                <p>My time balance</p>
+                <div class="inform">
+                    <div class="details">
+                        <span class="details-content">Before request</span>
+                        <span class="details-value">{{personNumTimeOff.total - personNumTimeOff.offed}}</span>
+                    </div>
+
+                    <div class="details">
+                        <span class="details-content">This request</span>
+                        <span class="details-value">{{ (timeoffForm.value['end_date'] | amDifference: timeoffForm.value['start_date'] :'days' : true) + 1 - (timeoffForm.value['is_start_half_day']=='true'? 0.5:0) - (timeoffForm.value['is_end_half_day']=='true'? 0.5:0) || 0 }}</span>
+                    </div>
+
+                    <div class="details">
+                        <span class="details-content">After request</span>
+                        <span class="details-value">{{personNumTimeOff.total - personNumTimeOff.offed - ((timeoffForm.value['end_date'] | amDifference: timeoffForm.value['start_date'] :'days' : true) + 1 - (timeoffForm.value['is_start_half_day']=='true'? 0.5:0) - (timeoffForm.value['is_end_half_day']=='true'? 0.5:0) || 0) }}</span>
+                    </div>
+                    <p></p>
+                </div>
+                <div class="approver">
+                    <strong>Approvers</strong> <span *ngFor="let member of personNumTimeOff.approver"> {{ member | capitalize }},</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <p-growl [value]="msgs" [life]="5000" ></p-growl>
+</div>

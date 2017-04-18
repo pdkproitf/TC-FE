@@ -1,0 +1,20 @@
+<!--<app-member-menu-bar [currentState]="2"></app-member-menu-bar>-->
+<div class="pass-timeoffs">
+    <div class="header">
+        <p><a href="/#/timeoffs"><i class="fa fa-caret-left" aria-hidden="true"></i>Back to Time Off</a></p>
+
+        <div class="dropdown">
+            <select class="form-control" [(ngModel)]="type_select" name="type_select" (change)="sort()">
+                <option *ngFor="let type of type_request" [value]="type">{{type | capitalize}}</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="title">
+        All request
+    </div>
+
+    <div class="content">
+        <app-timeoff-pending-requests [timeoffs]="_timeoffs" [showAll]="true" (reload)="getTimeOffsPending()" [rowsOfPage]="rowOfPage"></app-timeoff-pending-requests>
+    </div>
+</div>

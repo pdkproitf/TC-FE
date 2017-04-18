@@ -1,0 +1,154 @@
+<div *ngIf="isLoaded" (mousedown)="reportSearchMouseHandle($event)">
+<!--<app-member-menu-bar [currentState]="3"></app-member-menu-bar>-->
+<div class="container" #container>
+  <h1>Reports</h1>
+  <div id="report-search">
+  <app-report-search *ngIf="isLoaded" #reportSearch (emitRange)="newRange($event)" [member]="member.user.first_name + ' ' + member.user.last_name"
+  (emitMember)="chooseMember($event)" (emitProject)="chooseProject($event)" [firstString]="from" [lastString]="to"></app-report-search>
+  </div>
+
+  <div *ngIf="isLoaded" id="inforeport" class="user-info">
+    <table class="user-info">
+      <tr>
+        <td class="info">
+          <img *ngIf="member.user.image != null" src="{{member.user.image}}">
+          <img *ngIf="member.user.image === null" src="assets/image-profile/default-avatar.png">
+          <p class="name">{{member.user.first_name}} {{member.user.last_name}}</p><br/>
+          <p class="email">{{member.user.email}}</p>
+        </td>
+        <td class="hours">
+          <p class="hours">{{totalTrackedTime | timeFromSeconds}}</p><br/>
+          <p class="explain">hours tracked</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div *ngIf="isLoaded" id="chartreport" class="chart">
+    <p-chart #chart type="bar" [data]="data" [options]="options" height="75"></p-chart>
+  </div>
+
+  <div class="report">
+    <ul class="nav-bar">
+      <li (click)="chooseNavClass(0)" [class]="navClass[0]"><p>By Projects</p></li>
+      <li (click)="chooseNavClass(1)" [class]="navClass[1]"><p>By Tasks</p></li>
+      <li (click)="chooseNavClass(2)" [class]="navClass[2]"><p>Overtime</p><div class="dot-ot"></div></li>
+      <li (click)="chooseNavClass(3)" [class]="navClass[3]"><p>Time Log</p></li>
+      <li class="export">
+        <button type="button" (click)="preparePDF()"><p>Export to PDF</p>
+<img class="icon icons8-PDF" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAACgUlEQVRoQ+2ZP2hTURTGv0AnRbdMFRoUh2YTlHbSqYL/phYUF6kutti62DaDdBCXqEtSsU5Wl9JgdfIP1qkVoaEZXIyDtFhIlmZraSch8vVyefHR5Pnufffd9+QdCCTkvXfP75zvnHNvkkLMLRVz//H/AzSvHm8aytLLVGljWPfZnhkwAtB9Eqj/pO/aEFYAfuc/oat4JxAIOwDFr8DeDrpmxrQh7AFQQAFA2AUIAMI+gCZENAA0IKIDoAgRLQAFiOgBuCBSpY2OPloB8LN9SACM7IV8pCDJgFIGenqBkUfA4aPAYhFYfuMj5n9faicDMytAutvxZOws0KgrQdgBWFgXzlbLQLYPeHBdvFcwOwAvvgGHjgCbPwDKKXYA954DpweceMcO4MIwcOO+A3DthIJ4xC12JET5PP0iZETtMwOKZgeAzrKNnhsEflWB3BVF921lgO62ttJXD4GPc0oQdjLAzpN/t3/m3ZfR7jaQu6w0C+wASPkw6uljoiNRSqwFQvmw8AEYccqH2whOYEY//15M5uoq8LoAZLICLNMLbNVEoa+8PRArfIChu8DQuNN9KCd+PnO+c9yZLdaKy8IHkFOY0WaU+WpnrdcwU7dOWQaQ0W91g5u4yhLwvSwkdPGmyIjbKp+BJ7ctAbBIOXlltFmoa0vAhzmxH3Ib66EnK2qB1qi13XKblRD1Tcez/Y6LjOSzCd/dpp3KzAHQ+el50W2kMfJTl5T6ffgActJS4/LwMjupdfo6CMJcBmS3kavy6LhY8DGi/u1ScwAs3NHHYlCxWBX3Ol4Y5gC8Vg7o+wRA6WeVgKLPxyQZSDKgKSdtCWmub/x2z/8HjHuguUDsAf4AuqR5QBOuy5EAAAAASUVORK5CYII=" width="24" height="24">
+        </button>
+      </li>
+    </ul>
+
+    <div id="by-projects" class="by-projects" *ngIf = "navClass[0] === 'choosing'">
+      <div class="project" *ngFor="let project of projects; let id = index;">
+        <div class="summary">
+          <span style="-webkit-text-stroke: 2px white;" (click)="changeSpanProject(id)" [class]="spanClassProject[id]"></span>
+          <div class="left background" [style.background]="project.background | gradient"></div>
+          <p class="left name">{{project.name}}</p>
+          <p class="left client">({{project.client.name}})</p>
+          <p class="right">{{project.tracked_time | timeFromSeconds}}</p>
+        </div>
+        <table *ngIf="spanClassProject[id]==='fa fa-minus icon left'" [@fadeInOut]>
+          <tr>
+            <th class="left"></th>
+            <th class="deco"></th>
+            <th class="right"></th>
+          </tr>
+          <tr *ngFor="let category of project.category">
+            <td class="left"><p>{{category.name}}</p></td>
+            <td class="deco"><div></div></td>
+            <td class="right"><p>{{category.tracked_time | timeFromSeconds}}</p></td>
+          </tr>
+        </table>
+        <br/>
+      </div>
+    </div>
+
+    <div id="by-tasks" class="by-tasks" *ngIf = "navClass[1] === 'choosing'">
+      <table>
+        <tr class="entry">
+          <th class="time-entry">Time entry<span class="fa fa-angle-down"></span></th>
+          <th class="ca-pro">Categories - Project</th>
+          <th></th>
+        </tr>
+        <tr class="task" *ngFor="let task of filteredTasks; let id = index;">
+          <td><span style="-webkit-text-stroke: 2px white;" class="fa fa-plus"></span>{{task.name}}</td>
+          <td class="ca-pro">{{task.category_name}} - {{task.project_name}} ({{task.client.name}})</td>
+          <td class="tracked-time">{{task.tracked_time | timeFromSeconds}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div id="overtime" class="overtime" *ngIf = "navClass[2] === 'choosing'">
+    <div class="summary">
+      <div class="left regular">
+        <p class="hour">{{otRegular | secondsToHours}}h</p>
+        <p class="description">Regular</p>
+      </div>
+      <div class="left weekend">
+        <p class="hour">{{otWeekend | secondsToHours}}h</p>
+        <p class="description">Weekend</p>
+      </div>
+      <div class="left holiday">
+        <p class="hour">{{otHoliday | secondsToHours}}h</p>
+        <p class="description">Holiday</p>
+      </div>
+    </div>
+
+    <table>
+      <tr>
+        <th class="date">Date</th>
+        <th class="description">Description <span class="fa fa-angle-down"></span></th>
+        <th class="project">Project</th>
+        <th class="time">Time</th>
+        <th class="hour"></th>
+      </tr>
+      <tr class="time-range">
+        <td>Time span: {{from | dateToMDY}} <span class="fa fa-long-arrow-right"></span> {{to | dateToMDY}}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>{{otRegular + otWeekend + otHoliday | secondsToHours}}h</td>
+      </tr>
+      <tr class="info" *ngFor="let overtime of filteredOvertimes; let i = index">
+        <td class="date"><p>{{overtime.stop_time | dateToStringWeekDay}}</p><div [class]="oTTypes[i]">{{oTTypes[i]}}</div></td>
+        <td class="description">{{overtime.task.name}}</td>
+        <td class="project">{{overtime.category_name}} ({{overtime.project_name}})</td>
+        <td class="time">{{overtime.start_time | date: 'hh:mm a'}} <span class="fa fa-long-arrow-right"></span> {{overtime.stop_time | date: 'hh:mm a'}}</td>
+        <td class="hour">{{overtime.overtime | secondsToHours}}h</td>
+      </tr>
+    </table>
+  </div>
+
+  <div id="time-log" class="time-log" *ngIf="navClass[3] === 'choosing'">
+    <ul class="dates">
+      <li class="date" *ngFor = "let key of userAllTimerFetchKeys; let i = index">
+        <div [class]="divExpand[i]">
+          <span (click)="expandTimeLog(i)" [class]="timeLogExpand[i]"></span>{{key | dateToMDY}}
+          <div class="deco"></div>
+        </div>
+        <table *ngIf="timeLogExpand[i] === 'fa fa-caret-down icon left'">
+          <tr class="row-header">
+            <th class="task">Task</th>
+            <th class="project">Project</th>
+            <th class="time-span">Time Span</th>
+            <th class="total-time">Hours</th>
+            <th class="approved">Approved</th>
+          </tr>
+          <tr *ngFor="let timer of userAllTimerFetchs[key]">
+            <td>{{timer.task.name | slice:0:64}}</td>
+            <td>{{timer.project_name}} - {{timer.category_name}}</td>
+            <td>{{timer.start_time | date: 'hh:mm a'}} <span class="fa fa-long-arrow-right"></span> {{timer.stop_time | date: 'hh:mm a'}}</td>
+            <td>{{(-timer.start_time.getTime() + timer.stop_time.getTime()) / 1000 | secondsToHours}}h</td>
+            <td><label><input type="checkbox"></label></td>
+          </tr>
+        </table>
+      </li>
+    </ul>
+  </div>
+  <br/><br/>
+</div>
+</div>
