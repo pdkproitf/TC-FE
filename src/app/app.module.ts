@@ -1,3 +1,4 @@
+import { ManageDashboardModule } from './manage-dashboard/manage-dashboard.module';
 import { ManageReportModule } from './manage-report/manage-report.module';
 import { ManageTimeOffModule } from './manage-time-off/manage-time-off.module';
 import { ManageProjectModule } from './manage-project/manage-project.module';
@@ -41,18 +42,8 @@ import { MarketingPageComponent } from './marketing-page/marketing-page.componen
 import { MarketingMenuBarComponent } from './marketing-menu-bar/marketing-menu-bar.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { SignInComponent } from './sign-in/sign-in.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { MemberMenuBarComponent } from './member-menu-bar/member-menu-bar.component';
-import { TimeTrackBarComponent } from './time-track-bar/time-track-bar.component';
-import { ProjectFieldListComponent } from './project-field-list/project-field-list.component';
-import { ProjectFieldComponent } from './project-field/project-field.component';
-import { DateLogComponent } from './date-log/date-log.component';
 import { VerifyEmailPageComponent } from './verify-email-page/verify-email-page.component';
-import { DetailDateLogComponent } from './detail-date-log/detail-date-log.component';
-import { DetailDateLogLiComponent } from './detail-date-log-li/detail-date-log-li.component';
-import { ProjectInDivComponent } from './project-in-div/project-in-div.component';
-import { RecentTasksComponent } from './recent-tasks/recent-tasks.component';
-import { RecentTasksLiComponent } from './recent-tasks-li/recent-tasks-li.component';
 import { TimeFromSecondsPipe } from './pipes/time-from-seconds.pipe';
 import { ReactiveFormsModule }      from '@angular/forms';
 import { MomentModule } from 'angular2-moment';
@@ -72,18 +63,8 @@ import { StickyModule } from 'ng2-sticky-kit/ng2-sticky-kit';
     MarketingMenuBarComponent,
     SignUpComponent,
     SignInComponent,
-    DashboardComponent,
     MemberMenuBarComponent,
-    TimeTrackBarComponent,
-    ProjectFieldListComponent,
-    ProjectFieldComponent,
-    DateLogComponent,
     VerifyEmailPageComponent,
-    DetailDateLogComponent,
-    DetailDateLogLiComponent,
-    ProjectInDivComponent,
-    RecentTasksComponent,
-    RecentTasksLiComponent,
     TimeFromSecondsPipe,
     CapitalizePipe,
     MembersConfirmComponent,
@@ -127,7 +108,8 @@ import { StickyModule } from 'ng2-sticky-kit/ng2-sticky-kit';
     ManageModule,
     ManageProjectModule,
     ManageTimeOffModule,
-    ManageReportModule
+    ManageReportModule,
+    ManageDashboardModule
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
   AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService,

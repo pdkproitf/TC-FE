@@ -9,7 +9,6 @@ import { VerifyEmailPageComponent } from './verify-email-page/verify-email-page.
 import { NotLoggedIn } from './services/not-logged-in';
 import { AuthenLoggedIn } from './services/authen-logged-in';
 import { MarketingPageComponent } from './marketing-page/marketing-page.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { AppComponent } from './app.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -20,7 +19,6 @@ const routes: Routes = [
     { path: 'sign-up/:token/:companyName/:companyDomain', component: SignUpComponent, canActivate: [NotLoggedIn] },
     { path: 'sign-in', component: SignInComponent, canActivate: [NotLoggedIn] },
     { path: 'sign-in/:companyDomain', component: SignInComponent, canActivate: [NotLoggedIn] },
-    { path: 'dashboard', component: DashboardComponent, canActivate: [AuthenLoggedIn] },
     { path: '', component: MarketingPageComponent, canActivate: [NotLoggedIn] },
     { path: 'verify-email/:text', component: VerifyEmailPageComponent, canActivate: [NotLoggedIn] },
     { path: 'members-confirm/:token', component: MembersConfirmComponent, canActivate: [AuthenLoggedIn] },

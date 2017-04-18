@@ -1,5 +1,4 @@
 import { Router } from '@angular/router';
-import { ProjectInDivComponent } from './../project-in-div/project-in-div.component';
 import { TimerPost, TimerPut } from './../models/timer';
 import { HeadersService } from './headers-service';
 import { Headers, Http } from '@angular/http';
