@@ -119,6 +119,7 @@
                 position: absolute;
             }
             .imgspan{
+                -webkit-text-stroke: 1px white;
                 z-index: 3;
                 position: absolute;
                 left: 79%;
@@ -126,18 +127,17 @@
                 font-size: 16px;
                 height: 20px;
                 width: 20px;
-                border-radius: 50%;
                 text-align: center;
                 color: #727272;
                 &.submit{
                     left: 87%;
+                    color: green;
                 }
                 &.cancel{
                     left: 93%;
+                    color: red;
                 }
                 &:hover{
-                    background: #727272;
-                    color: white;
                     cursor: pointer;
                 }
             }
@@ -178,6 +178,7 @@
                 position: absolute;
             }
             .imgspan{
+                -webkit-text-stroke: 1px white;
                 z-index: 3;
                 position: absolute;
                 left: 79%;
@@ -185,18 +186,17 @@
                 font-size: 16px;
                 height: 20px;
                 width: 20px;
-                border-radius: 50%;
                 text-align: center;
                 color: #727272;
                 &.submit{
                     left: 87%;
+                    color: green;
                 }
                 &.cancel{
                     left: 93%;
+                    color: red;
                 }
                 &:hover{
-                    background: #727272;
-                    color: white;
                     cursor: pointer;
                 }
             }
@@ -221,6 +221,10 @@
                 }
                 &.total-time{
                     font-size: 16px;
+                    vertical-align: bottom;
+                    p.time-label{
+                        margin-bottom: 2px;
+                    }
                 }
                 .time-picker{
                     font-family: Lato;
@@ -297,25 +301,25 @@
             }
         }
         .imgspan{
+            -webkit-text-stroke: 1px white;
             z-index: 3;
             position: absolute;
             left: 79%;
-            top: 2%;
+            top: 10px;
             font-size: 16px;
             height: 20px;
             width: 20px;
-            border-radius: 50%;
             text-align: center;
             color: #727272;
             &.submit{
                 left: 87%;
+                color: green;
             }
             &.cancel{
                 left: 93%;
+                color: red;
             }
             &:hover{
-                background: #727272;
-                color: white;
                 cursor: pointer;
             }
         }

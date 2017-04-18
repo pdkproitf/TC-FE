@@ -182,7 +182,7 @@ export class ReportDetailComponent implements OnInit {
     .catch(err => {
       console.log(err);
     });
-    this.items = [
+    /*this.items = [
       {label: 'PDF', icon: 'fa-file-pdf-o', command: (event) => {
         this.preparePDF();
       }},
@@ -191,7 +191,7 @@ export class ReportDetailComponent implements OnInit {
         console.log(event);
         }
       }
-    ];
+    ];*/
   }
 
   secondsToHours(sec): any {

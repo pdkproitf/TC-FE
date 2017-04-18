@@ -35,8 +35,9 @@
       <li (click)="chooseNavClass(2)" [class]="navClass[2]"><p>Overtime</p><div class="dot-ot"></div></li>
       <li (click)="chooseNavClass(3)" [class]="navClass[3]"><p>Time Log</p></li>
       <li class="export">
-        <p-menu #menu popup="popup" [model]="items"></p-menu>
-        <button pButton type="button" label="Export" icon="fa-caret-down" (click)="menu.toggle($event)" iconPos="right"></button>
+        <button type="button" (click)="preparePDF()"><p>Export to PDF</p>
+<img class="icon icons8-PDF" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAACgUlEQVRoQ+2ZP2hTURTGv0AnRbdMFRoUh2YTlHbSqYL/phYUF6kutti62DaDdBCXqEtSsU5Wl9JgdfIP1qkVoaEZXIyDtFhIlmZraSch8vVyefHR5Pnufffd9+QdCCTkvXfP75zvnHNvkkLMLRVz//H/AzSvHm8aytLLVGljWPfZnhkwAtB9Eqj/pO/aEFYAfuc/oat4JxAIOwDFr8DeDrpmxrQh7AFQQAFA2AUIAMI+gCZENAA0IKIDoAgRLQAFiOgBuCBSpY2OPloB8LN9SACM7IV8pCDJgFIGenqBkUfA4aPAYhFYfuMj5n9faicDMytAutvxZOws0KgrQdgBWFgXzlbLQLYPeHBdvFcwOwAvvgGHjgCbPwDKKXYA954DpweceMcO4MIwcOO+A3DthIJ4xC12JET5PP0iZETtMwOKZgeAzrKNnhsEflWB3BVF921lgO62ttJXD4GPc0oQdjLAzpN/t3/m3ZfR7jaQu6w0C+wASPkw6uljoiNRSqwFQvmw8AEYccqH2whOYEY//15M5uoq8LoAZLICLNMLbNVEoa+8PRArfIChu8DQuNN9KCd+PnO+c9yZLdaKy8IHkFOY0WaU+WpnrdcwU7dOWQaQ0W91g5u4yhLwvSwkdPGmyIjbKp+BJ7ctAbBIOXlltFmoa0vAhzmxH3Ib66EnK2qB1qi13XKblRD1Tcez/Y6LjOSzCd/dpp3KzAHQ+el50W2kMfJTl5T6ffgActJS4/LwMjupdfo6CMJcBmS3kavy6LhY8DGi/u1ScwAs3NHHYlCxWBX3Ol4Y5gC8Vg7o+wRA6WeVgKLPxyQZSDKgKSdtCWmub/x2z/8HjHuguUDsAf4AuqR5QBOuy5EAAAAASUVORK5CYII=" width="24" height="24">
+        </button>
       </li>
     </ul>
 

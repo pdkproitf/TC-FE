@@ -4,7 +4,7 @@ import { ProjectJoin } from './../models/project-join';
 import { CategoryInProject } from './../models/category-in-project';
 import { Timer, TimerPost } from './../models/timer';
 import { TimerService } from './../services/timer-service';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { Observable, Subscription } from 'rxjs/Rx';
 import { Message } from 'primeng/primeng';
 
@@ -13,7 +13,7 @@ import { Message } from 'primeng/primeng';
   templateUrl: './time-track-bar.component.html',
   styleUrls: ['./time-track-bar.component.scss']
 })
-export class TimeTrackBarComponent implements OnInit {
+export class TimeTrackBarComponent implements OnInit, OnDestroy {
   msgs: Message[] = [];
   classBtn: String = 'play-btn';
   startTime: String = '00:00';
@@ -89,6 +89,62 @@ export class TimeTrackBarComponent implements OnInit {
 
   ngOnInit() {
     this._currentCategory = this.emptyCategory;
+    window.onbeforeunload = (function (event) {
+      let e = event || window.event;
+      if (e) {
+        this.saveLocalTimer();
+      }else {
+        this.saveLocalTimer();
+      }
+    }).bind(this);
+    this.loadLocalTimer();
+  }
+
+  ngOnDestroy() {
+    this.saveLocalTimer();
+  }
+
+  saveLocalTimer() {
+    if (this.classBtn === 'stop-btn') {
+      this.timer.start_time = this.startDateTime.toString();
+      let curr = new Date();
+      this.timer.category_member_id = this._currentCategory.category_member_id;
+      if (this.description !== this.timer.task_name) {
+        this.timer.task_id = null;
+      }
+      this.timer.task_name = this.description;
+      localStorage.setItem('timer', JSON.stringify(this.timer));
+      localStorage.setItem('taskString', this.taskString);
+      localStorage.setItem('taskColor', this.taskColor);
+    } else {
+      let timer = localStorage.getItem('timer');
+      if (timer != null) {
+        localStorage.removeItem('timer');
+        localStorage.removeItem('taskString');
+        localStorage.removeItem('taskColor');
+      }
+    }
+  }
+
+  loadLocalTimer() {
+    let timerInfo = localStorage.getItem('timer');
+    if (timerInfo != null) {
+      let timer = JSON.parse(timerInfo);
+      this.timer = timer;
+      this.startDateTime = new Date(timer.start_time);
+      this.timeToString();
+      this.generateOptions();
+      this.description = timer.task_name;
+      let curr = new Date();
+      this.ticks = Math.round((curr.getTime() - this.startDateTime.getTime()) / 1000);
+      this.myVar = setInterval(() => {
+        this.myTickerFunc();
+      }, 1000);
+      this.taskString = localStorage.getItem('taskString');
+      this.taskColor = localStorage.getItem('taskColor');
+      window.scrollTo(0, 0);
+      this.classBtn = 'stop-btn';
+    }
   }
 
   changeClass(): void {
