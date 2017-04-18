@@ -8,10 +8,6 @@ import { ReportDetailProjectComponent } from './report-detail-project/report-det
 import { ReportDetailComponent } from './report-detail/report-detail.component';
 import { ReportComponent } from './report/report.component';
 import { MembersConfirmComponent } from './members-confirm/members-confirm.component';
-import { EditProjectComponent } from './edit-project/edit-project.component';
-import { ManageMemberComponent } from './manage-member/manage-member.component';
-import { CreateProjectComponent } from './create-project/create-project.component';
-import { ProjectManageComponent } from './project-manage/project-manage.component';
 import { VerifyEmailPageComponent } from './verify-email-page/verify-email-page.component';
 import { NotLoggedIn } from './services/not-logged-in';
 import { AuthenLoggedIn } from './services/authen-logged-in';
@@ -22,7 +18,6 @@ import { AppComponent } from './app.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ProjectDetailsComponent } from './project-details/project-details.component';
 import { TimeoffManageComponent } from './timeoff-manage/timeoff-manage.component';
 import { CreateTimeoffComponent } from './create-timeoff/create-timeoff.component';
 import { TimeoffPassRequestsComponent } from './timeoff-pass-requests/timeoff-pass-requests.component';
@@ -35,13 +30,8 @@ const routes: Routes = [
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthenLoggedIn] },
     { path: '', component: MarketingPageComponent, canActivate: [NotLoggedIn] },
     { path: 'verify-email/:text', component: VerifyEmailPageComponent, canActivate: [NotLoggedIn] },
-    { path: 'projects', component: ProjectManageComponent, canActivate: [AuthenNormalPM] },
-    { path: 'new-project', component: CreateProjectComponent, canActivate: [AuthenHighPM] },
-    { path: 'manage', component: ManageMemberComponent, canActivate: [AuthenAdmin] },
-    { path: 'projects/:id', component: ProjectDetailsComponent, canActivate: [AuthenNormalPM] },
     { path: 'timeoffs', component: TimeoffManageComponent, canActivate: [AuthenLoggedIn] },
     { path: 'new-timeoff', component: CreateTimeoffComponent, canActivate: [AuthenLoggedIn] },
-    { path: 'edit-project/:id', component: EditProjectComponent, canActivate: [AuthenNormalPM] },
     { path: 'members-confirm/:token', component: MembersConfirmComponent, canActivate: [AuthenLoggedIn] },
     { path: 'report', component: ReportComponent, canActivate: [AuthenLoggedIn] },
     { path: 'edit-timeoff/:id', component: CreateTimeoffComponent, canActivate: [AuthenLoggedIn] },

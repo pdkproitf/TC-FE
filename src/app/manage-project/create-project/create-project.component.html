@@ -1,0 +1,152 @@
+<!--<app-member-menu-bar [currentState]="1"></app-member-menu-bar>-->
+<div class="form-container">
+<h1>Create new project</h1>
+<form (ngSubmit)="onSubmit()">
+    <h2>General information</h2>
+    <div class="form-group">
+        <label for="project-name">Project</label>
+        <input type="text" class="form-control" id="project-name" placeholder="Project name"
+        name="name" [(ngModel)]="project.name" required>
+    </div>
+    <br/>
+    <div class="client-group">
+        <label for="client"></label>
+        <!--<input type="text" class="form-control" id="client" [(ngModel)]="project.client_id"
+        name="client-id" placeholder="Client" required>-->
+        <select class="form-control"  id="client" required [(ngModel)]="project.client_id" name="select_client_id">
+            <option *ngFor="let client of currentClients" [value]="client.id">{{client.name}}</option>
+        </select>
+        <button class="add-btn" (click)="displayDialog()" pButton type="button" label="Add new client..."></button>
+    </div>
+    <br/>
+    <div class="form-group">
+        <ul class="choosing-color">
+        <li class="bck-color"><label for="background-color">Background color</label></li>
+        <li class="col-des">
+            <h4>Choose color…</h4>
+            <p>Each project will have a specific color that will help you team member recognize super easily.</p>
+        </li>
+        <li class="input-color"><input type="color" class="form-control" id="background-color" [(ngModel)]="project.background"
+        name="background" required></li>
+    </ul>    
+    </div>
+    <br/><br/><br/>
+<!-- -Adding members to project  -->
+    <h2>Team members</h2>
+    <div class = "team-member">
+        <table class="member-table" *ngIf="membersToAdd.length > 0">
+            <tr>
+                <th class="delete"></th>
+                <th class="people-name">People</th>
+                <th class="p-m">Project Manager</th>
+            </tr>
+            <tr class="data" *ngFor="let em of membersToAdd; let id = index;">
+                <td><button pButton type="button" icon="fa-times" (click)="removeEmployee(em)"></button></td>
+                <td>
+                    <tr>
+                        <td class="avatar" *ngIf="em.user.image != null"><img src="{{em.user.image}}"></td>
+                        <td class="avatar" *ngIf="em.user.image == null"><img src="assets/image-profile/default-avatar.png"></td>
+                        <td>
+                            <p class="name">{{em.user.first_name}} {{em.user.last_name}}</p>
+                            <p class="email">{{em.user.email}}</p>    
+                        </td>
+                    </tr>
+                </td>
+                <td><label><input type="checkbox" class="checkbox" (change)="chbFunc($event.target.checked, id)"></label></td>
+            </tr>
+        </table>
+        <br/>
+        <input class="add-btn" (focus)="displayDiv()" (blur)="undisplayDiv()" (keyup)="keyUpSearch()" type="text" name="search-name"
+        [(ngModel)]="searchName">
+        <a class="add-all" href="" (click)="addAll($event)">Add all people</a>
+        <div class="notice">
+            <p>Need to add someone?</p><br/>
+            <p>Go to <a routerLink="/manage-member">Manage</a> to invite them to TimeCloud</p>
+        </div>
+        <div [class]="classDiv" *ngIf="membersSearch.length > 0">
+        <!--<div class="member-to-add">-->
+            <table class="member-list">
+                <tr *ngFor="let em of membersSearch; let i = index;" (mousedown)="addEmployee(em)">
+                    <td class="avatar" *ngIf="em.user.image != null"><img src="{{em.user.image}}"></td>
+                    <td class="avatar" *ngIf="em.user.image == null"><img src="assets/image-profile/default-avatar.png"></td>
+                    <td class="info">
+                        <p class="name">{{em.user.first_name}} {{em.user.last_name}}</p>
+                        <p class="email">{{em.user.email}}</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <br/><br/><br/>
+<!-- End Adding members to project -->
+<!-- Adding tasks to project -->
+    <h2>Tasks</h2>
+    <div class = "tasks">
+        <table class="tasks-table" *ngIf="newCategories.length > 0">
+            <tr> 
+                <th class="delete-name"> </th>
+                <th class="member-list">Visible to</th>
+                <th class="billable">Billable</th>
+            </tr>
+            <tr class="data" *ngFor="let cat of newCategories; let i = index">
+                <td class="task-name"><button pButton type="button" (click)="removeNewTask(i)" icon="fa-times"></button>{{cat.category_name}}</td>
+                <td><app-adding-member (onAdd)="newAddMember($event, i)" (onDelete)="newDeleteMember($event, i)" [employeePosts]="membersToAdd"
+                [size]="membersToAdd.length"></app-adding-member>
+                </td>
+                <td><label><input type="checkbox" (change)="newChkFunc($event.target.checked, i)"></label></td>
+            </tr>
+        </table>
+        <br/>
+        <button type="button" class="add-task-btn" (click)="displayTaskAddDialog()">Add more task...</button>
+    </div>    
+    <br/><br/><br/>
+ <!-- End Adding tasks to project -->   
+    <h2>Permissions</h2>
+    <ul class="permissions">
+        <li class="rep"><h4>Report</h4></li>
+        <li class="per-des">
+            <h4>Show report to who?</h4>
+            <p>If you allow people see this project’s report, they can see detail budget, invoices, timesheet and more…</p>
+        </li>
+        <li class="per-btns">
+            <button id="left-btn" [class]="classBtn[0]" (click)="setTypeReport(false)" type="button">PM & Admin</button>
+            <button id="right-btn" [class]="classBtn[1]" (click)="setTypeReport(true)" type="button">Everyone</button>
+        </li>
+    </ul>
+    <br/><br/><hr><br/>
+    <div class="form-btns">
+        <button class="active" type="submit">Create New</button>
+        <button type="button" (click)="cancel()">Cancel</button>
+    </div>
+</form>
+</div>
+<br/>
+
+<p-dialog class="pop-up" header="Add New Client" [(visible)]="display" width="600">
+    <div class="form-container">
+    <form (ngSubmit)="onSubmitClient()">
+        <div class="form-group">
+        <input style="width:100%;" type="text" class="form-control" id="client-name" placeholder="Client name"
+        name="client-name" [(ngModel)]="client.name" required><br/><br/>
+        <button class="active" type="submit">Create New</button>
+        <button type="button" (click)="undisplayDialog()">Cancel</button>
+        </div>
+    </form>
+    </div>
+</p-dialog>
+
+<p-dialog class="pop-up" header="Add New Task" [(visible)]="displayTaskAdd" width="600">
+    <div class="form-container">
+    <form (ngSubmit)="onSubmitTask()">
+        <div class="form-group">
+        <input style="width:100%;" type="text" class="form-control" id="task-name" placeholder="Task name"
+        name="task-name" [(ngModel)]="category.name" required>
+        <br/><br/>
+        <button class="active" type="submit">Create New</button>
+        <button type="button" (click)="undisplayTaskAddDialog()">Cancel</button>
+        </div>
+    </form>
+    </div>
+</p-dialog>
+
+<p-growl [value]="msgs"></p-growl>

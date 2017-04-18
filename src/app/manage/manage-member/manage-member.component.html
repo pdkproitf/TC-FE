@@ -1,0 +1,120 @@
+<!--<app-member-menu-bar [currentState]="4"></app-member-menu-bar>-->
+<div class="container">
+    <ul class="nav-bar">
+        <li [class]="navClass[0]" (click)="changeNavClass(0)" ><p>Employees</p></li>
+        <li [class]="navClass[1]" (click)="changeNavClass(1)"><p>Company</p></li>
+        <!--<li [class]="navClass[2]" (click)="changeNavClass(2)"><p>Clients</p></li>-->
+        <li [class]="navClass[3]" (click)="changeNavClass(3)"><p>Holidays</p></li>
+        <li [class]="navClass[4]" (click)="changeNavClass(4)"><p>Jobs</p></li>
+    </ul>
+
+    <div *ngIf="navClass[0] === 'choosing'" class="member-manage">
+        <p style="margin-bottom: 5px;">Search employees by name:</p>
+        <input class="search-em" type="text" placeholder="Ex: David" [(ngModel)]="searchNameText" (keyup)="keyUpSearchName()" name="search-em">
+        <div class="member-list">
+            <table>
+                <thead>
+                    <tr>
+                        <th width="5%"><th>
+                        <th width="25%">Name</th>
+                        <th width="35%">Jobs</th>
+                        <th width="8%">Role</th>
+                        <th width="9%" style="padding-left: 1%;">Days Off</th>
+                        <th max-width="99%" style="text-align: center"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let employee of members; let id = index;">
+                        <td class="avatar" width="5%">
+                            <img *ngIf="employee.user.image !== null" [src]="employee.user.image">
+                            <img *ngIf="employee.user.image === null" src="assets/image-profile/default-avatar.png">
+                        </td>
+                        <td class="name" width="25%">
+                            <p class="full-name">{{employee.user.first_name}} {{employee.user.last_name}}<p>
+                            <p class="email">{{employee.user.email}}</p>
+                        </td>
+                        <td class="jobs" width="35%">
+                            <div *ngIf="employee.jobs.length > 0">
+                                <div *ngFor="let job of employee.jobs" class="job">
+                                    {{job.name}}<span (click)="deleteJobFromEmployee(employee, job); submitJobs[id] = doesHasNewJobs(id);" class="fa fa-times"></span>
+                                </div>
+                            </div>
+                            <input type=text placeholder="Add job" (focus)="divDisplays[id] = 1;" (blur)="divDisplays[id] = 0;"
+                            [(ngModel)]="searchJobText" (keyup)="keyUpSearch()" name="search-text">
+                            <div *ngIf="submitJobs[id]" class="submit">
+                                <span class="fa fa-check" (click)="submitEditedJobs(id)" aria-hidden="true"></span>
+                                <span class="fa fa-times" (click)="cancelJobs(id); submitJobs[id] = false;" aria-hidden="true"></span>
+                            </div>
+                            <div *ngIf="divDisplays[id] === 1" class="job-selector">
+                                <ul *ngIf="searchJobs.length > 0" class="job-ul">
+                                    <li *ngFor="let job of searchJobs; let i = index" [hidden]="isJobIn(job, employee) > -1" (mousedown)="addJobToEmployee(employee, job); submitJobs[id] = doesHasNewJobs(id);" class="job-li">
+                                        {{job.name}}
+                                    </li>
+                                    <!--<li class="job-li" (mousedown)="displayAddJob = true;">Add new job</li>-->
+                                </ul>
+                            </div>
+                        </td>
+                        <td class="role" width="8%">
+                            <select *ngIf="roles.length > 0" [disabled]="employee.role.id === idRoleAdmin" (change)="editRole($event.target.value, id)" [value]="employee.role.id">
+                                <option *ngFor="let role of roles" [value]="role.id" [disabled]="role.id === idRoleAdmin">{{role.name}}</option>
+                            </select>
+                        </td>
+                        <td class="days-off" width="8%">
+                            {{employee.furlough_total}}
+                        </td>
+                        <td class="actions" max-width="99%">
+                            <!--<div class="action-items">
+                                <div class="oval">
+                                    <span class="fa fa-download" aria-hidden="true"></span>
+                                </div>
+                                <div class="oval">
+                                    <span class="fa fa-trash" aria-hidden="true"></span>
+                                </div>
+                                <div class="oval">
+                                    <span class="fa fa-pencil" aria-hidden="true"></span>
+                                </div>
+                            </div>-->
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p-dialog header="Add New Job" [(visible)]="displayAddJob" width="600">
+                <div class="form-container">
+                <form (ngSubmit)="onSubmitJob()">
+                    <div class="form-group">
+                        <input style="width:100%;" type="text" class="form-control" placeholder="New Job Name"
+                        name="job-name" [(ngModel)]="newJobName" required><br/><br/>
+                        <button class="active" type="submit">Add New</button>
+                        <button type="button" (click)="displayAddJob = false; newJobName = '';">Cancel</button>
+                    </div>
+                </form>
+                </div>
+            </p-dialog>
+        </div>
+        <br/>
+
+        <div class="member-action">
+            <button class="add-btn" (click)="displayDialog()" pButton type="button" label="Add new member"></button>
+        </div>
+
+        <p-dialog header="Add New Member" [(visible)]="display" width="600">
+            <div class="form-container">
+            <form (ngSubmit)="onSubmitMember()">
+                    <div class="form-group">
+                    <input style="width:100%;" type="text" class="form-control" id="client-name" placeholder="Email"
+                    name="email" [(ngModel)]="membership.email" required><br/><br/>
+                    <button class="active" type="submit">Create New</button>
+                    <button type="button" (click)="undisplayDialog()">Cancel</button>
+                </div>
+            </form>
+            </div>
+        </p-dialog>
+
+    </div>
+    <app-manage-company *ngIf="navClass[1] === 'choosing'"></app-manage-company>
+    <app-manage-holiday *ngIf="navClass[3] === 'choosing'"></app-manage-holiday>
+    <app-manage-job *ngIf="navClass[4] === 'choosing'" (changeTab)="setTab($event)"></app-manage-job>
+
+</div>
+
+<p-growl [value]="msgs"></p-growl>

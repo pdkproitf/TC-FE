@@ -1,3 +1,5 @@
+import { ManageProjectModule } from './manage-project/manage-project.module';
+import { ManageModule } from './manage/manage.module';
 import { AuthenNormalPM } from './services/authen-normal-pm';
 import { AuthenHighPM } from './services/authen-high-pm';
 import { AuthenAdmin } from './services/authen-admin';
@@ -45,14 +47,6 @@ import { ProjectFieldComponent } from './project-field/project-field.component';
 import { DateLogComponent } from './date-log/date-log.component';
 import { VerifyEmailPageComponent } from './verify-email-page/verify-email-page.component';
 import { DetailDateLogComponent } from './detail-date-log/detail-date-log.component';
-import { ProjectManageComponent } from './project-manage/project-manage.component';
-import { CreateProjectComponent } from './create-project/create-project.component';
-import { ManageMemberComponent } from './manage-member/manage-member.component';
-import { ProjectDetailsComponent } from './project-details/project-details.component';
-import { ProjecTableComponent } from './project-table/project-table.component';
-import { AddingMemberComponent } from './adding-member/adding-member.component';
-import { ProjectDetailsTasksComponent } from './project-details-tasks/project-details-tasks.component';
-import { ProjectDetailsTeamComponent } from './project-details-team/project-details-team.component';
 import { DetailDateLogLiComponent } from './detail-date-log-li/detail-date-log-li.component';
 import { ProjectInDivComponent } from './project-in-div/project-in-div.component';
 import { RecentTasksComponent } from './recent-tasks/recent-tasks.component';
@@ -65,7 +59,6 @@ import { TimeoffListRequestComponent } from './timeoff-list-request/timeoff-list
 import { MomentModule } from 'angular2-moment';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
 import { TimeoffPendingRequestsComponent } from './timeoff-pending-requests/timeoff-pending-requests.component';
-import { EditProjectComponent } from './edit-project/edit-project.component';
 import { MembersConfirmComponent } from './members-confirm/members-confirm.component';
 import { ReportComponent } from './report/report.component';
 import { ReportSearchComponent } from './report-search/report-search.component';
@@ -80,12 +73,9 @@ import { ReportDetailsAdvancesListComponent } from './report-details-advances-li
 import { ProfileComponent } from './profile/profile.component';
 import { Ng2CloudinaryModule } from 'ng2-cloudinary';
 import { FileUploadModule } from 'ng2-file-upload';
-import { ManageHolidayComponent } from './manage-holiday/manage-holiday.component';
 import { InvitesConfirmComponent } from './invites-confirm/invites-confirm.component';
 import { SettingComponent } from './setting/setting.component';
-import { ManageJobComponent } from './manage-job/manage-job.component';
 import { StickyModule } from 'ng2-sticky-kit/ng2-sticky-kit';
-import { ManageCompanyComponent } from './manage-company/manage-company.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -101,15 +91,7 @@ import { ManageCompanyComponent } from './manage-company/manage-company.componen
     DateLogComponent,
     VerifyEmailPageComponent,
     DetailDateLogComponent,
-    ProjectManageComponent,
-    CreateProjectComponent,
-    ManageMemberComponent,
-    ProjectDetailsComponent,
-    AddingMemberComponent,
-    ProjecTableComponent,
-    ProjectDetailsComponent,
-    ProjectDetailsTasksComponent,
-    ProjectDetailsTeamComponent,
+    
     DetailDateLogLiComponent,
     ProjectInDivComponent,
     TimeoffManageComponent,
@@ -120,7 +102,6 @@ import { ManageCompanyComponent } from './manage-company/manage-company.componen
     TimeoffListRequestComponent,
     CapitalizePipe,
     TimeoffPendingRequestsComponent,
-    EditProjectComponent,
     MembersConfirmComponent,
     TimeoffPassRequestsComponent,
     MembersConfirmComponent,
@@ -137,11 +118,8 @@ import { ManageCompanyComponent } from './manage-company/manage-company.componen
     DateToStringWeekDayPipe,
     DateToMDYPipe,
     ProfileComponent,
-    ManageHolidayComponent,
     InvitesConfirmComponent,
     SettingComponent,
-    ManageJobComponent,
-    ManageCompanyComponent,
   ],
   imports: [
     BrowserModule,
@@ -170,7 +148,9 @@ import { ManageCompanyComponent } from './manage-company/manage-company.componen
     FileUploadModule,
     ScheduleModule,
     DragDropModule,
-    StickyModule
+    StickyModule,
+    ManageModule,
+    ManageProjectModule
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
   AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService,
