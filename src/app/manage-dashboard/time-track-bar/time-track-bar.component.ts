@@ -141,6 +141,7 @@ export class TimeTrackBarComponent implements OnInit, OnDestroy {
       this.description = timer.task_name;
       let curr = new Date();
       this.ticks = Math.round((curr.getTime() - this.startDateTime.getTime()) / 1000);
+      clearInterval(this.myVar);
       this.myVar = setInterval(() => {
         this.myTickerFunc();
       }, 1000);
@@ -156,6 +157,7 @@ export class TimeTrackBarComponent implements OnInit, OnDestroy {
       this.setStartTime();
       this.ticks = -1;
       this.myTickerFunc();
+      clearInterval(this.myVar);
       this.myVar = setInterval(() => {
         this.myTickerFunc();
       }

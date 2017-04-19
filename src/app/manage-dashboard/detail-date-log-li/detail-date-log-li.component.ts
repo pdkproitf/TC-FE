@@ -87,7 +87,7 @@ export class DetailDateLogLiComponent implements OnInit {
 
   secondToTime(totalTime) {
     let sec_num = totalTime;
-    console.log(totalTime);
+    // console.log(totalTime);
     let hours   = Math.floor(sec_num / 3600);
     let minutes = Math.floor((sec_num - (hours * 3600)) / 60);
     let seconds = sec_num - (hours * 3600) - (minutes * 60);
