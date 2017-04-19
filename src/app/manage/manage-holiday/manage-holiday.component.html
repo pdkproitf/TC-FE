@@ -3,6 +3,20 @@
         (onDayClick)="handleDayClick($event); " (onEventClick)="handleEventClick($event); "
         (onEventDragStop)="onEventDragStop($event)" (onEventResizeStop)="onEventResizeStop($event)">
     </p-schedule>
+
+    <div class="calendar-note">
+        <div class="cel-today thumble inline"></div>
+        <label for="Holiday">Today</label>
+
+        <div class="cel-individual thumble inline"></div>
+        <label for="Time Off">Individual</label>
+
+        <div class="cel-traditional thumble inline"></div>
+        <label for="Pending">Traditional</label>
+
+        <div class="cel-international thumble inline"></div>
+        <label for="Holiday">International</label>
+    </div>
 </div>
 
 <p-dialog header="Holiday Details" [(visible)]="dialogVisible" [resizable]="false">
@@ -18,6 +32,11 @@
         <div class="ui-grid-row">
             <div class="ui-grid-col-4"><label for="end">End</label></div>
             <div class="ui-grid-col-8"><p-calendar [(ngModel)]="holiday.end" dateFormat="yy-mm-dd" [minDate]="holiday.start" readonlyInput="readonlyInput"></p-calendar></div>
+        </div>
+
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="start">Type</label></div>
+            <p-dropdown [options]="types" [(ngModel)]="type_selected" [style]="{'width':'150px'}" placeholder="Select a type"></p-dropdown>
         </div>
     </div>
     <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">

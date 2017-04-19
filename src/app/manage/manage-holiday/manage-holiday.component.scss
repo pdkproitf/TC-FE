@@ -3,6 +3,49 @@
     margin: auto;
     margin-top: 4em;
     margin-bottom: 4em;
+    .calendar-note{
+        text-align: right;
+        .thumble{
+            width: 24px;
+            height: 24px;
+            margin-top: 20px;
+        }
+        label{
+            vertical-align: super;
+            font-family: Lato;
+            font-size: 12px;
+            line-height: 15px;
+            color: rgba(54,54,54,0.7);
+            margin-right: 5px;
+        }
+    }
+    .cel-individual{
+        height: 55px;
+        border: 0px;
+        cursor: pointer;
+        background: linear-gradient(rgb(106, 231, 157) 0%, rgb(86, 191, 97) 100%);
+
+    }
+    .cel-traditional{
+        border: 0px;
+        height: 55px;
+        cursor: pointer;
+        background: linear-gradient(rgb(249, 4, 4) 0%, rgb(229, 0, 0) 100%);
+    }
+    .cel-international{
+        height: 55px;
+        cursor: pointer;
+        background: rgba(155,89,182,0.8);
+
+    }
+    .cel-today{
+        height: 55px;
+        cursor: pointer;
+        background: linear-gradient(rgb(255, 187, 71) 0%, rgb(235, 147, 11) 100%);
+    }
+    .inline{
+        display: inline-block;
+    }
 }
 /deep/.ui-datepicker {
     position: fixed;
@@ -81,6 +124,10 @@
     }
     .fc-toolbar h2 {
         font-family: Lato;
+    }
+    .ui-state-highlight, .ui-widget-content .ui-state-highlight{
+        // background: linear-gradient(rgb(118, 226, 106) 0%, rgb(98, 186, 46) 100%) !important;
+        border: 0px;
     }
 }
 /deep/.ui-growl-item {

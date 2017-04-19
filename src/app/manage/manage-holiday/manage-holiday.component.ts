@@ -1,15 +1,16 @@
 import { Holiday, HolidaySchedule, HolidayPost } from '../../models/holiday';
-import { Component, OnInit } from '@angular/core';
-import { ChangeDetectorRef } from "@angular/core";
+import { Component, OnInit, OnChanges, SimpleChange } from '@angular/core';
 import { HolidayService }    from '../../services/holiday-service';
+import { SelectItem }        from 'primeng/primeng';
 import { Message }           from 'primeng/primeng';
+declare var $:any;
 
 @Component({
     selector: 'app-manage-holiday',
     templateUrl: './manage-holiday.component.html',
     styleUrls: ['./manage-holiday.component.scss']
 })
-export class ManageHolidayComponent implements OnInit {
+export class ManageHolidayComponent implements OnInit, OnChanges {
     /** config what will be show in header of schedule */
     headerConfig: any;
     /** dialod show holiday details status, true -> show */
@@ -20,13 +21,17 @@ export class ManageHolidayComponent implements OnInit {
     holiday: HolidaySchedule;
     /** Message object to show inform panel */
     msgs: Message[] = [];
+    /** type of holiday */
+    types: SelectItem[] = [];
+    type_selected: string = 'individual';
 
-    constructor(private holidayService: HolidayService, private cd: ChangeDetectorRef) {
-        holidayService.gets().then(
+    constructor(private holidayService: HolidayService) {
+        this.holidayService.gets().then(
             (result) => {
                 result.data.forEach((holiday) => {
                     this.holidays.push(this.convertToHolidaySchedule(holiday));
                 })
+                this.fillCelBackground();
             },
             (error) => {
                 this.noticeMessage(JSON.parse(error['_body']).error);
@@ -41,6 +46,18 @@ export class ManageHolidayComponent implements OnInit {
             right: 'next'
         };
         this.holiday = new HolidaySchedule();
+        this.initTypesDropdown();
+    }
+
+    ngOnChanges(changes: {[propKey: string]: SimpleChange}){
+        this.ngOnInit();
+    }
+
+    initTypesDropdown(){
+        this.types = [];
+        this.types.push({label: 'Individual', value: 'individual'});
+        this.types.push({label: 'Traditional', value: 'traditional'});
+        this.types.push({label: 'International', value: 'international'});
     }
 
     /** handle event in schedule **********************************************/
@@ -49,10 +66,13 @@ export class ManageHolidayComponent implements OnInit {
         this.holiday.start = event.date._d;
         this.holiday.end = event.date._d;
         this.showDialog();
+
+        this.type_selected = 'individual';
     }
 
     handleEventClick(event){
         this.initCurrentDate(event.calEvent);
+        this.type_selected = this.holiday.type;
         this.showDialog();
     }
 
@@ -88,6 +108,7 @@ export class ManageHolidayComponent implements OnInit {
             (result) => {
                 this.holidays.push(this.convertToHolidaySchedule(result.data));
                 this.noticeMessage('Create ' + result['status'] , true)
+                this.fillCelBackground();
             },
             (error) => {
                 this.noticeMessage(JSON.parse(error['_body']).error);
@@ -101,6 +122,7 @@ export class ManageHolidayComponent implements OnInit {
                 this.noticeMessage(result['status'] , true);
                 this.deleteElement(this.holiday.id);
                 this.holidays.push(this.convertToHolidaySchedule(result.data));
+                this.fillCelBackground();
             },
             (error) => {
                 this.noticeMessage(JSON.parse(error['_body']).error);
@@ -112,7 +134,8 @@ export class ManageHolidayComponent implements OnInit {
         this.holidayService.delete(this.holiday.id).then(
             (result) => {
                 this.deleteElement(this.holiday.id);
-                this.noticeMessage('Delete ' + result['status'] , true)
+                this.noticeMessage('Delete ' + result['status'] , true);
+                this.fillCelBackground();
             },
             (error) => {
                 this.noticeMessage(JSON.parse(error['_body']).error);
@@ -133,7 +156,7 @@ export class ManageHolidayComponent implements OnInit {
         holiday.title = object['name'];
         holiday.start = this.convertdateToString(new Date(object['begin_date']));
         holiday.end = this.convertdateToString(new Date(object['end_date']));
-
+        holiday.type = object['kind'];
         return holiday;
     }
 
@@ -161,6 +184,7 @@ export class ManageHolidayComponent implements OnInit {
         data.name = this.holiday.title;
         data.begin_date = new Date(this.holiday.start);
         data.end_date = new Date(this.holiday.end);
+        data.kind = this.type_selected;
         return data;
     }
 
@@ -175,13 +199,15 @@ export class ManageHolidayComponent implements OnInit {
         this.holiday.title = event.title;
         this.holiday.start = event.start._d;
         this.holiday.end = event._end == null ? event.start._d : event.end._d;
+        this.holiday.type = event.type;
+        this.type_selected = event.type;
     }
 
     convertdateToString(date: Date){
         var year = date.getFullYear();
         var month = date.getUTCMonth() > 9 ? (date.getUTCMonth() + 1) : '0' + (date.getUTCMonth() + 1);
         var day = date.getDate() > 9 ? date.getDate() : '0' + date.getDate();
-        return year + '-' + month + '-' + day + 'T16:00:00';
+        return year + '-' + month + '-' + day + 'T10:00:00';
     }
 
     ////
@@ -193,6 +219,25 @@ export class ManageHolidayComponent implements OnInit {
     deleteElement(id: number){
         var index = this.holidays.findIndex(x => x.id == id);
         this.holidays.splice(index, 1);
+    }
+
+    fillCelBackground() {
+        var holidays = this.holidays;
+        $('.fc-day').each(function(){
+            var background = '#ffffff';
+            var date = new Date($(this).data('date'));
+            date.setHours(17, 0, 0, 0);
+            var today = new Date();
+            today.setHours(17, 0, 0, 0);
+            var holiday = holidays.find(x => new Date(x.start) <= date && new Date(x.end) >= date);
+            if(holidays && holiday){
+                background = 'linear-gradient(rgb(106, 231, 157) 0%, rgb(86, 191, 97) 100%)';
+                if(holiday.type == 'traditional') background = 'linear-gradient(rgb(249, 4, 4) 0%, rgb(229, 0, 0) 100%)';
+                else if (holiday.type == 'international') background = 'rgba(155,89,182,0.8)';
+            }
+            if(date.getTime() == today.getTime()) background = 'linear-gradient(rgb(255, 187, 71) 0%, rgb(235, 147, 11) 100%)';
+            $(this).css({'background': background})
+        });
     }
 
     ////
