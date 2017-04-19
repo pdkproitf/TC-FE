@@ -1,3 +1,4 @@
+import { ManageAccessModule } from './manage-access/manage-access.module';
 import { ManageDashboardModule } from './manage-dashboard/manage-dashboard.module';
 import { ManageReportModule } from './manage-report/manage-report.module';
 import { ManageTimeOffModule } from './manage-time-off/manage-time-off.module';
@@ -38,43 +39,30 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
-import { MarketingPageComponent } from './marketing-page/marketing-page.component';
 import { MarketingMenuBarComponent } from './marketing-menu-bar/marketing-menu-bar.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
-import { SignInComponent } from './sign-in/sign-in.component';
 import { MemberMenuBarComponent } from './member-menu-bar/member-menu-bar.component';
-import { VerifyEmailPageComponent } from './verify-email-page/verify-email-page.component';
 import { TimeFromSecondsPipe } from './pipes/time-from-seconds.pipe';
 import { ReactiveFormsModule }      from '@angular/forms';
 import { MomentModule } from 'angular2-moment';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
-import { MembersConfirmComponent } from './members-confirm/members-confirm.component';
 import { GradientPipe }     from './pipes/gradient.pipe';
 import { ProfileComponent } from './profile/profile.component';
 import { Ng2CloudinaryModule } from 'ng2-cloudinary';
 import { FileUploadModule } from 'ng2-file-upload';
-import { InvitesConfirmComponent } from './invites-confirm/invites-confirm.component';
 import { SettingComponent } from './setting/setting.component';
 import { StickyModule } from 'ng2-sticky-kit/ng2-sticky-kit';
 @NgModule({
   declarations: [
     AppComponent,
-    MarketingPageComponent,
     MarketingMenuBarComponent,
-    SignUpComponent,
-    SignInComponent,
     MemberMenuBarComponent,
-    VerifyEmailPageComponent,
     TimeFromSecondsPipe,
     CapitalizePipe,
-    MembersConfirmComponent,
-    MembersConfirmComponent,
     GradientPipe,
     SecondsToHoursPipe,
     DateToStringWeekDayPipe,
     DateToMDYPipe,
     ProfileComponent,
-    InvitesConfirmComponent,
     SettingComponent,
   ],
   imports: [
@@ -82,34 +70,19 @@ import { StickyModule } from 'ng2-sticky-kit/ng2-sticky-kit';
     FormsModule,
     HttpModule,
     AppRoutingModule,
-    ToolbarModule,
-    ButtonModule,
-    InputTextModule,
-    MenuModule,
-    AutoCompleteModule,
-    CarouselModule,
-    CalendarModule,
-    DropdownModule,
-    DialogModule,
-    PaginatorModule,
-    TabViewModule,
-    ReactiveFormsModule,
-    RadioButtonModule,
-    MomentModule,
-    OverlayPanelModule,
-    ChartModule,
-    CheckboxModule,
-    GrowlModule,
-    Ng2CloudinaryModule,
-    FileUploadModule,
-    ScheduleModule,
-    DragDropModule,
+    ToolbarModule, ButtonModule, InputTextModule, MenuModule, AutoCompleteModule,
+    CarouselModule, CalendarModule, DropdownModule, DialogModule, PaginatorModule,
+    TabViewModule, ReactiveFormsModule, RadioButtonModule, MomentModule, OverlayPanelModule,
+    ChartModule,CheckboxModule, GrowlModule,
+    Ng2CloudinaryModule, FileUploadModule,
+    ScheduleModule, DragDropModule,
     StickyModule,
     ManageModule,
     ManageProjectModule,
     ManageTimeOffModule,
     ManageReportModule,
-    ManageDashboardModule
+    ManageDashboardModule,
+    ManageAccessModule
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
   AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService,

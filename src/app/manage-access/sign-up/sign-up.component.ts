@@ -1,7 +1,7 @@
 import { Message } from 'primeng/primeng';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserService } from './../services/user-service';
-import { User, UserPost } from './../models/user';
+import { UserService } from '../../services/user-service';
+import { User, UserPost } from '../../models/user';
 import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-sign-up',

@@ -1,6 +1,6 @@
 import { ActivatedRoute, Router } from '@angular/router';
-import { MembershipService } from './../services/membership-service';
-import { MembershipConfirm } from './../models/membership';
+import { MembershipService } from '../../services/membership-service';
+import { MembershipConfirm } from '../../models/membership';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
