@@ -17,6 +17,8 @@ import { ToolbarModule, ButtonModule, InputTextModule, MenuModule, AutoCompleteM
     CarouselModule, CalendarModule, DropdownModule, DialogModule, ChartModule,
     GrowlModule, ScheduleModule, RadioButtonModule, CheckboxModule, OverlayPanelModule,
     PaginatorModule, TabViewModule, DragDropModule } from 'primeng/primeng';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 const manageAccessRoutes: Routes = [
   { path: 'sign-up', component: SignUpComponent, canActivate: [NotLoggedIn] },
   { path: 'sign-up/:token/:companyName/:companyDomain', component: SignUpComponent, canActivate: [NotLoggedIn] },
@@ -26,6 +28,8 @@ const manageAccessRoutes: Routes = [
   { path: 'verify-email/:text', component: VerifyEmailPageComponent, canActivate: [NotLoggedIn] },
   { path: 'members-confirm/:token', component: MembersConfirmComponent, canActivate: [AuthenLoggedIn] },
   { path: 'invites-confirm/:token/:name/:domain', component: InvitesConfirmComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent, canActivate: [NotLoggedIn] },
+  { path: 'reset-password', component: ResetPasswordComponent, canActivate: [NotLoggedIn] },
 ];
 export const manageAccessRouting = RouterModule.forChild(manageAccessRoutes);
 @NgModule({
@@ -47,7 +51,9 @@ export const manageAccessRouting = RouterModule.forChild(manageAccessRoutes);
     SignInComponent,
     VerifyEmailPageComponent,
     MembersConfirmComponent,
-    InvitesConfirmComponent
+    InvitesConfirmComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   ],
   providers: [
     NotLoggedIn, AuthenLoggedIn
