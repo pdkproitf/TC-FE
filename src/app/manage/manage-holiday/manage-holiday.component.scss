@@ -19,29 +19,22 @@
             margin-right: 5px;
         }
     }
-    .cel-individual{
-        height: 55px;
-        border: 0px;
-        cursor: pointer;
-        background: linear-gradient(rgb(106, 231, 157) 0%, rgb(86, 191, 97) 100%);
-
-    }
-    .cel-traditional{
+    .cel-repeat{
         border: 0px;
         height: 55px;
         cursor: pointer;
-        background: linear-gradient(rgb(249, 4, 4) 0%, rgb(229, 0, 0) 100%);
+        background: linear-gradient(rgb(255, 10, 10) 0%, rgb(235, 0, 0) 100%);
     }
-    .cel-international{
+    .cel-none-repeat{
         height: 55px;
         cursor: pointer;
-        background: rgba(155,89,182,0.8);
+        background: linear-gradient(rgb(252, 232, 42) 0%, rgb(232, 192, 0) 100%);
 
     }
     .cel-today{
         height: 55px;
         cursor: pointer;
-        background: linear-gradient(rgb(255, 187, 71) 0%, rgb(235, 147, 11) 100%);
+        background: #00c0ef;
     }
     .inline{
         display: inline-block;
@@ -105,6 +98,9 @@
     .fc-event{
         background-color: rgba(155,89,182,0.8);
         border: 1px solid rgba(155,89,221,0.8);
+        background: none;
+        border: none;
+        color: black;
     }
     .fc-day-grid-event .fc-time {
         display: none;
@@ -125,8 +121,9 @@
     .fc-toolbar h2 {
         font-family: Lato;
     }
-    .ui-state-highlight, .ui-widget-content .ui-state-highlight{
+    .fc-today{
         // background: linear-gradient(rgb(118, 226, 106) 0%, rgb(98, 186, 46) 100%) !important;
+        // background: #00c0ef;
         border: 0px;
     }
 }

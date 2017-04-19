@@ -225,10 +225,10 @@ export class ManageHolidayComponent implements OnInit, OnChanges {
             var today = new Date();
             today.setHours(17, 0, 0, 0);
             var holiday = holidays.find(x => new Date(x.start) <= date && new Date(x.end) >= date);
-            // if(holidays && holiday){
-            //     background = holiday.is_repeat? 'linear-gradient(rgb(106, 231, 157) 0%, rgb(86, 191, 97) 100%)' : 'rgba(155,89,182,0.8)';
-            // }
-            if(date.getTime() == today.getTime()) background = 'linear-gradient(rgb(255, 187, 71) 0%, rgb(235, 147, 11) 100%)';
+            if(holidays && holiday){
+                background = holiday.is_repeat? 'linear-gradient(rgb(255, 10, 10) 0%, rgb(235, 0, 0) 100%)' : 'linear-gradient(rgb(252, 232, 42) 0%, rgb(232, 192, 0) 100%)';
+            }
+            if(date.getTime() == today.getTime()) background = 'linear-gradient(rgb(0, 192, 239) 0%, rgb(0, 152, 179) 100%)';
             $(this).css({'background': background})
         });
     }
