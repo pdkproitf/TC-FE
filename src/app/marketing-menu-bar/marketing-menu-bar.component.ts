@@ -18,4 +18,11 @@ export class MarketingMenuBarComponent implements OnInit {
       this.classType[tmp] = 'active';
     }
   }
+  setActiveMenu(a) {
+        let len = this.classType.length;
+        for (let i = 0; i < len; i++) {
+            this.classType[i] = '';
+        }
+        this.classType[a] = 'active';
+    }
 }
