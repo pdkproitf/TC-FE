@@ -1,6 +1,6 @@
 import { Message } from 'primeng/primeng';
-import { UserService } from './../services/user-service';
-import { User, UserPost } from './../models/user';
+import { UserService } from '../../services/user-service';
+import { User, UserPost } from '../../models/user';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 

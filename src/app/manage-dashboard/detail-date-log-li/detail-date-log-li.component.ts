@@ -87,7 +87,7 @@ export class DetailDateLogLiComponent implements OnInit {
 
   secondToTime(totalTime) {
     let sec_num = totalTime;
-    console.log(totalTime);
+    // console.log(totalTime);
     let hours   = Math.floor(sec_num / 3600);
     let minutes = Math.floor((sec_num - (hours * 3600)) / 60);
     let seconds = sec_num - (hours * 3600) - (minutes * 60);
@@ -421,7 +421,8 @@ export class DetailDateLogLiComponent implements OnInit {
       || className === 'ui-datepicker-year' || className === 'ui-datepicker-month'
       || className === 'time-picker ng-untouched ng-pristine ng-valid' || className === 'time-picker ng-untouched ng-valid ng-dirty'
       || className === 'time-picker ng-valid ng-dirty ng-touched' || className === 'option start' || className === 'option end'
-      || className === 'earlier' || className === 'later' || className === 'op-name' || className === 'fa fa-check imgspan submit') {
+      || className === 'earlier' || className === 'later' || className === 'op-name' || className === 'fa fa-check imgspan submit'
+      || className === 'time-picker ng-pristine ng-valid ng-touched') {
 
       } else {
         this.divClass[2] = 'hiddenDiv';

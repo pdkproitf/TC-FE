@@ -36,7 +36,7 @@ export class MemberMenuBarComponent implements OnInit {
     constructor(private router: Router, private userService: UserService, private timeoffService: TimeoffService) { }
 
     ngOnInit() {
-        if(this.currentState !== null) {
+        if (this.currentState !== null) {
             this.classActive[this.currentState] = 'active';
         }
         let userInfo = localStorage.getItem('UserInfo');
@@ -113,5 +113,13 @@ export class MemberMenuBarComponent implements OnInit {
                 console.log('error',error);
             }
         );
+    }
+
+    setActiveMenu(a) {
+        let len = this.classActive.length;
+        for (let i = 0; i < len; i++) {
+            this.classActive[i] = '';
+        }
+        this.classActive[a] = 'active';
     }
 }

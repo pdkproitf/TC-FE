@@ -1,2 +1,3 @@
-<app-member-menu-bar *ngIf="isLoggedIn"></app-member-menu-bar>
+<app-marketing-menu-bar [typePage]="typePage" *ngIf="!isLoggedIn"></app-marketing-menu-bar>
+<app-member-menu-bar [currentState]="currentState" *ngIf="isLoggedIn"></app-member-menu-bar>
 <router-outlet></router-outlet>

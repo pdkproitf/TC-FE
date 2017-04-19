@@ -1,4 +1,4 @@
-<app-marketing-menu-bar typePage=1></app-marketing-menu-bar>
+<!--<app-marketing-menu-bar typePage=1></app-marketing-menu-bar>-->
 <div class="image">
   <img src="assets/image-screen/element_logo_icon-white@2x.png">
 </div>
@@ -19,7 +19,7 @@
     <br/>
     <div class="form-group">
       <label for="password">Password: </label>
-      <a href="#">Forgot password ?</a>
+      <a routerLink="/forgot-password">Forgot password ?</a>
       <br/>
       <input pInputText type="password" class="form-control" id="password" [(ngModel)]="user.password" name="password" placeholder="6+ characters" required>
     </div>

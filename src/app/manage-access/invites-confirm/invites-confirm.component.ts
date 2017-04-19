@@ -1,8 +1,8 @@
-import { MembershipService } from './../services/membership-service';
-import { MembershipConfirm } from './../models/membership';
+import { MembershipService } from '../../services/membership-service';
+import { MembershipConfirm } from '../../models/membership';
 import { Message } from 'primeng/primeng';
-import { Auth, AuthPost } from './../models/auth';
-import { UserService } from './../services/user-service';
+import { Auth, AuthPost } from '../../models/auth';
+import { UserService } from '../../services/user-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 

@@ -124,6 +124,7 @@ export class TimeTrackBarComponent implements OnInit, OnDestroy {
         localStorage.removeItem('taskColor');
       }
     }
+    clearInterval(this.myVar);
   }
 
   loadLocalTimer() {
@@ -131,12 +132,16 @@ export class TimeTrackBarComponent implements OnInit, OnDestroy {
     if (timerInfo != null) {
       let timer = JSON.parse(timerInfo);
       this.timer = timer;
+      if (timer.category_member_id != null){
+        this._currentCategory.category_member_id = timer.category_member_id;
+      }
       this.startDateTime = new Date(timer.start_time);
       this.timeToString();
       this.generateOptions();
       this.description = timer.task_name;
       let curr = new Date();
       this.ticks = Math.round((curr.getTime() - this.startDateTime.getTime()) / 1000);
+      clearInterval(this.myVar);
       this.myVar = setInterval(() => {
         this.myTickerFunc();
       }, 1000);
@@ -152,6 +157,7 @@ export class TimeTrackBarComponent implements OnInit, OnDestroy {
       this.setStartTime();
       this.ticks = -1;
       this.myTickerFunc();
+      clearInterval(this.myVar);
       this.myVar = setInterval(() => {
         this.myTickerFunc();
       }
@@ -163,6 +169,7 @@ export class TimeTrackBarComponent implements OnInit, OnDestroy {
       this.description = '';
       this.taskString = '';
       this.taskColor = '';
+      this._currentCategory.category_member_id = null;
       this.timer = new Timer();
     }
     this.classBtn = this.classBtn === 'play-btn' ? 'stop-btn' : 'play-btn';

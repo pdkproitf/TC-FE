@@ -27,7 +27,6 @@ const manageReportRoutes: Routes = [
   { path: 'report-detail/:id/:begin/:end', component: ReportDetailComponent, canActivate: [AuthenLoggedIn] },
   { path: 'report-detail-project/:id/:begin/:end', component: ReportDetailProjectComponent, canActivate: [AuthenLoggedIn] },
   { path: 'report-advance', component: ReportDetailsAdvancesComponent, canActivate: [AuthenLoggedIn] },
-    
 ];
 export const manageReportRouting = RouterModule.forChild(manageReportRoutes);
 @NgModule({

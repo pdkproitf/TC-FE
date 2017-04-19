@@ -124,4 +124,41 @@ export class UserService {
         })
         .catch(error => this.handleError(error));
     }
+
+    forgotPassword(email: string): Promise<any> {
+        let requestUrl = this.serverdomain.domain + '/users/password';
+        let headers = new Headers();
+        this.headersService.createAuthHeaders(headers);
+        let redirectUrl = 'http://localhost:4200/reset-password/';
+        // let redirectUrl = 'https://spring-time-tracker.herokuapp.com/';
+        let userPost = {
+            user: {
+                email: email,
+                redirect_url: redirectUrl
+            }
+        };
+        return this.http
+        .post(requestUrl, JSON.stringify(userPost), {headers: headers})
+        .toPromise()
+        .then(res => res.json().data)
+        .catch(err => this.handleError(err));
+    }
+
+    resetPassword(password: string, confirmationToken: string): Promise<any> {
+        let requestUrl = this.serverdomain.domain + '/users/password';
+        let headers = new Headers();
+        this.headersService.createAuthHeaders(headers);
+        let userPost = {
+            user: {
+                confirmation_token: confirmationToken,
+                password: password,
+                password_confirmation: password
+            }
+        };
+        return this.http
+        .put(requestUrl, JSON.stringify(userPost), {headers: headers})
+        .toPromise()
+        .then(res => res.json())
+        .catch(err => this.handleError(err));
+    }
 }

@@ -1,5 +1,5 @@
-import { UserService } from './../services/user-service';
-import { VerifyEmail, VerifyEmailPost } from './../models/verify-email';
+import { UserService } from '../../services/user-service';
+import { VerifyEmail, VerifyEmailPost } from '../../models/verify-email';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 

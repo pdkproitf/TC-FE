@@ -9,6 +9,8 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'app works!';
   isLoggedIn: boolean = false;
+  currentState = null;
+  typePage = -1;
   constructor(private router: Router) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
@@ -18,9 +20,30 @@ export class AppComponent {
         if (currentUser != null) {
           console.log('logged in');
           this.isLoggedIn = true;
+          if (event.url.includes('dashboard')) {
+            this.currentState = 0;
+          }
+          if (event.url.includes('project')) {
+            this.currentState = 1;
+          }
+          if (event.url.includes('timeoff')) {
+            this.currentState = 2;
+          }
+          if (event.url.includes('report')) {
+            this.currentState = 3;
+          }
+          if (event.url.includes('manage')) {
+            this.currentState = 4;
+          }
         } else {
           console.log('not logged in');
           this.isLoggedIn = false;
+          if (event.url.includes('sign-in')) {
+            this.typePage = 0;
+            }
+          if (event.url.includes('sign-up')) {
+            this.typePage = 1;
+            }
           }
         }
     });
