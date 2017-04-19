@@ -421,7 +421,8 @@ export class DetailDateLogLiComponent implements OnInit {
       || className === 'ui-datepicker-year' || className === 'ui-datepicker-month'
       || className === 'time-picker ng-untouched ng-pristine ng-valid' || className === 'time-picker ng-untouched ng-valid ng-dirty'
       || className === 'time-picker ng-valid ng-dirty ng-touched' || className === 'option start' || className === 'option end'
-      || className === 'earlier' || className === 'later' || className === 'op-name' || className === 'fa fa-check imgspan submit') {
+      || className === 'earlier' || className === 'later' || className === 'op-name' || className === 'fa fa-check imgspan submit'
+      || className === 'time-picker ng-pristine ng-valid ng-touched') {
 
       } else {
         this.divClass[2] = 'hiddenDiv';
