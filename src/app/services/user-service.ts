@@ -129,7 +129,7 @@ export class UserService {
         let requestUrl = this.serverdomain.domain + '/users/password';
         let headers = new Headers();
         this.headersService.createAuthHeaders(headers);
-        let redirectUrl = 'http://localhost:4200/';
+        let redirectUrl = 'http://localhost:4200/reset-password/';
         // let redirectUrl = 'https://spring-time-tracker.herokuapp.com/';
         let userPost = {
             user: {
