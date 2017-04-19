@@ -23,7 +23,6 @@ export class ManageHolidayComponent implements OnInit, OnChanges {
     msgs: Message[] = [];
     /** type of holiday */
     types: SelectItem[] = [];
-    type_selected: string = 'individual';
 
     constructor(private holidayService: HolidayService) {
         this.holidayService.gets().then(
@@ -66,13 +65,10 @@ export class ManageHolidayComponent implements OnInit, OnChanges {
         this.holiday.start = event.date._d;
         this.holiday.end = event.date._d;
         this.showDialog();
-
-        this.type_selected = 'individual';
     }
 
     handleEventClick(event){
         this.initCurrentDate(event.calEvent);
-        this.type_selected = this.holiday.type;
         this.showDialog();
     }
 
@@ -156,7 +152,7 @@ export class ManageHolidayComponent implements OnInit, OnChanges {
         holiday.title = object['name'];
         holiday.start = this.convertdateToString(new Date(object['begin_date']));
         holiday.end = this.convertdateToString(new Date(object['end_date']));
-        holiday.type = object['kind'];
+        holiday.is_repeat = object['is_repeat'];
         return holiday;
     }
 
@@ -184,7 +180,7 @@ export class ManageHolidayComponent implements OnInit, OnChanges {
         data.name = this.holiday.title;
         data.begin_date = new Date(this.holiday.start);
         data.end_date = new Date(this.holiday.end);
-        data.kind = this.type_selected;
+        data.is_repeat = this.holiday.is_repeat
         return data;
     }
 
@@ -199,8 +195,7 @@ export class ManageHolidayComponent implements OnInit, OnChanges {
         this.holiday.title = event.title;
         this.holiday.start = event.start._d;
         this.holiday.end = event._end == null ? event.start._d : event.end._d;
-        this.holiday.type = event.type;
-        this.type_selected = event.type;
+        this.holiday.is_repeat = event.is_repeat;
     }
 
     convertdateToString(date: Date){
@@ -230,11 +225,9 @@ export class ManageHolidayComponent implements OnInit, OnChanges {
             var today = new Date();
             today.setHours(17, 0, 0, 0);
             var holiday = holidays.find(x => new Date(x.start) <= date && new Date(x.end) >= date);
-            if(holidays && holiday){
-                background = 'linear-gradient(rgb(106, 231, 157) 0%, rgb(86, 191, 97) 100%)';
-                if(holiday.type == 'traditional') background = 'linear-gradient(rgb(249, 4, 4) 0%, rgb(229, 0, 0) 100%)';
-                else if (holiday.type == 'international') background = 'rgba(155,89,182,0.8)';
-            }
+            // if(holidays && holiday){
+            //     background = holiday.is_repeat? 'linear-gradient(rgb(106, 231, 157) 0%, rgb(86, 191, 97) 100%)' : 'rgba(155,89,182,0.8)';
+            // }
             if(date.getTime() == today.getTime()) background = 'linear-gradient(rgb(255, 187, 71) 0%, rgb(235, 147, 11) 100%)';
             $(this).css({'background': background})
         });

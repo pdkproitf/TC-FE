@@ -4,7 +4,7 @@ export class Holiday {
     begin_date: Date;
     end_date: Date;
     company_id: number;
-    kind: string;
+    is_repeat: boolean = false;
 }
 
 export class HolidayPost {
@@ -16,5 +16,5 @@ export class HolidaySchedule {
     title: string;
     start: string;
     end: string;
-    type: string;
+    is_repeat: boolean = false;
 }
