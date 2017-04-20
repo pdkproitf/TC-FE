@@ -40,7 +40,7 @@
                         </div>
                     </p-overlayPanel>
                 </div>
-                <div id="timeoff-control-{{timeoff.id}}" class="control-inform" *ngIf="((timeoff.start_date | amDateFormat: 'YYYY-MM-DD') <= (today | amDateFormat: 'YYYY-MM-DD') || timeoff.status == 'pending')">
+                <div id="timeoff-control-{{timeoff.id}}" class="control-inform" *ngIf="((timeoff.start_date | amDateFormat: 'YYYY-MM-DD') <= (today | amDateFormat: 'YYYY-MM-DD') || timeoff.status == 'pending' || user.role.name == 'Admin')">
                     <div class="oval" (click)="delete(timeoff.id)">
                         <div class="text">
                             <i class="fa fa-trash" aria-hidden="true"></i>
