@@ -1,7 +1,6 @@
 import { AuthenHighPM } from './services/authen-high-pm';
 import { AuthenNormalPM } from './services/authen-normal-pm';
 import { AuthenAdmin } from './services/authen-admin';
-import { SettingComponent } from './setting/setting.component';
 import { ProfileComponent } from './profile/profile.component';
 import { NotLoggedIn } from './services/not-logged-in';
 import { AuthenLoggedIn } from './services/authen-logged-in';
@@ -10,7 +9,6 @@ import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
     { path: 'profile', component: ProfileComponent, canActivate: [AuthenLoggedIn] },
-    { path: 'setting', component: SettingComponent, canActivate: [AuthenLoggedIn] },
     // { path: '', component: AppComponent }
     // { path: '', redirectTo: '/home', pathMatch: 'full'}
 ];

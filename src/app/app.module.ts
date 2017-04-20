@@ -49,7 +49,6 @@ import { GradientPipe }     from './pipes/gradient.pipe';
 import { ProfileComponent } from './profile/profile.component';
 import { Ng2CloudinaryModule } from 'ng2-cloudinary';
 import { FileUploadModule } from 'ng2-file-upload';
-import { SettingComponent } from './setting/setting.component';
 import { StickyModule } from 'ng2-sticky-kit/ng2-sticky-kit';
 @NgModule({
   declarations: [
@@ -63,7 +62,6 @@ import { StickyModule } from 'ng2-sticky-kit/ng2-sticky-kit';
     DateToStringWeekDayPipe,
     DateToMDYPipe,
     ProfileComponent,
-    SettingComponent,
   ],
   imports: [
     BrowserModule,

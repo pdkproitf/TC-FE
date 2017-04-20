@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'app works!';
   isLoggedIn: boolean = false;
+  isProfile: boolean = false;
   currentState = null;
   typePage = -1;
   constructor(private router: Router) {
@@ -20,6 +21,7 @@ export class AppComponent {
         if (currentUser != null) {
           console.log('logged in');
           this.isLoggedIn = true;
+          this.isProfile = false;
           if (event.url.includes('dashboard')) {
             this.currentState = 0;
           }
@@ -34,6 +36,9 @@ export class AppComponent {
           }
           if (event.url.includes('manage')) {
             this.currentState = 4;
+          }
+          if (event.url.includes('profile')) {
+            this.isProfile = true;
           }
         } else {
           console.log('not logged in');
