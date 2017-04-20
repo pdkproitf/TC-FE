@@ -21,6 +21,9 @@ export class SignInComponent implements OnInit {
     if (para.companyDomain !== null) {
       this.user.company_domain = para.companyDomain;
     }
+    if (para.email !== null) {
+      this.user.email = para.email;
+    }
   }
 
   log(): void {

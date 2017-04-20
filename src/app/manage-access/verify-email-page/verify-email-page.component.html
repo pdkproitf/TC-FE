@@ -1,3 +1,18 @@
-<p>
-  verify-email-page works!
-</p>
+<!--<app-marketing-menu-bar typePage=0></app-marketing-menu-bar>-->
+<div class="image">
+  <img src="assets/image-screen/element_logo_icon-white@2x.png">
+</div>
+<div class="container form-container">
+  <button (click)="signIn()" class="asking" type="button">Sign In</button>
+  <p class="asking">Already have an account?</p>
+  <br><br><br><br><br><br>
+  <h2>Get started absolutely free.</h2>
+  <p class="des">Free forever. No credit card needed.</p>
+  <h4>Welcome to TimeCloud</h4>
+  <br><br><br>  
+  <br/>
+  <h2>Congratulation !</h2>
+  <p> You have successfully verified your email. Now you can <a routerLink="/sign-in/{{companyDomain}}/{{email}}">Sign In</a>
+  under the company domain "<strong>{{companyDomain}}</strong>" by your email: <strong>{{email}}</strong></p>
+</div>
+<p-growl [value]="msgs"></p-growl>

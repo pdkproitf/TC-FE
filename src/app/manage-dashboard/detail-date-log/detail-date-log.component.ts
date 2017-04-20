@@ -25,15 +25,19 @@ export class DetailDateLogComponent implements OnInit {
   emitStart = new EventEmitter<TimerFetch>();
   @Output()
   emitEdit = new EventEmitter<boolean>();
+  @Output()
+  emitDate = new EventEmitter<Date>();
   @Input()
   set weekAnchor(arg) {
+    if (!this.isStartWeekDayLoaded){
+      return;
+    }
     this.thisWeek();
     this._weekAnchor = arg;
     this.firstWeekDay = arg[0];
     this.lastWeekDay = arg[1];
     this.firstString = this.dateToShortString(this.firstWeekDay);
     this.lastString = this.dateToShortString(this.lastWeekDay);
-
     let curr = new Date();
     this.currentDateString = this.dateToShortString(curr);
     let number = curr.getDay() - this._startWeekDay;
@@ -41,12 +45,13 @@ export class DetailDateLogComponent implements OnInit {
     let chosenDate = new Date(firstDateTmp.setDate(this.firstWeekDay.getDate() + number));
     this.timerFetchService.getTimerFetch(this.firstString, this.lastString)
     .then(res => {
-      console.log(res);
+      // console.log(res);
       this.fullWeekTimer = res;
       let chooseString = this.dateToShortString(chosenDate);
       this.currentTimers = this.fullWeekTimer[chooseString];
       this.generateTotalTime();
       this.setActiveDay(number);
+      // console.log('set active weekanchor:' + number);
     })
     .catch(err => {
       console.log(err);
@@ -60,6 +65,7 @@ export class DetailDateLogComponent implements OnInit {
   @Input()
   recentTasks: TimerFetch[] = [];
   endLastTimer: Date;
+  isStartWeekDayLoaded: boolean = false;
   @Input()
   set startWeekDay(value) {
     this._startWeekDay = value;
@@ -69,17 +75,18 @@ export class DetailDateLogComponent implements OnInit {
       let curr = new Date();
       this.currentDateString = this.dateToShortString(curr);
       let number = curr.getDay() - this._startWeekDay;
-      console.log('new thing happen: ' + number);
       let firstDateTmp = new Date(this.firstWeekDay);
       let chosenDate = new Date(firstDateTmp.setDate(this.firstWeekDay.getDate() + number));
       this.timerFetchService.getTimerFetch(this.firstString, this.lastString)
       .then(res => {
-        console.log(res);
+        // console.log(res);
         this.fullWeekTimer = res;
         let chooseString = this.dateToShortString(chosenDate);
         this.currentTimers = this.fullWeekTimer[chooseString];
         this.generateTotalTime();
         this.setActiveDay(number);
+        // console.log('set active weekstartday:' + number);
+        this.isStartWeekDayLoaded = true;
       })
       .catch(err => {
         console.log(err);
@@ -97,7 +104,7 @@ export class DetailDateLogComponent implements OnInit {
     this.thisWeek();
     this.timerFetchService.getTimerFetch(this.firstString, this.lastString)
     .then(res => {
-      console.log(res);
+      // console.log(res);
       this.fullWeekTimer = res;
       let chooseString = this.dateToShortString(curr);
       if (this.fullWeekTimer[chooseString] === undefined) {
@@ -133,6 +140,7 @@ export class DetailDateLogComponent implements OnInit {
     let chosenDate = new Date(this.firstWeekDay);
     chosenDate.setDate(day);
     console.log(chosenDate);
+    this.emitDate.emit(chosenDate);
     let chosenString = this.dateToShortString(chosenDate);
     if (this.fullWeekTimer[chosenString] === undefined) {
       this.fullWeekTimer[chosenString] = [];
@@ -153,10 +161,10 @@ export class DetailDateLogComponent implements OnInit {
     for (let i = 0; i < 8; i++) {
       this.classDay[i] = '';
     }
-    let curr = arg;
+    /*let curr = arg;
     let curr1 = new Date(curr);
     let curr2 = new Date(curr);
-    this.classDay[curr.getDay()] = 'active';
+    this.classDay[curr.getDay() - this._startWeekDay] = 'active';
     let first = curr1.getDate() - curr1.getDay();
     this.firstWeekDay = new Date(curr1.setDate(first));
     this.lastWeekDay = new Date(curr2.setDate(first + 6));
@@ -170,11 +178,48 @@ export class DetailDateLogComponent implements OnInit {
         this.fullWeekTimer[chooseString] = [];
       }
       this.currentTimers = this.fullWeekTimer[chooseString];
+      console.log('chooseing string: ' + chooseString);
+      this.generateTotalTime();
+    })
+    .catch(err => {
+      console.log(err);
+    });*/
+    // this.thisWeek();
+    // this._weekAnchor = arg;
+    let curr = new Date(arg);
+    this.firstWeekDay = new Date(arg);
+    this.lastWeekDay = new Date(arg);
+    let first = curr.getDate() - curr.getDay() + this._startWeekDay;
+    if (curr.getDay() === 0 && this._startWeekDay === 1){
+      first -= 7;
+    }
+    // console.log('set date: ' + curr.getDay());
+    let last = first + 6;
+    this.firstWeekDay.setDate(first);
+    this.lastWeekDay.setDate(last);
+
+    this.firstString = this.dateToShortString(this.firstWeekDay);
+    this.lastString = this.dateToShortString(this.lastWeekDay);
+    // console.log('time span: ' + this.firstString + this.lastString);
+    this.currentDateString = this.dateToShortString(curr);
+    let number = curr.getDay() - this._startWeekDay;
+    if (number === -1) {
+      number = 6;
+    }
+    let firstDateTmp = new Date(this.firstWeekDay);
+    let chosenDate = new Date(firstDateTmp.setDate(this.firstWeekDay.getDate() + number));
+    this.timerFetchService.getTimerFetch(this.firstString, this.lastString)
+    .then(res => {
+      // console.log(res);
+      this.fullWeekTimer = res;
+      let chooseString = this.dateToShortString(chosenDate);
+      this.currentTimers = this.fullWeekTimer[chooseString];
+      this.generateTotalTime();
+      this.setActiveDay(number);
     })
     .catch(err => {
       console.log(err);
     });
-    this.generateTotalTime();
   }
 
   onDelete(id) {
@@ -201,11 +246,13 @@ export class DetailDateLogComponent implements OnInit {
       this.timeSeconds[i] = 0;
       this.time[i] = '00:00:00';
     }
+    let startWeek = this._startWeekDay;
     for ( let i = 0; i < 7; i++) {
       let date = new Date(this.firstWeekDay);
       date.setDate(this.firstWeekDay.getDate() + i);
       let stringDate = this.dateToShortString(date);
       let arrayTimer = this.fullWeekTimer[stringDate];
+      let realIndex = i - this.startWeekDay;
       this.timeSeconds[i] = this.totalTimeInDate(arrayTimer);
       this.timeSeconds[7] += this.timeSeconds[i];
       this.time[i] = this.secondToTime(this.timeSeconds[i]);

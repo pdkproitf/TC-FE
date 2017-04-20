@@ -1,5 +1,5 @@
 import { TimerFetchService } from '../../services/timer-fetch-service';
-import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-date-log',
@@ -30,6 +30,7 @@ export class DateLogComponent implements OnInit {
     return this._startWeekDay;
   }
   _startWeekDay = 0;
+  @ViewChild('calendar')calendar;
   constructor(private timerFetchService: TimerFetchService) { }
 
   ngOnInit() {
@@ -65,6 +66,9 @@ export class DateLogComponent implements OnInit {
     let curr1 = new Date(curr);
     let curr2 = new Date(curr);
     let first = curr.getDate() - curr.getDay() + this.startWeekDay;
+    if (curr.getDay() === 0 && this._startWeekDay === 1){
+      first -= 7;
+    }
     let last = first + 6;
 
     this.firstDate = new Date(curr1.setDate(first));
@@ -76,6 +80,7 @@ export class DateLogComponent implements OnInit {
     this.firstWeekMonth = this.monthsName[this.firstDate.getMonth()];
     this.lastWeekDate = this.lastDate.getDate();
     this.lastWeekMonth = this.monthsName[this.lastDate.getMonth()];
+    this.calendar.inputFieldValue = this.dateToDMY(this.chosenDate);
   }
 
   nextWeek() {
@@ -87,6 +92,9 @@ export class DateLogComponent implements OnInit {
     let curr1 = new Date(curr);
     let curr2 = new Date(curr);
     let first = curr.getDate() - curr.getDay() + this.startWeekDay;
+    if (curr.getDay() === 0 && this._startWeekDay === 1){
+      first -= 7;
+    }
     let last = first + 6;
 
     this.firstDate = new Date(curr1.setDate(first));
@@ -98,12 +106,14 @@ export class DateLogComponent implements OnInit {
     this.firstWeekMonth = this.monthsName[this.firstDate.getMonth()];
     this.lastWeekDate = this.lastDate.getDate();
     this.lastWeekMonth = this.monthsName[this.lastDate.getMonth()];
+    this.calendar.inputFieldValue = this.dateToDMY(this.chosenDate);
   }
 
   emitChosenDate(arg) {
     // console.log(this.chosenDate);
     this.currentDate = new Date(this.chosenDate);
     this.outSpecificDate.emit(this.currentDate);
+    this.generateTheWeekForTheDate();
   }
 
   emitChosenDate0(arg) {
@@ -113,7 +123,35 @@ export class DateLogComponent implements OnInit {
       // console.log(this.chosenDate);
       this.currentDate = new Date(this.chosenDate);
       this.outSpecificDate.emit(this.currentDate);
+      this.generateTheWeekForTheDate();
     }
+  }
+
+  generateTheWeekForTheDate() {
+    let curr = new Date(this.chosenDate);
+    let curr1 = new Date(curr);
+    let curr2 = new Date(curr);
+    let first = curr.getDate() - curr.getDay() + this.startWeekDay;
+    if (curr.getDay() === 0 && this._startWeekDay === 1){
+      first -= 7;
+    }
+    let last = first + 6;
+    this.firstDate = new Date(curr1.setDate(first));
+    this.lastDate = new Date(curr2.setDate(last));
+
+    this.firstWeekDate = this.firstDate.getDate();
+    this.firstWeekMonth = this.monthsName[this.firstDate.getMonth()];
+    this.lastWeekDate = this.lastDate.getDate();
+    this.lastWeekMonth = this.monthsName[this.lastDate.getMonth()];
+  }
+  dateToDMY(date: Date): string{
+    let dateString = (date.getDate() < 10) ? '0' + date.getDate().toString() : date.getDate().toString();
+    let monthString = (date.getMonth() + 1 < 10) ? '0' + (date.getMonth() + 1).toString() : (date.getMonth() + 1).toString();
+    let yearString = date.getFullYear().toString();
+    return dateString + '/' + monthString + '/' + yearString;
+  }
+  setDateField(date: Date){
+    this.calendar.inputFieldValue = this.dateToDMY(date);
   }
 
 }

@@ -11,6 +11,7 @@ import { Component, OnInit } from '@angular/core';
 export class ForgotPasswordComponent implements OnInit {
   email: string;
   msgs: Message[] = [];
+  isSubmitted: boolean = false;
   constructor(private router: Router, private userService: UserService) { }
 
   ngOnInit() {
@@ -22,7 +23,10 @@ export class ForgotPasswordComponent implements OnInit {
 
   forgotPassword() {
     this.userService.forgotPassword(this.email)
-    .then(res => console.log(res))
+    .then(res => {
+      console.log(res);
+      this.isSubmitted = true;
+    })
     .catch(error => {
       let content = JSON.parse(error['_body']).error;
       this.msgs = [];
