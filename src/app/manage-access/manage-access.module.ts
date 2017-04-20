@@ -24,12 +24,13 @@ const manageAccessRoutes: Routes = [
   { path: 'sign-up/:token/:companyName/:companyDomain', component: SignUpComponent, canActivate: [NotLoggedIn] },
   { path: 'sign-in', component: SignInComponent, canActivate: [NotLoggedIn] },
   { path: 'sign-in/:companyDomain', component: SignInComponent, canActivate: [NotLoggedIn] },
+  { path: 'sign-in/:companyDomain/:email', component: SignInComponent, canActivate: [NotLoggedIn] },
   { path: '', component: MarketingPageComponent, canActivate: [NotLoggedIn] },
-  { path: 'verify-email/:text', component: VerifyEmailPageComponent, canActivate: [NotLoggedIn] },
+  { path: 'verify-email/:companyDomain/:email', component: VerifyEmailPageComponent, canActivate: [NotLoggedIn] },
   { path: 'members-confirm/:token', component: MembersConfirmComponent, canActivate: [AuthenLoggedIn] },
   { path: 'invites-confirm/:token/:name/:domain', component: InvitesConfirmComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent, canActivate: [NotLoggedIn] },
-  { path: 'reset-password', component: ResetPasswordComponent, canActivate: [NotLoggedIn] },
+  { path: 'reset-password/:token', component: ResetPasswordComponent, canActivate: [NotLoggedIn] },
 ];
 export const manageAccessRouting = RouterModule.forChild(manageAccessRoutes);
 @NgModule({
