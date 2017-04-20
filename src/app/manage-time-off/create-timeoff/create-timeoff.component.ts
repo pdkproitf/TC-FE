@@ -128,11 +128,21 @@ export class CreateTimeoffComponent implements OnInit {
         this.timeoffService.getTimeOff(id).then(
             (result) => {
                 this.initValueEdit(result);
+                this.removeMindate(result);
             },
             (error) =>  {
                 this.noticeMessage(JSON.parse(error['_body']).error);
             }
         )
+    }
+
+    removeMindate(timeoff: TimeOff){
+        let userInfo = localStorage.getItem('UserInfo');
+        var member = JSON.parse(userInfo);
+        if((member.role.name == 'Admin' || member.role.name == 'PM') && (timeoff.sender_id != member.id)){
+            this.minDateValue = null;
+            this.today = null;
+        }
     }
 
     initValueEdit(timeoff: TimeOff){
