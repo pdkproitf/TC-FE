@@ -5,13 +5,13 @@
 <div class="below">
     <app-project-field-list (outCategory)="selectCategory($event)" (outProjectJoins)="getProjectJoins($event)"
     [currentCategory]="currentCategory"></app-project-field-list>
-    <app-date-log (outDates)="getDates($event)" (outSpecificDate)="detailDateLog.setDate($event)" [startWeekDay]="startWeekDay">
+    <app-date-log #dateLog (outDates)="getDates($event)" (outSpecificDate)="detailDateLog.setDate($event)" [startWeekDay]="startWeekDay">
     </app-date-log>
     <br/>
 </div>
 <div class="beneath">
-    <app-detail-date-log #detailDateLog [weekAnchor]="weekAnchor" (emitStart)="timeTrackBar.getTimerFetchStart($event)" (emitEdit)="getRecentTask(10)"
-    [projectJoins]="projectJoins" [recentTasks]="recentTasks" [startWeekDay]="startWeekDay" #detailDateLog></app-detail-date-log>
+    <app-detail-date-log [weekAnchor]="weekAnchor" (emitStart)="timeTrackBar.getTimerFetchStart($event)" (emitEdit)="getRecentTask(10)"
+    [projectJoins]="projectJoins" [recentTasks]="recentTasks" [startWeekDay]="startWeekDay" (emitDate)="dateLog.setDateField($event)" #detailDateLog></app-detail-date-log>
 </div>
 <div class="end-page">
 </div>

@@ -12,6 +12,7 @@ export class ResetPasswordComponent implements OnInit {
   msgs: Message[] = [];
   password: string = '';
   token: string = '';
+  isSubmitted: boolean = false;
   constructor(private router: Router, private route: ActivatedRoute,
   private userService: UserService) { }
 
@@ -25,14 +26,15 @@ export class ResetPasswordComponent implements OnInit {
     this.router.navigate(['sign-up']);
   }
 
-  resetPassword(){
+  resetPassword() {
     this.userService.resetPassword(this.password, this.token)
     .then(res => {
       console.log(res);
+      this.isSubmitted = true;
     })
     .catch(err => {
       console.log(err);
-    })
+    });
   }
 
 }
