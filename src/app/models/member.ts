@@ -17,7 +17,7 @@ class UserMember {
 }
 export class Member {
     company: Company;
-    furlough_total: number;
+    total_day_off: number;
     id: number;
     role: RoleMember;
     user: UserMember;
@@ -27,7 +27,7 @@ export class Member {
 
 export class MemberTrackTime {
     company: Company;
-    furlough_total: number;
+    total_day_off: number;
     id: number;
     role: RoleMember;
     user: UserMember;
@@ -36,7 +36,7 @@ export class MemberTrackTime {
     tracked_time: number = 0;
     constructor(member: Member) {
         this.company = member.company;
-        this.furlough_total = member.furlough_total;
+        this.total_day_off = member.total_day_off;
         this.id = member.id;
         this.role = member.role;
         this.user = member.user;

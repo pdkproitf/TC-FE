@@ -180,6 +180,10 @@ export class ManageHolidayComponent implements OnInit, OnChanges {
         data.name = this.holiday.title;
         data.begin_date = new Date(this.holiday.start);
         data.end_date = new Date(this.holiday.end);
+
+        data.begin_date.setHours(0, 0, 0, 0);
+        data.end_date.setHours(0, 0, 0, 0);
+
         data.is_repeat = this.holiday.is_repeat
         return data;
     }
@@ -200,7 +204,7 @@ export class ManageHolidayComponent implements OnInit, OnChanges {
 
     convertdateToString(date: Date){
         var year = date.getFullYear();
-        var month = date.getUTCMonth() > 9 ? (date.getUTCMonth() + 1) : '0' + (date.getUTCMonth() + 1);
+        var month = date.getMonth() > 9 ? (date.getMonth() + 1) : '0' + (date.getMonth() + 1);
         var day = date.getDate() > 9 ? date.getDate() : '0' + date.getDate();
         return year + '-' + month + '-' + day + 'T10:00:00';
     }
