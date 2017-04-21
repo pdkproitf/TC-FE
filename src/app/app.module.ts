@@ -1,3 +1,4 @@
+import { SharedModulesModule } from './shared-modules/shared-modules.module';
 import { ManageAccessModule } from './manage-access/manage-access.module';
 import { ManageDashboardModule } from './manage-dashboard/manage-dashboard.module';
 import { ManageReportModule } from './manage-report/manage-report.module';
@@ -80,7 +81,8 @@ import { StickyModule } from 'ng2-sticky-kit/ng2-sticky-kit';
     ManageTimeOffModule,
     ManageReportModule,
     ManageDashboardModule,
-    ManageAccessModule
+    ManageAccessModule,
+    SharedModulesModule
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
   AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService,

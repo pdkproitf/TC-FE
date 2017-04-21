@@ -1,7 +1,8 @@
 <div (mousedown)="detailDateLog.showEvent($event)">
 <!--<app-member-menu-bar [currentState]="0"></app-member-menu-bar>-->
-<app-time-track-bar [currentCategory]="currentCategory" [projectJoins]="projectJoins" #timeTrackBar
+<app-time-track-bar [currentCategory]="currentCategory" [projectJoins]="projectJoins" #timeTrackBar (emitLoading)="isLoading = $event;"
 (outCategory)="selectCategory($event)" [recentTasks]="recentTasks" (addedTimer)="detailDateLog.addTimer($event); getRecentTask(10)"></app-time-track-bar>
+<app-loading-screen *ngIf="isLoading"></app-loading-screen>
 <div class="below">
     <app-project-field-list (outCategory)="selectCategory($event)" (outProjectJoins)="getProjectJoins($event)"
     [currentCategory]="currentCategory"></app-project-field-list>
@@ -16,3 +17,4 @@
 <div class="end-page">
 </div>
 </div>
+

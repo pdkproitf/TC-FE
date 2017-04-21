@@ -3,7 +3,7 @@
     <li *ngFor="let day of days; let i = index;" [class]="classDay[i]" (click)="setActiveDay(i)"><p>{{day}}</p><p>{{time[i]}}</p></li>
   </ul>
 </div><br/><br/>
-<div class="tasks-container">
+<div *ngIf="!isLoading" class="tasks-container">
     <ul class="tasks-in-date">
         <li *ngFor="let timer of currentTimers; let id = index;"><app-detail-date-log-li #logLi [timerFetch]="timer"
           [projectJoins]="projectJoins" [recentTasks]="recentTasks" [endLastTimer]="endLastTimer" (timeEditedEmit)="refreshAfterEdit($event)"
@@ -11,3 +11,4 @@
         </li>
     </ul>
 </div>
+<app-loading-screen *ngIf="isLoading"></app-loading-screen>

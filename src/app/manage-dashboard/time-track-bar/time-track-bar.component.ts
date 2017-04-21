@@ -28,7 +28,8 @@ export class TimeTrackBarComponent implements OnInit, OnDestroy {
   startDateTime: Date;
   lastEndDateTime: Date;
   optionStartTime: Date[] = [new Date(), new Date(), new Date(), new Date(), new Date()];
-
+  @Output()
+  emitLoading = new EventEmitter<boolean>();
   @Input()
   set currentCategory(curCat: CategoryInProject) {
     if (this.description === '' && this.taskString === '' && this.classBtn === 'stop-btn') {
@@ -234,6 +235,7 @@ export class TimeTrackBarComponent implements OnInit, OnDestroy {
     }
     this.timer.task_name = this.description;
     this.timerPost.timer = this.timer;
+    this.emitLoading.emit(true);
     this.timerService.addNewTimer(this.timerPost)
     .then(res => {
       console.log(res);
@@ -242,11 +244,13 @@ export class TimeTrackBarComponent implements OnInit, OnDestroy {
       let content = 'New Time Tracked';
       this.msgs = [];
       this.msgs.push({severity: 'success', summary: 'Success', detail: content});
+      this.emitLoading.emit(false);
     })
     .catch(err => {
       let content = JSON.parse(err['_body']).error;
       this.msgs = [];
       this.msgs.push({severity: 'error', summary: 'Error', detail: content});
+      this.emitLoading.emit(false);
     });
   }
 

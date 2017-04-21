@@ -14,6 +14,8 @@ tr{
         &.task-name{
             padding-left: 4%;
             width: 40%;
+            white-space: nowrap;
+            overflow-x: hidden;
         }
         &.pro-cat{
             width: 55%;
@@ -26,6 +28,7 @@ tr{
             }
         }
         &.play-btn{
+            max-width: 99%;
             .show{
                 .ui-button{
                 background: transparent;
