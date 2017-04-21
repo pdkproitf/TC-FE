@@ -16,9 +16,10 @@ export class TimeoffPassRequestsComponent implements OnInit {
 
     /** numof timeoff pending show in a page*/
     rowOfPage: number = 8;
+    timeoffRequest: number;
 
     constructor(private timeoffService: TimeoffService) {
-        this.getTimeOffsPending();
+        this.getTimeOffs();
     }
 
     ngOnInit() {
@@ -31,11 +32,31 @@ export class TimeoffPassRequestsComponent implements OnInit {
     //@param void
     //@result
     ////
-    getTimeOffsPending(){
+    getTimeOffs(){
         this.timeoffService.getAllTimeOffs().then(
             (result) => {
                 this.list_timeoff = result;
                 this._timeoffs = this.list_timeoff;
+            },
+            (error) => {
+                // alert(error);
+                console.log('error',error);
+            }
+        );
+        this.timeoffPendingRequest();
+    }
+
+    ////
+    //@function timeoffPendingRequest
+    //@desc get num of timeoff pending request
+    //@param void
+    //@result
+    ////
+    timeoffPendingRequest(){
+        var this_year = new Date(new Date().getFullYear(), 0, 1);
+        this.timeoffService.getNumTimeoffsPending(this_year,new Date()).then(
+            (result) => {
+                this.timeoffRequest = parseInt(result + '');
             },
             (error) => {
                 // alert(error);

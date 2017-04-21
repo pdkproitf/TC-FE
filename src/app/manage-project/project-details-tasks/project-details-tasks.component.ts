@@ -10,7 +10,7 @@ declare var $:any;
 export class ProjectDetailsTasksComponent implements OnInit, OnChanges {
     is_show_project_categoy_details: Map<Number, boolean> = new Map<Number, boolean>();
     /** limit num of member will be show in each task */
-    num_of_member_show: number = 3;
+    num_of_member_show: number = 5;
     /** map constraint num_of_user_show in each task */
     num_of_user_show: Map<Number, Number> = new Map<Number, Number>();
 

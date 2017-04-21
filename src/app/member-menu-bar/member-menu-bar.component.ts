@@ -28,11 +28,6 @@ export class MemberMenuBarComponent implements OnInit {
     timeoffRequest: number = 0;
     timeoffBacground: string = ' ';
 
-    @Input()
-    set timeoffRequestUpdate(data: number){
-        if(data) this.timeoffRequest = data;
-    }
-
     constructor(private router: Router, private userService: UserService, private timeoffService: TimeoffService) { }
 
     ngOnInit() {
@@ -98,11 +93,15 @@ export class MemberMenuBarComponent implements OnInit {
     }
 
     showTimeoffRequest(){
-        this.timeoffPendingRequest();
+        let userInfo = localStorage.getItem('UserInfo');
+        let userObj = JSON.parse(userInfo);
+
+        if(userObj.role.name == 'Admin' || userObj.role.name == 'PM') this.timeoffPendingRequest();
         if(this.currentState == 2) this.timeoffBacground += 'timeoff-bacground-yellow';
     }
 
     timeoffPendingRequest(){
+        console.log('this.isAdmin', this.isAdmin, 'this.is_pm', this.isPM)
         var this_year = new Date(new Date().getFullYear(), 0, 1);
         this.timeoffService.getNumTimeoffsPending(this_year,new Date()).then(
             (result) => {
