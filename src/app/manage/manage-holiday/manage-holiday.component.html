@@ -1,7 +1,8 @@
 <div class="content">
     <p-schedule [events]="holidays" [header]="headerConfig"  [editable]="true" locale="en"
         (onDayClick)="handleDayClick($event); " (onEventClick)="handleEventClick($event); "
-        (onEventDragStop)="onEventDragStop($event)" (onEventResizeStop)="onEventResizeStop($event)">
+        (onEventDragStop)="onEventDragStop($event)" (onEventResizeStop)="onEventResizeStop($event)"
+        (onViewRender)="fillCelBackground()">
     </p-schedule>
 
     <div class="calendar-note">

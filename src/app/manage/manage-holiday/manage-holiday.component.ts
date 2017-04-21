@@ -220,6 +220,10 @@ export class ManageHolidayComponent implements OnInit, OnChanges {
         this.holidays.splice(index, 1);
     }
 
+    ngAfterViewChecked(){
+        this.fillCelBackground();
+    }
+
     fillCelBackground() {
         var holidays = this.holidays;
         $('.fc-day').each(function(){
