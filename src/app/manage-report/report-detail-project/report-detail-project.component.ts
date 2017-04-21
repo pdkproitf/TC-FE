@@ -205,7 +205,7 @@ export class ReportDetailProjectComponent implements OnInit {
     hours = Math.round(hours * 100) / 100;
     return hours;
   }
-
+  isLoading = false;
   newRange(arg) {
     this.labels = [];
     this.billables = [];
@@ -220,6 +220,7 @@ export class ReportDetailProjectComponent implements OnInit {
     this.to = end;
     this.isLoaded = false;
     this.router.navigate(['report-detail-project', id, begin, end]);
+    this.isLoading = true;
     this.reportService.getReportDetailProject(begin, end, id)
     .then(res => {
       console.log(res);
@@ -253,9 +254,11 @@ export class ReportDetailProjectComponent implements OnInit {
       this.options.scales.yAxes[0].ticks.max = maxY;
       this.options.scales.yAxes[0].ticks.stepSize = step;
       this.isLoaded = true;
+      this.isLoading = false;
     })
     .catch(error => {
       console.log(error);
+      this.isLoading = false;
     });
   }
   findProject(id, projects) {
@@ -426,6 +429,7 @@ export class ReportDetailProjectComponent implements OnInit {
 
   intervalVar;
   public preparePdf() {
+    this.isLoading = true;
     this.navClass[0] = 'choosing';
     this.navClass[1] = 'choosing';
     this.intervalVar = setInterval(() => {
@@ -561,6 +565,7 @@ export class ReportDetailProjectComponent implements OnInit {
       if (isLoaded1 && isLoaded2 && isLoaded3 && categoriesLoaded[lenCategories - 1]) {
         doc.save('report-for-project-' + this.project.name + '.pdf');
         this.navClass[1] = '';
+        this.isLoading = false;
         clearInterval(interval);
       } else {}
     }, 100);

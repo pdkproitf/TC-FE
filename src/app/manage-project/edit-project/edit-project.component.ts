@@ -44,6 +44,9 @@ export class EditProjectComponent implements OnInit {
   displayTaskAdd: boolean = false;
   member_ids_array = [];
 
+  isLoading = false;
+  isLoading0 = false;
+
   constructor( private projectService: ProjectService, private route: ActivatedRoute,
   private router: Router, private location: Location, private clientService: ClientService,
   private membershipService: MembershipService) { }
@@ -51,7 +54,7 @@ export class EditProjectComponent implements OnInit {
   ngOnInit() {
     let para = this.route.params['_value'].id;
     console.log(para);
-
+    this.isLoading = true;
     this.clientService.getAllClient()
     .then(res => {
       let len = res.length;
@@ -61,16 +64,37 @@ export class EditProjectComponent implements OnInit {
           this.currentClients.push(res[i]);
         }
       }
+      this.isLoading = false;
     })
-    .catch(error => console.log(error));
-
+    .catch(error => {
+      console.log(error);
+      this.isLoading = false;
+      }
+    );
+    this.isLoading0 = true;
     this.membershipService.getAllMembership()
     .then(res => {
       this.members = res;
       this.membersSearch = this.members;
+      this.isLoading0 = false;
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      console.log(err);
+      this.isLoading0 = false;
+    });
 
+    let varIn = setInterval(() => {
+      if (!this.isLoading && !this.isLoading0) {
+        this.getCurrentProject(para);
+        clearInterval(varIn);
+      } else {}
+    }
+    , 200);
+
+  }
+
+  getCurrentProject(para) {
+    this.isLoading = true;
     this.projectService.getProject(para)
     .then(res => {
       this.currentProject = res;
@@ -81,12 +105,11 @@ export class EditProjectComponent implements OnInit {
       this.fetchExistingMembers();
       this.fetchExistingCategories();
       this.fetchMemberIds();
-
+      this.isLoading = false;
     })
     .catch(err => {
-      // let content = JSON.parse(err['_body']).error;
-      // alert(content);
       console.log(err);
+      this.isLoading = false;
     });
   }
 
@@ -165,12 +188,15 @@ export class EditProjectComponent implements OnInit {
     this.updateMemberRoleToProject();
     this.updateCategoriesToProject();
     this.projectPost.project = this.project;
+    this.isLoading = true;
     this.projectService.editProject(this.currentProject.id, this.projectPost)
     .then(res => {
+      this.isLoading = false;
       console.log(res);
       this.router.navigate(['projects']);
     })
     .catch(error => {
+      this.isLoading = false;
       let content = JSON.parse(error['_body']).error;
       this.msgs = [];
       this.msgs.push({severity: 'error', summary: 'Error', detail: content});
@@ -190,14 +216,17 @@ export class EditProjectComponent implements OnInit {
 
   onSubmitClient() {
     this.clientPost.client = this.client;
+    this.isLoading = true;
     this.clientService.addClient(this.clientPost)
     .then(res => {
+      this.isLoading = false;
       console.log(res);
       this.display = false;
       this.currentClients.push(res);
       this.project.client_id = res.id;
     })
     .catch(error => {
+      this.isLoading = false;
       console.log(error);
       let content = JSON.parse(error['_body']).error;
       this.msgs = [];

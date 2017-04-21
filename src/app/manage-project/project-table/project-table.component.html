@@ -74,3 +74,4 @@
     </div>
     <div *ngIf="_projects.length > rowOfPage" ><p-paginator rows="{{rowOfPage}}" totalRecords="{{_projects.length}}" (onPageChange)="paginates($event)" ></p-paginator></div>
 </div>
+<app-loading-screen *ngIf="isLoading"></app-loading-screen>

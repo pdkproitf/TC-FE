@@ -21,6 +21,7 @@ export class DetailDateLogComponent implements OnInit {
   lastString: string;
   currentDateString: string;
   _weekAnchor: Date[] = [];
+  isLoading = false;
   @Output()
   emitStart = new EventEmitter<TimerFetch>();
   @Output()
@@ -43,6 +44,7 @@ export class DetailDateLogComponent implements OnInit {
     let number = curr.getDay() - this._startWeekDay;
     let firstDateTmp = new Date(this.firstWeekDay);
     let chosenDate = new Date(firstDateTmp.setDate(this.firstWeekDay.getDate() + number));
+    this.isLoading = true;
     this.timerFetchService.getTimerFetch(this.firstString, this.lastString)
     .then(res => {
       // console.log(res);
@@ -52,9 +54,11 @@ export class DetailDateLogComponent implements OnInit {
       this.generateTotalTime();
       this.setActiveDay(number);
       // console.log('set active weekanchor:' + number);
+      this.isLoading = false;
     })
     .catch(err => {
       console.log(err);
+      this.isLoading = false;
     });
   }
   get weekAnchor() {
@@ -77,6 +81,7 @@ export class DetailDateLogComponent implements OnInit {
       let number = curr.getDay() - this._startWeekDay;
       let firstDateTmp = new Date(this.firstWeekDay);
       let chosenDate = new Date(firstDateTmp.setDate(this.firstWeekDay.getDate() + number));
+      this.isLoading = true;
       this.timerFetchService.getTimerFetch(this.firstString, this.lastString)
       .then(res => {
         // console.log(res);
@@ -87,9 +92,11 @@ export class DetailDateLogComponent implements OnInit {
         this.setActiveDay(number);
         // console.log('set active weekstartday:' + number);
         this.isStartWeekDayLoaded = true;
+        this.isLoading = false;
       })
       .catch(err => {
         console.log(err);
+        this.isLoading = false;
       });
     }
   }
@@ -102,7 +109,7 @@ export class DetailDateLogComponent implements OnInit {
   ngOnInit() {
     let curr = new Date();
     this.thisWeek();
-    this.timerFetchService.getTimerFetch(this.firstString, this.lastString)
+    /*this.timerFetchService.getTimerFetch(this.firstString, this.lastString)
     .then(res => {
       // console.log(res);
       this.fullWeekTimer = res;
@@ -115,7 +122,7 @@ export class DetailDateLogComponent implements OnInit {
     })
     .catch(err => {
       console.log(err);
-    });
+    });*/
     this.endLastTimer = new Date();
   }
   thisWeek() {
@@ -208,6 +215,7 @@ export class DetailDateLogComponent implements OnInit {
     }
     let firstDateTmp = new Date(this.firstWeekDay);
     let chosenDate = new Date(firstDateTmp.setDate(this.firstWeekDay.getDate() + number));
+    this.isLoading = true;
     this.timerFetchService.getTimerFetch(this.firstString, this.lastString)
     .then(res => {
       // console.log(res);
@@ -216,9 +224,11 @@ export class DetailDateLogComponent implements OnInit {
       this.currentTimers = this.fullWeekTimer[chooseString];
       this.generateTotalTime();
       this.setActiveDay(number);
+      this.isLoading = false;
     })
     .catch(err => {
       console.log(err);
+      this.isLoading = false;
     });
   }
 
@@ -297,8 +307,10 @@ export class DetailDateLogComponent implements OnInit {
     if (event) {
       let curr = new Date();
       let day = curr.getDay() - this._startWeekDay;
+      this.isLoading = true;
       this.timerFetchService.getTimerFetch(this.firstString, this.lastString)
       .then(res => {
+        this.isLoading = false;
         console.log(res);
         this.fullWeekTimer = res;
         let chooseString = this.dateToShortString(curr);
@@ -311,6 +323,7 @@ export class DetailDateLogComponent implements OnInit {
         })
       .catch(err => {
         console.log(err);
+        this.isLoading = false;
       });
     }
     this.emitEdit.emit(event);

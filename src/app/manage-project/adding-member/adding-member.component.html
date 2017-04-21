@@ -13,8 +13,8 @@
     <div [class]="classDiv">
       <table class="member-list">
                 <tr *ngFor="let em of employeePostsSearch; let i = index;" (mousedown)="addEmployee(em)">
-                    <td class="avatar" *ngIf="em.image != null"><img src="{{em.image}}"></td>
-                    <td class="avatar" *ngIf="em.image == null"><img src="assets/image-profile/default-avatar.png"></td>
+                    <td class="avatar" *ngIf="em.user.image != null"><img src="{{em.user.image}}"></td>
+                    <td class="avatar" *ngIf="em.user.image == null"><img src="assets/image-profile/default-avatar.png"></td>
                     <td class="info">
                         <p class="name">{{em.user.first_name}} {{em.user.last_name}}</p>
                         <p class="email">{{em.user.email}}</p>

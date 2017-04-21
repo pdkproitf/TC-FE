@@ -20,9 +20,11 @@ export class ReportComponent implements OnInit {
   firstString: string;
   lastString: string;
   weekStartDay = 0;
+  isLoading = false;
   constructor(private router: Router, private reportService: ReportService, private companyService: CompanyService) { }
 
   ngOnInit() {
+    this.isLoading = true;
     this.companyService.getCompany()
     .then(res => {
       this.weekStartDay = res.begin_week;
@@ -32,9 +34,11 @@ export class ReportComponent implements OnInit {
         console.log(result);
         this.members = result.people;
         this.projectLists = result.projects;
+        this.isLoading = false;
       })
       .catch(error => {
         console.log(error);
+        this.isLoading = false;
       });
     }).catch(err => {
       console.log(err);
@@ -44,9 +48,11 @@ export class ReportComponent implements OnInit {
         console.log(result);
         this.members = result.people;
         this.projectLists = result.projects;
+        this.isLoading = false;
       })
       .catch(error => {
         console.log(error);
+        this.isLoading = false;
       });
     });
   }

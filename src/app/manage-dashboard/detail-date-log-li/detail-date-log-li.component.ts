@@ -57,7 +57,7 @@ export class DetailDateLogLiComponent implements OnInit {
   startLater: Date[] = [];
   endEarlier: Date[] = [];
   endLater: Date[] = [];
-
+  isLoading = false;
   @Output()
   timeEditedEmit = new EventEmitter<boolean>();
   isTimeEdited: boolean = false;
@@ -102,14 +102,17 @@ export class DetailDateLogLiComponent implements OnInit {
   }
 
   deleteTimer() {
+    this.isLoading = true;
     this.timerService.deleteTimer(this.timerFetch.id)
     .then(res => {
+      this.isLoading = false;
       this.emitDelete.emit(res);
       let content = 'Deleted';
       this.msgs = [];
       this.msgs.push({severity: 'success', summary: 'Success', detail: content});
     })
     .catch(err => {
+      this.isLoading = false;
       let content = JSON.parse(err['_body']).error;
       this.msgs = [];
       this.msgs.push({severity: 'error', summary: 'Error', detail: content});
@@ -373,8 +376,10 @@ export class DetailDateLogLiComponent implements OnInit {
     this.timer.stop_time = this.endDateEdit.toString();
     this.timerPut.timer_update = this.timer;
     console.log(this.timer);
+    this.isLoading = true;
     this.timerService.editTimer(id, this.timerPut)
     .then(res => {
+      this.isLoading = false;
       this.isTimeEdited = true;
       this.timeEditedEmit.emit(this.isTimeEdited);
       this.isTimeEdited = false;
@@ -385,6 +390,7 @@ export class DetailDateLogLiComponent implements OnInit {
       this.msgs.push({severity: 'success', summary: 'Success', detail: content});
     })
     .catch(err => {
+      this.isLoading = false;
       console.log(err);
       let content = JSON.parse(err['_body']).error;
       this.msgs = [];

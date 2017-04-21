@@ -41,6 +41,10 @@
             
             &.des{
                 width: 40%;
+                p.p-des{
+                    max-width: 100%;
+                    white-space: nowrap;
+                }
             }
             &.pro-ta{
                 width: 33%;

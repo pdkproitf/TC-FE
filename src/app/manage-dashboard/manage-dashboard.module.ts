@@ -1,3 +1,4 @@
+import { SharedModulesModule } from './../shared-modules/shared-modules.module';
 import { AuthenLoggedIn } from './../services/authen-logged-in';
 import { RecentTasksLiComponent } from './recent-tasks-li/recent-tasks-li.component';
 import { RecentTasksComponent } from './recent-tasks/recent-tasks.component';
@@ -36,7 +37,9 @@ export const manageDashboardRouting = RouterModule.forChild(manageDashboardRoute
     ToolbarModule, ButtonModule, InputTextModule, MenuModule, AutoCompleteModule,
     CarouselModule, CalendarModule, DropdownModule, DialogModule, ChartModule,
     GrowlModule, ScheduleModule, RadioButtonModule, CheckboxModule, OverlayPanelModule,
-    PaginatorModule, TabViewModule, DragDropModule
+    PaginatorModule, TabViewModule, DragDropModule,
+
+    SharedModulesModule
   ],
   declarations: [
     DashboardComponent,

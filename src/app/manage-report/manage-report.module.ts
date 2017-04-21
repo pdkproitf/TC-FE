@@ -1,3 +1,4 @@
+import { SharedModulesModule } from './../shared-modules/shared-modules.module';
 import { CapitalizePipe } from './capitalize.pipe';
 import { DateToMDYPipe } from './string-date-mdy.pipe';
 import { SecondsToHoursPipe } from './seconds-to-hours.pipe';
@@ -40,7 +41,8 @@ export const manageReportRouting = RouterModule.forChild(manageReportRoutes);
     ToolbarModule, ButtonModule, InputTextModule, MenuModule, AutoCompleteModule,
     CarouselModule, CalendarModule, DropdownModule, DialogModule, ChartModule,
     GrowlModule, ScheduleModule, RadioButtonModule, CheckboxModule, OverlayPanelModule,
-    PaginatorModule, TabViewModule, DragDropModule
+    PaginatorModule, TabViewModule, DragDropModule,
+    SharedModulesModule
   ],
   declarations: [
     ReportComponent,

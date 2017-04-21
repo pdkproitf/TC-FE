@@ -1,4 +1,5 @@
-<div class="container">
+<div>
+<div *ngIf="!isLoading" class="container">
 <br/><br/>
 <div class="search-group" *ngIf="projectJoins.length > 0">
     <span [class]="classImageSearch"></span>
@@ -15,4 +16,6 @@
         </div>
     </template>
 </p-carousel>
+</div>
+<app-loading-screen *ngIf="isLoading"></app-loading-screen>
 </div>

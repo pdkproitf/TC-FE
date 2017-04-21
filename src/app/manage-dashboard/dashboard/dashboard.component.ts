@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit {
   weekAnchor: Date[] = [];
   recentTasks: Task[] = [];
   startWeekDay: number = 0;
+  isLoading = false;
   constructor(private taskService: TaskService, private companyService: CompanyService) { }
 
   ngOnInit() {

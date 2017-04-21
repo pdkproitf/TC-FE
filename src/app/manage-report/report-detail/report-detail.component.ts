@@ -62,6 +62,8 @@ export class ReportDetailComponent implements OnInit {
   userAllTimerFetchKeys: any[] = [];
   timeLogExpand: string[] = [];
   divExpand: string[] = [];
+  isLoading = false;
+  isLoading0 = false;
   constructor(private route: ActivatedRoute, private reportService: ReportService, private router: Router,
   private timerFetchService: TimerFetchService, private timerService: TimerService) {
   }
@@ -169,6 +171,7 @@ export class ReportDetailComponent implements OnInit {
       this.idProject = para.idProject;
     }
     this.newRange([begin, end]);
+    this.isLoading0 = true;
     this.timerFetchService.getTimerFetch(this.from, this.to)
     .then(res => {
       this.userAllTimerFetchs = res;
@@ -178,9 +181,11 @@ export class ReportDetailComponent implements OnInit {
         this.timeLogExpand.push('fa fa-caret-right icon left');
         this.divExpand.push('date-title');
       }
+      this.isLoading0 = false;
     })
     .catch(err => {
       console.log(err);
+      this.isLoading0 = false;
     });
     /*this.items = [
       {label: 'PDF', icon: 'fa-file-pdf-o', command: (event) => {
@@ -272,6 +277,7 @@ export class ReportDetailComponent implements OnInit {
     this.to = end;
     this.isLoaded = false;
     this.router.navigate(['report-detail', id, begin, end]);
+    this.isLoading = true;
     this.reportService.getReportDetailPerson(begin, end, id)
     .then(res => {
       this.member = res;
@@ -307,9 +313,11 @@ export class ReportDetailComponent implements OnInit {
       this.options.scales.yAxes[0].ticks.max = maxY;
       this.options.scales.yAxes[0].ticks.stepSize = step;
       this.isLoaded = true;
+      this.isLoading = false;
     })
     .catch(error => {
       console.log(error);
+      this.isLoading = false;
     });
   }
 
@@ -430,6 +438,7 @@ export class ReportDetailComponent implements OnInit {
 
   intervalVar;
   public preparePDF() {
+    this.isLoading = true;
     this.navClass[0] = 'choosing';
     this.navClass[1] = 'choosing';
     this.navClass[2] = 'choosing';
@@ -643,6 +652,7 @@ export class ReportDetailComponent implements OnInit {
             doc.save('personal-report-' + this.member.user.first_name + '-' + this.member.user.last_name + '.pdf');
             this.navClass[1] = '';
             this.navClass[2] = '';
+            this.isLoading = false;
             clearInterval(interval);
           }else {}
         }, 100);

@@ -51,9 +51,6 @@ export class MemberMenuBarComponent implements OnInit {
             {label: 'Profile', icon: 'fa-user-circle', command: (event) => {
                 this.router.navigate(['profile']);
             }},
-            {label: 'Setting', icon: 'fa-cog', command: (event) => {
-                this.router.navigate(['setting']);
-            }},
             {label: 'Logout', icon: 'fa-sign-out', command: (event) => {
                 this.logOut();
             }}

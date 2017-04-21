@@ -20,18 +20,22 @@ export class ProjectFieldListComponent implements OnInit {
   outProjectJoins = new EventEmitter<ProjectJoin[]>();
   @Input()
   currentCategory = new CategoryInProject();
+  isLoading = false;
   constructor(private projectJoinService: ProjectJoinService) { }
 
   ngOnInit() {
+    this.isLoading = true;
     this.projectJoinService.getProjectJoin()
     .then(res => {
       this.projectJoins = res;
       console.log(this.projectJoins);
       this.outProjectJoins.emit(this.projectJoins);
       this.filterProjectJoin('');
+      this.isLoading = false;
     })
     .catch(err => {
       console.log(err);
+      this.isLoading = false;
     });
   }
 
