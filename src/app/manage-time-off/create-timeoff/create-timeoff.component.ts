@@ -17,7 +17,6 @@ declare var $:any;
 export class CreateTimeoffComponent implements OnInit {
     action = 'Send';
     minDateValue = new Date();
-    today = new Date();
     /** if this component using for edit action -> id will be updated */
     id = 0;
     personNumTimeOff: PersonNumTimeOff = new PersonNumTimeOff();
@@ -82,7 +81,7 @@ export class CreateTimeoffComponent implements OnInit {
 
     submit(event) {
         if(!this.timeoffForm.valid){
-            this.noticeMessage(this.timeoffForm.status);
+            this.noticeMessage(this.timeoffForm.status +' Please fill in all field');
             return;
         }
 
@@ -141,7 +140,6 @@ export class CreateTimeoffComponent implements OnInit {
         var member = JSON.parse(userInfo);
         if((member.role.name == 'Admin' || member.role.name == 'PM') && (timeoff.sender_id != member.id)){
             this.minDateValue = null;
-            this.today = null;
         }
     }
 

@@ -9,7 +9,7 @@
                         <div class="start-time">
                             <div class="pick-day">
                                 <label>Start On:</label>
-                                <p-calendar [formControl]="timeoffForm.controls['start_date']" [minDate]="today" [showIcon]="true" readonlyInput="readonlyInput" dateFormat="M dd" placeholder="Pick a date..." (onSelect)="setAutoEndDay($event)"></p-calendar>
+                                <p-calendar [formControl]="timeoffForm.controls['start_date']"  [showIcon]="true" readonlyInput="readonlyInput" dateFormat="M dd" placeholder="Pick a date..." (onSelect)="setAutoEndDay($event)"></p-calendar>
                             </div>
 
                             <div class="choice-type-day">
