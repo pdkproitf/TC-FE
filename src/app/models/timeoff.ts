@@ -17,7 +17,7 @@ export class TimeOff{
     status: string;
     future_dayoff: number;
     nearest_future_dateoff: Date;
-    furlough_total: number;
+    total_day_off: number;
     projects_joined: ProjectDefault[]
 }
 

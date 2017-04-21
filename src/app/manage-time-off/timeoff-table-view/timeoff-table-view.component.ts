@@ -385,16 +385,15 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     }
 
     ableToModify(member_id: number){
+        if(this.user.role.name == 'Admin' || (this.user.role.name == 'PM' && timeoff_member.role.name == 'Member')) return true;
         if(!this.checkOverDayToModify()){
-            if(this.dialog_timeoff.status == 'pending') return true;
-            return false;
+            return (this.dialog_timeoff.status == 'pending');
         }
         //check role
         if(this.user.role.name == 'Member') return false;
         if(this.user.id == member_id) return true;
 
         var timeoff_member = this.distionary_member.find(x => x.id === member_id);
-        if(this.user.role.name == 'Admin' || (this.user.role.name == 'PM' && timeoff_member.role.name == 'Member')) return true;
         return false;
     }
 
@@ -423,20 +422,20 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
     }
 
     resetDialogContent(){
+        console.log('vo day', this.dialog_timeoff.status)
         if(this.dialog_timeoff.status == 'approved'){
-            $('.form-group').parent().find('.answer > .buttons').hide();
-            $('.form-group').parent().find('.answer > .drop-down').show();
+            $('.buttons').hide();
+            $('.drop-down').show();
             this.timeOffPut.answer_timeoff_request.approver_messages = this.dialog_timeoff.approver_messages;
             this.timeOffPut.answer_timeoff_request.status = this.dialog_timeoff.status;
         }else{
-            $('.form-group').parent().find('.answer > .buttons').show();
-            $('.form-group').parent().find('.answer > .drop-down').hide();
-            $('.form-group').parent().find('.answer').find('.approve').removeClass('approve-send')
-                .text('Approve').prop('type', 'button').prop('disabled', !this.is_ableToAnswer);
-            $('.form-group').parent().find('.answer').find('.reject').show().prop('disabled', !this.is_ableToAnswer);
-            $('.form-group').parent().find('.modify').show();
+            $('.drop-down').hide();
+            $('.reject').show().prop('disabled', !this.is_ableToAnswer);
+            $('.modify').show();
+            $('.buttons').show();
+            $('.buttons').css({'display': 'block'})
         }
-        $('.form-group').parent().find('.answer').find('.cancel').hide();
+        $('.cancel').hide();
         $('.form-group').css({'display': 'none'});
     }
 
@@ -444,11 +443,11 @@ export class TimeoffTableViewComponent implements OnInit, OnChanges {
         if(button_name == 'Reject') this.timeOffPut.answer_timeoff_request.status = 'rejected';
 
         $('.form-group').css({'display': 'flex'});
-        $('.form-group').parent().find('.answer').find('.approve').addClass('approve-send')
+        $('.approve').addClass('approve-send')
             .text(button_name+' & Send').prop('type', 'submit');
-        $('.form-group').parent().find('.answer').find('.reject').hide();
-        $('.form-group').parent().find('.answer').find('.cancel').show();
-        $('.form-group').parent().find('.modify').hide();
+        $('.reject').hide();
+        $('.cancel').show();
+        $('.modify').hide();
     }
 
     edit(){

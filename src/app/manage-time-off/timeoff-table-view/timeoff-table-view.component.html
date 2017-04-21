@@ -5,7 +5,7 @@
                 <span class="fa fa-search imgspan"></span>
             </th>
             <th class="member">
-                <input class="search-text" type="text" [(ngModel)]="searchPattern" (keyup)="search()" placeholder="Search people..."/>
+                <input class="search-text" type="text" [(ngModel)]="searchPattern" (keyup)="search()" placeholder="Search people's name"/>
             </th>
             <th *ngFor="let day of days">
                 <div class="day-column">
@@ -104,7 +104,7 @@
                     <textarea  name="answer" placeholder="Your response…" [(ngModel)]="timeOffPut.answer_timeoff_request.approver_messages" required ></textarea>
                 </div>
                 <div class="control">
-                    <div *ngIf="is_ableToAnswer"  class="answer">
+                    <div [hidden]="!is_ableToAnswer" class="answer">
                         <div class="buttons">
                             <button class="approve" type="button" (click)="showDialogContent('Approve')"> Approve </button>
                             <button class="reject" type="button" (click)="showDialogContent('Reject')"> Reject </button>

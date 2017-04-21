@@ -27,7 +27,6 @@ export class TimeoffService {
     }
 
     createTimeOff(timeoffPost: TimeOffPost): Promise<any> {
-        console.log('timeoff ', JSON.stringify(timeoffPost));
         let requestUrl = this.timeoffUrl +'';
         let headers = new Headers;
         this.headersService.createAuthHeaders(headers);
