@@ -49,7 +49,8 @@ export class CreateProjectComponent implements OnInit {
 
   displayTaskAdd: boolean = false;
 
-
+  isLoading = false;
+  isLoading0 = false;
 
   constructor(private router: Router, private location: Location
   , private clientService: ClientService, private projectService: ProjectService,
@@ -58,7 +59,7 @@ export class CreateProjectComponent implements OnInit {
   ngOnInit() {
     this.project.is_member_report = false;
     this.project.background = '#FFBB47';
-
+    this.isLoading = true;
     this.clientService.getAllClient()
     .then(res => {
       let len = res.length;
@@ -68,26 +69,30 @@ export class CreateProjectComponent implements OnInit {
           this.currentClients.push(res[i]);
         }
       }
+      this.isLoading = false;
     })
     .catch(error => {
       console.log(error);
       let content = JSON.parse(error['_body']).error;
       this.msgs = [];
       this.msgs.push({severity: 'error', summary: 'Error', detail: content});
+      this.isLoading = false;
     }
     );
-
+    this.isLoading0 = true;
     this.membershipService.getAllMembership()
     .then(res => {
       this.members = res;
       this.membersSearch = this.members;
       console.log(res);
+      this.isLoading0 = false;
     })
     .catch(err => {
       let content = JSON.parse(err['_body']).error;
       this.msgs = [];
       this.msgs.push({severity: 'error', summary: 'Error', detail: content});
       console.log(err);
+      this.isLoading0 = false;
     });
 
     for (let str of this.defaultCategories) {
@@ -127,8 +132,10 @@ export class CreateProjectComponent implements OnInit {
     this.updateMemberRoleToProject();
     this.updateCategoriesToProject();
     this.projectPost.project = this.project;
+    this.isLoading = true;
     this.projectService.addProject(this.projectPost)
     .then(res => {
+      this.isLoading = false;
       console.log(res);
       let content = 'New Project Created';
       this.msgs = [];
@@ -136,6 +143,7 @@ export class CreateProjectComponent implements OnInit {
       this.router.navigate(['projects']);
     })
     .catch(error => {
+      this.isLoading = false;
       console.log(error);
       let content = JSON.parse(error['_body']).error;
       this.msgs = [];
@@ -155,18 +163,22 @@ export class CreateProjectComponent implements OnInit {
 
   onSubmitClient() {
     this.clientPost.client = this.client;
+    this.isLoading = true;
     this.clientService.addClient(this.clientPost)
     .then(res => {
       console.log(res);
       this.display = false;
       this.currentClients.push(res);
       this.project.client_id = res.id;
+      this.isLoading = false;
     })
     .catch(error => {
       console.log(error);
       let content = JSON.parse(error['_body']).error;
       this.msgs = [];
       this.msgs.push({severity: 'error', summary: 'Error', detail: content});
+      this.isLoading = false;
+      this.display = false;
     });
   }
 

@@ -1,3 +1,4 @@
+import { SharedModulesModule } from './../shared-modules/shared-modules.module';
 import { GradientPipe } from './gradient.pipe';
 import { TimeFromSecondsPipe } from './time-from-seconds.pipe';
 import { ProjectDetailsTeamComponent } from './project-details-team/project-details-team.component';
@@ -40,7 +41,8 @@ export const manageProjectRouting = RouterModule.forChild(manageProjectRoutes);
     ToolbarModule, ButtonModule, InputTextModule, MenuModule, AutoCompleteModule,
     CarouselModule, CalendarModule, DropdownModule, DialogModule, ChartModule,
     GrowlModule, ScheduleModule, RadioButtonModule, CheckboxModule, OverlayPanelModule,
-    PaginatorModule, TabViewModule, DragDropModule
+    PaginatorModule, TabViewModule, DragDropModule,
+    SharedModulesModule
   ],
   declarations: [
     CreateProjectComponent,

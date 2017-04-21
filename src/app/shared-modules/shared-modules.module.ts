@@ -6,7 +6,11 @@ import { LoadingScreenComponent } from './loading-screen/loading-screen.componen
   imports: [
     CommonModule
   ],
-  declarations: [LoadingScreenComponent],
-  exports: [ LoadingScreenComponent ]
+  declarations: [
+    LoadingScreenComponent,
+  ],
+  exports: [
+    LoadingScreenComponent,
+  ]
 })
 export class SharedModulesModule { }

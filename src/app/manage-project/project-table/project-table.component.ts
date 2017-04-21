@@ -26,7 +26,7 @@ export class ProjecTableComponent implements OnInit, OnChanges {
     projects: ProjectGetAll[] = [];
     /** project using show */
     _projects: ProjectGetAll[] = [];
-
+    isLoading = false;
     constructor(private router: Router, private projectService: ProjectService) {}
 
     ngOnInit() {
@@ -38,14 +38,17 @@ export class ProjecTableComponent implements OnInit, OnChanges {
     }
 
     initProjects(){
+        this.isLoading = true;
         this.projectService.getProjects().then(
             (result) => {
                 this.projects = result;
                 this.sortNewest();
+                this.isLoading = false;
             },
             (error) => {
                 alert(error);
                 console.log('error',error);
+                this.isLoading = false;
             }
         );
     }
