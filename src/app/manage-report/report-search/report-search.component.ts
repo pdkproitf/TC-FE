@@ -47,35 +47,47 @@ export class ReportSearchComponent implements OnInit {
   emitMember = new EventEmitter<any>();
   classDiv = ['choose-time hide', 'choose-project hide', 'choose-member hide'];
   startWeekDay = 0;
+  isLoading = false;
+  isLoading0 = false;
+  isLoading1 = false;
   constructor(private projectService: ProjectService, private membershipService: MembershipService,
   private companyService: CompanyService, private router: Router) { }
 
   ngOnInit() {
+    this.isLoading = true;
     this.projectService.getProjects()
     .then(res => {
       this.projectLists = res;
       this.filterProjectsSearch('');
+      this.isLoading = false;
       // console.log(res);
     })
     .catch(err => {
       console.log(err);
+      this.isLoading = false;
     });
+    this.isLoading0 = true;
     this.membershipService.getAllMembership()
     .then(res => {
       this.members = res;
       this.filterMembersSearch('');
+      this.isLoading0 = false;
       // console.log(res);
     })
     .catch(err => {
       console.log(err);
+      this.isLoading0 = false;
     });
+    this.isLoading1 = true;
     this.companyService.getCompany()
     .then(res => {
       this.startWeekDay = res.begin_week;
+      this.isLoading1 = false;
     })
     .catch(err => {
       console.log(err);
-    })
+      this.isLoading1 = false;
+    });
   }
 
   changeClassDiv(i) {
