@@ -8,7 +8,7 @@
     </li>
     <li><a [class]="classActive[0]" (click)="setActiveMenu(0)" routerLink="/dashboard">Your Timer</a></li>
     <li><a *ngIf="isPM" [class]="classActive[1]" (click)="setActiveMenu(1)"  routerLink="/projects">Projects</a></li>
-    <li><a [class]="classActive[2]" (click)="setActiveMenu(2)"  routerLink="/timeoffs">Time Offf<label *ngIf="(isAdmin || isPM) && timeoffRequest > 0"  [class]="timeoffBacground"><span>{{timeoffRequest}}</span></label></a></li>
+    <li><a [class]="classActive[2]" (click)="setActiveMenu(2)"  routerLink="/timeoffs">Time Off<label *ngIf="(isAdmin || isPM) && timeoffRequest > 0"  [class]="timeoffBacground"><span>{{timeoffRequest}}</span></label></a></li>
     <li><a [class]="classActive[3]" (click)="setActiveMenu(3)"  routerLink="/report">Report</a></li>
     <li><a *ngIf="isAdmin" [class]="classActive[4]" (click)="setActiveMenu(4)"  routerLink="/manage">Manage</a></li>
     <li class="user-corner">
