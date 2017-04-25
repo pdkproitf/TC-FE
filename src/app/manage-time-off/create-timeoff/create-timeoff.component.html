@@ -59,7 +59,7 @@
                 <div class="inform">
                     <div class="details">
                         <span class="details-content">Before request</span>
-                        <span class="details-value">{{personNumTimeOff.total - personNumTimeOff.offed}}</span>
+                        <span class="details-value">{{personNumTimeOff.total}}</span>
                     </div>
 
                     <div class="details">
@@ -69,7 +69,7 @@
 
                     <div class="details">
                         <span class="details-content">After request</span>
-                        <span class="details-value">{{personNumTimeOff.total - personNumTimeOff.offed - ((timeoffForm.value['end_date'] | amDifference: timeoffForm.value['start_date'] :'days' : true) + 1 - (timeoffForm.value['is_start_half_day']=='true'? 0.5:0) - (timeoffForm.value['is_end_half_day']=='true'? 0.5:0) || 0) }}</span>
+                        <span class="details-value">{{personNumTimeOff.offed - ((timeoffForm.value['end_date'] | amDifference: timeoffForm.value['start_date'] :'days' : true) + 1 - (timeoffForm.value['is_start_half_day']=='true'? 0.5:0) - (timeoffForm.value['is_end_half_day']=='true'? 0.5:0) || 0) }}</span>
                     </div>
                     <p></p>
                 </div>

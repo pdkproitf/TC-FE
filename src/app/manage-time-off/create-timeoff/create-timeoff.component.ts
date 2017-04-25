@@ -43,15 +43,23 @@ export class CreateTimeoffComponent implements OnInit {
         this.getPersonNumTimeOff();
     }
 
+    ////
+    //@function get number timeoff
+    //@desc get number timeoff of current_member
+    //@param void
+    //@result
+    ////
     getPersonNumTimeOff(){
+        var this_year = new Date(new Date().getFullYear(), 0, 1);
         this.timeoffService.getPersonNumTimeOff().then(
             (result) => {
                 this.personNumTimeOff = result;
             },
             (error) => {
-                this.noticeMessage(JSON.parse(error['_body']).error);
+                // alert(error);
+                console.log('error',error);
             }
-        )
+        );
     }
 
     setAutoEndDay(){
