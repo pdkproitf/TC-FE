@@ -17,7 +17,6 @@ declare var $:any;
 export class CreateTimeoffComponent implements OnInit {
     action = 'Send';
     minDateValue = new Date();
-    today = new Date();
     /** if this component using for edit action -> id will be updated */
     id = 0;
     personNumTimeOff: PersonNumTimeOff = new PersonNumTimeOff();
@@ -44,15 +43,23 @@ export class CreateTimeoffComponent implements OnInit {
         this.getPersonNumTimeOff();
     }
 
+    ////
+    //@function get number timeoff
+    //@desc get number timeoff of current_member
+    //@param void
+    //@result
+    ////
     getPersonNumTimeOff(){
+        var this_year = new Date(new Date().getFullYear(), 0, 1);
         this.timeoffService.getPersonNumTimeOff().then(
             (result) => {
                 this.personNumTimeOff = result;
             },
             (error) => {
-                this.noticeMessage(JSON.parse(error['_body']).error);
+                // alert(error);
+                console.log('error',error);
             }
-        )
+        );
     }
 
     setAutoEndDay(){
@@ -82,7 +89,7 @@ export class CreateTimeoffComponent implements OnInit {
 
     submit(event) {
         if(!this.timeoffForm.valid){
-            this.noticeMessage(this.timeoffForm.status);
+            this.noticeMessage(this.timeoffForm.status +' Please fill in all field');
             return;
         }
 
@@ -141,7 +148,6 @@ export class CreateTimeoffComponent implements OnInit {
         var member = JSON.parse(userInfo);
         if((member.role.name == 'Admin' || member.role.name == 'PM') && (timeoff.sender_id != member.id)){
             this.minDateValue = null;
-            this.today = null;
         }
     }
 
