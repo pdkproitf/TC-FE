@@ -215,6 +215,9 @@ export class TimeTrackBarComponent implements OnInit, OnDestroy {
   onBlur(num: number) {
     console.log('blur');
     this.classDrop[num] = 'hidden';
+    if (num === 0) {
+      // window.open('https://www.google.com');
+    }
   }
 
   setStartTime() {

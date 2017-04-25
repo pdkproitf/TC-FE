@@ -21,6 +21,7 @@ import { ToolbarModule, ButtonModule, InputTextModule, MenuModule, AutoCompleteM
     CarouselModule, CalendarModule, DropdownModule, DialogModule, ChartModule,
     GrowlModule, ScheduleModule, RadioButtonModule, CheckboxModule, OverlayPanelModule,
     PaginatorModule, TabViewModule, DragDropModule } from 'primeng/primeng';
+import { FunnyQuotesComponent } from './funny-quotes/funny-quotes.component';
 
 const manageDashboardRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthenLoggedIn] },
@@ -38,7 +39,6 @@ export const manageDashboardRouting = RouterModule.forChild(manageDashboardRoute
     CarouselModule, CalendarModule, DropdownModule, DialogModule, ChartModule,
     GrowlModule, ScheduleModule, RadioButtonModule, CheckboxModule, OverlayPanelModule,
     PaginatorModule, TabViewModule, DragDropModule,
-
     SharedModulesModule
   ],
   declarations: [
@@ -52,6 +52,7 @@ export const manageDashboardRouting = RouterModule.forChild(manageDashboardRoute
     ProjectInDivComponent,
     RecentTasksComponent,
     RecentTasksLiComponent,
+    FunnyQuotesComponent,
   ],
   providers: [
     AuthenLoggedIn

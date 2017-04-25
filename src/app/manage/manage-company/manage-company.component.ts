@@ -73,5 +73,4 @@ export class ManageCompanyComponent implements OnInit {
     cancel() {
         this.location.back();
     }
-
 }

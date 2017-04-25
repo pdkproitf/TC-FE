@@ -1,3 +1,4 @@
+import { QuotesService } from './services/quotes-service';
 import { SharedModulesModule } from './shared-modules/shared-modules.module';
 import { ManageAccessModule } from './manage-access/manage-access.module';
 import { ManageDashboardModule } from './manage-dashboard/manage-dashboard.module';
@@ -87,7 +88,8 @@ import { StickyModule } from 'ng2-sticky-kit/ng2-sticky-kit';
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy}, UserService,
   AuthenLoggedIn, NotLoggedIn, ProjectService, ClientService, MembershipService, CategoryService,
   TimerService, ProjectJoinService, TimerFetchService, TaskService, TimeoffService, ReportService,
-  JobService, HolidayService, RolesService, CompanyService, AuthenAdmin, AuthenHighPM, AuthenNormalPM],
+  JobService, HolidayService, RolesService, CompanyService, AuthenAdmin, AuthenHighPM, AuthenNormalPM,
+  QuotesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
