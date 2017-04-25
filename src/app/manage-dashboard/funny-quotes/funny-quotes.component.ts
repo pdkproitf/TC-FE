@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FunnyQuotesComponent implements OnInit {
   content: string = '';
+  isShow: boolean = true;
   constructor(private quotesService: QuotesService) { }
 
   ngOnInit() {

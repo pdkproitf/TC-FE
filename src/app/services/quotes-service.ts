@@ -14,7 +14,8 @@ export class QuotesService {
     ];
     generateQuote(): string {
         let len = this.quotes.length;
-        let index = this.getRandomInt(0, len);
+        let index = this.getRandomInt(0, len - 1);
+        console.log('number: ' + index);
         return this.quotes[index];
     }
     getRandomInt(min, max) {
