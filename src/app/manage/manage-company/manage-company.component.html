@@ -1,33 +1,50 @@
 <div class="container">
-<form class="form">
-  <table>
-    <tr>
-      <th class="label-field"></th>
-      <th class="input-field"></th>
-    </tr>
-    <tr>
-      <td><label>Company name:</label></td>
-      <td><input type="text" [(ngModel)]="name" name="name" [placeholder]="name"></td>
-    </tr>
-    <tr>
-      <td><label>Company Domain:</label></td>
-      <td><input type="text" [(ngModel)]="domain" name="domain" [placeholder]="domain" readonly></td>
-    </tr>
-    <tr>
-      <td><label>Begin week:</label></td>
-      <td><input type="text" [(ngModel)]="beginWeek" name="begin-week" [placeholder]="beginWeek" readonly></td>
-    </tr>
-    <tr>
-      <td><label>Begin week:</label></td>
-      <td>
-        <input type="radio" name="day" (change)="checkFunc($event)" value="0" [checked]="beginWeek===0">Sunday
-        <input type="radio" name="day" (change)="checkFunc($event)" value="1" [checked]="beginWeek===1">Monday
-      </td>
-    </tr>
-  </table>
-  <br/>
-  <button (click)="cancel()" type="button">Cancel</button>
-  <button (click)="submitEditCompany()" type="submit">Save</button>
-</form>
-<p-growl [value]="msgs"></p-growl>
+    <form class="form">
+        <table>
+            <tr>
+                <th class="label-field"></th>
+                <th class="input-field"></th>
+            </tr>
+            <tr>
+                <td><label>Company name:</label></td>
+                <td><input type="text" [(ngModel)]="name" name="name" [placeholder]="name"></td>
+            </tr>
+            <tr>
+                <td><label>Company Domain:</label></td>
+                <td><input type="text" [(ngModel)]="domain" name="domain" [placeholder]="domain" readonly></td>
+            </tr>
+            <tr>
+                <td><label>Year Dayoffs:</label></td>
+                <td class="tooltip">
+                    <input type="number" [(ngModel)]="year_dayoffs" name="begin-week" [placeholder]="beginWeek">
+                    <span class="tooltiptext"><i>Employee's Default day off in each year</i></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Begin week:</label></td>
+                <td>
+                    <input type="radio" name="day" (change)="checkFunc($event)" value="0" [checked]="beginWeek===0">Sunday
+                    <input type="radio" name="day" (change)="checkFunc($event)" value="1" [checked]="beginWeek===1">Monday
+                </td>
+            </tr>
+            <tr>
+                <td><label>DayOff Mode :</label></td>
+                <td>
+                    <div class="tooltip">
+                        <input type="radio" name="mode" (change)="changecModeDayoff($event)" value="1" [checked]="incre_dayoff == 1" >
+                        increase
+                        <span class="tooltiptext"><i>(At beginning of the year, Employees will have default day off and the rest day off in previous years. After 1/6 just 5 days off in previous year able bring in this year)</i></span>
+                    </div>
+                    <div class="tooltip">
+                        <input type="radio" name="mode" (change)="changecModeDayoff($event)" value="0" [checked]="incre_dayoff == 0">
+                        uncrease <span class="tooltiptext"><i>(In beginning of year, Employees will have default day off)</i></span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <button (click)="cancel()" type="button">Cancel</button>
+        <button (click)="submitEditCompany()" type="submit">Save</button>
+    </form>
+    <p-growl [value]="msgs"></p-growl>
 </div>

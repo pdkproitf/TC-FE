@@ -33,6 +33,7 @@ export class MemberMenuBarComponent implements OnInit {
     ngOnInit() {
         if (this.currentState !== null) {
             this.classActive[this.currentState] = 'active';
+            this.showTimeoffRequest(this.currentState);
         }
         let userInfo = localStorage.getItem('UserInfo');
         let userObj = JSON.parse(userInfo);
@@ -55,7 +56,6 @@ export class MemberMenuBarComponent implements OnInit {
                 this.logOut();
             }}
         ];
-        this.showTimeoffRequest();
     }
 
     logOut(): void {
@@ -89,16 +89,16 @@ export class MemberMenuBarComponent implements OnInit {
         this.imageUrl = userObj.user.image;
     }
 
-    showTimeoffRequest(){
+    showTimeoffRequest(active: number){
         let userInfo = localStorage.getItem('UserInfo');
         let userObj = JSON.parse(userInfo);
 
         if(userObj.role.name == 'Admin' || userObj.role.name == 'PM') this.timeoffPendingRequest();
-        if(this.currentState == 2) this.timeoffBacground += 'timeoff-bacground-yellow';
+        this.timeoffBacground =  (active == 2)? 'timeoff-bacground-yellow' : 'timeoff-bacground-red;';
+        console.log('active ', this.timeoffBacground)
     }
 
     timeoffPendingRequest(){
-        console.log('this.isAdmin', this.isAdmin, 'this.is_pm', this.isPM)
         var this_year = new Date(new Date().getFullYear(), 0, 1);
         this.timeoffService.getNumTimeoffsPending(this_year,new Date()).then(
             (result) => {
@@ -117,5 +117,6 @@ export class MemberMenuBarComponent implements OnInit {
             this.classActive[i] = '';
         }
         this.classActive[a] = 'active';
+        this.showTimeoffRequest(a);
     }
 }
