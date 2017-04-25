@@ -1,5 +1,6 @@
 <div (mousedown)="detailDateLog.showEvent($event)">
 <!--<app-member-menu-bar [currentState]="0"></app-member-menu-bar>-->
+<app-funny-quotes></app-funny-quotes>
 <app-time-track-bar [currentCategory]="currentCategory" [projectJoins]="projectJoins" #timeTrackBar (emitLoading)="isLoading = $event;"
 (outCategory)="selectCategory($event)" [recentTasks]="recentTasks" (addedTimer)="detailDateLog.addTimer($event); getRecentTask(10)"></app-time-track-bar>
 <app-loading-screen *ngIf="isLoading"></app-loading-screen>
