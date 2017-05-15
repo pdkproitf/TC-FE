@@ -93,11 +93,11 @@ table {
                 border-radius: 50%;
                 float: left;
                 background: white;
-                background-size: contain;
+                background-size: cover;;
             }
             .user-avatar{
                 background-image: url('/assets/image-profile/default-avatar.png');
-                background-size: contain;
+                background-size: cover;;
             }
         }
         .over-member{

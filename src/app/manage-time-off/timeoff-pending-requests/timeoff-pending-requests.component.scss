@@ -44,7 +44,7 @@
             height: 64px;
             border-radius: 50%;
             background-image: url('/assets/image-profile/default-avatar.png');
-            background-size: contain;
+            background-repeat: round;
             background-color: #ddd;
         }
         .details{
